@@ -1,0 +1,3 @@
+[submodule "Suitcase/Classes/External/AFNetworking"]
+	path = Suitcase/Classes/External/AFNetworking
+	url = git://github.com/AFNetworking/AFNetworking.git
