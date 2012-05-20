@@ -9,7 +9,6 @@
 
 @implementation SCAppDelegate
 
-@synthesize steamId64;
 @synthesize window = _window;
 
 + (NSString *)apiKey {
@@ -26,13 +25,6 @@
     } else {
         [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     }
-
-    /*NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *domain = [userDefaults persistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
-    NSString *steamId64 = [domain valueForKey:@"SteamID64"];
-    if (steamId64 == nil) {
-        [self.window.rootViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
-    }*/
 
     return YES;
 }

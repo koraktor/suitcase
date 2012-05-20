@@ -33,39 +33,37 @@
 - (IBAction)submitForm:(id)sender {
     [activityIndicator startAnimating];
 
-    SCAppDelegate *appDelegate = UIApplication.sharedApplication.delegate;
+    NSString *steamId = [self.steamIdField text];
+    __block NSNumber *steamId64 = [[[NSNumberFormatter alloc] init] numberFromString:steamId];
+    
+    void (^SteamIdFound)() = ^() {
+        [[NSUserDefaults standardUserDefaults] setObject:steamId64 forKey:@"SteamID64"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
+        [self dismissModalViewControllerAnimated:YES];
+    };
 
-    NSString *steamId   = [self.steamIdField text];
-
-    appDelegate.steamId64 = [[[NSNumberFormatter alloc] init] numberFromString:steamId];
-
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *domain = [userDefaults persistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
-    [domain setValue:steamId forKey:@"SteamID64"];
-
-    if (appDelegate.steamId64 == nil) {
+    if (steamId64 == nil) {
         NSURL *steamIdUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001?vanityurl=%@&key=%@", steamId, [SCAppDelegate apiKey]]];
         AFJSONRequestOperation *steamIdOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:steamIdUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            [activityIndicator stopAnimating];
             NSDictionary *steamIdResponse = [JSON objectForKey:@"response"];
             if ([[steamIdResponse objectForKey:@"success"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                appDelegate.steamId64 = [steamIdResponse objectForKey:@"steamid"];
-                [self dismissModalViewControllerAnimated:YES];
+                steamId64 = [steamIdResponse objectForKey:@"steamid"];
+                SteamIdFound();
             } else {
                 NSString *errorMsg = [NSString stringWithFormat:@"Error resolving Steam ID: %@", [JSON objectForKey:@"message"]]; 
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
-            [self dismissModalViewControllerAnimated:YES];
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            [activityIndicator stopAnimating];
             NSLog(@"Error resolving 64bit Steam ID: %@", error);
             [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured while resolving the Steam ID" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }];
         [steamIdOperation start];
+        [steamIdOperation waitUntilFinished];
     } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
+        SteamIdFound();
     }
-
-    [activityIndicator stopAnimating];
 }
 
 - (void)viewDidUnload {

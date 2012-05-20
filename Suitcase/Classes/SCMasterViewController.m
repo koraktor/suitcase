@@ -41,18 +41,17 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    SCAppDelegate *appDelegate = UIApplication.sharedApplication.delegate;
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *domain = [userDefaults persistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
-    appDelegate.steamId64 = [domain valueForKey:@"SteamID64"];
-    if (appDelegate.steamId64 == nil) {
-        [self.parentViewController.parentViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
+    NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
+    if (steamId64 == nil) {
+        [UIApplication.sharedApplication.delegate.window.rootViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
+    } else {
+        [self loadInventory];
     }
 }
 
 - (void)loadInventory {
-    SCAppDelegate *appDelegate = UIApplication.sharedApplication.delegate;
-    NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetPlayerItems/v0001?steamid=%@&key=%@", appDelegate.steamId64, [SCAppDelegate apiKey]]];
+    NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
+    NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetPlayerItems/v0001?steamid=%@&key=%@", steamId64, [SCAppDelegate apiKey]]];
     AFJSONRequestOperation *inventoryOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:inventoryUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSDictionary *inventoryResponse = [JSON objectForKey:@"result"];
         if ([[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
