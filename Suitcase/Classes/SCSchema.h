@@ -9,10 +9,15 @@
 
 @interface SCSchema : NSObject
 
-@property NSDictionary *dictionary;
+@property NSDictionary *attributes;
+@property NSDictionary *items;
+@property NSArray *origins;
+@property NSArray *qualities;
 
-- (id)initWithArray:(NSArray *)dictionary;
+- (id)initWithDictionary:(NSDictionary *)dictionary;
 
-- (id)valueForDefIndex:(NSNumber *)defindex andKey:(NSString *)key;
+- (id)itemValueForDefIndex:(NSNumber *)defindex andKey:(NSString *)key;
+- (NSString *)originNameForIndex:(NSUInteger)originIndex;
+- (NSString *)qualityNameForIndex:(NSUInteger)qualityIndex;
 
 @end

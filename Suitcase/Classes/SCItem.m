@@ -25,12 +25,38 @@
     return [self.dictionary objectForKey:@"defindex"];
 }
 
+- (NSString *)description {
+    return [self valueForKey:@"item_description"];
+}
+
 - (NSURL *)imageUrl {
-    return [NSURL URLWithString:[self.schema valueForDefIndex:self.defindex andKey:@"image_url_large"]];
+    return [NSURL URLWithString:[self valueForKey:@"image_url_large"]];
+}
+
+- (NSString *)itemType {
+    return [self valueForKey:@"item_type_name"];
+}
+
+- (NSNumber *)level {
+    return [self.dictionary objectForKey:@"level"];
 }
 
 - (NSString *)name {
-    return [self.schema valueForDefIndex:self.defindex andKey:@"name"];
+    return [self valueForKey:@"item_name"];
+}
+
+- (NSString *)origin {
+    NSNumber *originIndex = [self.dictionary objectForKey:@"origin"];
+    return [self.schema originNameForIndex:[originIndex unsignedIntValue]];
+}
+
+- (NSString *)quality {
+    NSNumber *qualityIndex = [self.dictionary objectForKey:@"quality"];
+    return [self.schema qualityNameForIndex:[qualityIndex unsignedIntValue]];
+}
+            
+- (id)valueForKey:(NSString *)key {
+    return [self.schema itemValueForDefIndex:self.defindex andKey:key];
 }
 
 @end

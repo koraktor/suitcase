@@ -18,7 +18,14 @@
                andSchema:(SCSchema *)aSchema;
 
 - (NSNumber *)defindex;
+- (NSString *)description;
 - (NSURL *)imageUrl;
+- (NSString *)itemType;
+- (NSNumber *)level;
 - (NSString *)name;
+- (NSString *)origin;
+- (NSString *)quality;
+
+- (id)valueForKey:(NSString *)key;
 
 @end

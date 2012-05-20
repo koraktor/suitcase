@@ -72,7 +72,7 @@
     _schemaOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:schemaUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSDictionary *schemaResponse = [JSON objectForKey:@"result"];
         if ([[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            _itemSchema = [[SCSchema alloc] initWithArray:[schemaResponse objectForKey:@"items"]];
+            _itemSchema = [[SCSchema alloc] initWithDictionary:schemaResponse];
         } else {
             NSString *errorMsg = [NSString stringWithFormat:@"Error loading the inventory: %@", [schemaResponse objectForKey:@"statusDetail"]]; 
             [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
