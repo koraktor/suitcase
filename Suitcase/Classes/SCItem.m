@@ -9,8 +9,8 @@
 
 @implementation SCItem
 
-@synthesize dictionary;
-@synthesize schema;
+@synthesize dictionary = _dictionary;
+@synthesize schema = _schema;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary
                andSchema:(SCSchema *)aSchema {
