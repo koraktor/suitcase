@@ -5,6 +5,8 @@
 //  Copyright (c) 2012, Sebastian Staudt
 //
 
+#import "AFNetworkActivityIndicatorManager.h"
+
 #import "SCAppDelegate.h"
 
 @implementation SCAppDelegate
@@ -17,6 +19,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
