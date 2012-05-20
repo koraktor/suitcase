@@ -5,6 +5,8 @@
 //  Copyright (c) 2012, Sebastian Staudt
 //
 
+#import "UIImageView+AFNetworking.h"
+
 #import "SCDetailViewController.h"
 
 @interface SCDetailViewController ()
@@ -38,8 +40,8 @@
 - (void)configureView
 {
     if (self.detailItem) {
-        self.itemImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.detailItem.imageUrl]];
-
+        [self.itemImage setImageWithURL:self.detailItem.imageUrl];
+        
         self.title = self.detailItem.name;
         self.detailDescriptionLabel.text = [self.detailItem.defindex stringValue];
     }
