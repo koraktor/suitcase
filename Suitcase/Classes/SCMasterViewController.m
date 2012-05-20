@@ -16,6 +16,7 @@
 @interface SCMasterViewController () {
     NSArray *_items;
 	SCSchema *_itemSchema;
+    AFJSONRequestOperation *_schemaOperation; 
 }
 @end
 
@@ -31,6 +32,8 @@
     }
 
     [self.tableView setDataSource:self];
+
+    [self loadSchema];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadInventory) name:@"loadInventory" object:nil];
 
@@ -68,12 +71,14 @@
         NSLog(@"Error loading inventory contents: %@", error);
         [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured while loading the inventory contents" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
+
+    [_schemaOperation waitUntilFinished];
     [inventoryOperation start];
 }
 
 - (void)loadSchema {
     NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetSchema/v0001?key=%@&language=en", [SCAppDelegate apiKey]]];
-    AFJSONRequestOperation *schemaOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:schemaUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    _schemaOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:schemaUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSDictionary *schemaResponse = [JSON objectForKey:@"result"];
         if ([[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             _itemSchema = [[SCSchema alloc] initWithArray:[schemaResponse objectForKey:@"items"]];
@@ -85,14 +90,13 @@
         NSLog(@"Error loading game item schema: %@", error);
         [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured while loading game item schema" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
-    [schemaOperation start];
+
+    [_schemaOperation start];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    [self loadSchema];
 
     self.detailViewController = (SCDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
