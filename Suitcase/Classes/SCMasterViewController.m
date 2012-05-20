@@ -40,15 +40,6 @@
     [super awakeFromNib];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
-    if (steamId64 == nil) {
-        [UIApplication.sharedApplication.delegate.window.rootViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
-    } else {
-        [self loadInventory];
-    }
-}
-
 - (void)loadInventory {
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetPlayerItems/v0001?steamid=%@&key=%@", steamId64, [SCAppDelegate apiKey]]];
@@ -99,6 +90,13 @@
     [super viewDidLoad];
 
     self.detailViewController = (SCDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
+    if (steamId64 == nil) {
+        [UIApplication.sharedApplication.delegate.window.rootViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
+    } else {
+        [self loadInventory];
+    }
 }
 
 - (void)viewDidUnload
