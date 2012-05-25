@@ -10,4 +10,8 @@
 #import "SCMasterViewController.h"
 
 @interface SCSteamIdFormController : UIViewController
+
+@property IBOutlet UITextField *steamIdField;
+@property IBOutlet UIActivityIndicatorView *activityIndicator;
+
 @end
