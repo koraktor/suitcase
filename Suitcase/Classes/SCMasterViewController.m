@@ -16,7 +16,7 @@
 @interface SCMasterViewController () {
     NSArray *_items;
 	SCSchema *_itemSchema;
-    AFJSONRequestOperation *_schemaOperation; 
+    NSLock *_schemaLock;
 }
 @end
 
@@ -31,27 +31,22 @@
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
 
-    [self loadSchema];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSchema) name:@"loadSchema" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadInventory) name:@"loadInventory" object:nil];
+    
+    _schemaLock = [[NSLock alloc] init];
 
     [super awakeFromNib];
 }
 
-- (void)loadInventory {
+- (void)loadInventory {    
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetPlayerItems/v0001?steamid=%@&key=%@", steamId64, [SCAppDelegate apiKey]]];
     AFJSONRequestOperation *inventoryOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:inventoryUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSDictionary *inventoryResponse = [JSON objectForKey:@"result"];
         if ([[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             NSArray *itemsResponse = [inventoryResponse objectForKey:@"items"];
-            NSMutableArray *items = [NSMutableArray arrayWithCapacity:[itemsResponse count]];
-            [itemsResponse enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                [items addObject:[[SCItem alloc] initWithDictionary:obj andSchema:_itemSchema]];
-            }];
-            _items = [items copy];
-            [self.tableView reloadData];
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            [NSThread detachNewThreadSelector:@selector(populateInventoryWithData:) toTarget:self withObject:itemsResponse];
         } else {
             NSString *errorMsg = [NSString stringWithFormat:@"Error loading the inventory: %@", [inventoryResponse objectForKey:@"statusDetail"]]; 
             [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -61,13 +56,12 @@
         [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured while loading the inventory contents" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 
-    [_schemaOperation waitUntilFinished];
     [inventoryOperation start];
 }
 
 - (void)loadSchema {
     NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetSchema/v0001?key=%@&language=en", [SCAppDelegate apiKey]]];
-    _schemaOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:schemaUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    AFJSONRequestOperation *schemaOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:schemaUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSDictionary *schemaResponse = [JSON objectForKey:@"result"];
         if ([[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             _itemSchema = [[SCSchema alloc] initWithDictionary:schemaResponse];
@@ -75,12 +69,28 @@
             NSString *errorMsg = [NSString stringWithFormat:@"Error loading the inventory: %@", [schemaResponse objectForKey:@"statusDetail"]]; 
             [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
+        [_schemaLock unlock];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Error loading game item schema: %@", error);
         [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured while loading game item schema" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [_schemaLock unlock];
     }];
 
-    [_schemaOperation start];
+    _itemSchema = nil;
+    [_schemaLock lock];
+    [schemaOperation start];
+}
+
+- (void)populateInventoryWithData:(NSArray *)itemsData {
+    NSMutableArray *items = [NSMutableArray arrayWithCapacity:[itemsData count]];
+    [_schemaLock lock];
+    [itemsData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [items addObject:[[SCItem alloc] initWithDictionary:obj andSchema:_itemSchema]];
+    }];
+    [_schemaLock unlock];
+    _items = [items copy];
+    [self.tableView reloadData];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (void)viewDidLoad
@@ -90,13 +100,6 @@
     [self.tableView setDataSource:self];
 
     self.detailViewController = (SCDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-    
-    NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
-    if (steamId64 == nil) {
-        [UIApplication.sharedApplication.delegate.window.rootViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
-    } else {
-        [self loadInventory];
-    }
 }
 
 - (void)viewDidUnload
