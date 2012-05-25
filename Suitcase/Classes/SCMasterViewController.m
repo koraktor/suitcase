@@ -60,7 +60,7 @@
 }
 
 - (void)loadSchema {
-    NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetSchema/v0001?key=%@&language=en", [SCAppDelegate apiKey]]];
+    NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetSchema/v0001?key=%@&language=%@", [SCAppDelegate apiKey], [[NSLocale preferredLanguages] objectAtIndex:0]]];
     AFJSONRequestOperation *schemaOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:schemaUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSDictionary *schemaResponse = [JSON objectForKey:@"result"];
         if ([[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
