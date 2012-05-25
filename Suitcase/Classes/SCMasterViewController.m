@@ -31,8 +31,6 @@
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
 
-    [self.tableView setDataSource:self];
-
     [self loadSchema];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadInventory) name:@"loadInventory" object:nil];
@@ -88,6 +86,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.tableView setDataSource:self];
 
     self.detailViewController = (SCDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
