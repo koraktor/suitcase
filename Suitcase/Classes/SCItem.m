@@ -10,6 +10,7 @@
 @implementation SCItem
 
 @synthesize dictionary = _dictionary;
+@synthesize position = _position;
 @synthesize schema = _schema;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary
@@ -48,6 +49,15 @@
 - (NSString *)origin {
     NSNumber *originIndex = [self.dictionary objectForKey:@"origin"];
     return [self.schema originNameForIndex:[originIndex unsignedIntValue]];
+}
+
+- (NSNumber *)position {
+    if (_position == nil) {
+        int inventoryMask = [(NSNumber *)[self.dictionary objectForKey:@"inventory"] intValue];
+        _position = [NSNumber numberWithInt:(inventoryMask & 0xFFFF)];
+    }
+
+    return _position;
 }
 
 - (NSString *)quality {

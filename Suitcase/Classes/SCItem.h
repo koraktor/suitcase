@@ -12,6 +12,7 @@
 @interface SCItem : NSObject
 
 @property NSDictionary *dictionary;
+@property (readonly) NSNumber *position;
 @property SCSchema *schema;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary

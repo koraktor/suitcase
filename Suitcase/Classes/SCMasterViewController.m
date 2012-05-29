@@ -88,7 +88,9 @@
         [items addObject:[[SCItem alloc] initWithDictionary:obj andSchema:_itemSchema]];
     }];
     [_schemaLock unlock];
-    _items = [items copy];
+    _items = [items sortedArrayUsingComparator:^NSComparisonResult(SCItem *item1, SCItem *item2) {
+        return [item1.position compare:item2.position];
+    }];
     [self.tableView reloadData];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
