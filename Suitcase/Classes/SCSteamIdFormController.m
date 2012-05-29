@@ -31,8 +31,11 @@
     __block NSNumber *steamId64 = [[[NSNumberFormatter alloc] init] numberFromString:steamId];
     
     void (^SteamIdFound)() = ^() {
-        [[NSUserDefaults standardUserDefaults] setObject:steamId64 forKey:@"SteamID64"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
+        NSNumber *currentSteamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
+        if (![currentSteamId64 isEqual:steamId64]) {
+            [[NSUserDefaults standardUserDefaults] setObject:steamId64 forKey:@"SteamID64"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
+        }
         [self dismissModalViewControllerAnimated:YES];
     };
 
