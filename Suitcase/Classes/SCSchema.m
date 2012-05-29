@@ -42,6 +42,10 @@
     return self;
 }
 
+- (id)attributeValueFor:(id)attributeKey andKey:(NSString *)key {
+    return [[self.attributes objectForKey:attributeKey] objectForKey:key];
+}
+
 - (id)itemValueForDefIndex:(NSNumber *)defindex andKey:(NSString *)key {
     return [[self.items objectForKey:defindex] objectForKey:key];
 }

@@ -16,6 +16,7 @@
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 
+- (id)attributeValueFor:(id)attributeKey andKey:(NSString *)key;
 - (id)itemValueForDefIndex:(NSNumber *)defindex andKey:(NSString *)key;
 - (NSString *)originNameForIndex:(NSUInteger)originIndex;
 - (NSString *)qualityNameForIndex:(NSUInteger)qualityIndex;
