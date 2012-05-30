@@ -96,6 +96,10 @@
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
+- (IBAction)showSteamIdForm:(id)sender {
+    [UIApplication.sharedApplication.delegate.window.rootViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
