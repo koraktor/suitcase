@@ -34,10 +34,14 @@
         [(NSMutableArray *)self.origins insertObject:[obj objectForKey:@"name"] atIndex:[index unsignedIntValue]];
     }];
     
-    NSDictionary *qualitiesDictionary = [dictionary objectForKey:@"qualities"];
-    self.qualities = [qualitiesDictionary keysSortedByValueUsingComparator:^NSComparisonResult(NSNumber *obj1, NSNumber *obj2) {
-        return [obj1 compare:obj2];
+    NSDictionary *qualityKeys = [dictionary objectForKey:@"qualities"];
+    NSDictionary *qualityNames = [dictionary objectForKey:@"qualityNames"];
+    _qualities = [NSMutableArray arrayWithArray:[qualityNames allValues]];
+    [qualityKeys enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *index, BOOL *stop) {
+        [(NSMutableArray *)self.qualities replaceObjectAtIndex:[index integerValue]
+                                                    withObject:[qualityNames objectForKey:key]];
     }];
+    _qualities = [_qualities copy];
 
     return self;
 }
