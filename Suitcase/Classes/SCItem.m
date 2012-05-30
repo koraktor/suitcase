@@ -64,7 +64,11 @@
     NSNumber *qualityIndex = [self.dictionary objectForKey:@"quality"];
     return [self.schema qualityNameForIndex:[qualityIndex unsignedIntValue]];
 }
-            
+
+- (NSNumber *)quantity {
+    return [self.dictionary objectForKey:@"quantity"];
+}
+
 - (id)valueForKey:(NSString *)key {
     return [self.schema itemValueForDefIndex:self.defindex andKey:key];
 }

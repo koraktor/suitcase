@@ -26,6 +26,7 @@
 - (NSString *)name;
 - (NSString *)origin;
 - (NSString *)quality;
+- (NSNumber *)quantity;
 
 - (id)valueForKey:(NSString *)key;
 
