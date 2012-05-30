@@ -13,7 +13,6 @@
 @implementation SCSteamIdFormController
 
 @synthesize steamIdField = _steamIdField;
-@synthesize activityIndicator = _activityIndicator;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -25,8 +24,6 @@
 }
 
 - (IBAction)submitForm:(id)sender {
-    [self.activityIndicator startAnimating];
-
     NSString *steamId = [self.steamIdField text];
     __block NSNumber *steamId64 = [[[NSNumberFormatter alloc] init] numberFromString:steamId];
     
@@ -42,7 +39,6 @@
     if (steamId64 == nil) {
         NSURL *steamIdUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001?vanityurl=%@&key=%@", steamId, [SCAppDelegate apiKey]]];
         AFJSONRequestOperation *steamIdOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:steamIdUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            [self.activityIndicator stopAnimating];
             NSDictionary *steamIdResponse = [JSON objectForKey:@"response"];
             if ([[steamIdResponse objectForKey:@"success"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 steamId64 = [steamIdResponse objectForKey:@"steamid"];
@@ -52,7 +48,6 @@
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-            [self.activityIndicator stopAnimating];
             NSLog(@"Error resolving 64bit Steam ID: %@", error);
             [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured while resolving the Steam ID" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }];
@@ -65,7 +60,7 @@
 
 - (void)viewDidUnload {
     [self setSteamIdField:nil];
-    [self setActivityIndicator:nil];
+
     [super viewDidUnload];
 }
 @end

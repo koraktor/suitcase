@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0255A148155D9BE20092741E /* SCItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255A147155D9BE20092741E /* SCItem.m */; };
 		0255A14C155D9BF80092741E /* SCSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255A14B155D9BF80092741E /* SCSchema.m */; };
+		026F215C156ADA1F00C7BD54 /* SCClassImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026F215B156ADA1F00C7BD54 /* SCClassImageView.m */; };
 		028B640B15265D690040D2FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B640A15265D690040D2FF /* UIKit.framework */; };
 		028B640D15265D690040D2FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B640C15265D690040D2FF /* Foundation.framework */; };
 		028B640F15265D690040D2FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B640E15265D690040D2FF /* CoreGraphics.framework */; };
@@ -65,6 +66,8 @@
 		0255A147155D9BE20092741E /* SCItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItem.m; path = Classes/SCItem.m; sourceTree = "<group>"; };
 		0255A14A155D9BF80092741E /* SCSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSchema.h; path = Classes/SCSchema.h; sourceTree = "<group>"; };
 		0255A14B155D9BF80092741E /* SCSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSchema.m; path = Classes/SCSchema.m; sourceTree = "<group>"; };
+		026F215A156ADA1F00C7BD54 /* SCClassImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCClassImageView.h; path = Classes/SCClassImageView.h; sourceTree = "<group>"; };
+		026F215B156ADA1F00C7BD54 /* SCClassImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCClassImageView.m; path = Classes/SCClassImageView.m; sourceTree = "<group>"; };
 		028B640615265D680040D2FF /* Suitcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Suitcase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		028B640A15265D690040D2FF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		028B640C15265D690040D2FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -172,6 +175,8 @@
 				02B38C65152EC95500527C78 /* AFNetworking */,
 				028B648D1526761C0040D2FF /* SCAppDelegate.h */,
 				028B648E1526761C0040D2FF /* SCAppDelegate.m */,
+				026F215A156ADA1F00C7BD54 /* SCClassImageView.h */,
+				026F215B156ADA1F00C7BD54 /* SCClassImageView.m */,
 				028B648F1526761C0040D2FF /* SCDetailViewController.h */,
 				028B64901526761C0040D2FF /* SCDetailViewController.m */,
 				0255A146155D9BE20092741E /* SCItem.h */,
@@ -182,8 +187,8 @@
 				0255A14B155D9BF80092741E /* SCSchema.m */,
 				0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */,
 				0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */,
-				028B641C15265D690040D2FF /* MainStoryboard_iPhone.storyboard */,
 				028B641F15265D690040D2FF /* MainStoryboard_iPad.storyboard */,
+				028B641C15265D690040D2FF /* MainStoryboard_iPhone.storyboard */,
 				028B641115265D690040D2FF /* Supporting Files */,
 			);
 			path = Suitcase;
@@ -372,6 +377,7 @@
 				0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */,
 				0255A148155D9BE20092741E /* SCItem.m in Sources */,
 				0255A14C155D9BF80092741E /* SCSchema.m in Sources */,
+				026F215C156ADA1F00C7BD54 /* SCClassImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

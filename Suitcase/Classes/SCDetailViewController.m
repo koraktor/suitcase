@@ -5,6 +5,7 @@
 //  Copyright (c) 2012, Sebastian Staudt
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "UIImageView+AFNetworking.h"
 
 #import "SCDetailViewController.h"
@@ -17,8 +18,22 @@
 @implementation SCDetailViewController
 
 @synthesize detailItem = _detailItem;
-@synthesize detailDescriptionLabel = _detailDescriptionLabel;
+@synthesize classScoutImage = _classScoutImage;
+@synthesize classSoldierImage = _classSoldierImage;
+@synthesize classPyroImage = _classPyroImage;
+@synthesize classDemomanImage = _classDemomanImage;
+@synthesize classHeavyImage = _classHeavyImage;
+@synthesize classEngineerImage = _classEngineerImage;
+@synthesize classMedicImage = _classMedicImage;
+@synthesize classSniperImage = _classSniperImage;
+@synthesize classSpyImage = _classSpyImage;
+@synthesize descriptionLabel = _descriptionLabel;
 @synthesize itemImage = _itemImage;
+@synthesize levelLabel = _levelLabel;
+@synthesize originLabel = _originLabel;
+@synthesize qualityLabel = _qualityLabel;
+@synthesize quantityLabel = _quantityLabel;
+@synthesize imageFrame = _imageFrame;
 @synthesize masterPopoverController = _masterPopoverController;
 
 #pragma mark - Managing the detail item
@@ -34,32 +49,161 @@
 
     if (self.masterPopoverController != nil) {
         [self.masterPopoverController dismissPopoverAnimated:YES];
-    }        
+    }
 }
 
 - (void)configureView
 {
+    [self.itemImage setImageWithURL:self.detailItem.imageUrl];
+
+    self.title = self.detailItem.name;
+    self.levelLabel.text = [NSString stringWithFormat:@"Level %@ %@",
+                            self.detailItem.level, self.detailItem.itemType];
+    self.originLabel.text = self.detailItem.origin;
+    self.qualityLabel.text = self.detailItem.quality;
+
+    NSMutableString *descriptionLabelText = [self.detailItem.description mutableCopy];
+    if (descriptionLabelText == nil) {
+        descriptionLabelText = [NSMutableString string];
+    }
+
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [numberFormatter setMaximumFractionDigits:0];
+    [self.detailItem.attributes enumerateObjectsUsingBlock:^(NSDictionary *attribute, NSUInteger idx, BOOL *stop) {
+        NSMutableString *attributeDescription = [[attribute objectForKey:@"description"] mutableCopy];
+        if (attributeDescription != nil) {
+            NSString *valueFormat = [attribute objectForKey:@"valueFormat"];
+            NSString *value;
+            if([valueFormat isEqual:@"value_is_account_id"]) {
+                value = [[attribute objectForKey:@"accountInfo"] objectForKey:@"personaname"];
+            } else if([valueFormat isEqual:@"value_is_additive"]) {
+                value = [(NSNumber *)[attribute objectForKey:@"value"] stringValue];
+            } else if ([valueFormat isEqual:@"value_is_date"]) {
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue]];
+                value = [NSDateFormatter localizedStringFromDate:date
+                                                       dateStyle:NSDateFormatterMediumStyle
+                                                       timeStyle:NSDateFormatterShortStyle];
+            } else if ([valueFormat isEqual:@"value_is_inverted_percentage"]) {
+                NSNumber *numberValue = [NSNumber numberWithDouble:(1 - [(NSNumber *)[attribute objectForKey:@"value"] doubleValue]) * 100];
+                value = [numberFormatter stringFromNumber:numberValue];
+            } else if ([valueFormat isEqual:@"value_is_percentage"]) {
+                NSNumber *numberValue = [NSNumber numberWithDouble:([(NSNumber *)[attribute objectForKey:@"value"] doubleValue] - 1) * 100];
+                value = [numberFormatter stringFromNumber:numberValue];
+            }
+
+            if (value != nil) {
+                [attributeDescription replaceOccurrencesOfString:@"%s1"
+                                                      withString:value
+                                                         options:NSLiteralSearch
+                                                           range:NSMakeRange(0, [attributeDescription length])];
+            }
+
+            if ([descriptionLabelText length] > 0) {
+                if (idx == 0) {
+                    [descriptionLabelText appendString:@"\n"];
+                }
+                [descriptionLabelText appendString:@"\n"];
+            }
+            [descriptionLabelText appendString:attributeDescription];
+        }
+    }];
+    self.descriptionLabel.text = descriptionLabelText;
+
     if (self.detailItem) {
-        [self.itemImage setImageWithURL:self.detailItem.imageUrl];
+        CGRect currentFrame = self.descriptionLabel.frame;
+        CGSize maxFrame = CGSizeMake(currentFrame.size.width, 500);
+        CGSize expectedFrame = [descriptionLabelText sizeWithFont:self.descriptionLabel.font
+                                                constrainedToSize:maxFrame
+                                                    lineBreakMode:self.descriptionLabel.lineBreakMode];
+        currentFrame.size.height = expectedFrame.height;
+        self.descriptionLabel.frame = currentFrame;
+
+        int equippedClasses = self.detailItem.equippedClasses;
+        self.classScoutImage.equipped = equippedClasses & 1;
+        self.classSoldierImage.equipped = equippedClasses & 4;
+        self.classPyroImage.equipped = equippedClasses & 64;
+        self.classDemomanImage.equipped = equippedClasses & 8;
+        self.classHeavyImage.equipped = equippedClasses & 32;
+        self.classEngineerImage.equipped = (equippedClasses & 256) != 0;
+        self.classMedicImage.equipped = equippedClasses & 16;
+        self.classSniperImage.equipped = equippedClasses & 2;
+        self.classSpyImage.equipped = equippedClasses & 128;
+
+        int equippableClasses = self.detailItem.equippableClasses;
+        self.classScoutImage.equippable = equippableClasses & 1;
+        self.classSoldierImage.equippable = equippableClasses & 4;
+        self.classPyroImage.equippable = equippableClasses & 64;
+        self.classDemomanImage.equippable = equippableClasses & 8;
+        self.classHeavyImage.equippable = equippableClasses & 32;
+        self.classEngineerImage.equippable = (equippableClasses & 256) != 0;
+        self.classMedicImage.equippable = equippableClasses & 16;
+        self.classSniperImage.equippable = equippableClasses & 2;
+        self.classSpyImage.equippable = equippableClasses & 128;
+
+        [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+            view.hidden = NO;
+        }];
         
-        self.title = self.detailItem.name;
-        self.detailDescriptionLabel.text = [self.detailItem.defindex stringValue];
+        if ([self.detailItem.quantity intValue] > 1) {
+            self.quantityLabel.text = [NSString stringWithFormat:@"%@ x", self.detailItem.quantity];
+            self.quantityLabel.hidden = NO;
+        } else {
+            self.quantityLabel.hidden = YES;
+        }
+    } else {
+        [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+            view.hidden = YES;
+        }];
     }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
+    [self.classScoutImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/scout.jpg"]];
+    [self.classSoldierImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/soldier.jpg"]];
+    [self.classPyroImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/pyro.jpg"]];
+    [self.classDemomanImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/demoman.jpg"]];
+    [self.classHeavyImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/heavy.jpg"]];
+    [self.classEngineerImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/engineer.jpg"]];
+    [self.classMedicImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/medic.jpg"]];
+    [self.classSniperImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/sniper.jpg"]];
+    [self.classSpyImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/spy.jpg"]];
+
+    self.itemImage.layer.borderColor = [[UIColor blackColor] CGColor];
+    self.itemImage.layer.cornerRadius = 5;
+    self.itemImage.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.itemImage.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+    self.itemImage.layer.shadowOpacity = 1.0;
+    self.itemImage.layer.shadowRadius = 1.5;
+
+    self.quantityLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
+    self.quantityLabel.layer.borderWidth = [[UIScreen mainScreen] scale];
+
     [self configureView];
 }
 
 - (void)viewDidUnload
 {
+    [self setClassScoutImage:nil];
+    [self setClassSoldierImage:nil];
+    [self setClassPyroImage:nil];
+    [self setClassDemomanImage:nil];
+    [self setClassHeavyImage:nil];
+    [self setClassEngineerImage:nil];
+    [self setClassMedicImage:nil];
+    [self setClassSniperImage:nil];
+    [self setClassSpyImage:nil];
+    [self setDescriptionLabel:nil];
     [self setItemImage:nil];
+    [self setLevelLabel:nil];
+    [self setOriginLabel:nil];
+    [self setQuantityLabel:nil];
+
+    [self setQualityLabel:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    self.detailDescriptionLabel = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
