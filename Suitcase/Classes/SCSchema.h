@@ -9,10 +9,10 @@
 
 @interface SCSchema : NSObject
 
-@property NSDictionary *attributes;
-@property NSDictionary *items;
-@property NSArray *origins;
-@property NSArray *qualities;
+@property (strong, readonly) NSDictionary *attributes;
+@property (strong, readonly) NSDictionary *items;
+@property (strong, readonly) NSArray *origins;
+@property (strong, readonly) NSArray *qualities;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

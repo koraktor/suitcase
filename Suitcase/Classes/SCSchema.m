@@ -16,23 +16,27 @@
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     NSArray *attributesArray = [dictionary objectForKey:@"attributes"];
-    self.attributes = [NSMutableDictionary dictionaryWithCapacity:[attributesArray count]];
+    _attributes = [NSMutableDictionary dictionaryWithCapacity:[attributesArray count]];
     [attributesArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [self.attributes setValue:obj forKey:[obj objectForKey:@"defindex"]];
+        [self.attributes setValue:obj forKey:[obj objectForKey:@"name"]];
     }];
+    _attributes = [_attributes copy];
     
     NSArray *itemsArray = [dictionary objectForKey:@"items"];
-    self.items = [NSMutableDictionary dictionaryWithCapacity:[itemsArray count]];
+    _items = [NSMutableDictionary dictionaryWithCapacity:[itemsArray count]];
     [itemsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [self.items setValue:obj forKey:[obj objectForKey:@"defindex"]];
     }];
+    _items = [_items copy];
     
     NSArray *originsArray = [dictionary objectForKey:@"originNames"];
-    self.origins = [NSMutableArray arrayWithCapacity:[originsArray count]];
+    _origins = [NSMutableArray arrayWithCapacity:[originsArray count]];
     [originsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSNumber *index = [obj objectForKey:@"origin"];
         [(NSMutableArray *)self.origins insertObject:[obj objectForKey:@"name"] atIndex:[index unsignedIntValue]];
     }];
+    _origins = [_origins copy];
     
     NSDictionary *qualityKeys = [dictionary objectForKey:@"qualities"];
     NSDictionary *qualityNames = [dictionary objectForKey:@"qualityNames"];
