@@ -20,6 +20,7 @@
 - (id)initWithDictionary:(NSDictionary *)aDictionary
                andSchema:(SCSchema *)aSchema;
 
+- (NSArray *)attributes;
 - (NSNumber *)defindex;
 - (NSString *)description;
 - (NSURL *)imageUrl;

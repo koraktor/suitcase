@@ -26,6 +26,32 @@
     return self;
 }
 
+- (NSArray *)attributes {
+    NSArray *schemaAttributes = [self valueForKey:@"attributes"];
+    NSArray *itemAttributes = [self.dictionary objectForKey:@"attributes"];
+    NSMutableArray *mergedAttributes = [schemaAttributes mutableCopy];
+    [mergedAttributes addObjectsFromArray:itemAttributes];
+    NSMutableArray *attributes = [NSMutableArray arrayWithCapacity:itemAttributes.count];
+
+    [mergedAttributes enumerateObjectsUsingBlock:^(NSDictionary *itemAttribute, NSUInteger idx, BOOL *stop) {
+        id attributeKey = [itemAttribute objectForKey:@"defindex"];
+        if (attributeKey == nil) {
+            attributeKey = [itemAttribute objectForKey:@"name"];
+        }
+        if (attributeKey != nil) {
+            NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
+            [attribute setValue:[itemAttribute objectForKey:@"account_info"] forKey:@"accountInfo"];
+            [attribute setValue:[self.schema attributeValueFor:attributeKey andKey:@"description_string"] forKey:@"description"];
+            [attribute setValue:[itemAttribute objectForKey:@"float_value"] forKey:@"floatValue"];
+            [attribute setValue:[itemAttribute objectForKey:@"value"] forKey:@"value"];
+            [attribute setValue:[self.schema attributeValueFor:attributeKey andKey:@"description_format"] forKey:@"valueFormat"];
+
+            [attributes addObject:[attribute copy]];
+        }
+    }];
+
+    return [attributes copy];
+}
 
 - (NSNumber *)defindex {
     return [self.dictionary objectForKey:@"defindex"];
