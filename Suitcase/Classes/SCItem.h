@@ -12,6 +12,8 @@
 @interface SCItem : NSObject
 
 @property NSDictionary *dictionary;
+@property (readonly) int equippableClasses;
+@property (readonly) int equippedClasses;
 @property (readonly) NSNumber *position;
 @property SCSchema *schema;
 
