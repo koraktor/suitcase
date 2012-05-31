@@ -58,7 +58,7 @@
 }
 
 - (NSString *)description {
-    return [self valueForKey:@"item_description"];
+    return [[self valueForKey:@"item_description"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 - (int)equippableClasses {
