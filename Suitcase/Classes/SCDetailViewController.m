@@ -94,6 +94,11 @@
             } else if ([valueFormat isEqual:@"value_is_inverted_percentage"]) {
                 NSNumber *numberValue = [NSNumber numberWithDouble:(1 - [(NSNumber *)[attribute objectForKey:@"value"] doubleValue]) * 100];
                 value = [numberFormatter stringFromNumber:numberValue];
+            } else if ([valueFormat isEqual:@"value_is_particle_index"]) {
+                value = [self.detailItem.schema effectNameForIndex:[attribute objectForKey:@"value"]];
+                if (value == nil) {
+                    value = [self.detailItem.schema effectNameForIndex:[attribute objectForKey:@"floatValue"]];
+                }
             } else if ([valueFormat isEqual:@"value_is_percentage"]) {
                 NSNumber *numberValue = [NSNumber numberWithDouble:([(NSNumber *)[attribute objectForKey:@"value"] doubleValue] - 1) * 100];
                 value = [numberFormatter stringFromNumber:numberValue];

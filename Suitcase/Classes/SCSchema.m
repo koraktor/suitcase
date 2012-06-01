@@ -10,6 +10,7 @@
 @implementation SCSchema
 
 @synthesize attributes = _attributes;
+@synthesize effects = _effects;
 @synthesize items = _items;
 @synthesize origins = _origins;
 @synthesize qualities = _qualities;
@@ -23,13 +24,21 @@
     }];
     _attributes = [_attributes copy];
     
+    NSArray *effectsArray = [dictionary objectForKey:@"attribute_controlled_attached_particles"];
+    _effects = [NSMutableDictionary dictionaryWithCapacity:[effectsArray count]];
+    [effectsArray enumerateObjectsUsingBlock:^(NSDictionary *effect, NSUInteger idx, BOOL *stop) {
+        [(NSMutableDictionary *)_effects setObject:[effect objectForKey:@"name"]
+                                            forKey:[effect objectForKey:@"id"]];
+    }];
+    _effects = [_effects copy];
+
     NSArray *itemsArray = [dictionary objectForKey:@"items"];
     _items = [NSMutableDictionary dictionaryWithCapacity:[itemsArray count]];
     [itemsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [self.items setValue:obj forKey:[obj objectForKey:@"defindex"]];
     }];
     _items = [_items copy];
-    
+
     NSArray *originsArray = [dictionary objectForKey:@"originNames"];
     _origins = [NSMutableArray arrayWithCapacity:[originsArray count]];
     [originsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -37,7 +46,7 @@
         [(NSMutableArray *)self.origins insertObject:[obj objectForKey:@"name"] atIndex:[index unsignedIntValue]];
     }];
     _origins = [_origins copy];
-    
+
     NSDictionary *qualityKeys = [dictionary objectForKey:@"qualities"];
     NSDictionary *qualityNames = [dictionary objectForKey:@"qualityNames"];
     _qualities = [NSMutableArray arrayWithCapacity:[qualityKeys count]];
@@ -55,6 +64,10 @@
 
 - (id)attributeValueFor:(id)attributeKey andKey:(NSString *)key {
     return [[self.attributes objectForKey:attributeKey] objectForKey:key];
+}
+
+- (NSString *)effectNameForIndex:(NSNumber *)effectIndex {
+    return [self.effects objectForKey:effectIndex];
 }
 
 - (id)itemValueForDefIndex:(NSNumber *)defindex andKey:(NSString *)key {
