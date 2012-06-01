@@ -70,6 +70,7 @@
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
     [numberFormatter setMaximumFractionDigits:0];
+    __block BOOL firstAttribute = YES;
     [self.detailItem.attributes enumerateObjectsUsingBlock:^(NSDictionary *attribute, NSUInteger idx, BOOL *stop) {
         NSMutableString *attributeDescription = [[attribute objectForKey:@"description"] mutableCopy];
         if (attributeDescription != nil) {
@@ -104,20 +105,24 @@
                 value = [numberFormatter stringFromNumber:numberValue];
             }
 
-            if (value != nil) {
-                [attributeDescription replaceOccurrencesOfString:@"%s1"
-                                                      withString:value
-                                                         options:NSLiteralSearch
-                                                           range:NSMakeRange(0, [attributeDescription length])];
-            }
+            if (attributeDescription != nil) {
+                if (value != nil) {
+                    [attributeDescription replaceOccurrencesOfString:@"%s1"
+                                                          withString:value
+                                                             options:NSLiteralSearch
+                                                               range:NSMakeRange(0, [attributeDescription length])];
+                }
 
-            if ([descriptionLabelText length] > 0) {
-                if (idx == 0) {
+                if ([descriptionLabelText length] > 0) {
+                    if (firstAttribute) {
+                        [descriptionLabelText appendString:@"\n"];
+                    }
                     [descriptionLabelText appendString:@"\n"];
                 }
-                [descriptionLabelText appendString:@"\n"];
+
+                [descriptionLabelText appendString:attributeDescription];
+                firstAttribute = NO;
             }
-            [descriptionLabelText appendString:attributeDescription];
         }
     }];
     self.descriptionLabel.text = descriptionLabelText;
