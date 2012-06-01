@@ -40,7 +40,10 @@
     
     NSDictionary *qualityKeys = [dictionary objectForKey:@"qualities"];
     NSDictionary *qualityNames = [dictionary objectForKey:@"qualityNames"];
-    _qualities = [NSMutableArray arrayWithArray:[qualityNames allValues]];
+    _qualities = [NSMutableArray arrayWithCapacity:[qualityKeys count]];
+    for (int i = 0; i < [effectsArray count]; i ++) {
+        [(NSMutableArray *)_qualities addObject:[NSNull null]];
+    }
     [qualityKeys enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *index, BOOL *stop) {
         [(NSMutableArray *)self.qualities replaceObjectAtIndex:[index integerValue]
                                                     withObject:[qualityNames objectForKey:key]];
