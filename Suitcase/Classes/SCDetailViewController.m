@@ -79,6 +79,8 @@
                 value = [[attribute objectForKey:@"accountInfo"] objectForKey:@"personaname"];
             } else if([valueFormat isEqual:@"value_is_additive"]) {
                 value = [(NSNumber *)[attribute objectForKey:@"value"] stringValue];
+            } else if ([valueFormat isEqual:@"value_is_additive_percentage"]) {
+                value = [[NSNumber numberWithDouble:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue] * 100] stringValue];
             } else if ([valueFormat isEqual:@"value_is_date"]) {
                 double timestamp = [(NSNumber *)[attribute objectForKey:@"value"] doubleValue];
                 if (timestamp == 0) {
