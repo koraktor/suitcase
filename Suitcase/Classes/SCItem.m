@@ -9,6 +9,7 @@
 
 @implementation SCItem
 
+@synthesize attributes = _attributes;
 @synthesize dictionary = _dictionary;
 @synthesize equippedClasses = _equippedClasses;
 @synthesize equippableClasses = _equippableClasses;
@@ -27,30 +28,36 @@
 }
 
 - (NSArray *)attributes {
-    NSArray *schemaAttributes = [self valueForKey:@"attributes"];
-    NSArray *itemAttributes = [self.dictionary objectForKey:@"attributes"];
-    NSMutableArray *mergedAttributes = [schemaAttributes mutableCopy];
-    [mergedAttributes addObjectsFromArray:itemAttributes];
-    NSMutableArray *attributes = [NSMutableArray arrayWithCapacity:itemAttributes.count];
+    if (_attributes == nil) {
+        NSArray *schemaAttributes = [self valueForKey:@"attributes"];
+        NSArray *itemAttributes = [self.dictionary objectForKey:@"attributes"];
+        NSUInteger attributeCount = [schemaAttributes count] + [itemAttributes count];
+        NSMutableArray *mergedAttributes = [NSMutableArray arrayWithCapacity:attributeCount];
+        [mergedAttributes addObjectsFromArray:schemaAttributes];
+        [mergedAttributes addObjectsFromArray:itemAttributes];
+        NSMutableArray *attributes = [NSMutableArray arrayWithCapacity:attributeCount];
 
-    [mergedAttributes enumerateObjectsUsingBlock:^(NSDictionary *itemAttribute, NSUInteger idx, BOOL *stop) {
-        id attributeKey = [itemAttribute objectForKey:@"defindex"];
-        if (attributeKey == nil) {
-            attributeKey = [itemAttribute objectForKey:@"name"];
-        }
-        if (attributeKey != nil) {
-            NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
-            [attribute setValue:[itemAttribute objectForKey:@"account_info"] forKey:@"accountInfo"];
-            [attribute setValue:[self.schema attributeValueFor:attributeKey andKey:@"description_string"] forKey:@"description"];
-            [attribute setValue:[itemAttribute objectForKey:@"float_value"] forKey:@"floatValue"];
-            [attribute setValue:[itemAttribute objectForKey:@"value"] forKey:@"value"];
-            [attribute setValue:[self.schema attributeValueFor:attributeKey andKey:@"description_format"] forKey:@"valueFormat"];
+        [mergedAttributes enumerateObjectsUsingBlock:^(NSDictionary *itemAttribute, NSUInteger idx, BOOL *stop) {
+            id attributeKey = [itemAttribute objectForKey:@"defindex"];
+            if (attributeKey == nil) {
+                attributeKey = [itemAttribute objectForKey:@"name"];
+            }
+            if (attributeKey != nil) {
+                NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
+                [attribute setValue:[itemAttribute objectForKey:@"account_info"] forKey:@"accountInfo"];
+                [attribute setValue:[self.schema attributeValueFor:attributeKey andKey:@"description_string"] forKey:@"description"];
+                [attribute setValue:[itemAttribute objectForKey:@"float_value"] forKey:@"floatValue"];
+                [attribute setValue:[itemAttribute objectForKey:@"value"] forKey:@"value"];
+                [attribute setValue:[self.schema attributeValueFor:attributeKey andKey:@"description_format"] forKey:@"valueFormat"];
 
-            [attributes addObject:[attribute copy]];
-        }
-    }];
+                [attributes addObject:[attribute copy]];
+            }
+        }];
 
-    return [attributes copy];
+        _attributes = [attributes copy];
+    }
+
+    return _attributes;
 }
 
 - (NSNumber *)defindex {

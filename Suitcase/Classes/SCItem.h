@@ -11,6 +11,7 @@
 
 @interface SCItem : NSObject
 
+@property (strong, readonly) NSArray *attributes;
 @property NSDictionary *dictionary;
 @property (readonly) int equippableClasses;
 @property (readonly) int equippedClasses;
@@ -20,7 +21,6 @@
 - (id)initWithDictionary:(NSDictionary *)aDictionary
                andSchema:(SCSchema *)aSchema;
 
-- (NSArray *)attributes;
 - (NSNumber *)defindex;
 - (NSString *)description;
 - (NSURL *)imageUrl;
