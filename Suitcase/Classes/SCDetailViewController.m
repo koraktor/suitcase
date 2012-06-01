@@ -80,10 +80,15 @@
             } else if([valueFormat isEqual:@"value_is_additive"]) {
                 value = [(NSNumber *)[attribute objectForKey:@"value"] stringValue];
             } else if ([valueFormat isEqual:@"value_is_date"]) {
-                NSDate *date = [NSDate dateWithTimeIntervalSince1970:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue]];
-                value = [NSDateFormatter localizedStringFromDate:date
-                                                       dateStyle:NSDateFormatterMediumStyle
-                                                       timeStyle:NSDateFormatterShortStyle];
+                double timestamp = [(NSNumber *)[attribute objectForKey:@"value"] doubleValue];
+                if (timestamp == 0) {
+                    attributeDescription = nil;
+                } else {
+                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue]];
+                    value = [NSDateFormatter localizedStringFromDate:date
+                                                           dateStyle:NSDateFormatterMediumStyle
+                                                           timeStyle:NSDateFormatterShortStyle];
+                }
             } else if ([valueFormat isEqual:@"value_is_inverted_percentage"]) {
                 NSNumber *numberValue = [NSNumber numberWithDouble:(1 - [(NSNumber *)[attribute objectForKey:@"value"] doubleValue]) * 100];
                 value = [numberFormatter stringFromNumber:numberValue];
