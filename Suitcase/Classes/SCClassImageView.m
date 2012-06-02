@@ -7,8 +7,7 @@
 
 
 #import <QuartzCore/QuartzCore.h>
-#import "AFHTTPRequestOperation.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+ASIHTTPRequest.h"
 
 #import "SCClassImageView.h"
 
@@ -21,29 +20,23 @@
     self.layer.cornerRadius = 5;
     self.clipsToBounds = YES;
 
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
-    [request setHTTPShouldHandleCookies:NO];
-    [request setHTTPShouldUsePipelining:YES];
+    [self setImageWithURL:url completionBlock:^(UIImage *image){
+        CGFloat scale = [[UIScreen mainScreen] scale];
+        CGRect imageRect = CGRectMake(0, 0, image.size.width * scale, image.size.height * scale);
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+        CGContextRef context = CGBitmapContextCreate(nil, image.size.width * scale, image.size.height * scale, 8, 0, colorSpace, kCGImageAlphaNone);
+        CGContextDrawImage(context, imageRect, [image CGImage]);
+        CGImageRef imageRef = CGBitmapContextCreateImage(context);
 
-    [self setImageWithURLRequest:request
-                placeholderImage:nil
-                         success:^(NSURLRequest *request, NSURLResponse *response, UIImage *image) {
-                             CGFloat scale = [[UIScreen mainScreen] scale];
-                             CGRect imageRect = CGRectMake(0, 0, image.size.width * scale, image.size.height * scale);
-                             CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-                             CGContextRef context = CGBitmapContextCreate(nil, image.size.width * scale, image.size.height * scale, 8, 0, colorSpace, kCGImageAlphaNone);
-                             CGContextDrawImage(context, imageRect, [image CGImage]);
-                             CGImageRef imageRef = CGBitmapContextCreateImage(context);
+        self.highlightedImage = image;
+        self.image = [UIImage imageWithCGImage:imageRef
+                                         scale:scale
+                                   orientation:UIImageOrientationUp];
 
-                             self.highlightedImage = image;
-                             self.image = [UIImage imageWithCGImage:imageRef
-                                                              scale:scale
-                                                        orientation:UIImageOrientationUp];
-
-                             CGColorSpaceRelease(colorSpace);
-                             CGContextRelease(context);
-                             CFRelease(imageRef);
-                         } failure:nil];
+        CGColorSpaceRelease(colorSpace);
+        CGContextRelease(context);
+        CFRelease(imageRef);
+    }];
 }
 
 - (void)setEquippable:(BOOL)equippable {

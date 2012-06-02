@@ -6,7 +6,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+ASIHTTPRequest.h"
 
 #import "SCDetailViewController.h"
 

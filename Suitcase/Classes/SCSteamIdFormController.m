@@ -7,7 +7,7 @@
 
 #import "SCSteamIdFormController.h"
 
-#import "AFJSONRequestOperation.h"
+#import "ASIHTTPRequest.h"
 #import "SCAppDelegate.h"
 
 @implementation SCSteamIdFormController
@@ -38,21 +38,20 @@
 
     if (steamId64 == nil) {
         NSURL *steamIdUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001?vanityurl=%@&key=%@", steamId, [SCAppDelegate apiKey]]];
-        AFJSONRequestOperation *steamIdOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:steamIdUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            NSDictionary *steamIdResponse = [JSON objectForKey:@"response"];
+        __unsafe_unretained __block ASIHTTPRequest *steamIdRequest = [ASIHTTPRequest requestWithURL:steamIdUrl];
+        [steamIdRequest setCompletionBlock:^{
+            NSError *error = nil;
+            NSDictionary *steamIdResponse = [[NSJSONSerialization JSONObjectWithData:[steamIdRequest responseData] options:0 error:&error] objectForKey:@"response"];
             if ([[steamIdResponse objectForKey:@"success"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 steamId64 = [steamIdResponse objectForKey:@"steamid"];
                 SteamIdFound();
             } else {
-                NSString *errorMsg = [NSString stringWithFormat:@"Error resolving Steam ID: %@", [JSON objectForKey:@"message"]]; 
+                NSString *errorMsg = [NSString stringWithFormat:@"Error resolving Steam ID: %@", [steamIdResponse objectForKey:@"message"]];
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
-        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-            NSLog(@"Error resolving 64bit Steam ID: %@", error);
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured while resolving the Steam ID" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }];
-        [steamIdOperation start];
-        [steamIdOperation waitUntilFinished];
+
+        [steamIdRequest startSynchronous];
     } else {
         SteamIdFound();
     }

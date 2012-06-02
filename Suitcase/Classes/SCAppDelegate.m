@@ -5,7 +5,8 @@
 //  Copyright (c) 2012, Sebastian Staudt
 //
 
-#import "AFNetworkActivityIndicatorManager.h"
+#import "ASIHTTPRequest.h"
+#import "ASIDownloadCache.h"
 
 #import "SCAppDelegate.h"
 
@@ -19,7 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {    
-    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
     
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {

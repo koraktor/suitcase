@@ -7,7 +7,7 @@
 
 #import "SCMasterViewController.h"
 
-#import "AFJSONRequestOperation.h"
+#import "ASIHTTPRequest.h"
 #import "SCAppDelegate.h"
 #import "SCDetailViewController.h"
 #import "SCItem.h"
@@ -42,8 +42,10 @@
 - (void)loadInventory {    
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetPlayerItems/v0001?steamid=%@&key=%@", steamId64, [SCAppDelegate apiKey]]];
-    AFJSONRequestOperation *inventoryOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:inventoryUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSDictionary *inventoryResponse = [JSON objectForKey:@"result"];
+    __unsafe_unretained __block ASIHTTPRequest *inventoryRequest = [ASIHTTPRequest requestWithURL:inventoryUrl];
+    [inventoryRequest setCompletionBlock:^{
+        NSError *error = nil;
+        NSDictionary *inventoryResponse = [[NSJSONSerialization JSONObjectWithData:[inventoryRequest responseData] options:0 error:&error] objectForKey:@"result"];
         if ([[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             NSArray *itemsResponse = [inventoryResponse objectForKey:@"items"];
             [NSThread detachNewThreadSelector:@selector(populateInventoryWithData:) toTarget:self withObject:itemsResponse];
@@ -51,18 +53,29 @@
             NSString *errorMsg = [NSString stringWithFormat:@"Error loading the inventory: %@", [inventoryResponse objectForKey:@"statusDetail"]]; 
             [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Error loading inventory contents: %@", error);
+    }];
+    [inventoryRequest setFailedBlock:^{
+        NSError *error = [inventoryRequest error];
+        NSString *errorMessage;
+        if (error == nil) {
+            errorMessage = [inventoryRequest responseStatusMessage];
+        } else {
+            errorMessage = [error localizedDescription];
+        }
+        NSLog(@"Error loading inventory contents: %@", errorMessage);
         [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured while loading the inventory contents" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 
-    [inventoryOperation start];
+    [inventoryRequest startAsynchronous];
 }
 
 - (void)loadSchema {
     NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetSchema/v0001?key=%@&language=%@", [SCAppDelegate apiKey], [[NSLocale preferredLanguages] objectAtIndex:0]]];
-    AFJSONRequestOperation *schemaOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:schemaUrl] success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSDictionary *schemaResponse = [JSON objectForKey:@"result"];
+    __unsafe_unretained __block ASIHTTPRequest *schemaRequest = [ASIHTTPRequest requestWithURL:schemaUrl];
+    [schemaRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
+    [schemaRequest setCompletionBlock:^{
+        NSError *error = nil;
+        NSDictionary *schemaResponse = [[NSJSONSerialization JSONObjectWithData:[schemaRequest responseData] options:0 error:&error] objectForKey:@"result"];
         if ([[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             _itemSchema = [[SCSchema alloc] initWithDictionary:schemaResponse];
         } else {
@@ -70,15 +83,24 @@
             [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
         [_schemaLock unlock];
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Error loading game item schema: %@", error);
+    }];
+    [schemaRequest setFailedBlock:^{
+        NSError *error = [schemaRequest error];
+        NSString *errorMessage;
+        if (error == nil) {
+            errorMessage = [schemaRequest responseStatusMessage];
+        } else {
+            errorMessage = [error localizedDescription];
+        }
+        NSLog(@"Error loading game item schema: %@", errorMessage);
         [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured while loading game item schema" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [_schemaLock unlock];
     }];
+    [schemaRequest setTimeOutSeconds:60.0];
 
     _itemSchema = nil;
     [_schemaLock lock];
-    [schemaOperation start];
+    [schemaRequest startAsynchronous];
 }
 
 - (void)populateInventoryWithData:(NSArray *)itemsData {
