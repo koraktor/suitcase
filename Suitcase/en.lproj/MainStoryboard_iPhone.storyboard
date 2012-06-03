@@ -294,7 +294,7 @@ http://steamcommunity.com/profile/{Profile ID}
         </scene>
     </scenes>
     <classes>
-        <class className="SCClassImageView" superclassName="UIImageView">
+        <class className="SCClassImageView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCClassImageView.h"/>
         </class>
         <class className="SCDetailViewController" superclassName="UIViewController">

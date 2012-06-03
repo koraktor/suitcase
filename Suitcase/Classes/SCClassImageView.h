@@ -7,8 +7,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SCClassImageView : UIImageView
+@interface SCClassImageView : UIView
 
+- (UIImageView *)imageView;
 - (void)setClassImageWithURL:(NSURL *)url;
 - (void)setEquippable:(BOOL)equippable;
 - (void)setEquipped:(BOOL)equipped;
