@@ -6,6 +6,7 @@
 //
 
 #import "ASIHTTPRequest.h"
+#import <objc/runtime.h>
 
 #import "UIImageView+ASIHTTPRequest.h"
 
@@ -18,8 +19,15 @@
 }
 
 - (void)setImageWithURL:(NSURL *)url completionBlock:(void (^)(UIImage *))completionBlock {
+    NSURL *currentUrl = objc_getAssociatedObject(self, "url");
+    if ([currentUrl isEqual:url]) {
+        return;
+    }
+
     self.highlightedImage = nil;
     self.image = nil;
+
+    objc_setAssociatedObject(self, "url", url, OBJC_ASSOCIATION_RETAIN);
 
     __unsafe_unretained __block ASIHTTPRequest *imageRequest = [ASIHTTPRequest requestWithURL:url];
     [imageRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
