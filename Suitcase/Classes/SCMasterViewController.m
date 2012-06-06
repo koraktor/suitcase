@@ -131,6 +131,10 @@
     [self.tableView setDataSource:self];
 
     self.detailViewController = (SCDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"] == nil) {
+        [self showSteamIdForm:self];
+    }
 }
 
 - (void)viewDidUnload
