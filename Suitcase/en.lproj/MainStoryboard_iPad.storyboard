@@ -148,6 +148,15 @@
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Kill eater level" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="21" adjustsFontSizeToFit="NO" id="TpT-wP-P9T">
+                                <rect key="frame" x="17" y="220" width="399" height="36"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -166,6 +175,7 @@
                         <outlet property="classSpyImage" destination="br3-gv-fMW" id="eo0-T0-LFw"/>
                         <outlet property="descriptionLabel" destination="vdU-Is-CfC" id="qca-G0-XxC"/>
                         <outlet property="itemImage" destination="TTs-KC-myH" id="HOY-6p-Syw"/>
+                        <outlet property="killEaterLabel" destination="TpT-wP-P9T" id="aCA-0y-q1G"/>
                         <outlet property="levelLabel" destination="xBP-fs-YaV" id="8M6-f8-5Ga"/>
                         <outlet property="originLabel" destination="GFD-26-MV1" id="GiC-CV-R8G"/>
                         <outlet property="qualityLabel" destination="UnE-o6-WvW" id="JER-jX-NeL"/>
@@ -369,6 +379,7 @@ http://steamcommunity.com/profile/{Profile ID}
                 <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="imageFrame" candidateClass="UIView"/>
                 <relationship kind="outlet" name="itemImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="killEaterLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="levelLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="originLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="qualityLabel" candidateClass="UILabel"/>

@@ -266,6 +266,15 @@ http://steamcommunity.com/profile/{Profile ID}
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Kill eater level" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" minimumFontSize="12" id="JUK-Cv-VE4">
+                                <rect key="frame" x="20" y="89" width="150" height="20"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -283,6 +292,7 @@ http://steamcommunity.com/profile/{Profile ID}
                         <outlet property="classSpyImage" destination="eQh-0g-NF1" id="Iqf-nk-lyf"/>
                         <outlet property="descriptionLabel" destination="KUr-nq-qlo" id="I1Q-Lt-OF2"/>
                         <outlet property="itemImage" destination="0Sv-u5-kJC" id="0DW-5Z-Q4W"/>
+                        <outlet property="killEaterLabel" destination="JUK-Cv-VE4" id="mdL-4p-Tsa"/>
                         <outlet property="levelLabel" destination="37S-oI-aFV" id="JI8-sg-6cw"/>
                         <outlet property="originLabel" destination="duX-zx-lRX" id="W2y-6G-aQG"/>
                         <outlet property="qualityLabel" destination="gWe-Yk-aBv" id="1GB-fb-DgZ"/>
@@ -312,6 +322,7 @@ http://steamcommunity.com/profile/{Profile ID}
                 <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="imageFrame" candidateClass="UIView"/>
                 <relationship kind="outlet" name="itemImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="killEaterLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="levelLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="originLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="qualityLabel" candidateClass="UILabel"/>

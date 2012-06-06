@@ -12,6 +12,8 @@
 @synthesize attributes = _attributes;
 @synthesize effects = _effects;
 @synthesize items = _items;
+@synthesize itemLevels = _itemLevels;
+@synthesize killEaterTypes = _killEaterTypes;
 @synthesize origins = _origins;
 @synthesize qualities = _qualities;
 
@@ -38,6 +40,22 @@
         [self.items setValue:obj forKey:[obj objectForKey:@"defindex"]];
     }];
     _items = [_items copy];
+
+    NSArray *itemLevels = [dictionary objectForKey:@"item_levels"];
+    _itemLevels = [NSMutableDictionary dictionaryWithCapacity:[itemLevels count]];
+    [itemLevels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [(NSMutableDictionary *)_itemLevels setObject:[obj objectForKey:@"levels"]
+                                                   forKey:[obj objectForKey:@"name"]];
+    }];
+    _itemLevels = [_itemLevels copy];
+
+    NSArray *killEaterTypes = [dictionary objectForKey:@"kill_eater_score_types"];
+    _killEaterTypes = [NSMutableDictionary dictionaryWithCapacity:[killEaterTypes count]];
+    [killEaterTypes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [(NSMutableDictionary *)_killEaterTypes setObject:obj
+                                                   forKey:[obj objectForKey:@"type"]];
+    }];
+    _killEaterTypes = [killEaterTypes copy];
 
     NSArray *originsArray = [dictionary objectForKey:@"originNames"];
     _origins = [NSMutableArray arrayWithCapacity:[originsArray count]];
@@ -72,6 +90,26 @@
 
 - (id)itemValueForDefIndex:(NSNumber *)defindex andKey:(NSString *)key {
     return [[self.items objectForKey:defindex] objectForKey:key];
+}
+
+- (NSString *)itemLevelForScore:(NSUInteger)score andLevelType:(NSString *)levelType {
+    __block NSString *itemLevel;
+
+    NSArray *itemLevels = [self.itemLevels objectForKey:levelType];
+    [[itemLevels sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *level1, NSDictionary *level2) {
+        return [[level1 objectForKey:@"required_score"] compare:[level2 objectForKey:@"required_score"]];
+    }] enumerateObjectsUsingBlock:^(NSDictionary *level, NSUInteger idx, BOOL *stop) {
+        if (score < [[level objectForKey:@"required_score"] integerValue]) {
+            itemLevel = [level objectForKey:@"name"];
+            *stop = YES;
+        }
+    }];
+
+    return itemLevel;
+}
+
+- (NSDictionary *)killEaterTypeForIndex:(NSUInteger)typeIndex {
+    return [self.killEaterTypes objectAtIndex:typeIndex];
 }
 
 - (NSString *)originNameForIndex:(NSUInteger)originIndex {

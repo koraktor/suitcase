@@ -37,22 +37,42 @@
         [mergedAttributes addObjectsFromArray:itemAttributes];
         NSMutableArray *attributes = [NSMutableArray arrayWithCapacity:attributeCount];
 
-        [mergedAttributes enumerateObjectsUsingBlock:^(NSDictionary *itemAttribute, NSUInteger idx, BOOL *stop) {
-            id attributeKey = [itemAttribute objectForKey:@"defindex"];
-            if (attributeKey == nil) {
-                attributeKey = [itemAttribute objectForKey:@"name"];
-            }
-            if (attributeKey != nil) {
-                NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
-                [attribute setValue:[itemAttribute objectForKey:@"account_info"] forKey:@"accountInfo"];
-                [attribute setValue:[self.schema attributeValueFor:attributeKey andKey:@"description_string"] forKey:@"description"];
-                [attribute setValue:[itemAttribute objectForKey:@"float_value"] forKey:@"floatValue"];
-                [attribute setValue:[itemAttribute objectForKey:@"value"] forKey:@"value"];
-                [attribute setValue:[self.schema attributeValueFor:attributeKey andKey:@"description_format"] forKey:@"valueFormat"];
+        __block NSInteger killEaterScore = -1;
+        __block NSUInteger killEaterTypeIndex = 0;
 
-                [attributes addObject:[attribute copy]];
+        [mergedAttributes enumerateObjectsUsingBlock:^(NSDictionary *itemAttribute, NSUInteger idx, BOOL *stop) {
+            if ([[itemAttribute objectForKey:@"defindex"] isEqual:[NSNumber numberWithInt:214]]) {
+                killEaterScore = [[itemAttribute objectForKey:@"value"] integerValue];
+            } else if ([[itemAttribute objectForKey:@"name"] isEqual:@"kill eater score type"]) {
+                killEaterTypeIndex = [[itemAttribute objectForKey:@"value"] integerValue];
+            } else {
+                id attributeKey = [itemAttribute objectForKey:@"defindex"];
+                if (attributeKey == nil) {
+                    attributeKey = [itemAttribute objectForKey:@"name"];
+                }
+                if (attributeKey != nil) {
+                    NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
+                    [attribute setValue:[itemAttribute objectForKey:@"account_info"] forKey:@"accountInfo"];
+                    [attribute setValue:[self.schema attributeValueFor:attributeKey andKey:@"description_string"] forKey:@"description"];
+                    [attribute setValue:[itemAttribute objectForKey:@"float_value"] forKey:@"floatValue"];
+                    [attribute setValue:[itemAttribute objectForKey:@"value"] forKey:@"value"];
+                    [attribute setValue:[self.schema attributeValueFor:attributeKey andKey:@"description_format"] forKey:@"valueFormat"];
+
+                    [attributes addObject:[attribute copy]];
+                }
             }
         }];
+
+        if (killEaterScore != -1) {
+            NSDictionary *killEaterType = [self.schema killEaterTypeForIndex:killEaterTypeIndex];
+            NSString *itemLevel = [self.schema itemLevelForScore:killEaterScore andLevelType:[killEaterType objectForKey:@"level_data"]];
+
+            NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
+            [attribute setValue:[NSString stringWithFormat:@"%@\n%%s1 %@", itemLevel, [killEaterType objectForKey:@"type_name"]] forKey:@"description"];
+            [attribute setValue:[NSNumber numberWithInteger:killEaterScore] forKey:@"value"];
+            [attribute setValue:@"kill_eater" forKey:@"valueFormat"];
+            [attributes addObject:attribute];
+        }
 
         _attributes = [attributes copy];
     }

@@ -12,6 +12,8 @@
 @property (strong, readonly) NSDictionary *attributes;
 @property (strong, readonly) NSDictionary *effects;
 @property (strong, readonly) NSDictionary *items;
+@property (strong, readonly) NSDictionary *itemLevels;
+@property (strong, readonly) NSArray *killEaterTypes;
 @property (strong, readonly) NSArray *origins;
 @property (strong, readonly) NSArray *qualities;
 
@@ -20,6 +22,8 @@
 - (id)attributeValueFor:(id)attributeKey andKey:(NSString *)key;
 - (NSString *)effectNameForIndex:(NSNumber *)effectIndex;
 - (id)itemValueForDefIndex:(NSNumber *)defindex andKey:(NSString *)key;
+- (NSString *)itemLevelForScore:(NSUInteger)score andLevelType:(NSString *)levelType;
+- (NSDictionary *)killEaterTypeForIndex:(NSUInteger)typeIndex;
 - (NSString *)originNameForIndex:(NSUInteger)originIndex;
 - (NSString *)qualityNameForIndex:(NSUInteger)qualityIndex;
 

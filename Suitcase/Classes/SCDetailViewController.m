@@ -29,6 +29,7 @@
 @synthesize classSpyImage = _classSpyImage;
 @synthesize descriptionLabel = _descriptionLabel;
 @synthesize itemImage = _itemImage;
+@synthesize killEaterLabel = _killEaterLabel;
 @synthesize levelLabel = _levelLabel;
 @synthesize originLabel = _originLabel;
 @synthesize qualityLabel = _qualityLabel;
@@ -57,6 +58,7 @@
     [self.itemImage setImageWithURL:self.detailItem.imageUrl];
 
     self.title = self.detailItem.name;
+    self.killEaterLabel.hidden = YES;
     self.levelLabel.text = [NSString stringWithFormat:@"Level %@ %@",
                             self.detailItem.level, self.detailItem.itemType];
     self.originLabel.text = self.detailItem.origin;
@@ -76,9 +78,11 @@
         if (attributeDescription != nil) {
             NSString *valueFormat = [attribute objectForKey:@"valueFormat"];
             NSString *value;
-            if([valueFormat isEqual:@"value_is_account_id"]) {
+            if ([valueFormat isEqual:@"kill_eater"]) {
+                value = [(NSNumber *)[attribute objectForKey:@"value"] stringValue];
+            } else if ([valueFormat isEqual:@"value_is_account_id"]) {
                 value = [[attribute objectForKey:@"accountInfo"] objectForKey:@"personaname"];
-            } else if([valueFormat isEqual:@"value_is_additive"]) {
+            } else if ([valueFormat isEqual:@"value_is_additive"]) {
                 value = [(NSNumber *)[attribute objectForKey:@"value"] stringValue];
             } else if ([valueFormat isEqual:@"value_is_additive_percentage"]) {
                 value = [[NSNumber numberWithDouble:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue] * 100] stringValue];
@@ -113,15 +117,27 @@
                                                                range:NSMakeRange(0, [attributeDescription length])];
                 }
 
-                if ([descriptionLabelText length] > 0) {
-                    if (firstAttribute) {
+                if ([valueFormat isEqual:@"kill_eater"]) {
+                    self.killEaterLabel.text = attributeDescription;
+                    CGRect currentFrame = self.killEaterLabel.frame;
+                    CGSize maxFrame = CGSizeMake(currentFrame.size.width, 500);
+                    CGSize expectedFrame = [attributeDescription sizeWithFont:self.killEaterLabel.font
+                                                            constrainedToSize:maxFrame
+                                                                lineBreakMode:self.killEaterLabel.lineBreakMode];
+                    currentFrame.size.height = expectedFrame.height;
+                    self.killEaterLabel.frame = currentFrame;
+                    self.killEaterLabel.hidden = NO;
+                } else {
+                    if ([descriptionLabelText length] > 0) {
+                        if (firstAttribute) {
+                            [descriptionLabelText appendString:@"\n"];
+                        }
                         [descriptionLabelText appendString:@"\n"];
                     }
-                    [descriptionLabelText appendString:@"\n"];
-                }
 
-                [descriptionLabelText appendString:attributeDescription];
-                firstAttribute = NO;
+                    [descriptionLabelText appendString:attributeDescription];
+                    firstAttribute = NO;
+                }
             }
         }
     }];
@@ -159,7 +175,9 @@
         self.classSpyImage.equippable = equippableClasses & 128;
 
         [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-            view.hidden = NO;
+            if (view != self.killEaterLabel) {
+                view.hidden = NO;
+            }
         }];
         
         if ([self.detailItem.quantity intValue] > 1) {
@@ -218,8 +236,9 @@
     [self setLevelLabel:nil];
     [self setOriginLabel:nil];
     [self setQuantityLabel:nil];
-
     [self setQualityLabel:nil];
+    [self setKillEaterLabel:nil];
+
     [super viewDidUnload];
 }
 
