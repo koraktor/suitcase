@@ -148,6 +148,11 @@
     return [NSURL URLWithString:[self valueForKey:@"image_url_large"]];
 }
 
+- (NSDictionary *)itemSet {
+    NSString *itemSetKey = [self valueForKey:@"item_set"];
+    return [self.schema itemSetForKey:itemSetKey];
+}
+
 - (NSString *)itemType {
     return [self valueForKey:@"item_type_name"];
 }

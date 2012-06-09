@@ -13,6 +13,8 @@
 @synthesize effects = _effects;
 @synthesize items = _items;
 @synthesize itemLevels = _itemLevels;
+@synthesize itemNameMap = _itemNameMap;
+@synthesize itemSets = _itemSets;
 @synthesize killEaterTypes = _killEaterTypes;
 @synthesize origins = _origins;
 @synthesize qualities = _qualities;
@@ -36,10 +38,13 @@
 
     NSArray *itemsArray = [dictionary objectForKey:@"items"];
     _items = [NSMutableDictionary dictionaryWithCapacity:[itemsArray count]];
+    _itemNameMap = [NSMutableDictionary dictionaryWithCapacity:[itemsArray count]];
     [itemsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [self.items setValue:obj forKey:[obj objectForKey:@"defindex"]];
+        [self.itemNameMap setValue:[obj objectForKey:@"defindex"] forKey:[obj objectForKey:@"name"]];
     }];
     _items = [_items copy];
+    _itemNameMap = [_itemNameMap copy];
 
     NSArray *itemLevels = [dictionary objectForKey:@"item_levels"];
     _itemLevels = [NSMutableDictionary dictionaryWithCapacity:[itemLevels count]];
@@ -48,6 +53,14 @@
                                                    forKey:[obj objectForKey:@"name"]];
     }];
     _itemLevels = [_itemLevels copy];
+
+    NSArray *itemSets = [dictionary objectForKey:@"item_sets"];
+    _itemSets = [NSMutableDictionary dictionaryWithCapacity:[itemSets count]];
+    [itemSets enumerateObjectsUsingBlock:^(id itemSet, NSUInteger idx, BOOL *stop) {
+        [(NSMutableDictionary *)_itemSets setObject:itemSet
+                                             forKey:[itemSet objectForKey:@"item_set"]];
+    }];
+    _itemSets = [_itemSets copy];
 
     NSArray *killEaterTypes = [dictionary objectForKey:@"kill_eater_score_types"];
     _killEaterTypes = [NSMutableDictionary dictionaryWithCapacity:[killEaterTypes count]];
@@ -88,6 +101,10 @@
     return [self.effects objectForKey:effectIndex];
 }
 
+- (NSNumber *)itemDefIndexForName:(NSString *)itemName {
+    return [self.itemNameMap objectForKey:itemName];
+}
+
 - (id)itemValueForDefIndex:(NSNumber *)defindex andKey:(NSString *)key {
     return [[self.items objectForKey:defindex] objectForKey:key];
 }
@@ -106,6 +123,10 @@
     }];
 
     return itemLevel;
+}
+
+- (NSDictionary *)itemSetForKey:(NSString *)itemSetKey {
+    return [self.itemSets objectForKey:itemSetKey];
 }
 
 - (NSDictionary *)killEaterTypeForIndex:(NSUInteger)typeIndex {
