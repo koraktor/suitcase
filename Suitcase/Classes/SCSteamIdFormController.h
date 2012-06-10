@@ -9,9 +9,11 @@
 
 #import "SCMasterViewController.h"
 
-@interface SCSteamIdFormController : UIViewController
+@interface SCSteamIdFormController : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *helpLabel;
 @property (strong, nonatomic) IBOutlet UITextField *steamIdField;
+
+- (IBAction)dismissForm:(id)sender;
 
 @end

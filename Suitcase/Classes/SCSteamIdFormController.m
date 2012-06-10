@@ -58,6 +58,22 @@
     }
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if ([textField.text length] > 0) {
+        [textField resignFirstResponder];
+        [self submitForm:textField];
+        return YES;
+    }
+
+    return NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [self.steamIdField becomeFirstResponder];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -71,4 +87,9 @@
 
     [super viewDidUnload];
 }
+
+- (IBAction)dismissForm:(id)sender {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 @end

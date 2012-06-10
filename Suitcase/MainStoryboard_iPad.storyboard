@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
@@ -261,7 +260,7 @@ Kill eater stats</string>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SteamID help" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" id="ioT-on-qAQ">
-                                <rect key="frame" x="56" y="108" width="429" height="75"/>
+                                <rect key="frame" x="56" y="69" width="429" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -269,7 +268,7 @@ Kill eater stats</string>
                                 <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" id="tGu-qg-xeI">
-                                <rect key="frame" x="56" y="506" width="429" height="50"/>
+                                <rect key="frame" x="56" y="240" width="429" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <string key="text">http://steamcommunity.com/id/{Custom URL}
 http://steamcommunity.com/profile/{Profile ID}
@@ -279,31 +278,27 @@ http://steamcommunity.com/profile/{Profile ID}
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" clearButtonMode="whileEditing" id="D7d-Ba-EQc">
-                                <rect key="frame" x="56" y="227" width="429" height="31"/>
+                                <rect key="frame" x="56" y="167" width="429" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6wn-PK-b1F">
-                                <rect key="frame" x="212" y="291" width="117" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                                <state key="normal" title="OK">
-                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
                                 <connections>
-                                    <action selector="submitForm:" destination="YOR-Ee-B7r" eventType="touchUpInside" id="gYU-MF-N8I"/>
+                                    <outlet property="delegate" destination="YOR-Ee-B7r" id="WjJ-2j-5oB"/>
                                 </connections>
-                            </button>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Select an account" id="24F-cp-iP4"/>
+                    <navigationItem key="navigationItem" title="Select an account" id="24F-cp-iP4">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="LiS-vR-e20">
+                            <color key="tintColor" red="0.63138686131386856" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="dismissForm:" destination="YOR-Ee-B7r" id="bhZ-TN-9I2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -524,6 +519,7 @@ http://steamcommunity.com/profile/{Profile ID}
         <class className="SCSteamIdFormController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSteamIdFormController.h"/>
             <relationships>
+                <relationship kind="action" name="dismissForm:"/>
                 <relationship kind="outlet" name="helpLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="steamIdField" candidateClass="UITextField"/>
             </relationships>
