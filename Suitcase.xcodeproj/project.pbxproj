@@ -53,6 +53,10 @@
 		028B64971526761C0040D2FF /* SCMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCMasterViewController.m */; };
 		028B64981526761C0040D2FF /* SCMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCMasterViewController.m */; };
 		0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */; };
+		02CFAACE157818730086E34B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 02CFAACD157818730086E34B /* Icon.png */; };
+		02CFAAD0157818760086E34B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02CFAACF157818760086E34B /* Icon@2x.png */; };
+		02CFAAD2157818820086E34B /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 02CFAAD1157818820086E34B /* Icon-72.png */; };
+		02D2E126157FCEA300DFBF7B /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D2E125157FCEA300DFBF7B /* Icon-72@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +128,10 @@
 		028B64921526761C0040D2FF /* SCMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCMasterViewController.m; path = Classes/SCMasterViewController.m; sourceTree = "<group>"; };
 		0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSteamIdFormController.h; path = Classes/SCSteamIdFormController.h; sourceTree = "<group>"; };
 		0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSteamIdFormController.m; path = Classes/SCSteamIdFormController.m; sourceTree = "<group>"; };
+		02CFAACD157818730086E34B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
+		02CFAACF157818760086E34B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
+		02CFAAD1157818820086E34B /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "../Icon-72.png"; sourceTree = "<group>"; };
+		02D2E125157FCEA300DFBF7B /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "../Icon-72@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				0209E124157950FE0073385D /* ASIHTTPRequest */,
+				02DDB47B1582918B004DB9D8 /* Resources */,
 				028B648D1526761C0040D2FF /* SCAppDelegate.h */,
 				028B648E1526761C0040D2FF /* SCAppDelegate.m */,
 				026F215A156ADA1F00C7BD54 /* SCClassImageView.h */,
@@ -272,6 +281,17 @@
 				028B643715265D690040D2FF /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		02DDB47B1582918B004DB9D8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				02D2E125157FCEA300DFBF7B /* Icon-72@2x.png */,
+				02CFAAD1157818820086E34B /* Icon-72.png */,
+				02CFAACF157818760086E34B /* Icon@2x.png */,
+				02CFAACD157818730086E34B /* Icon.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,6 +368,10 @@
 				028B641515265D690040D2FF /* InfoPlist.strings in Resources */,
 				028B641E15265D690040D2FF /* MainStoryboard_iPhone.storyboard in Resources */,
 				028B642115265D690040D2FF /* MainStoryboard_iPad.storyboard in Resources */,
+				02CFAACE157818730086E34B /* Icon.png in Resources */,
+				02CFAAD0157818760086E34B /* Icon@2x.png in Resources */,
+				02CFAAD2157818820086E34B /* Icon-72.png in Resources */,
+				02D2E126157FCEA300DFBF7B /* Icon-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
