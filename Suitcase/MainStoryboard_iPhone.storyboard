@@ -41,7 +41,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please supply the custom URL or profile ID of the Steam Community profile:" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="NfD-g1-xMo">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SteamID help" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="NfD-g1-xMo">
                                 <rect key="frame" x="20" y="95" width="280" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -85,6 +85,7 @@ http://steamcommunity.com/profile/{Profile ID}
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="helpLabel" destination="NfD-g1-xMo" id="ZAk-R4-zUH"/>
                         <outlet property="steamIdField" destination="agU-wR-SkB" id="r1Y-t9-LbC"/>
                     </connections>
                 </viewController>
@@ -351,7 +352,6 @@ Kill eater score</string>
                 <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="itemImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="itemSetButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="itemSetController" candidateClass="UIViewController"/>
                 <relationship kind="outlet" name="killEaterIcon" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="killEaterLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="levelLabel" candidateClass="UILabel"/>
@@ -367,6 +367,7 @@ Kill eater score</string>
         <class className="SCSteamIdFormController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSteamIdFormController.h"/>
             <relationships>
+                <relationship kind="outlet" name="helpLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="steamIdField" candidateClass="UITextField"/>
             </relationships>
         </class>

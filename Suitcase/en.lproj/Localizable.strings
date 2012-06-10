@@ -1,0 +1,8 @@
+/*
+ * Localizable.strings
+ * Suitcase
+ *
+ * Copyright (c) 2012, Sebastian Staudt
+ */
+
+"SteamID help" = "Please supply the custom URL or profile ID of the Steam Community profile:";

@@ -11,6 +11,7 @@
 
 @interface SCSteamIdFormController : UIViewController
 
-@property IBOutlet UITextField *steamIdField;
+@property (strong, nonatomic) IBOutlet UILabel *helpLabel;
+@property (strong, nonatomic) IBOutlet UITextField *steamIdField;
 
 @end

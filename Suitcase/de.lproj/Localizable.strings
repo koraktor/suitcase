@@ -5,6 +5,10 @@
  * Copyright (c) 2012, Sebastian Staudt
  */
 
+"Inventory"         = "Inventar";
+"Select an account" = "Account auswählen";
+"SteamID help"      = "Geben Sie die benutzerdefinierte URL oder Profil-ID des Steam Community Profils an:";
+
 "Achievement"                 = "Errungenschaft";
 "CD Key"                      = "CD-Key";
 "Collection Reward"           = "Sammlerbelohnung";

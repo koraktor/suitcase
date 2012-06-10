@@ -12,6 +12,7 @@
 
 @implementation SCSteamIdFormController
 
+@synthesize helpLabel = _helpLabel;
 @synthesize steamIdField = _steamIdField;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -57,7 +58,15 @@
     }
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.helpLabel.text = NSLocalizedString(self.helpLabel.text, @"SteamID help");
+    self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"SteamID form title");
+}
+
 - (void)viewDidUnload {
+    [self setHelpLabel:nil];
     [self setSteamIdField:nil];
 
     [super viewDidUnload];

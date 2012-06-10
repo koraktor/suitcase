@@ -131,6 +131,7 @@
     [self.tableView setDataSource:self];
 
     self.detailViewController = (SCDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"Inventory title");
 
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"] == nil) {
         [self showSteamIdForm:self];
