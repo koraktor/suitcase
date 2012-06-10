@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTTAttributedLabel.h"
 
 #import "SCClassImageView.h"
 #import "SCItem.h"
@@ -24,12 +25,16 @@
 @property (strong, nonatomic) IBOutlet SCClassImageView *classSniperImage;
 @property (strong, nonatomic) IBOutlet SCClassImageView *classSpyImage;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (strong, nonatomic) IBOutlet UIView *imageFrame;
+@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *icons;
 @property (strong, nonatomic) IBOutlet UIImageView *itemImage;
+@property (strong, nonatomic) IBOutlet UIButton *itemSetButton;
+@property (strong, nonatomic) IBOutlet UIImageView *killEaterIcon;
 @property (strong, nonatomic) IBOutlet UILabel *killEaterLabel;
 @property (strong, nonatomic) IBOutlet UILabel *levelLabel;
 @property (strong, nonatomic) IBOutlet UILabel *originLabel;
 @property (strong, nonatomic) IBOutlet UILabel *qualityLabel;
 @property (strong, nonatomic) IBOutlet UILabel *quantityLabel;
+
+- (IBAction)showItemSet:(id)sender;
 
 @end

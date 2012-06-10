@@ -50,6 +50,15 @@
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item origin" lineBreakMode="tailTruncation" minimumFontSize="21" adjustsFontSizeToFit="NO" id="GFD-26-MV1">
+                                <rect key="frame" x="49" y="113" width="370" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item level" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="21" adjustsFontSizeToFit="NO" id="xBP-fs-YaV">
                                 <rect key="frame" x="17" y="66" width="669" height="36"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -113,8 +122,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item origin" lineBreakMode="tailTruncation" minimumFontSize="21" adjustsFontSizeToFit="NO" id="4Tb-db-YbY">
-                                <rect key="frame" x="55" y="110" width="370" height="30"/>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item quality" lineBreakMode="tailTruncation" minimumFontSize="21" adjustsFontSizeToFit="NO" id="UnE-o6-WvW">
+                                <rect key="frame" x="49" y="151" width="370" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -122,17 +131,8 @@
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item quality" lineBreakMode="tailTruncation" minimumFontSize="21" adjustsFontSizeToFit="NO" id="aLk-1t-UdJ">
-                                <rect key="frame" x="55" y="148" width="370" height="30"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <size key="shadowOffset" width="0.0" height="1"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="21" adjustsFontSizeToFit="NO" id="GMM-gz-mXL">
-                                <rect key="frame" x="55" y="180" width="368" height="50"/>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="21" adjustsFontSizeToFit="NO" id="0SS-W0-sAU">
+                                <rect key="frame" x="49" y="183" width="368" height="50"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <string key="text">Kill eater level
 Kill eater stats</string>
@@ -142,12 +142,12 @@ Kill eater stats</string>
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="kill_eater.png" id="KAP-jc-Wvs">
-                                <rect key="frame" x="23" y="193" width="24" height="24"/>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="kill_eater.png" id="LCQ-Ls-B4E">
+                                <rect key="frame" x="17" y="196" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button hidden="YES" autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" id="rR9-Fs-POz">
-                                <rect key="frame" x="24" y="238" width="399" height="50"/>
+                            <button hidden="YES" autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" id="5T2-zT-Woo">
+                                <rect key="frame" x="17" y="241" width="399" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -161,15 +161,15 @@ Kill eater stats</string>
                                     <color key="titleShadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="showItemSet:" destination="4" eventType="touchUpInside" id="rO8-lP-OJo"/>
+                                    <action selector="showItemSet:" destination="4" eventType="touchUpInside" id="dVe-tP-cAT"/>
                                 </connections>
                             </button>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="origin.png" id="dwx-mi-d6I">
-                                <rect key="frame" x="23" y="113" width="24" height="24"/>
+                            <imageView hidden="YES" autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="origin.png" id="llK-Kc-fNL">
+                                <rect key="frame" x="17" y="116" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="quality.png" id="vTL-ol-9yt">
-                                <rect key="frame" x="23" y="151" width="24" height="24"/>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="quality.png" id="9In-gw-sbk">
+                                <rect key="frame" x="17" y="154" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -190,23 +190,44 @@ Kill eater stats</string>
                         <outlet property="classSpyImage" destination="br3-gv-fMW" id="eo0-T0-LFw"/>
                         <outlet property="descriptionLabel" destination="vdU-Is-CfC" id="qca-G0-XxC"/>
                         <outlet property="itemImage" destination="TTs-KC-myH" id="HOY-6p-Syw"/>
-                        <outlet property="itemSetButton" destination="rR9-Fs-POz" id="POH-of-g1L"/>
-                        <outlet property="killEaterIcon" destination="KAP-jc-Wvs" id="yxh-2W-i25"/>
-                        <outlet property="killEaterLabel" destination="GMM-gz-mXL" id="iQY-jk-DDs"/>
+                        <outlet property="itemSetButton" destination="5T2-zT-Woo" id="YVR-Tt-Aol"/>
+                        <outlet property="killEaterIcon" destination="LCQ-Ls-B4E" id="EMc-sS-71h"/>
+                        <outlet property="killEaterLabel" destination="0SS-W0-sAU" id="3O3-P9-yWf"/>
                         <outlet property="levelLabel" destination="xBP-fs-YaV" id="8M6-f8-5Ga"/>
-                        <outlet property="originLabel" destination="4Tb-db-YbY" id="D14-G4-KS4"/>
-                        <outlet property="qualityLabel" destination="aLk-1t-UdJ" id="Jxf-11-Sx9"/>
+                        <outlet property="originLabel" destination="GFD-26-MV1" id="GiC-CV-R8G"/>
+                        <outlet property="qualityLabel" destination="UnE-o6-WvW" id="JER-jX-NeL"/>
                         <outlet property="quantityLabel" destination="QAS-Pa-Xb8" id="Qs2-5y-CaY"/>
-                        <outletCollection property="icons" destination="KAP-jc-Wvs" id="Ot2-Po-41d"/>
-                        <outletCollection property="icons" destination="vTL-ol-9yt" id="hgg-b3-Ixj"/>
-                        <outletCollection property="icons" destination="dwx-mi-d6I" id="qBu-9x-uaG"/>
-                        <segue destination="F4a-SA-CUY" kind="popover" identifier="showItemSet" popoverAnchorView="dwx-mi-d6I" id="Lh1-7D-oEs">
+                        <outletCollection property="icons" destination="9In-gw-sbk" id="Vbg-2U-xUC"/>
+                        <outletCollection property="icons" destination="llK-Kc-fNL" id="ch5-Dv-5b6"/>
+                        <outletCollection property="icons" destination="LCQ-Ls-B4E" id="KsY-nh-RLD"/>
+                        <segue destination="ORx-T9-Tlk" kind="popover" identifier="showItemSet" popoverAnchorView="5T2-zT-Woo" id="5AI-xN-VHM">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
                         </segue>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="3012" y="-672"/>
+            <point key="canvasLocation" x="3018" y="-672"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Bof-3L-vOc">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="heP-DW-M0p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController modalPresentationStyle="pageSheet" id="ORx-T9-Tlk" sceneMemberID="viewController">
+                    <label key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item set" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="5Nx-O1-wt2" customClass="TTTAttributedLabel">
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="192"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </label>
+                    <value key="contentSizeForViewInPopover" type="size" width="384" height="128"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2657" y="463"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Jw2-Ye-9PK">
@@ -296,14 +317,14 @@ http://steamcommunity.com/profile/{Profile ID}
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="submitForm:" destination="YOR-Ee-B7r" eventType="touchUpInside" id="gYU-MF-N8I"/>
+                                    <action selector="submitForm:" destination="YOR-Ee-B7r" eventType="touchUpInside" id="dnj-iz-yGO"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Select an account" id="24F-cp-iP4"/>
+                    <navigationItem key="navigationItem" title="Account auswählen" id="24F-cp-iP4"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -353,7 +374,7 @@ http://steamcommunity.com/profile/{Profile ID}
                             <outlet property="delegate" destination="19" id="21"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Inventory" id="40">
+                    <navigationItem key="navigationItem" title="Inventar" id="40">
                         <barButtonItem key="leftBarButtonItem" image="user.png" id="DrV-SQ-KyY">
                             <connections>
                                 <action selector="showSteamIdForm:" destination="19" id="qfM-xu-lco"/>
@@ -454,27 +475,6 @@ http://steamcommunity.com/profile/{Profile ID}
                 </navigationController>
             </objects>
             <point key="canvasLocation" x="781" y="872"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="cNi-ps-zB0">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XaE-l2-dH7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController modalPresentationStyle="pageSheet" id="F4a-SA-CUY" sceneMemberID="viewController">
-                    <label key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item set" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="RIw-cp-hWF" customClass="TTTAttributedLabel">
-                        <rect key="frame" x="0.0" y="0.0" width="384" height="192"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
-                    </label>
-                    <value key="contentSizeForViewInPopover" type="size" width="384" height="128"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="2657" y="463"/>
         </scene>
     </scenes>
     <resources>

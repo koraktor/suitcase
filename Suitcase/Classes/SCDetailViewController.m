@@ -5,6 +5,7 @@
 //  Copyright (c) 2012, Sebastian Staudt
 //
 
+#import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+ASIHTTPRequest.h"
 
@@ -28,13 +29,15 @@
 @synthesize classSniperImage = _classSniperImage;
 @synthesize classSpyImage = _classSpyImage;
 @synthesize descriptionLabel = _descriptionLabel;
+@synthesize icons = _icons;
 @synthesize itemImage = _itemImage;
+@synthesize itemSetButton = _itemSetButton;
+@synthesize killEaterIcon = _killEaterIcon;
 @synthesize killEaterLabel = _killEaterLabel;
 @synthesize levelLabel = _levelLabel;
 @synthesize originLabel = _originLabel;
 @synthesize qualityLabel = _qualityLabel;
 @synthesize quantityLabel = _quantityLabel;
-@synthesize imageFrame = _imageFrame;
 @synthesize masterPopoverController = _masterPopoverController;
 
 #pragma mark - Managing the detail item
@@ -59,9 +62,10 @@
 
     self.title = self.detailItem.name;
     self.killEaterLabel.hidden = YES;
+    self.killEaterIcon.alpha = 0.4;
     self.levelLabel.text = [NSString stringWithFormat:@"Level %@ %@",
                             self.detailItem.level, self.detailItem.itemType];
-    self.originLabel.text = self.detailItem.origin;
+    self.originLabel.text = NSLocalizedString(self.detailItem.origin, @"Item oigin");
     self.qualityLabel.text = self.detailItem.quality;
 
     NSMutableString *descriptionLabelText = [self.detailItem.description mutableCopy];
@@ -127,6 +131,7 @@
                     currentFrame.size.height = expectedFrame.height;
                     self.killEaterLabel.frame = currentFrame;
                     self.killEaterLabel.hidden = NO;
+                    self.killEaterIcon.alpha = 1.0;
                 } else {
                     if ([descriptionLabelText length] > 0) {
                         if (firstAttribute) {
@@ -142,6 +147,14 @@
         }
     }];
     self.descriptionLabel.text = descriptionLabelText;
+
+    if (self.detailItem.itemSet != nil) {
+        [self.itemSetButton setTitle:[self.detailItem.itemSet objectForKey:@"name"] forState:UIControlStateNormal];
+        self.itemSetButton.enabled = YES;
+    } else {
+        [self.itemSetButton setTitle:nil forState:UIControlStateNormal];
+        self.itemSetButton.enabled = NO;
+    }
 
     if (self.detailItem) {
         CGRect currentFrame = self.descriptionLabel.frame;
@@ -207,12 +220,27 @@
     [self.classSniperImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/sniper.jpg"]];
     [self.classSpyImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/spy.jpg"]];
 
+    [self.icons enumerateObjectsUsingBlock:^(UIImageView *icon, NSUInteger idx, BOOL *stop) {
+        icon.layer.shadowColor = [UIColor blackColor].CGColor;
+        icon.layer.shadowOffset = CGSizeMake(0, 1);
+        icon.layer.shadowOpacity = 1;
+        icon.layer.shadowRadius = 1.0;
+        icon.layer.masksToBounds = NO;
+    }];
+
     self.itemImage.layer.borderColor = [[UIColor blackColor] CGColor];
     self.itemImage.layer.cornerRadius = 5;
     self.itemImage.layer.shadowColor = [[UIColor blackColor] CGColor];
     self.itemImage.layer.shadowOffset = CGSizeMake(0.0, 0.0);
     self.itemImage.layer.shadowOpacity = 1.0;
-    self.itemImage.layer.shadowRadius = 1.5;
+    self.itemImage.layer.shadowRadius = 2.5;
+
+    self.itemSetButton.imageView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.itemSetButton.imageView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.itemSetButton.imageView.layer.shadowOpacity = 1;
+    self.itemSetButton.imageView.layer.shadowRadius = 1.0;
+    self.itemSetButton.imageView.layer.masksToBounds = NO;
+    self.itemSetButton.titleLabel.numberOfLines = 2;
 
     self.quantityLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.quantityLabel.layer.borderWidth = [[UIScreen mainScreen] scale];
@@ -232,12 +260,14 @@
     [self setClassSniperImage:nil];
     [self setClassSpyImage:nil];
     [self setDescriptionLabel:nil];
+    [self setIcons:nil];
     [self setItemImage:nil];
     [self setLevelLabel:nil];
     [self setOriginLabel:nil];
     [self setQuantityLabel:nil];
     [self setQualityLabel:nil];
     [self setKillEaterLabel:nil];
+    [self setKillEaterIcon:nil];
 
     [super viewDidUnload];
 }
@@ -265,6 +295,47 @@
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     self.masterPopoverController = nil;
+}
+
+- (IBAction)showItemSet:(id)sender {
+    [self performSegueWithIdentifier:@"showItemSet" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showItemSet"]) {
+        TTTAttributedLabel *itemSetLabel = (TTTAttributedLabel *)[[segue destinationViewController] view];
+        NSString *itemSetName = [self.detailItem.itemSet objectForKey:@"name"];
+        NSMutableAttributedString *itemSetText = [[NSMutableAttributedString alloc] init];
+        [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:itemSetName]];
+
+        [itemSetText appendAttributedString:[[NSAttributedString alloc] init]];
+        NSArray *items = [self.detailItem.itemSet objectForKey:@"items"];
+        [items enumerateObjectsUsingBlock:^(NSString *itemName, NSUInteger idx, BOOL *stop) {
+            if ([itemSetText length] > 0) {
+                [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+            }
+            NSNumber *defindex = [self.detailItem.schema itemDefIndexForName:itemName];
+            [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:[self.detailItem.schema itemValueForDefIndex:defindex andKey:@"item_name"]]];
+        }];
+        [itemSetLabel setText:itemSetText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+            UIFont *nameFont;
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+                nameFont = [UIFont boldSystemFontOfSize:22.0];
+            } else {
+                nameFont = [UIFont boldSystemFontOfSize:18.0];
+            }
+            CTFontRef font = CTFontCreateWithName((__bridge_retained CFStringRef)nameFont.fontName, nameFont.pointSize, NULL);
+            NSDictionary *nameAttributes = [NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)font, (NSString *)kCTFontAttributeName, nil];
+            CFRelease(font);
+            NSRange nameRange = [[itemSetText string] rangeOfString:itemSetName];
+            [mutableAttributedString addAttributes:nameAttributes range:nameRange];
+
+            return mutableAttributedString;
+        }];
+
+        [itemSetLabel sizeToFit];
+    }
 }
 
 @end

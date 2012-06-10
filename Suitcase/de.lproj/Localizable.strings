@@ -1,0 +1,27 @@
+/*
+ * Localizable.strings
+ * Suitcase
+ *
+ * Copyright (c) 2012, Sebastian Staudt
+ */
+
+"Achievement"                 = "Errungenschaft";
+"CD Key"                      = "CD-Key";
+"Collection Reward"           = "Sammlerbelohnung";
+"Crafted"                     = "Hergestellt";
+"Earned"                      = "Verdient";
+"Found in Crate"              = "In Kiste gefunden";
+"Foreign Item"                = "Fremder Gegenstand";
+"Gifted"                      = "Geschenkt";
+"Halloween Drop"              = "Halloween-Fund";
+"Preview Item"                = "Vorschaugegenstand";
+"Purchased"                   = "Gekauft";
+"Steam Purchase"              = "Steam-Kauf";
+"Steam Workshop Contribution" = "Mitwirkung beim Steam-Workshop";
+"Store Promotion"             = "Shop-Promotion";
+"Support Granted"             = "Durch Support erhalten";
+"Third-Party Promotion"       = "Drittanbieter-Promotion";
+"Timed Drop"                  = "Zufälliger Fund";
+"Traded"                      = "Gehandelt";
+"Unknown"                     = "Unbekannt";
+"Wrapped Gift"                = "Verpacktes Geschenk";

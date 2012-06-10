@@ -1,3 +1,6 @@
 [submodule "Suitcase/Classes/External/ASIHTTPRequest"]
 	path = Suitcase/Classes/External/ASIHTTPRequest
 	url = git://github.com/pokeb/asi-http-request.git
+[submodule "Suitcase/Classes/External/TTTAttributedLabel"]
+	path = Suitcase/Classes/External/TTTAttributedLabel
+	url = git://github.com/mattt/TTTAttributedLabel.git
