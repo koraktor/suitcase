@@ -9,7 +9,7 @@
 
 #import "ASIHTTPRequest.h"
 #import "SCAppDelegate.h"
-#import "SCDetailViewController.h"
+#import "SCItemViewController.h"
 #import "SCItem.h"
 #import "SCSchema.h"
 
@@ -130,7 +130,7 @@
     
     [self.tableView setDataSource:self];
 
-    self.detailViewController = (SCDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    self.detailViewController = (SCItemViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"Inventory title");
 
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"] == nil) {

@@ -26,11 +26,11 @@
             </objects>
             <point key="canvasLocation" x="2268" y="-1642"/>
         </scene>
-        <!--Detail View Controller - Item-->
+        <!--Item View Controller - Item-->
         <scene sceneID="16">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="15" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="" title="Item" modalPresentationStyle="pageSheet" id="4" customClass="SCDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="" title="Item" modalPresentationStyle="pageSheet" id="4" customClass="SCItemViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="26">
                         <rect key="frame" x="0.0" y="20" width="703" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -490,8 +490,8 @@ http://steamcommunity.com/profile/{Profile ID}
         <class className="SCClassImageView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCClassImageView.h"/>
         </class>
-        <class className="SCDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCDetailViewController.h"/>
+        <class className="SCItemViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemViewController.h"/>
             <relationships>
                 <relationship kind="action" name="showItemSet:"/>
                 <relationship kind="outlet" name="classDemomanImage" candidateClass="SCClassImageView"/>

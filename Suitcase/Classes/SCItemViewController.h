@@ -11,7 +11,7 @@
 #import "SCClassImageView.h"
 #import "SCItem.h"
 
-@interface SCDetailViewController : UIViewController <UISplitViewControllerDelegate>
+@interface SCItemViewController : UIViewController <UISplitViewControllerDelegate>
 
 @property (strong, nonatomic) SCItem *detailItem;
 

@@ -9,14 +9,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+ASIHTTPRequest.h"
 
-#import "SCDetailViewController.h"
+#import "SCItemViewController.h"
 
-@interface SCDetailViewController ()
+@interface SCItemViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 - (void)configureView;
 @end
 
-@implementation SCDetailViewController
+@implementation SCItemViewController
 
 @synthesize detailItem = _detailItem;
 @synthesize classScoutImage = _classScoutImage;
@@ -46,7 +46,7 @@
 {
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
-        
+
         // Update the view.
         [self configureView];
     }
@@ -192,7 +192,7 @@
                 view.hidden = NO;
             }
         }];
-        
+
         if ([self.detailItem.quantity intValue] > 1) {
             self.quantityLabel.text = [NSString stringWithFormat:@"%@ x", self.detailItem.quantity];
             self.quantityLabel.hidden = NO;

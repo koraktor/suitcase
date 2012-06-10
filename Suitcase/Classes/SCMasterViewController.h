@@ -7,11 +7,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class SCDetailViewController;
+@class SCItemViewController;
 
 @interface SCMasterViewController : UITableViewController
 
-@property (strong, nonatomic) SCDetailViewController *detailViewController;
+@property (strong, nonatomic) SCItemViewController *detailViewController;
 
 - (void)loadInventory;
 

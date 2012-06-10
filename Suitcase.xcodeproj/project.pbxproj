@@ -69,8 +69,8 @@
 		028B643C15265D690040D2FF /* SuitcaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B643B15265D690040D2FF /* SuitcaseTests.m */; };
 		028B64931526761C0040D2FF /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B648E1526761C0040D2FF /* SCAppDelegate.m */; };
 		028B64941526761C0040D2FF /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B648E1526761C0040D2FF /* SCAppDelegate.m */; };
-		028B64951526761C0040D2FF /* SCDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64901526761C0040D2FF /* SCDetailViewController.m */; };
-		028B64961526761C0040D2FF /* SCDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64901526761C0040D2FF /* SCDetailViewController.m */; };
+		028B64951526761C0040D2FF /* SCItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64901526761C0040D2FF /* SCItemViewController.m */; };
+		028B64961526761C0040D2FF /* SCItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64901526761C0040D2FF /* SCItemViewController.m */; };
 		028B64971526761C0040D2FF /* SCMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCMasterViewController.m */; };
 		028B64981526761C0040D2FF /* SCMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCMasterViewController.m */; };
 		0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */; };
@@ -169,8 +169,8 @@
 		028B643B15265D690040D2FF /* SuitcaseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuitcaseTests.m; sourceTree = "<group>"; };
 		028B648D1526761C0040D2FF /* SCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCAppDelegate.h; path = Classes/SCAppDelegate.h; sourceTree = "<group>"; };
 		028B648E1526761C0040D2FF /* SCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCAppDelegate.m; path = Classes/SCAppDelegate.m; sourceTree = "<group>"; };
-		028B648F1526761C0040D2FF /* SCDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCDetailViewController.h; path = Classes/SCDetailViewController.h; sourceTree = "<group>"; };
-		028B64901526761C0040D2FF /* SCDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCDetailViewController.m; path = Classes/SCDetailViewController.m; sourceTree = "<group>"; };
+		028B648F1526761C0040D2FF /* SCItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; name = SCItemViewController.h; path = Classes/SCItemViewController.h; sourceTree = "<group>"; };
+		028B64901526761C0040D2FF /* SCItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemViewController.m; path = Classes/SCItemViewController.m; sourceTree = "<group>"; };
 		028B64911526761C0040D2FF /* SCMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCMasterViewController.h; path = Classes/SCMasterViewController.h; sourceTree = "<group>"; };
 		028B64921526761C0040D2FF /* SCMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCMasterViewController.m; path = Classes/SCMasterViewController.m; sourceTree = "<group>"; };
 		0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSteamIdFormController.h; path = Classes/SCSteamIdFormController.h; sourceTree = "<group>"; };
@@ -290,8 +290,8 @@
 				028B648E1526761C0040D2FF /* SCAppDelegate.m */,
 				026F215A156ADA1F00C7BD54 /* SCClassImageView.h */,
 				026F215B156ADA1F00C7BD54 /* SCClassImageView.m */,
-				028B648F1526761C0040D2FF /* SCDetailViewController.h */,
-				028B64901526761C0040D2FF /* SCDetailViewController.m */,
+				028B648F1526761C0040D2FF /* SCItemViewController.h */,
+				028B64901526761C0040D2FF /* SCItemViewController.m */,
 				0255A146155D9BE20092741E /* SCItem.h */,
 				0255A147155D9BE20092741E /* SCItem.m */,
 				028B64911526761C0040D2FF /* SCMasterViewController.h */,
@@ -516,7 +516,7 @@
 			files = (
 				028B641715265D690040D2FF /* main.m in Sources */,
 				028B64931526761C0040D2FF /* SCAppDelegate.m in Sources */,
-				028B64951526761C0040D2FF /* SCDetailViewController.m in Sources */,
+				028B64951526761C0040D2FF /* SCItemViewController.m in Sources */,
 				028B64971526761C0040D2FF /* SCMasterViewController.m in Sources */,
 				0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */,
 				0255A148155D9BE20092741E /* SCItem.m in Sources */,
@@ -542,7 +542,7 @@
 			files = (
 				028B643C15265D690040D2FF /* SuitcaseTests.m in Sources */,
 				028B64941526761C0040D2FF /* SCAppDelegate.m in Sources */,
-				028B64961526761C0040D2FF /* SCDetailViewController.m in Sources */,
+				028B64961526761C0040D2FF /* SCItemViewController.m in Sources */,
 				028B64981526761C0040D2FF /* SCMasterViewController.m in Sources */,
 				0209E13B157951300073385D /* ASIAuthenticationDialog.m in Sources */,
 				0209E13D157951300073385D /* ASIDataCompressor.m in Sources */,
