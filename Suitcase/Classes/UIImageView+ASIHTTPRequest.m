@@ -12,6 +12,25 @@
 
 @implementation UIImageView (ASIHTTPRequest)
 
+static SCImageCache *_imageCache;
+
++ (SCImageCache *)imageCache
+{
+    if (_imageCache == nil) {
+        _imageCache = [[SCImageCache alloc] init];
+    }
+
+    return _imageCache;
+}
+
+- (void)cancelRequest
+{
+    ASIHTTPRequest *request = objc_getAssociatedObject(self, "request");
+    if (request) {
+        [request clearDelegatesAndCancel];
+    }
+}
+
 - (void)setImageWithURL:(NSURL *)url
 {
     [self setImageWithURL:url andPlaceholderImage:nil];
@@ -29,8 +48,17 @@
     andPlaceholderImage:(UIImage *)placeholderImage
         completionBlock:(void (^)(UIImage *))completionBlock
 {
+    [self cancelRequest];
+
     NSURL *currentUrl = objc_getAssociatedObject(self, "url");
     if ([currentUrl isEqual:url]) {
+        return;
+    }
+
+    UIImage *cachedImage = [[UIImageView imageCache] cachedImageForURL:url];
+    if (cachedImage) {
+        self.image = cachedImage;
+        completionBlock(cachedImage);
         return;
     }
 
@@ -49,9 +77,12 @@
         NSData *imageData = [imageRequest responseData];
         dispatch_async(dispatch_get_main_queue(), ^{
             UIImage *image = [UIImage imageWithData:imageData];
+            [[UIImageView imageCache] cacheImage:image forURL:url];
             completionBlock(image);
         });
     }];
+
+    objc_setAssociatedObject(self, "request", imageRequest, OBJC_ASSOCIATION_RETAIN);
 
     [imageRequest startAsynchronous];
 }
