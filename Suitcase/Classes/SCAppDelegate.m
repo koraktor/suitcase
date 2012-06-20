@@ -22,20 +22,22 @@
 {    
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
     
-    // Override point for customization after application launch.
+    UIViewController *masterViewController;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
         UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
         splitViewController.delegate = (id)navigationController.topViewController;
+        masterViewController = [[splitViewController.viewControllers objectAtIndex:0] topViewController];
     } else {
         [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+        masterViewController = ((UINavigationController *)self.window.rootViewController).topViewController;
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchema" object:nil];
 
     NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     if (steamId64 == nil) {
-        [UIApplication.sharedApplication.delegate.window.rootViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
+        [masterViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
     }

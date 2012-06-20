@@ -144,6 +144,10 @@
     return _equippedClasses;
 }
 
+- (NSURL *)iconUrl {
+    return [NSURL URLWithString:[self valueForKey:@"image_url"]];
+}
+
 - (NSURL *)imageUrl {
     return [NSURL URLWithString:[self valueForKey:@"image_url_large"]];
 }

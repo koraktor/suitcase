@@ -12,28 +12,45 @@
 
 @implementation UIImageView (ASIHTTPRequest)
 
-- (void)setImageWithURL:(NSURL *)url {
-    [self setImageWithURL:url completionBlock:^(UIImage *image) {
+- (void)setImageWithURL:(NSURL *)url
+{
+    [self setImageWithURL:url andPlaceholderImage:nil];
+}
+
+- (void)setImageWithURL:(NSURL *)url
+    andPlaceholderImage:(UIImage *)placeholderImage
+{
+    [self setImageWithURL:url andPlaceholderImage:placeholderImage completionBlock:^(UIImage *image) {
         self.image = image;
     }];
 }
 
-- (void)setImageWithURL:(NSURL *)url completionBlock:(void (^)(UIImage *))completionBlock {
+- (void)setImageWithURL:(NSURL *)url
+    andPlaceholderImage:(UIImage *)placeholderImage
+        completionBlock:(void (^)(UIImage *))completionBlock
+{
     NSURL *currentUrl = objc_getAssociatedObject(self, "url");
     if ([currentUrl isEqual:url]) {
         return;
     }
 
-    self.highlightedImage = nil;
-    self.image = nil;
+    if (placeholderImage == nil) {
+        self.highlightedImage = nil;
+        self.image = nil;
+    } else {
+        self.image = placeholderImage;
+    }
 
     objc_setAssociatedObject(self, "url", url, OBJC_ASSOCIATION_RETAIN);
 
     __unsafe_unretained __block ASIHTTPRequest *imageRequest = [ASIHTTPRequest requestWithURL:url];
     [imageRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [imageRequest setCompletionBlock:^{
-        UIImage *image = [UIImage imageWithData:[imageRequest responseData]];
-        completionBlock(image);
+        NSData *imageData = [imageRequest responseData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImage *image = [UIImage imageWithData:imageData];
+            completionBlock(image);
+        });
     }];
 
     [imageRequest startAsynchronous];

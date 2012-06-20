@@ -7,14 +7,19 @@
 
 #import "SCMasterViewController.h"
 
+#import <QuartzCore/QuartzCore.h>
 #import "ASIHTTPRequest.h"
+#import "IASKAppSettingsViewController.h"
+#import "IASKSettingsReader.h"
 #import "SCAppDelegate.h"
+#import "SCInventory.h"
 #import "SCItemViewController.h"
 #import "SCItem.h"
 #import "SCSchema.h"
+#import "UIImageView+ASIHTTPRequest.h"
 
 @interface SCMasterViewController () {
-    NSArray *_items;
+    SCInventory *_inventory;
 	SCSchema *_itemSchema;
     NSLock *_schemaLock;
 }
@@ -33,6 +38,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSchema) name:@"loadSchema" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadInventory) name:@"loadInventory" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged:) name:kIASKAppSettingChanged object:nil];
     
     _schemaLock = [[NSLock alloc] init];
 
@@ -104,31 +110,45 @@
 }
 
 - (void)populateInventoryWithData:(NSArray *)itemsData {
-    NSMutableArray *items = [NSMutableArray arrayWithCapacity:[itemsData count]];
+    self.detailViewController.detailItem = nil;
+
     [_schemaLock lock];
-    [itemsData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [items addObject:[[SCItem alloc] initWithDictionary:obj andSchema:_itemSchema]];
-    }];
+    _inventory = [[SCInventory alloc] initWithItems:itemsData andSchema:_itemSchema];
     [_schemaLock unlock];
-    _items = [items sortedArrayUsingComparator:^NSComparisonResult(SCItem *item1, SCItem *item2) {
-        return [item1.position compare:item2.position];
-    }];
-     self.detailViewController.detailItem = nil;
-    [self.tableView reloadData];
-    if ([_items count] > 0) {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    [_inventory sortItems];
+    [self.tableView setDataSource:_inventory];
+
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        [self.tableView reloadData];
+
+        if ([_inventory.itemSections count] > 0 && [[_inventory.itemSections objectAtIndex:0] count] > 0) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
+    });
+}
+
+- (void)settingsChanged:(NSNotification *)notification {
+    if ([[notification object] isEqual:@"sorting"]) {
+        [_inventory sortItems];
+        [self.tableView reloadData];
+
+        if ([_inventory.itemSections count] > 0 && [[_inventory.itemSections objectAtIndex:0] count] > 0) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
+    } else if ([[notification object] isEqual:@"show_colors"]) {
+        [self.tableView reloadData];
     }
 }
 
 - (IBAction)showSteamIdForm:(id)sender {
-    [UIApplication.sharedApplication.delegate.window.rootViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
+    [self performSegueWithIdentifier:@"SteamIDForm" sender:self];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.tableView setDataSource:self];
 
     self.detailViewController = (SCItemViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"Inventory title");
@@ -136,12 +156,6 @@
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"] == nil) {
         [self showSteamIdForm:self];
     }
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -155,34 +169,10 @@
 
 #pragma mark - Table View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return _items.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-
-    SCItem *item = [_items objectAtIndex:indexPath.row];
-    cell.textLabel.text = item.name;
-    return cell;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        SCItem *item = [_items objectAtIndex:indexPath.row];
+        SCItem *item = [[_inventory.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         self.detailViewController.detailItem = item;
     }
 }
@@ -191,9 +181,21 @@
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        SCItem *item = [_items objectAtIndex:indexPath.row];
-        [[segue destinationViewController] setDetailItem:item];
+        SCItem *item = [[_inventory.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        [segue.destinationViewController setDetailItem:item];
+    } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
+        UINavigationController *navigationController = segue.destinationViewController;
+        IASKAppSettingsViewController *settingsController = (IASKAppSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];
+        settingsController.title = NSLocalizedString(@"Settings", @"Settings");
+        settingsController.delegate = self;
+        settingsController.showCreditsFooter = NO;
+        settingsController.showDoneButton = YES;
     }
+}
+
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
+{
+    [sender.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
 @end

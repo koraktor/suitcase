@@ -81,12 +81,16 @@
     NSDictionary *qualityKeys = [dictionary objectForKey:@"qualities"];
     NSDictionary *qualityNames = [dictionary objectForKey:@"qualityNames"];
     _qualities = [NSMutableArray arrayWithCapacity:[qualityKeys count]];
-    for (int i = 0; i < [effectsArray count]; i ++) {
+    for (int i = 0; i < [qualityKeys count]; i ++) {
         [(NSMutableArray *)_qualities addObject:[NSNull null]];
     }
     [qualityKeys enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *index, BOOL *stop) {
+        NSString *qualityName = [qualityNames objectForKey:key];
+        if (qualityName == nil) {
+            qualityName = [key capitalizedString];
+        }
         [(NSMutableArray *)self.qualities replaceObjectAtIndex:[index integerValue]
-                                                    withObject:[qualityNames objectForKey:key]];
+                                                    withObject:qualityName];
     }];
     _qualities = [_qualities copy];
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Item listing</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Sorting</string>
+			<key>Values</key>
+			<array>
+				<string>position</string>
+				<string>quality</string>
+				<string>type</string>
+				<string>origin</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Sort by inventory position</string>
+				<string>Sort by quality</string>
+				<string>Sort by type</string>
+				<string>Sort by origin</string>
+			</array>
+			<key>Key</key>
+			<string>sorting</string>
+			<key>DefaultValue</key>
+			<string>position</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>show_colors</string>
+			<key>Title</key>
+			<string>Show quality colors</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+	</array>
+	<key>StringsTable</key>
+	<string>Root</string>
+</dict>
+</plist>

@@ -4,3 +4,6 @@
 [submodule "Suitcase/Classes/External/TTTAttributedLabel"]
 	path = Suitcase/Classes/External/TTTAttributedLabel
 	url = git://github.com/mattt/TTTAttributedLabel.git
+[submodule "Suitcase/Classes/External/InAppSettingsKit"]
+	path = Suitcase/Classes/External/InAppSettingsKit
+	url = git://github.com/futuretap/InAppSettingsKit.git

@@ -10,6 +10,9 @@
 @interface UIImageView (ASIHTTPRequest)
 
 - (void)setImageWithURL:(NSURL *)url;
-- (void)setImageWithURL:(NSURL *)url completionBlock:(void (^)(UIImage * image))completionBlock;
+- (void)setImageWithURL:(NSURL *)url andPlaceholderImage:(UIImage *)placeholder;
+- (void)setImageWithURL:(NSURL *)url
+    andPlaceholderImage:(UIImage *)placeholderImage
+        completionBlock:(void (^)(UIImage * image))completionBlock;
 
 @end

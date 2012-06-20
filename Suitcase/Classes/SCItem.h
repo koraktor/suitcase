@@ -23,6 +23,7 @@
 
 - (NSNumber *)defindex;
 - (NSString *)description;
+- (NSURL *)iconUrl;
 - (NSURL *)imageUrl;
 - (NSDictionary *)itemSet;
 - (NSString *)itemType;
