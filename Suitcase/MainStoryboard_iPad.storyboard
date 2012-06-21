@@ -351,7 +351,7 @@ http://steamcommunity.com/profile/{Profile ID}
                     <navigationItem key="navigationItem" title="Inventory" id="40">
                         <barButtonItem key="leftBarButtonItem" image="user.png" id="DrV-SQ-KyY">
                             <connections>
-                                <segue destination="j2j-OJ-mM7" kind="modal" identifier="SteamIDForm" modalPresentationStyle="pageSheet" modalTransitionStyle="coverVertical" id="3wb-4m-iGG"/>
+                                <segue destination="j2j-OJ-mM7" kind="modal" identifier="SteamIDForm" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="3wb-4m-iGG"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="settings.png" id="dml-ED-pTw">
