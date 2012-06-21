@@ -242,47 +242,47 @@ http://steamcommunity.com/profile/{Profile ID}
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="Xr5-1l-OYD" customClass="SCClassImageView">
-                                <rect key="frame" x="50" y="348" width="48" height="48"/>
+                                <rect key="frame" x="55" y="364" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="duO-EM-bmM" customClass="SCClassImageView">
-                                <rect key="frame" x="108" y="348" width="48" height="48"/>
+                                <rect key="frame" x="113" y="364" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="ZqY-F7-O2Y" customClass="SCClassImageView">
-                                <rect key="frame" x="165" y="348" width="48" height="48"/>
+                                <rect key="frame" x="170" y="364" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="eQh-0g-NF1" customClass="SCClassImageView">
-                                <rect key="frame" x="220" y="348" width="48" height="48"/>
+                                <rect key="frame" x="225" y="364" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="QAH-4u-DRB" customClass="SCClassImageView">
-                                <rect key="frame" x="20" y="292" width="48" height="48"/>
+                                <rect key="frame" x="26" y="316" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="ouv-tu-uPv" customClass="SCClassImageView">
-                                <rect key="frame" x="78" y="292" width="48" height="48"/>
+                                <rect key="frame" x="84" y="316" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="Pxf-7N-iFZ" customClass="SCClassImageView">
-                                <rect key="frame" x="136" y="292" width="48" height="48"/>
+                                <rect key="frame" x="142" y="316" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="bW7-6X-aLf" customClass="SCClassImageView">
-                                <rect key="frame" x="192" y="292" width="48" height="48"/>
+                                <rect key="frame" x="198" y="316" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="ZWz-13-Bll" customClass="SCClassImageView">
-                                <rect key="frame" x="248" y="292" width="48" height="48"/>
+                                <rect key="frame" x="254" y="316" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
