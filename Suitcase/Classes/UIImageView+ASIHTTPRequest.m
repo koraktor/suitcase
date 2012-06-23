@@ -39,13 +39,17 @@ static SCImageCache *_imageCache;
 - (void)setImageWithURL:(NSURL *)url
     andPlaceholderImage:(UIImage *)placeholderImage
 {
-    [self setImageWithURL:url andPlaceholderImage:placeholderImage completionBlock:^(UIImage *image) {
+    [self setImageWithURL:url
+      andPlaceholderImage:placeholderImage
+      postprocessingBlock:nil
+          completionBlock:^(UIImage *image) {
         self.image = image;
     }];
 }
 
 - (void)setImageWithURL:(NSURL *)url
     andPlaceholderImage:(UIImage *)placeholderImage
+    postprocessingBlock:(UIImage *(^)(UIImage *))postprocessingBlock
         completionBlock:(void (^)(UIImage *))completionBlock
 {
     [self cancelRequest];
@@ -58,7 +62,9 @@ static SCImageCache *_imageCache;
     UIImage *cachedImage = [[UIImageView imageCache] cachedImageForURL:url];
     if (cachedImage) {
         self.image = cachedImage;
-        completionBlock(cachedImage);
+        if (completionBlock != nil) {
+            completionBlock(cachedImage);
+        }
         return;
     }
 
@@ -77,8 +83,13 @@ static SCImageCache *_imageCache;
         NSData *imageData = [imageRequest responseData];
         dispatch_async(dispatch_get_main_queue(), ^{
             UIImage *image = [UIImage imageWithData:imageData];
+            if (postprocessingBlock != nil) {
+                image = postprocessingBlock(image);
+            }
             [[UIImageView imageCache] cacheImage:image forURL:url];
-            completionBlock(image);
+            if (completionBlock != nil) {
+                completionBlock(image);
+            }
         });
     }];
 

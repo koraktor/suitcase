@@ -18,6 +18,7 @@
 - (void)setImageWithURL:(NSURL *)url andPlaceholderImage:(UIImage *)placeholder;
 - (void)setImageWithURL:(NSURL *)url
     andPlaceholderImage:(UIImage *)placeholderImage
-        completionBlock:(void (^)(UIImage * image))completionBlock;
+    postprocessingBlock:(UIImage *(^)(UIImage *image))postprocessingBlock
+        completionBlock:(void (^)(UIImage *image))completionBlock;
 
 @end

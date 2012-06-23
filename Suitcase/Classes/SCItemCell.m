@@ -39,14 +39,17 @@
 
     [self.imageView setImageWithURL:[item iconUrl]
                 andPlaceholderImage:[UIImage imageNamed:@"item_placeholder.png"]
-                    completionBlock:^(UIImage *image) {
+                    postprocessingBlock:^UIImage *(UIImage *image) {
                         CGSize size = CGSizeMake(44.0 * [[UIScreen mainScreen] scale], 44.0 * [[UIScreen mainScreen] scale]);
                         UIGraphicsBeginImageContext(size);
                         [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
                         UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
                         UIGraphicsEndImageContext();
 
-                        self.imageView.image = scaledImage;
+                        return scaledImage;
+                    }
+                    completionBlock:^(UIImage *image) {
+                        self.imageView.image = image;
                     }];
 
     self.textLabel.text = item.name;

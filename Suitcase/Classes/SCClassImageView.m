@@ -49,7 +49,10 @@
 {
     UIImageView *imageView = self.imageView;
 
-    [imageView setImageWithURL:url andPlaceholderImage:nil completionBlock:^(UIImage *image){
+    [imageView setImageWithURL:url
+           andPlaceholderImage:nil
+           postprocessingBlock:nil
+               completionBlock:^(UIImage *image){
         CGFloat scale = [[UIScreen mainScreen] scale];
         CGRect imageRect = CGRectMake(0, 0, image.size.width * scale, image.size.height * scale);
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
