@@ -9,6 +9,7 @@
 
 #import "SCInventory.h"
 #import "SCItem.h"
+#import "SCItemCell.h"
 #import "UIImageView+ASIHTTPRequest.h"
 
 @interface SCInventory () {
@@ -94,43 +95,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ItemCell"];
-
     SCItem *item = [[_itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-
-    [cell.imageView setImageWithURL:[item iconUrl]
-                andPlaceholderImage:[UIImage imageNamed:@"item_placeholder.png"]
-                    completionBlock:^(UIImage *image) {
-                        CGSize size = CGSizeMake(44.0 * [[UIScreen mainScreen] scale], 44.0 * [[UIScreen mainScreen] scale]);
-                        UIGraphicsBeginImageContext(size);
-                        [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-                        UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-                        UIGraphicsEndImageContext();
-
-                        cell.imageView.image = scaledImage;
-                    }];
-    cell.imageView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-    cell.imageView.layer.shadowOpacity = 1.0;
-    cell.imageView.layer.shadowRadius = 5.0;
-
-    cell.textLabel.text = item.name;
-
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue]) {
-        NSInteger itemQuality = [[[item dictionary] objectForKey:@"quality"] integerValue];
-        if (itemQuality == 3) {
-            cell.imageView.layer.shadowColor = [[UIColor colorWithRed:0.11 green:0.39 blue:0.82 alpha:1.0] CGColor];
-        } else if (itemQuality == 5) {
-            cell.imageView.layer.shadowColor = [[UIColor colorWithRed:0.53 green:0.33 blue:0.82 alpha:1.0] CGColor];
-        } else if (itemQuality == 7) {
-            cell.imageView.layer.shadowColor = [[UIColor colorWithRed:0.11 green:0.52 blue:0.17 alpha:1.0] CGColor];
-        } else if (itemQuality == 11) {
-            cell.imageView.layer.shadowColor = [[UIColor colorWithRed:0.76 green:0.52 blue:0.17 alpha:1.0] CGColor];
-        } else {
-            cell.imageView.layer.shadowColor = [[UIColor colorWithWhite:0.2 alpha:1.0] CGColor];
-        }
-    } else {
-        cell.imageView.layer.shadowColor = [[UIColor colorWithWhite:0.2 alpha:1.0] CGColor];
-    }
+    SCItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ItemCell"];
+    cell.item = item;
+    [cell setShowColors:[[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue]];
 
     return cell;
 }

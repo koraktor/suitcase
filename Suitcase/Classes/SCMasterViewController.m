@@ -7,7 +7,6 @@
 
 #import "SCMasterViewController.h"
 
-#import <QuartzCore/QuartzCore.h>
 #import "ASIHTTPRequest.h"
 #import "IASKAppSettingsViewController.h"
 #import "IASKSettingsReader.h"
@@ -15,7 +14,9 @@
 #import "SCInventory.h"
 #import "SCItemViewController.h"
 #import "SCItem.h"
+#import "SCItemCell.h"
 #import "SCSchema.h"
+#import "SCSteamIdFormController.h"
 #import "UIImageView+ASIHTTPRequest.h"
 
 @interface SCMasterViewController () {
@@ -36,16 +37,38 @@
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
     }
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSchema) name:@"loadSchema" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadInventory) name:@"loadInventory" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingsChanged:) name:kIASKAppSettingChanged object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(settingsChanged:)
+                                                 name:kIASKAppSettingChanged
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadSchema)
+                                                 name:@"loadSchema" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadInventory)
+                                                 name:@"loadInventory"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshInventory)
+                                                 name:@"refreshInventory"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sortInventory)
+                                                 name:@"sortInventory"
+                                               object:nil];
     
     _schemaLock = [[NSLock alloc] init];
 
     [super awakeFromNib];
 }
 
-- (void)loadInventory {    
+- (void)loadInventory
+{
+    UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
+    if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
+        [(SCSteamIdFormController *)modal dismissForm:self];
+    }
+
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetPlayerItems/v0001?steamid=%@&key=%@", steamId64, [SCAppDelegate apiKey]]];
     __unsafe_unretained __block ASIHTTPRequest *inventoryRequest = [ASIHTTPRequest requestWithURL:inventoryUrl];
@@ -160,15 +183,9 @@
 
 - (void)settingsChanged:(NSNotification *)notification {
     if ([[notification object] isEqual:@"sorting"]) {
-        [_inventory sortItems];
-        [self.tableView reloadData];
-
-        if ([_inventory.itemSections count] > 0 && [[_inventory.itemSections objectAtIndex:0] count] > 0) {
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        }
+        [self sortInventory];
     } else if ([[notification object] isEqual:@"show_colors"]) {
-        [self.tableView reloadData];
+        [self refreshInventory];
     }
 }
 
@@ -223,9 +240,33 @@
     }
 }
 
+- (void)refreshInventory
+{
+    BOOL showColors = [[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue];
+    for (SCItemCell *cell in [self.tableView visibleCells]) {
+        [cell setShowColors:showColors];
+    }
+}
+
+- (void)sortInventory
+{
+    [_inventory sortItems];
+    [self.tableView reloadData];
+
+    if ([_inventory.itemSections count] > 0 && [[_inventory.itemSections objectAtIndex:0] count] > 0) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                              atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+}
+
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
     [sender.parentViewController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

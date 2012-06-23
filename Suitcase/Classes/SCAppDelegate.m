@@ -10,6 +10,11 @@
 
 #import "SCAppDelegate.h"
 
+@interface SCAppDelegate () {
+    NSDictionary *_storedDefaults;
+}
+@end
+
 @implementation SCAppDelegate
 
 @synthesize window = _window;
@@ -42,34 +47,98 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
     }
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(resolveSteamId)
+                                                 name:@"resolveSteamId"
+                                               object:nil];
+
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    _storedDefaults = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(defaultsChanged:)
+                                                 name:NSUserDefaultsDidChangeNotification
+                                               object:nil];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
+- (void)defaultsChanged:(NSNotification *)notification
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSUserDefaultsDidChangeNotification
+                                                  object:nil];
+
+    NSUserDefaults *defaults = notification.object;
+
+    if (![[defaults objectForKey:@"SteamID"] isEqual:[_storedDefaults objectForKey:@"SteamID"]]) {
+        [self resolveSteamId];
+    } else if (![[defaults objectForKey:@"show_colors"] isEqual:[_storedDefaults objectForKey:@"show_colors"]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshInventory" object:nil];
+    } else if (![[defaults objectForKey:@"sorting"] isEqual:[_storedDefaults objectForKey:@"sorting"]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sortInventory" object:nil];
+    }
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
+- (void)resolveSteamId
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    NSString *steamId = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID"];
+    steamId = [steamId stringByReplacingOccurrencesOfString:@"(?:http://)?steamcommunity\\.com/(id|profiles)/"
+                                                 withString:@""
+                                                    options:NSRegularExpressionSearch
+                                                      range:NSMakeRange(0, steamId.length)];
+    __block NSNumber *steamId64 = [[[NSNumberFormatter alloc] init] numberFromString:steamId];
+
+    void (^SteamIdFound)() = ^() {
+        NSNumber *currentSteamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
+        if (![currentSteamId64 isEqual:steamId64]) {
+            [[NSUserDefaults standardUserDefaults] setObject:steamId forKey:@"SteamID"];
+            [[NSUserDefaults standardUserDefaults] setObject:steamId64 forKey:@"SteamID64"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
+        }
+    };
+
+    if (steamId64 == nil) {
+        NSURL *steamIdUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001?vanityurl=%@&key=%@", steamId, [SCAppDelegate apiKey]]];
+        __unsafe_unretained __block ASIHTTPRequest *steamIdRequest = [ASIHTTPRequest requestWithURL:steamIdUrl];
+        [steamIdRequest setCompletionBlock:^{
+            NSError *error = nil;
+            NSDictionary *steamIdResponse = [[NSJSONSerialization JSONObjectWithData:[steamIdRequest responseData] options:0 error:&error] objectForKey:@"response"];
+            if ([[steamIdResponse objectForKey:@"success"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+                steamId64 = [steamIdResponse objectForKey:@"steamid"];
+                SteamIdFound();
+            } else {
+                NSString *errorMsg = [NSString stringWithFormat:@"Error resolving Steam ID: %@", [steamIdResponse objectForKey:@"message"]];
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
+        }];
+        [steamIdRequest setFailedBlock:^{
+            NSError *error = [steamIdRequest error];
+            NSString *errorMessage;
+            if (error == nil) {
+                errorMessage = [steamIdRequest responseStatusMessage];
+            } else {
+                errorMessage = [error localizedDescription];
+            }
+            NSLog(@"Error resolving Steam ID: %@", errorMessage);
+            NSString *errorMsg = [NSString stringWithFormat:@"Error resolving Steam ID: %@", errorMessage];
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"SteamID"];
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"SteamID64"];
+        }];
+
+        [steamIdRequest startSynchronous];
+    } else {
+        SteamIdFound();
+    }
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
+- (void)dealloc
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

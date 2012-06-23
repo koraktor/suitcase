@@ -14,4 +14,7 @@
 
 + (NSString *)apiKey;
 
+- (void)defaultsChanged:(NSNotification *)notification;
+- (void)resolveSteamId;
+
 @end

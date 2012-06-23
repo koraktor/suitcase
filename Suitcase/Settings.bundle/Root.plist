@@ -5,6 +5,14 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
+			<key>Key</key>
+			<string>SteamID</string>
+			<key>Title</key>
+			<string>Steam ID</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>Item listing</string>
 			<key>Type</key>
