@@ -59,7 +59,9 @@
 {
     if (showColors) {
         NSInteger itemQuality = [[[_item dictionary] objectForKey:@"quality"] integerValue];
-        if (itemQuality == 3) {
+        if (itemQuality == 1) {
+            self.imageView.layer.shadowColor = [[UIColor colorWithRed:0.0 green:0.39 blue:0.0 alpha:1.0] CGColor];
+        } else if (itemQuality == 3) {
             self.imageView.layer.shadowColor = [[UIColor colorWithRed:0.11 green:0.39 blue:0.82 alpha:1.0] CGColor];
         } else if (itemQuality == 5) {
             self.imageView.layer.shadowColor = [[UIColor colorWithRed:0.53 green:0.33 blue:0.82 alpha:1.0] CGColor];
