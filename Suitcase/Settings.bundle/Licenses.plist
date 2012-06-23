@@ -46,6 +46,22 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Icons from:</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>Title</key>
+			<string>TWG Retina Display Icon Set</string>
+			<key>Key</key>
+			<string>TWG Retina Display Icon Set</string>
+		</dict>
 	</array>
 </dict>
 </plist>
