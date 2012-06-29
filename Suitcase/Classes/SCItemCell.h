@@ -12,7 +12,9 @@
 @interface SCItemCell : UITableViewCell
 
 @property (strong, nonatomic) SCItem *item;
+@property (nonatomic) BOOL showColors;
 
-- (void)setShowColors:(BOOL)showColors;
+- (void)changeColor;
+- (void)loadImage;
 
 @end

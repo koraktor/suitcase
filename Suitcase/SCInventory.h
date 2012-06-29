@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) NSArray *itemSections;
 @property (strong, nonatomic) SCSchema *schema;
+@property (nonatomic) BOOL showColors;
 
 - (id)initWithItems:(NSArray *)items andSchema:(SCSchema *)schema;
 

@@ -13,6 +13,7 @@
 @implementation SCItemCell
 
 @synthesize item = _item;
+@synthesize showColors = _showColors;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -25,39 +26,9 @@
     return self;
 }
 
-- (void)layoutSubviews
+- (void)changeColor
 {
-    [super layoutSubviews];
-
-    self.imageView.frame = CGRectMake(0.0, 0.0, 44.0, 44.0);
-    self.textLabel.frame = CGRectMake(53.0, 0.0, 257.0, 43.0);
-}
-
-- (void)setItem:(SCItem *)item
-{
-    _item = item;
-
-    [self.imageView setImageWithURL:[item iconUrl]
-                andPlaceholderImage:[UIImage imageNamed:@"item_placeholder.png"]
-                    postprocessingBlock:^UIImage *(UIImage *image) {
-                        CGSize size = CGSizeMake(44.0 * [[UIScreen mainScreen] scale], 44.0 * [[UIScreen mainScreen] scale]);
-                        UIGraphicsBeginImageContext(size);
-                        [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-                        UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-                        UIGraphicsEndImageContext();
-
-                        return scaledImage;
-                    }
-                    completionBlock:^(UIImage *image) {
-                        self.imageView.image = image;
-                    }];
-
-    self.textLabel.text = item.name;
-}
-
-- (void)setShowColors:(BOOL)showColors
-{
-    if (showColors) {
+    if (_showColors) {
         NSInteger itemQuality = [[[_item dictionary] objectForKey:@"quality"] integerValue];
         if (itemQuality == 1) {
             self.imageView.layer.shadowColor = [[UIColor colorWithRed:0.0 green:0.39 blue:0.0 alpha:1.0] CGColor];
@@ -75,6 +46,41 @@
     } else {
         self.imageView.layer.shadowColor = [[UIColor colorWithWhite:0.2 alpha:1.0] CGColor];
     }
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    self.imageView.frame = CGRectMake(0.0, 0.0, 44.0, 44.0);
+    self.textLabel.frame = CGRectMake(53.0, 0.0, 257.0, 43.0);
+}
+
+- (void)loadImage
+{
+    [self.imageView setImageWithURL:[_item iconUrl]
+                andPlaceholderImage:[UIImage imageNamed:@"item_placeholder.png"]
+                postprocessingBlock:^UIImage *(UIImage *image) {
+                    CGSize size = CGSizeMake(44.0 * [[UIScreen mainScreen] scale], 44.0 * [[UIScreen mainScreen] scale]);
+                    UIGraphicsBeginImageContext(size);
+                    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+                    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+                    UIGraphicsEndImageContext();
+
+                    return scaledImage;
+                }
+                    completionBlock:^(UIImage *image) {
+                        self.imageView.image = image;
+                    }];
+
+    [self changeColor];
+}
+
+- (void)setItem:(SCItem *)item
+{
+    _item = item;
+
+    self.textLabel.text = item.name;
 }
 
 @end

@@ -22,6 +22,7 @@
 
 @synthesize itemSections = _itemSections;
 @synthesize schema = _schema;
+@synthesize showColors = _showColors;
 
 - (id)initWithItems:(NSArray *)itemsData andSchema:(SCSchema *)schema {
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:[itemsData count]];
@@ -30,6 +31,7 @@
     }];
     _items = items;
     _schema = schema;
+    _showColors = [[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue];
 
     return self;
 }
@@ -98,7 +100,11 @@
     SCItem *item = [[_itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     SCItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ItemCell"];
     cell.item = item;
-    [cell setShowColors:[[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue]];
+    cell.showColors = _showColors;
+
+    if (!tableView.dragging || tableView.decelerating) {
+        [cell loadImage];
+    }
 
     return cell;
 }

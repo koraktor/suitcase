@@ -185,6 +185,7 @@
     if ([[notification object] isEqual:@"sorting"]) {
         [self sortInventory];
     } else if ([[notification object] isEqual:@"show_colors"]) {
+        _inventory.showColors = [[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue];
         [self refreshInventory];
     }
 }
@@ -242,9 +243,9 @@
 
 - (void)refreshInventory
 {
-    BOOL showColors = [[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue];
     for (SCItemCell *cell in [self.tableView visibleCells]) {
-        [cell setShowColors:showColors];
+        cell.showColors = _inventory.showColors;
+        [cell changeColor];
     }
 }
 
