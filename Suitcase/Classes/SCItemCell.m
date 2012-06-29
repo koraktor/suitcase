@@ -15,6 +15,9 @@
 @synthesize item = _item;
 @synthesize showColors = _showColors;
 
+#define kImageViewFrame (CGRectMake(0.0, 0.0, 44.0, 44.0))
+#define ktextLabelFrame (CGRectMake(53.0, 0.0, 257.0, 43.0))
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -52,8 +55,8 @@
 {
     [super layoutSubviews];
 
-    self.imageView.frame = CGRectMake(0.0, 0.0, 44.0, 44.0);
-    self.textLabel.frame = CGRectMake(53.0, 0.0, 257.0, 43.0);
+    self.imageView.frame = kImageViewFrame;
+    self.textLabel.frame = ktextLabelFrame;
 }
 
 - (void)loadImage
