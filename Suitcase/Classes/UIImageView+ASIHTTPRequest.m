@@ -52,12 +52,12 @@ static SCImageCache *_imageCache;
     postprocessingBlock:(UIImage *(^)(UIImage *))postprocessingBlock
         completionBlock:(void (^)(UIImage *))completionBlock
 {
-    [self cancelRequest];
-
     NSURL *currentUrl = objc_getAssociatedObject(self, "url");
     if ([currentUrl isEqual:url]) {
         return;
     }
+
+    [self cancelRequest];
 
     UIImage *cachedImage = [[UIImageView imageCache] cachedImageForURL:url];
     if (cachedImage) {
