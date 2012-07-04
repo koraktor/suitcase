@@ -363,10 +363,32 @@ Kill eater score</string>
                         <outletCollection property="icons" destination="WQ1-Pi-F4J" id="I2U-VW-CLU"/>
                         <outletCollection property="icons" destination="7jq-aT-cM8" id="RpY-Ml-nl8"/>
                         <outletCollection property="icons" destination="m1u-TZ-6Pt" id="3PC-fF-pPf"/>
+                        <segue destination="Rbk-sh-M5b" kind="push" identifier="showItemSet" id="XHB-f3-kTS"/>
                     </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="902" y="64"/>
+        </scene>
+        <!--View Controller - Item Set-->
+        <scene sceneID="30b-1X-4mC">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qoq-V6-2So" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController title="Item Set" id="Rbk-sh-M5b" sceneMemberID="viewController">
+                    <label key="view" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item set" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="d1R-KG-DpA" customClass="TTTAttributedLabel">
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <size key="shadowOffset" width="0.0" height="1"/>
+                    </label>
+                    <navigationItem key="navigationItem" id="Qdi-Gf-Vp0"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1429" y="57"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tpM-Sl-7CZ">
@@ -446,9 +468,12 @@ Kill eater score</string>
                 <relationship kind="outlet" name="steamIdField" candidateClass="UITextField"/>
             </relationships>
         </class>
+        <class className="TTTAttributedLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
+        </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
