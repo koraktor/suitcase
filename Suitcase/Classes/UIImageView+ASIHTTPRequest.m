@@ -75,7 +75,7 @@ static SCImageCache *_imageCache;
         self.image = placeholderImage;
     }
 
-    objc_setAssociatedObject(self, "url", url, OBJC_ASSOCIATION_RETAIN);
+    objc_setAssociatedObject(self, "url", url, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
     ASIHTTPRequest *imageRequest = [ASIHTTPRequest requestWithURL:url];
     __weak ASIHTTPRequest *weakImageRequest = imageRequest;
@@ -91,10 +91,11 @@ static SCImageCache *_imageCache;
             if (completionBlock != nil) {
                 completionBlock(image);
             }
+            objc_setAssociatedObject(self, "request", nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         });
     }];
 
-    objc_setAssociatedObject(self, "request", imageRequest, OBJC_ASSOCIATION_RETAIN);
+    objc_setAssociatedObject(self, "request", imageRequest, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
     [imageRequest startAsynchronous];
 }
