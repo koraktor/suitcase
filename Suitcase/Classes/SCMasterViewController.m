@@ -196,16 +196,19 @@
     [self performSegueWithIdentifier:@"SteamIDForm" sender:self];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"] == nil) {
+        [self showSteamIdForm:self];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     self.detailViewController = (SCItemViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"Inventory title");
-
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"] == nil) {
-        [self showSteamIdForm:self];
-    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
