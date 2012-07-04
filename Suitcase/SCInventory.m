@@ -31,7 +31,12 @@
     }];
     _items = items;
     _schema = schema;
-    _showColors = [[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue];
+    NSNumber *showColors = [[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"];
+    if (showColors == nil) {
+        _showColors = YES;
+    } else {
+        _showColors = [showColors boolValue];
+    }
 
     return self;
 }
