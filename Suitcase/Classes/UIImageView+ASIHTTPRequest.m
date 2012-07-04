@@ -77,10 +77,11 @@ static SCImageCache *_imageCache;
 
     objc_setAssociatedObject(self, "url", url, OBJC_ASSOCIATION_RETAIN);
 
-    __unsafe_unretained __block ASIHTTPRequest *imageRequest = [ASIHTTPRequest requestWithURL:url];
+    ASIHTTPRequest *imageRequest = [ASIHTTPRequest requestWithURL:url];
+    __weak ASIHTTPRequest *weakImageRequest = imageRequest;
     [imageRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [imageRequest setCompletionBlock:^{
-        NSData *imageData = [imageRequest responseData];
+        NSData *imageData = [weakImageRequest responseData];
         dispatch_async(dispatch_get_main_queue(), ^{
             UIImage *image = [UIImage imageWithData:imageData];
             if (postprocessingBlock != nil) {

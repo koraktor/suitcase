@@ -71,16 +71,17 @@
 
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetPlayerItems/v0001?steamid=%@&key=%@", steamId64, [SCAppDelegate apiKey]]];
-    __unsafe_unretained __block ASIHTTPRequest *inventoryRequest = [ASIHTTPRequest requestWithURL:inventoryUrl];
+    ASIHTTPRequest *inventoryRequest = [ASIHTTPRequest requestWithURL:inventoryUrl];
+    __weak ASIHTTPRequest *weakInventoryRequest = inventoryRequest;
     [inventoryRequest setCompletionBlock:^{
         NSString *errorMsg;
 
-        if ([inventoryRequest responseStatusCode] >= 500) {
-            errorMsg = [inventoryRequest responseStatusMessage];
+        if ([weakInventoryRequest responseStatusCode] >= 500) {
+            errorMsg = [weakInventoryRequest responseStatusMessage];
         }
 
         NSError *error = nil;
-        NSDictionary *inventoryResponse = [[NSJSONSerialization JSONObjectWithData:[inventoryRequest responseData] options:0 error:&error] objectForKey:@"result"];
+        NSDictionary *inventoryResponse = [[NSJSONSerialization JSONObjectWithData:[weakInventoryRequest responseData] options:0 error:&error] objectForKey:@"result"];
 
         if (error != nil) {
             errorMsg = [error localizedDescription];
@@ -98,10 +99,10 @@
         }
     }];
     [inventoryRequest setFailedBlock:^{
-        NSError *error = [inventoryRequest error];
+        NSError *error = [weakInventoryRequest error];
         NSString *errorMessage;
         if (error == nil) {
-            errorMessage = [inventoryRequest responseStatusMessage];
+            errorMessage = [weakInventoryRequest responseStatusMessage];
         } else {
             errorMessage = [error localizedDescription];
         }
@@ -114,17 +115,18 @@
 
 - (void)loadSchema {
     NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetSchema/v0001?key=%@&language=%@", [SCAppDelegate apiKey], [[NSLocale preferredLanguages] objectAtIndex:0]]];
-    __unsafe_unretained __block ASIHTTPRequest *schemaRequest = [ASIHTTPRequest requestWithURL:schemaUrl];
+    ASIHTTPRequest *schemaRequest = [ASIHTTPRequest requestWithURL:schemaUrl];
+    __weak ASIHTTPRequest *weakSchemaRequest = schemaRequest;
     [schemaRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [schemaRequest setCompletionBlock:^{
         NSString *errorMsg;
 
-        if ([schemaRequest responseStatusCode] >= 500) {
-            errorMsg = [schemaRequest responseStatusMessage];
+        if ([weakSchemaRequest responseStatusCode] >= 500) {
+            errorMsg = [weakSchemaRequest responseStatusMessage];
         }
 
         NSError *error = nil;
-        NSDictionary *schemaResponse = [[NSJSONSerialization JSONObjectWithData:[schemaRequest responseData] options:0 error:&error] objectForKey:@"result"];
+        NSDictionary *schemaResponse = [[NSJSONSerialization JSONObjectWithData:[weakSchemaRequest responseData] options:0 error:&error] objectForKey:@"result"];
 
         if (error != nil) {
             errorMsg = [error localizedDescription];
@@ -144,10 +146,10 @@
         [_schemaLock unlock];
     }];
     [schemaRequest setFailedBlock:^{
-        NSError *error = [schemaRequest error];
+        NSError *error = [weakSchemaRequest error];
         NSString *errorMessage;
         if (error == nil) {
-            errorMessage = [schemaRequest responseStatusMessage];
+            errorMessage = [weakSchemaRequest responseStatusMessage];
         } else {
             errorMessage = [error localizedDescription];
         }
