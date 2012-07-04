@@ -10,13 +10,25 @@
 #import "SCItemCell.h"
 #import "UIImageView+ASIHTTPRequest.h"
 
+static CGRect kImageViewFrame;
+static CGRect kimageViewFrameScaled;
+static CGSize kImageViewSize;
+static UIImage *kPlaceHolderImage;
+static CGRect kTextLabelFrame;
+
 @implementation SCItemCell
 
 @synthesize item = _item;
 @synthesize showColors = _showColors;
 
-#define kImageViewFrame (CGRectMake(0.0, 0.0, 44.0, 44.0))
-#define kTextLabelFrame (CGRectMake(53.0, 0.0, 257.0, 43.0))
++ (void)initialize
+{
+    kImageViewFrame = CGRectMake(0.0, 0.0, 44.0, 44.0);
+    kImageViewSize = CGSizeMake(44.0 * [[UIScreen mainScreen] scale], 44.0 * [[UIScreen mainScreen] scale]);
+    kimageViewFrameScaled = CGRectMake(0, 0, kImageViewSize.width, kImageViewSize.height);
+    kPlaceHolderImage = [UIImage imageNamed:@"item_placeholder.png"];
+    kTextLabelFrame = CGRectMake(53.0, 0.0, 257.0, 43.0);
+}
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -62,11 +74,10 @@
 - (void)loadImage
 {
     [self.imageView setImageWithURL:[_item iconUrl]
-                andPlaceholderImage:[UIImage imageNamed:@"item_placeholder.png"]
+                andPlaceholderImage:kPlaceHolderImage
                 postprocessingBlock:^UIImage *(UIImage *image) {
-                    CGSize size = CGSizeMake(44.0 * [[UIScreen mainScreen] scale], 44.0 * [[UIScreen mainScreen] scale]);
-                    UIGraphicsBeginImageContext(size);
-                    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+                    UIGraphicsBeginImageContext(kImageViewSize);
+                    [image drawInRect:kimageViewFrameScaled];
                     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
                     UIGraphicsEndImageContext();
 
