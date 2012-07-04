@@ -106,10 +106,7 @@
     SCItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ItemCell"];
     cell.item = item;
     cell.showColors = _showColors;
-
-    if (!tableView.dragging || tableView.decelerating) {
-        [cell loadImage];
-    }
+    [cell loadImage];
 
     return cell;
 }
