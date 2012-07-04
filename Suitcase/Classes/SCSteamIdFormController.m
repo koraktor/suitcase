@@ -53,6 +53,7 @@
 
     self.helpLabel.text = NSLocalizedString(self.helpLabel.text, @"SteamID help");
     self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"SteamID form title");
+    self.navigationItem.rightBarButtonItem.enabled = ([[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID"] != nil);
 }
 
 - (void)viewDidUnload {
