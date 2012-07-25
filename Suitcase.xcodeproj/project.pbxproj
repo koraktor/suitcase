@@ -568,8 +568,9 @@
 			buildPhases = (
 				028B640215265D680040D2FF /* Sources */,
 				028B640315265D680040D2FF /* Frameworks */,
-				029B08F5159262FF00BD6271 /* ShellScript */,
+				0252CC4F15C055AE0040C949 /* ShellScript */,
 				028B640415265D680040D2FF /* Resources */,
+				029B08F5159262FF00BD6271 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -688,6 +689,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0252CC4F15C055AE0040C949 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "gitSha=$(git log -1 --pretty=format:%h)\n/usr/libexec/PlistBuddy -c \"Delete CFBundleVersion\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Add CFBundleVersion string $gitSha\" Suitcase/Suitcase-Info.plist";
+		};
 		028B642B15265D690040D2FF /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
