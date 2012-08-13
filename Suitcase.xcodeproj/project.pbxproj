@@ -111,7 +111,7 @@
 		02E7218B15938C4700A18BF1 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E7218415938BE400A18BF1 /* Default@2x.png */; };
 		02F37EC0158014EE00BFB1B5 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F37EBF158014EE00BFB1B5 /* TTTAttributedLabel.m */; };
 		02F37EC41580152300BFB1B5 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F37EC31580152300BFB1B5 /* CoreText.framework */; };
-		02F37EC515811ECD00BFB1B5 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F37EBF158014EE00BFB1B5 /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		02F37EC515811ECD00BFB1B5 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F37EBF158014EE00BFB1B5 /* TTTAttributedLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
