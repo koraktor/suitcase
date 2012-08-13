@@ -5,7 +5,7 @@
 //  Copyright (c) 2012, Sebastian Staudt
 //
 
-#import "SCMasterViewController.h"
+#import "SCInventoryViewController.h"
 
 #import "ASIHTTPRequest.h"
 #import "IASKAppSettingsViewController.h"
@@ -19,15 +19,16 @@
 #import "SCSteamIdFormController.h"
 #import "UIImageView+ASIHTTPRequest.h"
 
-@interface SCMasterViewController () {
+@interface SCInventoryViewController () {
     SCInventory *_inventory;
 	SCSchema *_itemSchema;
     NSLock *_schemaLock;
 }
 @end
 
-@implementation SCMasterViewController
+@implementation SCInventoryViewController
 
+@synthesize appId = _appId;
 @synthesize detailViewController = _detailViewController;
 
 - (void)awakeFromNib
@@ -56,7 +57,7 @@
                                              selector:@selector(sortInventory)
                                                  name:@"sortInventory"
                                                object:nil];
-    
+
     _schemaLock = [[NSLock alloc] init];
 
     [super awakeFromNib];
@@ -70,7 +71,7 @@
     }
 
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
-    NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetPlayerItems/v0001?steamid=%@&key=%@", steamId64, [SCAppDelegate apiKey]]];
+    NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_%@/GetPlayerItems/v0001?steamid=%@&key=%@", _appId, steamId64, [SCAppDelegate apiKey]]];
     ASIHTTPRequest *inventoryRequest = [ASIHTTPRequest requestWithURL:inventoryUrl];
     __weak ASIHTTPRequest *weakInventoryRequest = inventoryRequest;
     [inventoryRequest setCompletionBlock:^{
@@ -114,7 +115,7 @@
 }
 
 - (void)loadSchema {
-    NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_440/GetSchema/v0001?key=%@&language=%@", [SCAppDelegate apiKey], [[NSLocale preferredLanguages] objectAtIndex:0]]];
+    NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_%@/GetSchema/v0001?key=%@&language=%@", _appId, [SCAppDelegate apiKey], [[NSLocale preferredLanguages] objectAtIndex:0]]];
     ASIHTTPRequest *schemaRequest = [ASIHTTPRequest requestWithURL:schemaUrl];
     __weak ASIHTTPRequest *weakSchemaRequest = schemaRequest;
     [schemaRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
@@ -192,15 +193,9 @@
     }
 }
 
-- (IBAction)showSteamIdForm:(id)sender {
-    [self performSegueWithIdentifier:@"SteamIDForm" sender:self];
-}
-
-- (void)viewDidAppear:(BOOL)animated
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"] == nil) {
-        [self showSteamIdForm:self];
-    }
+    [sender.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad
@@ -242,7 +237,7 @@
         settingsController.title = NSLocalizedString(@"Settings", @"Settings");
         settingsController.delegate = self;
         settingsController.showCreditsFooter = NO;
-        settingsController.showDoneButton = YES;
+        settingsController.showDoneButton = NO;
     }
 }
 
@@ -263,11 +258,6 @@
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                               atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
-}
-
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
-{
-    [sender.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)dealloc

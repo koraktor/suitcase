@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -18,11 +17,11 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="12" kind="relationship" relationship="rootViewController" id="19"/>
+                        <segue destination="OFf-mD-FT8" kind="relationship" relationship="rootViewController" id="hTJ-TF-nzW"/>
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-1" y="64"/>
+            <point key="canvasLocation" x="-41" y="64"/>
         </scene>
         <!--Steam Id Form Controller - Steam ID Form-->
         <scene sceneID="eZh-wh-Qhv">
@@ -110,13 +109,14 @@ http://steamcommunity.com/profile/{Profile ID}
                     <navigationItem key="navigationItem" id="DVF-yZ-f2j"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1309" y="-654"/>
+            <point key="canvasLocation" x="1733" y="-670"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Vnm-y4-M3p">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oe-Uz-9IP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="sOd-p5-uza" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="WUH-Da-ljW"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="X9i-6K-ARw">
@@ -128,13 +128,72 @@ http://steamcommunity.com/profile/{Profile ID}
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="765" y="-654"/>
+            <point key="canvasLocation" x="1189" y="-670"/>
         </scene>
-        <!--Master View Controller - Inventory-->
+        <!--Games View Controller-->
+        <scene sceneID="nSk-hw-ah7">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tha-Gp-fup" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="OFf-mD-FT8" customClass="SCGamesViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rNZ-Ga-xu8">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GameCell" textLabel="wyG-tS-PuW" imageView="wmH-N0-ekf" style="IBUITableViewCellStyleDefault" id="gAH-vt-EYE">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wyG-tS-PuW">
+                                            <rect key="frame" x="43" y="0.0" width="267" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="origin.png" id="wmH-N0-ekf">
+                                            <rect key="frame" x="9" y="9" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="OFf-mD-FT8" id="9Xi-mV-shm"/>
+                            <outlet property="delegate" destination="OFf-mD-FT8" id="uCX-TE-nBI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Q8r-A0-8Dt">
+                        <barButtonItem key="leftBarButtonItem" image="user.png" id="O5P-D0-6iB">
+                            <connections>
+                                <segue destination="09V-IM-Zg9" kind="modal" identifier="SteamIDForm" modalTransitionStyle="coverVertical" id="hZa-Pb-jK6"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="settings.png" id="jaD-ME-b0z">
+                            <connections>
+                                <segue destination="sOd-p5-uza" kind="modal" identifier="showSettings" modalTransitionStyle="coverVertical" id="srZ-Mq-OVS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="12" kind="push" identifier="showInventory" id="Zmm-7E-rdQ"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="549" y="55"/>
+        </scene>
+        <!--Inventory View Controller - Inventory-->
         <scene sceneID="18">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="17" sceneMemberID="firstResponder"/>
-                <tableViewController storyboardIdentifier="" title="Inventory" id="12" customClass="SCMasterViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="" title="Inventory" id="12" customClass="SCInventoryViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="13">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -174,22 +233,17 @@ http://steamcommunity.com/profile/{Profile ID}
                             <outlet property="delegate" destination="12" id="15"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Inventory" id="36">
-                        <barButtonItem key="leftBarButtonItem" image="user.png" id="O5P-D0-6iB">
+                        <barButtonItem key="rightBarButtonItem" image="settings.png" id="bwp-8R-Wmc">
                             <connections>
-                                <segue destination="09V-IM-Zg9" kind="modal" identifier="SteamIDForm" modalTransitionStyle="coverVertical" id="hZa-Pb-jK6"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="settings.png" id="jaD-ME-b0z">
-                            <connections>
-                                <segue destination="sOd-p5-uza" kind="modal" identifier="showSettings" modalTransitionStyle="coverVertical" id="srZ-Mq-OVS"/>
+                                <segue destination="sOd-p5-uza" kind="modal" id="JIn-1w-RO4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="459" y="64"/>
+            <point key="canvasLocation" x="1123" y="55"/>
         </scene>
         <!--Item View Controller - Detail-->
         <scene sceneID="24">
@@ -200,12 +254,12 @@ http://steamcommunity.com/profile/{Profile ID}
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="0Sv-u5-kJC">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="0Sv-u5-kJC">
                                 <rect key="frame" x="178" y="33" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                             </imageView>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Qty." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="ZGN-cL-h15">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Qty." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="ZGN-cL-h15">
                                 <rect key="frame" x="272" y="142" width="32" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -215,7 +269,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item origin" lineBreakMode="tailTruncation" minimumFontSize="12" id="duX-zx-lRX">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item origin" lineBreakMode="tailTruncation" minimumFontSize="12" id="duX-zx-lRX">
                                 <rect key="frame" x="32" y="33" width="138" height="20"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -224,7 +278,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item level" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="12" id="37S-oI-aFV">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item level" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="12" id="37S-oI-aFV">
                                 <rect key="frame" x="20" y="5" width="281" height="20"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -233,7 +287,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item description" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="KUr-nq-qlo">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item description" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="KUr-nq-qlo">
                                 <rect key="frame" x="20" y="171" width="281" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -242,52 +296,52 @@ http://steamcommunity.com/profile/{Profile ID}
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="Xr5-1l-OYD" customClass="SCClassImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="Xr5-1l-OYD" customClass="SCClassImageView">
                                 <rect key="frame" x="55" y="364" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="duO-EM-bmM" customClass="SCClassImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="duO-EM-bmM" customClass="SCClassImageView">
                                 <rect key="frame" x="113" y="364" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="ZqY-F7-O2Y" customClass="SCClassImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="ZqY-F7-O2Y" customClass="SCClassImageView">
                                 <rect key="frame" x="170" y="364" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="eQh-0g-NF1" customClass="SCClassImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="eQh-0g-NF1" customClass="SCClassImageView">
                                 <rect key="frame" x="225" y="364" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="QAH-4u-DRB" customClass="SCClassImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="QAH-4u-DRB" customClass="SCClassImageView">
                                 <rect key="frame" x="26" y="316" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="ouv-tu-uPv" customClass="SCClassImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="ouv-tu-uPv" customClass="SCClassImageView">
                                 <rect key="frame" x="84" y="316" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="Pxf-7N-iFZ" customClass="SCClassImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="Pxf-7N-iFZ" customClass="SCClassImageView">
                                 <rect key="frame" x="142" y="316" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="bW7-6X-aLf" customClass="SCClassImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="bW7-6X-aLf" customClass="SCClassImageView">
                                 <rect key="frame" x="198" y="316" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="ZWz-13-Bll" customClass="SCClassImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="ZWz-13-Bll" customClass="SCClassImageView">
                                 <rect key="frame" x="254" y="316" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item quality" lineBreakMode="tailTruncation" minimumFontSize="12" id="gWe-Yk-aBv">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item quality" lineBreakMode="tailTruncation" minimumFontSize="12" id="gWe-Yk-aBv">
                                 <rect key="frame" x="32" y="55" width="138" height="20"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -296,7 +350,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="12" id="JUK-Cv-VE4">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="12" id="JUK-Cv-VE4">
                                 <rect key="frame" x="32" y="78" width="138" height="34"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <string key="text">Kill eater level
@@ -307,19 +361,19 @@ Kill eater score</string>
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="origin-iphone.png" id="WQ1-Pi-F4J">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="origin-iphone.png" id="WQ1-Pi-F4J">
                                 <rect key="frame" x="8" y="35" width="16" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="quality-iphone.png" id="7jq-aT-cM8">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="quality-iphone.png" id="7jq-aT-cM8">
                                 <rect key="frame" x="8" y="56" width="16" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="kill_eater-iphone.png" id="m1u-TZ-6Pt">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="kill_eater-iphone.png" id="m1u-TZ-6Pt">
                                 <rect key="frame" x="8" y="86" width="16" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" id="QcZ-7D-We3">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" id="QcZ-7D-We3">
                                 <rect key="frame" x="8" y="111" width="162" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -373,7 +427,7 @@ Kill eater score</string>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="902" y="64"/>
+            <point key="canvasLocation" x="1566" y="55"/>
         </scene>
         <!--View Controller - Item Set-->
         <scene sceneID="30b-1X-4mC">
@@ -381,7 +435,7 @@ Kill eater score</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qoq-V6-2So" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Item Set" id="Rbk-sh-M5b" sceneMemberID="viewController">
                     <label key="view" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item set" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="d1R-KG-DpA" customClass="TTTAttributedLabel">
-                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -394,7 +448,7 @@ Kill eater score</string>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1429" y="57"/>
+            <point key="canvasLocation" x="2093" y="48"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tpM-Sl-7CZ">
@@ -411,6 +465,19 @@ Kill eater score</string>
                         <segue destination="n1t-WO-e29" kind="relationship" relationship="rootViewController" id="aMx-Od-P0I"/>
                     </connections>
                 </navigationController>
+                <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="item_placeholder.png" id="LMZ-dW-BJR">
+                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </imageView>
+                <label clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LjW-li-BWn">
+                    <rect key="frame" x="0.0" y="0.0" width="243" height="43"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                </label>
             </objects>
             <point key="canvasLocation" x="-193" y="-768"/>
         </scene>
@@ -420,6 +487,7 @@ Kill eater score</string>
         <image name="item_set-iphone.png" width="16" height="16"/>
         <image name="kill_eater-iphone.png" width="16" height="16"/>
         <image name="origin-iphone.png" width="16" height="16"/>
+        <image name="origin.png" width="24" height="24"/>
         <image name="quality-iphone.png" width="16" height="16"/>
         <image name="settings.png" width="24" height="24"/>
         <image name="user.png" width="24" height="24"/>
@@ -428,12 +496,20 @@ Kill eater score</string>
         <class className="IASKAppSettingsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/IASKAppSettingsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="dismiss:"/>
                 <relationship kind="outlet" name="delegate"/>
             </relationships>
         </class>
         <class className="SCClassImageView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCClassImageView.h"/>
+        </class>
+        <class className="SCGamesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCGamesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="showSteamIdForm:"/>
+            </relationships>
+        </class>
+        <class className="SCInventoryViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCInventoryViewController.h"/>
         </class>
         <class className="SCItemCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemCell.h"/>
@@ -464,13 +540,11 @@ Kill eater score</string>
                 <relationship kind="outletCollection" name="icons" candidateClass="UIImageView"/>
             </relationships>
         </class>
-        <class className="SCMasterViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCMasterViewController.h"/>
-        </class>
         <class className="SCSteamIdFormController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSteamIdFormController.h"/>
             <relationships>
                 <relationship kind="action" name="dismissForm:"/>
+                <relationship kind="action" name="submitForm:"/>
                 <relationship kind="outlet" name="helpLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="steamIdField" candidateClass="UITextField"/>
             </relationships>
@@ -484,4 +558,7 @@ Kill eater score</string>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="srZ-Mq-OVS"/>
+    </inferredMetricsTieBreakers>
 </document>

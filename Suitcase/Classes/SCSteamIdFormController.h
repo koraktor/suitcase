@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SCMasterViewController.h"
+#import "SCInventoryViewController.h"
 
 @interface SCSteamIdFormController : UIViewController <UITextFieldDelegate>
 

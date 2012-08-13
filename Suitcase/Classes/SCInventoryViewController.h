@@ -6,12 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "IASKAppSettingsViewController.h"
 
 @class SCItemViewController;
 
-@interface SCMasterViewController : UITableViewController <IASKSettingsDelegate>
+@interface SCInventoryViewController : UITableViewController <IASKSettingsDelegate>
 
+@property (strong, nonatomic) NSNumber *appId;
 @property (strong, nonatomic) SCItemViewController *detailViewController;
 
 - (void)loadInventory;

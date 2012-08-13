@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0205551415D2F638009EB7CD /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 0205551015D2F638009EB7CD /* TBXML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0205551515D2F638009EB7CD /* TBXML+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0205551115D2F638009EB7CD /* TBXML+HTTP.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0209E13A157951300073385D /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0209E127157951300073385D /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0209E13B157951300073385D /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0209E127157951300073385D /* ASIAuthenticationDialog.m */; };
 		0209E13C157951300073385D /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0209E12A157951300073385D /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -47,6 +49,7 @@
 		020EB4261585299B00654D2A /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 020EB4101585299B00654D2A /* IASKTextField.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		020EB42E15852A2A00654D2A /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 020EB42D15852A2A00654D2A /* InAppSettings.bundle */; };
 		020EB43015852C2800654D2A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 020EB42F15852C2800654D2A /* MessageUI.framework */; };
+		0220FFC815D7A84700AB8AA3 /* SCGameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0220FFC715D7A84700AB8AA3 /* SCGameCell.m */; };
 		022D0CCF158349B80071F665 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 022D0CCD158349B80071F665 /* Localizable.strings */; };
 		022D0CE01583C4070071F665 /* item_set.png in Resources */ = {isa = PBXBuildFile; fileRef = 022D0CD41583C4070071F665 /* item_set.png */; };
 		022D0CE11583C4070071F665 /* item_set@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 022D0CD51583C4070071F665 /* item_set@2x.png */; };
@@ -72,6 +75,7 @@
 		022D0D0F1584E5770071F665 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */; };
 		0255A148155D9BE20092741E /* SCItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255A147155D9BE20092741E /* SCItem.m */; };
 		0255A14C155D9BF80092741E /* SCSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255A14B155D9BF80092741E /* SCSchema.m */; };
+		0269A4A915CC3AEB008A287A /* SCGamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269A4A815CC3AEB008A287A /* SCGamesViewController.m */; };
 		026F215C156ADA1F00C7BD54 /* SCClassImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026F215B156ADA1F00C7BD54 /* SCClassImageView.m */; };
 		0275E20D158E6B5B008EA0AD /* SCItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0275E20C158E6B5B008EA0AD /* SCItemCell.m */; };
 		02806D75158E263E003A0607 /* item_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 02806D73158E263E003A0607 /* item_placeholder.png */; };
@@ -90,8 +94,8 @@
 		028B64941526761C0040D2FF /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B648E1526761C0040D2FF /* SCAppDelegate.m */; };
 		028B64951526761C0040D2FF /* SCItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64901526761C0040D2FF /* SCItemViewController.m */; };
 		028B64961526761C0040D2FF /* SCItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64901526761C0040D2FF /* SCItemViewController.m */; };
-		028B64971526761C0040D2FF /* SCMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCMasterViewController.m */; };
-		028B64981526761C0040D2FF /* SCMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCMasterViewController.m */; };
+		028B64971526761C0040D2FF /* SCInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCInventoryViewController.m */; };
+		028B64981526761C0040D2FF /* SCInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCInventoryViewController.m */; };
 		0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */; };
 		029B08F4159261A600BD6271 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 029B08F3159261A600BD6271 /* Settings.bundle */; };
 		02A8FE8015922D3700D3300D /* SCImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FE7F15922D3700D3300D /* SCImageCache.m */; };
@@ -121,6 +125,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0205551015D2F638009EB7CD /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBXML.m; path = "Classes/External/TBXML/TBXML-Code/TBXML.m"; sourceTree = "<group>"; };
+		0205551115D2F638009EB7CD /* TBXML+HTTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TBXML+HTTP.m"; path = "Classes/External/TBXML/TBXML-Code/TBXML+HTTP.m"; sourceTree = "<group>"; };
+		0205551215D2F638009EB7CD /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBXML.h; path = "Classes/External/TBXML/TBXML-Headers/TBXML.h"; sourceTree = "<group>"; };
+		0205551315D2F638009EB7CD /* TBXML+HTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TBXML+HTTP.h"; path = "Classes/External/TBXML/TBXML-Headers/TBXML+HTTP.h"; sourceTree = "<group>"; };
 		0209E126157951300073385D /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIAuthenticationDialog.h; path = Classes/External/ASIHTTPRequest/Classes/ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		0209E127157951300073385D /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASIAuthenticationDialog.m; path = Classes/External/ASIHTTPRequest/Classes/ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		0209E128157951300073385D /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASICacheDelegate.h; path = Classes/External/ASIHTTPRequest/Classes/ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -180,6 +188,8 @@
 		020EB4101585299B00654D2A /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
 		020EB42D15852A2A00654D2A /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = InAppSettings.bundle; sourceTree = "<group>"; };
 		020EB42F15852C2800654D2A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		0220FFC615D7A84700AB8AA3 /* SCGameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCGameCell.h; path = Classes/SCGameCell.h; sourceTree = "<group>"; };
+		0220FFC715D7A84700AB8AA3 /* SCGameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCGameCell.m; path = Classes/SCGameCell.m; sourceTree = "<group>"; };
 		022D0CCE158349B80071F665 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		022D0CD41583C4070071F665 /* item_set.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = item_set.png; path = Images/item_set.png; sourceTree = "<group>"; };
 		022D0CD51583C4070071F665 /* item_set@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "item_set@2x.png"; path = "Images/item_set@2x.png"; sourceTree = "<group>"; };
@@ -208,6 +218,8 @@
 		0255A147155D9BE20092741E /* SCItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItem.m; path = Classes/SCItem.m; sourceTree = "<group>"; };
 		0255A14A155D9BF80092741E /* SCSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSchema.h; path = Classes/SCSchema.h; sourceTree = "<group>"; };
 		0255A14B155D9BF80092741E /* SCSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSchema.m; path = Classes/SCSchema.m; sourceTree = "<group>"; };
+		0269A4A715CC3AEB008A287A /* SCGamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCGamesViewController.h; path = Classes/SCGamesViewController.h; sourceTree = "<group>"; };
+		0269A4A815CC3AEB008A287A /* SCGamesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCGamesViewController.m; path = Classes/SCGamesViewController.m; sourceTree = "<group>"; };
 		026F215A156ADA1F00C7BD54 /* SCClassImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCClassImageView.h; path = Classes/SCClassImageView.h; sourceTree = "<group>"; };
 		026F215B156ADA1F00C7BD54 /* SCClassImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCClassImageView.m; path = Classes/SCClassImageView.m; sourceTree = "<group>"; };
 		0275E20B158E6B5B008EA0AD /* SCItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemCell.h; path = Classes/SCItemCell.h; sourceTree = "<group>"; };
@@ -232,8 +244,8 @@
 		028B648E1526761C0040D2FF /* SCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCAppDelegate.m; path = Classes/SCAppDelegate.m; sourceTree = "<group>"; };
 		028B648F1526761C0040D2FF /* SCItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemViewController.h; path = Classes/SCItemViewController.h; sourceTree = "<group>"; };
 		028B64901526761C0040D2FF /* SCItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemViewController.m; path = Classes/SCItemViewController.m; sourceTree = "<group>"; };
-		028B64911526761C0040D2FF /* SCMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCMasterViewController.h; path = Classes/SCMasterViewController.h; sourceTree = "<group>"; };
-		028B64921526761C0040D2FF /* SCMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCMasterViewController.m; path = Classes/SCMasterViewController.m; sourceTree = "<group>"; };
+		028B64911526761C0040D2FF /* SCInventoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCInventoryViewController.h; path = Classes/SCInventoryViewController.h; sourceTree = "<group>"; };
+		028B64921526761C0040D2FF /* SCInventoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCInventoryViewController.m; path = Classes/SCInventoryViewController.m; sourceTree = "<group>"; };
 		0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSteamIdFormController.h; path = Classes/SCSteamIdFormController.h; sourceTree = "<group>"; };
 		0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSteamIdFormController.m; path = Classes/SCSteamIdFormController.m; sourceTree = "<group>"; };
 		029B08F3159261A600BD6271 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -286,6 +298,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0205550E15D2F619009EB7CD /* TBXML */ = {
+			isa = PBXGroup;
+			children = (
+				0205551215D2F638009EB7CD /* TBXML.h */,
+				0205551015D2F638009EB7CD /* TBXML.m */,
+				0205551315D2F638009EB7CD /* TBXML+HTTP.h */,
+				0205551115D2F638009EB7CD /* TBXML+HTTP.m */,
+			);
+			name = TBXML;
+			sourceTree = "<group>";
+		};
 		0209E124157950FE0073385D /* ASIHTTPRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -418,12 +441,17 @@
 			children = (
 				020EB3EE1585299B00654D2A /* InAppSettingsKit */,
 				0209E124157950FE0073385D /* ASIHTTPRequest */,
+				0205550E15D2F619009EB7CD /* TBXML */,
 				02F37EC2158014F200BFB1B5 /* TTTAttributedLabel */,
 				02DDB47B1582918B004DB9D8 /* Resources */,
 				028B648D1526761C0040D2FF /* SCAppDelegate.h */,
 				028B648E1526761C0040D2FF /* SCAppDelegate.m */,
 				026F215A156ADA1F00C7BD54 /* SCClassImageView.h */,
 				026F215B156ADA1F00C7BD54 /* SCClassImageView.m */,
+				0220FFC615D7A84700AB8AA3 /* SCGameCell.h */,
+				0220FFC715D7A84700AB8AA3 /* SCGameCell.m */,
+				0269A4A715CC3AEB008A287A /* SCGamesViewController.h */,
+				0269A4A815CC3AEB008A287A /* SCGamesViewController.m */,
 				02A8FE7E15922D3700D3300D /* SCImageCache.h */,
 				02A8FE7F15922D3700D3300D /* SCImageCache.m */,
 				02CCB0B9158E7C6F0080BF45 /* SCInventory.h */,
@@ -434,8 +462,8 @@
 				0255A147155D9BE20092741E /* SCItem.m */,
 				0275E20B158E6B5B008EA0AD /* SCItemCell.h */,
 				0275E20C158E6B5B008EA0AD /* SCItemCell.m */,
-				028B64911526761C0040D2FF /* SCMasterViewController.h */,
-				028B64921526761C0040D2FF /* SCMasterViewController.m */,
+				028B64911526761C0040D2FF /* SCInventoryViewController.h */,
+				028B64921526761C0040D2FF /* SCInventoryViewController.m */,
 				0255A14A155D9BF80092741E /* SCSchema.h */,
 				0255A14B155D9BF80092741E /* SCSchema.m */,
 				0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */,
@@ -701,7 +729,7 @@
 				028B641715265D690040D2FF /* main.m in Sources */,
 				028B64931526761C0040D2FF /* SCAppDelegate.m in Sources */,
 				028B64951526761C0040D2FF /* SCItemViewController.m in Sources */,
-				028B64971526761C0040D2FF /* SCMasterViewController.m in Sources */,
+				028B64971526761C0040D2FF /* SCInventoryViewController.m in Sources */,
 				0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */,
 				0255A148155D9BE20092741E /* SCItem.m in Sources */,
 				0255A14C155D9BF80092741E /* SCSchema.m in Sources */,
@@ -734,6 +762,10 @@
 				0275E20D158E6B5B008EA0AD /* SCItemCell.m in Sources */,
 				02CCB0BB158E7C6F0080BF45 /* SCInventory.m in Sources */,
 				02A8FE8015922D3700D3300D /* SCImageCache.m in Sources */,
+				0269A4A915CC3AEB008A287A /* SCGamesViewController.m in Sources */,
+				0205551415D2F638009EB7CD /* TBXML.m in Sources */,
+				0205551515D2F638009EB7CD /* TBXML+HTTP.m in Sources */,
+				0220FFC815D7A84700AB8AA3 /* SCGameCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,7 +776,7 @@
 				028B643C15265D690040D2FF /* SuitcaseTests.m in Sources */,
 				028B64941526761C0040D2FF /* SCAppDelegate.m in Sources */,
 				028B64961526761C0040D2FF /* SCItemViewController.m in Sources */,
-				028B64981526761C0040D2FF /* SCMasterViewController.m in Sources */,
+				028B64981526761C0040D2FF /* SCInventoryViewController.m in Sources */,
 				0209E13B157951300073385D /* ASIAuthenticationDialog.m in Sources */,
 				0209E13D157951300073385D /* ASIDataCompressor.m in Sources */,
 				0209E13F157951300073385D /* ASIDataDecompressor.m in Sources */,

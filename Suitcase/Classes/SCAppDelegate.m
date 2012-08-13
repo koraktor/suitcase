@@ -38,13 +38,17 @@
         masterViewController = ((UINavigationController *)self.window.rootViewController).topViewController;
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchema" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadAvailableGames" object:nil];
 
     NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     if (steamId64 == nil) {
         [masterViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
     } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
+        if ([masterViewController class] == NSClassFromString(@"SCGamesViewController")) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadGames" object:nil];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
+        }
     }
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -67,18 +71,19 @@
 
 - (void)defaultsChanged:(NSNotification *)notification
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSUserDefaultsDidChangeNotification
-                                                  object:nil];
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter removeObserver:self
+                             name:NSUserDefaultsDidChangeNotification
+                           object:nil];
 
     NSUserDefaults *defaults = notification.object;
 
     if (![[defaults objectForKey:@"SteamID"] isEqual:[_storedDefaults objectForKey:@"SteamID"]]) {
         [self resolveSteamId];
     } else if (![[defaults objectForKey:@"show_colors"] isEqual:[_storedDefaults objectForKey:@"show_colors"]]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshInventory" object:nil];
+        [defaultCenter postNotificationName:@"refreshInventory" object:nil];
     } else if (![[defaults objectForKey:@"sorting"] isEqual:[_storedDefaults objectForKey:@"sorting"]]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"sortInventory" object:nil];
+        [defaultCenter postNotificationName:@"sortInventory" object:nil];
     }
 }
 
@@ -96,7 +101,7 @@
         if (![currentSteamId64 isEqual:steamId64]) {
             [[NSUserDefaults standardUserDefaults] setObject:steamId forKey:@"SteamID"];
             [[NSUserDefaults standardUserDefaults] setObject:steamId64 forKey:@"SteamID64"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadGames" object:nil];
         }
     };
 

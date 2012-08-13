@@ -7,3 +7,6 @@
 [submodule "Suitcase/Classes/External/InAppSettingsKit"]
 	path = Suitcase/Classes/External/InAppSettingsKit
 	url = git://github.com/futuretap/InAppSettingsKit.git
+[submodule "Suitcase/Classes/External/TBXML"]
+	path = Suitcase/Classes/External/TBXML
+	url = git://github.com/71squared/TBXML.git
