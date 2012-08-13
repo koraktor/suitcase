@@ -175,7 +175,13 @@ Kill eater stats</string>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="53"/>
+                    <navigationItem key="navigationItem" id="53">
+                        <barButtonItem key="rightBarButtonItem" title="Wiki" id="XN6-yb-dwO">
+                            <connections>
+                                <action selector="showWikiPage:" destination="4" id="zUJ-LC-Uou"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="classDemomanImage" destination="Qfa-7z-5dC" id="jbx-6x-euB"/>
                         <outlet property="classEngineerImage" destination="OKK-nf-D0x" id="Sft-X8-Iek"/>
@@ -471,6 +477,22 @@ http://steamcommunity.com/profile/{Profile ID}
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XaE-l2-dH7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2657" y="463"/>
+        <!--View Controller-->
+        <scene sceneID="VvE-Sx-tMJ">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hoh-uB-fkN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="u2V-bm-OPg" sceneMemberID="viewController">
+                    <webView key="view" contentMode="scaleToFill" id="eja-tV-rBb">
+                        <rect key="frame" x="0.0" y="64" width="703" height="704"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </webView>
+                    <navigationItem key="navigationItem" id="fQh-kd-Nx6"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1884" y="393"/>
         </scene>
     </scenes>
     <resources>
@@ -500,6 +522,7 @@ http://steamcommunity.com/profile/{Profile ID}
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemViewController.h"/>
             <relationships>
                 <relationship kind="action" name="showItemSet:"/>
+                <relationship kind="action" name="showWikiPage:"/>
                 <relationship kind="outlet" name="classDemomanImage" candidateClass="SCClassImageView"/>
                 <relationship kind="outlet" name="classEngineerImage" candidateClass="SCClassImageView"/>
                 <relationship kind="outlet" name="classHeavyImage" candidateClass="SCClassImageView"/>

@@ -301,6 +301,15 @@
     [self performSegueWithIdentifier:@"showItemSet" sender:self];
 }
 
+- (IBAction)showWikiPage:(id)sender {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", self.detailItem.defindex, [[NSLocale preferredLanguages] objectAtIndex:0]]];
+        [[UIApplication sharedApplication] openURL:wikiUrl];
+    } else {
+        [self performSegueWithIdentifier:@"showWikiPage" sender:self];
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showItemSet"]) {
@@ -335,6 +344,14 @@
         }];
 
         [itemSetLabel sizeToFit];
+    } else if ([[segue identifier] isEqualToString:@"showWikiPage"]) {
+        NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", self.detailItem.defindex, [[NSLocale preferredLanguages] objectAtIndex:0]]];
+
+        UIWebView *webView = (UIWebView *)[[segue destinationViewController] view];
+        if (![webView.request.URL.absoluteURL isEqual:wikiUrl]) {
+            NSURLRequest *wikiRequest = [NSURLRequest requestWithURL:wikiUrl];
+            [webView loadRequest:wikiRequest];
+        }
     }
 }
 

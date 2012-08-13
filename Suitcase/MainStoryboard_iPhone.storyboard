@@ -339,7 +339,13 @@ Kill eater score</string>
                         </subviews>
                         <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Item" id="26"/>
+                    <navigationItem key="navigationItem" title="Item" id="26">
+                        <barButtonItem key="rightBarButtonItem" title="Wiki" id="gK6-Cu-cfz">
+                            <connections>
+                                <action selector="showWikiPage:" destination="21" id="4C0-qz-mot"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <connections>
                         <outlet property="classDemomanImage" destination="bW7-6X-aLf" id="YZ4-DB-b2u"/>
@@ -436,6 +442,7 @@ Kill eater score</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemViewController.h"/>
             <relationships>
                 <relationship kind="action" name="showItemSet:"/>
+                <relationship kind="action" name="showWikiPage:"/>
                 <relationship kind="outlet" name="classDemomanImage" candidateClass="SCClassImageView"/>
                 <relationship kind="outlet" name="classEngineerImage" candidateClass="SCClassImageView"/>
                 <relationship kind="outlet" name="classHeavyImage" candidateClass="SCClassImageView"/>

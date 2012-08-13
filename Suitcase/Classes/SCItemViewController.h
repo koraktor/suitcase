@@ -36,5 +36,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *quantityLabel;
 
 - (IBAction)showItemSet:(id)sender;
+- (IBAction)showWikiPage:(id)sender;
 
 @end
