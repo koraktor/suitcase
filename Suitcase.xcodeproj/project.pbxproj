@@ -99,6 +99,7 @@
 		0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */; };
 		029B08F4159261A600BD6271 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 029B08F3159261A600BD6271 /* Settings.bundle */; };
 		02A8FE8015922D3700D3300D /* SCImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A8FE7F15922D3700D3300D /* SCImageCache.m */; };
+		02C516C51657A4170092ED5A /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C516C41657A4170092ED5A /* TTTAttributedLabel.m */; };
 		02CCB0BB158E7C6F0080BF45 /* SCInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CCB0BA158E7C6F0080BF45 /* SCInventory.m */; };
 		02CFAACE157818730086E34B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 02CFAACD157818730086E34B /* Icon.png */; };
 		02CFAAD0157818760086E34B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02CFAACF157818760086E34B /* Icon@2x.png */; };
@@ -109,9 +110,7 @@
 		02E7218915938BF000A18BF1 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E7218815938BF000A18BF1 /* Default-Landscape@2x~ipad.png */; };
 		02E7218A15938C4500A18BF1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E7218215938BDE00A18BF1 /* Default.png */; };
 		02E7218B15938C4700A18BF1 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E7218415938BE400A18BF1 /* Default@2x.png */; };
-		02F37EC0158014EE00BFB1B5 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F37EBF158014EE00BFB1B5 /* TTTAttributedLabel.m */; };
 		02F37EC41580152300BFB1B5 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F37EC31580152300BFB1B5 /* CoreText.framework */; };
-		02F37EC515811ECD00BFB1B5 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F37EBF158014EE00BFB1B5 /* TTTAttributedLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -251,6 +250,8 @@
 		029B08F3159261A600BD6271 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		02A8FE7E15922D3700D3300D /* SCImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCImageCache.h; path = Classes/SCImageCache.h; sourceTree = "<group>"; };
 		02A8FE7F15922D3700D3300D /* SCImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCImageCache.m; path = Classes/SCImageCache.m; sourceTree = "<group>"; };
+		02C516C31657A4170092ED5A /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = Classes/External/TTTAttributedLabel/TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
+		02C516C41657A4170092ED5A /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = Classes/External/TTTAttributedLabel/TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
 		02CCB0B9158E7C6F0080BF45 /* SCInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCInventory.h; sourceTree = "<group>"; };
 		02CCB0BA158E7C6F0080BF45 /* SCInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCInventory.m; sourceTree = "<group>"; };
 		02CFAACD157818730086E34B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
@@ -262,8 +263,6 @@
 		02E7218415938BE400A18BF1 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		02E7218615938BED00A18BF1 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		02E7218815938BF000A18BF1 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
-		02F37EBE158014ED00BFB1B5 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = Classes/External/TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
-		02F37EBF158014EE00BFB1B5 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = Classes/External/TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
 		02F37EC31580152300BFB1B5 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -550,8 +549,8 @@
 		02F37EC2158014F200BFB1B5 /* TTTAttributedLabel */ = {
 			isa = PBXGroup;
 			children = (
-				02F37EBE158014ED00BFB1B5 /* TTTAttributedLabel.h */,
-				02F37EBF158014EE00BFB1B5 /* TTTAttributedLabel.m */,
+				02C516C31657A4170092ED5A /* TTTAttributedLabel.h */,
+				02C516C41657A4170092ED5A /* TTTAttributedLabel.m */,
 			);
 			name = TTTAttributedLabel;
 			sourceTree = "<group>";
@@ -743,7 +742,6 @@
 				0209E146157951300073385D /* ASIInputStream.m in Sources */,
 				0209E148157951300073385D /* ASINetworkQueue.m in Sources */,
 				0209E14C157954270073385D /* Reachability.m in Sources */,
-				02F37EC515811ECD00BFB1B5 /* TTTAttributedLabel.m in Sources */,
 				0209E15815795E6D0073385D /* UIImageView+ASIHTTPRequest.m in Sources */,
 				020EB4181585299B00654D2A /* IASKAppSettingsViewController.m in Sources */,
 				020EB4191585299B00654D2A /* IASKAppSettingsWebViewController.m in Sources */,
@@ -766,6 +764,7 @@
 				0205551415D2F638009EB7CD /* TBXML.m in Sources */,
 				0205551515D2F638009EB7CD /* TBXML+HTTP.m in Sources */,
 				0220FFC815D7A84700AB8AA3 /* SCGameCell.m in Sources */,
+				02C516C51657A4170092ED5A /* TTTAttributedLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -787,7 +786,6 @@
 				0209E149157951300073385D /* ASINetworkQueue.m in Sources */,
 				0209E14D157954270073385D /* Reachability.m in Sources */,
 				0209E15915795E6D0073385D /* UIImageView+ASIHTTPRequest.m in Sources */,
-				02F37EC0158014EE00BFB1B5 /* TTTAttributedLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
