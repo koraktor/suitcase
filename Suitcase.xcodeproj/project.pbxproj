@@ -217,6 +217,7 @@
 		0255A147155D9BE20092741E /* SCItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItem.m; path = Classes/SCItem.m; sourceTree = "<group>"; };
 		0255A14A155D9BF80092741E /* SCSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSchema.h; path = Classes/SCSchema.h; sourceTree = "<group>"; };
 		0255A14B155D9BF80092741E /* SCSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSchema.m; path = Classes/SCSchema.m; sourceTree = "<group>"; };
+		0266DFE016920437009C6CE8 /* Suitcase.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Suitcase.xcconfig; sourceTree = "<group>"; };
 		0269A4A715CC3AEB008A287A /* SCGamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCGamesViewController.h; path = Classes/SCGamesViewController.h; sourceTree = "<group>"; };
 		0269A4A815CC3AEB008A287A /* SCGamesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCGamesViewController.m; path = Classes/SCGamesViewController.m; sourceTree = "<group>"; };
 		026F215A156ADA1F00C7BD54 /* SCClassImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCClassImageView.h; path = Classes/SCClassImageView.h; sourceTree = "<group>"; };
@@ -483,6 +484,7 @@
 				028B641315265D690040D2FF /* InfoPlist.strings */,
 				028B641615265D690040D2FF /* main.m */,
 				028B641815265D690040D2FF /* Suitcase-Prefix.pch */,
+				0266DFE016920437009C6CE8 /* Suitcase.xcconfig */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -839,10 +841,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -877,6 +876,7 @@
 		};
 		028B644015265D690040D2FF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0266DFE016920437009C6CE8 /* Suitcase.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Suitcase/Suitcase-Prefix.pch";
@@ -889,6 +889,7 @@
 		};
 		028B644115265D690040D2FF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0266DFE016920437009C6CE8 /* Suitcase.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

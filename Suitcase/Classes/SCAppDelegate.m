@@ -20,7 +20,7 @@
 @synthesize window = _window;
 
 + (NSString *)apiKey {
-    return @"9B7BB2313BF9ABB70E46AE75EF0F4C6F";
+    return __API_KEY__;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
