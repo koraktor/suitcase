@@ -2,11 +2,13 @@
 //  SCGamesViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
+#import "AFKissXMLRequestOperation.h"
 #import "ASIHTTPRequest.h"
-#import "TBXML+HTTP.h"
+#import "DDXMLDocument.h"
+#import "DDXMLElement.h"
 
 #import "SCAppDelegate.h"
 #import "SCGamesViewController.h"
@@ -99,23 +101,29 @@
 
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     NSURL *gamesUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://steamcommunity.com/profiles/%@/games?xml=1", steamId64]];
-    [TBXML newTBXMLWithURL:gamesUrl success:^(TBXML *tbxml) {
-        TBXMLElement *gamesElement = [TBXML childElementNamed:@"games" parentElement:[tbxml rootXMLElement]];
-        TBXMLElement *gameElement = gamesElement->firstChild;
+#ifdef DEBUG
+    NSLog(@"Loading user's games from: %@", gamesUrl);
+#endif
+    NSURLRequest *gamesRequest = [NSURLRequest requestWithURL:gamesUrl];
+    AFKissXMLRequestOperation *gamesRequestOperation = [AFKissXMLRequestOperation XMLDocumentRequestOperationWithRequest:gamesRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, DDXMLDocument *XMLDocument) {
         NSMutableDictionary *games = [NSMutableDictionary dictionary];
 
-        do {
-            TBXMLElement *appIdElement = [TBXML childElementNamed:@"appID" parentElement:gameElement];
-            TBXMLElement *nameElement = [TBXML childElementNamed:@"name" parentElement:gameElement];
-            NSNumber *appId = [NSNumber numberWithInt:[[TBXML textForElement:appIdElement] intValue]];
-            [games setObject:[TBXML textForElement:nameElement] forKey:appId];
-        } while ((gameElement = gameElement->nextSibling));
+        DDXMLElement *gamesElement = [[[XMLDocument rootElement] elementsForName:@"games"] objectAtIndex:0];
+        for (DDXMLElement *gameElement in [gamesElement elementsForName:@"game"]) {
+            DDXMLElement *appIdElement = [[gameElement elementsForName:@"appID"] objectAtIndex:0];
+            DDXMLElement *nameElement = [[gameElement elementsForName:@"name"] objectAtIndex:0];
+            NSNumber *appId = [NSNumber numberWithInt:[[appIdElement stringValue] intValue]];
+            [games setObject:[nameElement stringValue] forKey:appId];
+        };
 
         [NSThread detachNewThreadSelector:@selector(populateGames:) toTarget:self withObject:[games copy]];
-    } failure:^(TBXML *tbxml, NSError *error) {
-        NSString *errorMsg = [NSString stringWithFormat:@"Error loading games: %@", [error localizedDescription]];
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, DDXMLDocument *XMLDocument) {
+        NSString *errorMessage = [NSString stringWithFormat:@"Error loading user's games: %@", [error localizedDescription]];
+        NSLog(@"%@", errorMessage);
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
+    [gamesRequestOperation start];
+    [gamesRequestOperation waitUntilFinished];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

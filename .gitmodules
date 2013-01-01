@@ -7,6 +7,12 @@
 [submodule "Suitcase/Classes/External/InAppSettingsKit"]
 	path = Suitcase/Classes/External/InAppSettingsKit
 	url = git://github.com/futuretap/InAppSettingsKit.git
-[submodule "Suitcase/Classes/External/TBXML"]
-	path = Suitcase/Classes/External/TBXML
-	url = git://github.com/71squared/TBXML.git
+[submodule "Suitcase/Classes/External/AFNetworking"]
+	path = Suitcase/Classes/External/AFNetworking
+	url = git://github.com/AFNetworking/AFNetworking.git
+[submodule "Suitcase/Classes/External/AFKissXMLRequestOperation"]
+	path = Suitcase/Classes/External/AFKissXMLRequestOperation
+	url = git://github.com/AFNetworking/AFKissXMLRequestOperation.git
+[submodule "Suitcase/Classes/External/KissXML"]
+	path = Suitcase/Classes/External/KissXML
+	url = git://github.com/robbiehanson/KissXML.git
