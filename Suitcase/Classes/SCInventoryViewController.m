@@ -2,7 +2,7 @@
 //  SCMasterViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
 #import "SCInventoryViewController.h"
@@ -28,8 +28,8 @@
 
 @implementation SCInventoryViewController
 
-@synthesize appId = _appId;
 @synthesize detailViewController = _detailViewController;
+@synthesize game = _game;
 
 - (void)awakeFromNib
 {
@@ -71,7 +71,7 @@
     }
 
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
-    NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_%@/GetPlayerItems/v0001?steamid=%@&key=%@", _appId, steamId64, [SCAppDelegate apiKey]]];
+    NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_%@/GetPlayerItems/v0001?steamid=%@&key=%@", _game.appId, steamId64, [SCAppDelegate apiKey]]];
     ASIHTTPRequest *inventoryRequest = [ASIHTTPRequest requestWithURL:inventoryUrl];
     __weak ASIHTTPRequest *weakInventoryRequest = inventoryRequest;
     [inventoryRequest setCompletionBlock:^{
@@ -115,7 +115,7 @@
 }
 
 - (void)loadSchema {
-    NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_%@/GetSchema/v0001?key=%@&language=%@", _appId, [SCAppDelegate apiKey], [[NSLocale preferredLanguages] objectAtIndex:0]]];
+    NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_%@/GetSchema/v0001?key=%@&language=%@", _game.appId, [SCAppDelegate apiKey], [[NSLocale preferredLanguages] objectAtIndex:0]]];
     ASIHTTPRequest *schemaRequest = [ASIHTTPRequest requestWithURL:schemaUrl];
     __weak ASIHTTPRequest *weakSchemaRequest = schemaRequest;
     [schemaRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
@@ -169,7 +169,7 @@
     self.detailViewController.detailItem = nil;
 
     [_schemaLock lock];
-    _inventory = [[SCInventory alloc] initWithItems:itemsData andSchema:_itemSchema];
+    _inventory = [[SCInventory alloc] initWithItems:itemsData andGame:_game andSchema:_itemSchema];
     [_schemaLock unlock];
     [_inventory sortItems];
     [self.tableView setDataSource:_inventory];

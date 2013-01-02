@@ -2,12 +2,12 @@
 //  SCItem.h
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
 
-#import "SCSchema.h"
+#import "SCInventory.h"
 
 @interface SCItem : NSObject
 
@@ -15,11 +15,11 @@
 @property NSDictionary *dictionary;
 @property (readonly) int equippableClasses;
 @property (readonly) int equippedClasses;
+@property SCInventory *inventory;
 @property (readonly) NSNumber *position;
-@property SCSchema *schema;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary
-               andSchema:(SCSchema *)aSchema;
+            andInventory:(SCInventory *)anInventory;
 
 - (NSNumber *)defindex;
 - (NSString *)description;

@@ -14,5 +14,6 @@
 @property (readonly) NSString *name;
 
 - (id)initWithXMLElement:(DDXMLElement *)xmlElement;
+- (BOOL)isTF2;
 
 @end

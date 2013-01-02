@@ -263,9 +263,19 @@ Kill eater stats</string>
                         <outlet property="originLabel" destination="4Tb-db-YbY" id="D14-G4-KS4"/>
                         <outlet property="qualityLabel" destination="aLk-1t-UdJ" id="Jxf-11-Sx9"/>
                         <outlet property="quantityLabel" destination="QAS-Pa-Xb8" id="Qs2-5y-CaY"/>
+                        <outlet property="wikiButton" destination="XN6-yb-dwO" id="ReU-31-qcq"/>
                         <outletCollection property="icons" destination="KAP-jc-Wvs" id="Ot2-Po-41d"/>
                         <outletCollection property="icons" destination="vTL-ol-9yt" id="hgg-b3-Ixj"/>
                         <outletCollection property="icons" destination="dwx-mi-d6I" id="qBu-9x-uaG"/>
+                        <outletCollection property="classImages" destination="br3-gv-fMW" id="vjI-7v-MS2"/>
+                        <outletCollection property="classImages" destination="XLg-xc-SC5" id="zZG-Dk-HI4"/>
+                        <outletCollection property="classImages" destination="VLU-n1-aZy" id="XPd-pX-STb"/>
+                        <outletCollection property="classImages" destination="rN4-Ub-WFM" id="qZC-ye-a3g"/>
+                        <outletCollection property="classImages" destination="Qfa-7z-5dC" id="BTN-ZQ-7tl"/>
+                        <outletCollection property="classImages" destination="miq-Qg-gSH" id="BgQ-Y0-BZa"/>
+                        <outletCollection property="classImages" destination="OKK-nf-D0x" id="jlo-Zm-sLq"/>
+                        <outletCollection property="classImages" destination="Gmk-Qg-RZf" id="NDL-hJ-AP1"/>
+                        <outletCollection property="classImages" destination="PHh-ks-lYY" id="4f3-mF-SeR"/>
                         <segue destination="F4a-SA-CUY" kind="popover" identifier="showItemSet" popoverAnchorView="rR9-Fs-POz" id="Lh1-7D-oEs">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
                         </segue>
@@ -602,6 +612,8 @@ http://steamcommunity.com/profile/{Profile ID}
                 <relationship kind="outlet" name="originLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="qualityLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="wikiButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outletCollection" name="classImages" candidateClass="SCClassImageView"/>
                 <relationship kind="outletCollection" name="icons" candidateClass="UIImageView"/>
             </relationships>
         </class>

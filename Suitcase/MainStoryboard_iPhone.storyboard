@@ -425,9 +425,19 @@ Kill eater score</string>
                         <outlet property="originLabel" destination="duX-zx-lRX" id="W2y-6G-aQG"/>
                         <outlet property="qualityLabel" destination="gWe-Yk-aBv" id="1GB-fb-DgZ"/>
                         <outlet property="quantityLabel" destination="ZGN-cL-h15" id="XMA-i7-2Ue"/>
+                        <outlet property="wikiButton" destination="gK6-Cu-cfz" id="wRX-Y3-T7J"/>
                         <outletCollection property="icons" destination="WQ1-Pi-F4J" id="I2U-VW-CLU"/>
                         <outletCollection property="icons" destination="7jq-aT-cM8" id="RpY-Ml-nl8"/>
                         <outletCollection property="icons" destination="m1u-TZ-6Pt" id="3PC-fF-pPf"/>
+                        <outletCollection property="classImages" destination="QAH-4u-DRB" id="fd5-JU-mAl"/>
+                        <outletCollection property="classImages" destination="ouv-tu-uPv" id="HbB-4a-GdO"/>
+                        <outletCollection property="classImages" destination="Pxf-7N-iFZ" id="Rnl-rh-v0F"/>
+                        <outletCollection property="classImages" destination="bW7-6X-aLf" id="LjT-sO-InW"/>
+                        <outletCollection property="classImages" destination="ZWz-13-Bll" id="LEK-pS-HyY"/>
+                        <outletCollection property="classImages" destination="Xr5-1l-OYD" id="mjD-qU-G9a"/>
+                        <outletCollection property="classImages" destination="duO-EM-bmM" id="J4W-LY-R1Z"/>
+                        <outletCollection property="classImages" destination="ZqY-F7-O2Y" id="ZSX-Hb-qs9"/>
+                        <outletCollection property="classImages" destination="eQh-0g-NF1" id="v4C-mJ-RxK"/>
                         <segue destination="Rbk-sh-M5b" kind="push" identifier="showItemSet" id="XHB-f3-kTS"/>
                     </connections>
                 </viewController>
@@ -543,6 +553,8 @@ Kill eater score</string>
                 <relationship kind="outlet" name="originLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="qualityLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="wikiButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outletCollection" name="classImages" candidateClass="SCClassImageView"/>
                 <relationship kind="outletCollection" name="icons" candidateClass="UIImageView"/>
             </relationships>
         </class>

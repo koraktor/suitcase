@@ -19,7 +19,7 @@
 @interface SCGamesViewController () {
     NSArray *_availableGames;
     NSLock *_availableGamesLock;
-    NSNumber *_currentAppId;
+    SCGame *_currentGame;
     NSArray *_games;
 }
 @end
@@ -156,7 +156,7 @@
 {
     if ([[segue identifier] isEqualToString:@"showInventory"]) {
         SCInventoryViewController *inventoryController = segue.destinationViewController;
-        inventoryController.appId = _currentAppId;
+        inventoryController.game = _currentGame;
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchema" object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
@@ -196,7 +196,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _currentAppId = ((SCGame *)[_games objectAtIndex:indexPath.row]).appId;
+    _currentGame = [_games objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier:@"showInventory" sender:self];
 }
 

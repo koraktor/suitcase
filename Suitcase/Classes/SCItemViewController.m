@@ -39,11 +39,22 @@
 @synthesize qualityLabel = _qualityLabel;
 @synthesize quantityLabel = _quantityLabel;
 @synthesize masterPopoverController = _masterPopoverController;
+@synthesize wikiButton = _wikiButton;
 
 #pragma mark - Managing the detail item
 
 - (void)setDetailItem:(SCItem *)newDetailItem
 {
+    if ([newDetailItem.inventory.game isTF2]) {
+        if (self.navigationItem.rightBarButtonItem == nil) {
+            [self.navigationItem setRightBarButtonItem:_wikiButton animated:YES];
+        }
+    } else {
+        if (self.navigationItem.rightBarButtonItem == _wikiButton) {
+            [self.navigationItem setRightBarButtonItem:nil animated:YES];
+        }
+    }
+
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
 
@@ -104,9 +115,9 @@
                 NSNumber *numberValue = [NSNumber numberWithDouble:(1 - [(NSNumber *)[attribute objectForKey:@"value"] doubleValue]) * 100];
                 value = [numberFormatter stringFromNumber:numberValue];
             } else if ([valueFormat isEqual:@"value_is_particle_index"]) {
-                value = [self.detailItem.schema effectNameForIndex:[attribute objectForKey:@"value"]];
+                value = [self.detailItem.inventory.schema effectNameForIndex:[attribute objectForKey:@"value"]];
                 if (value == nil) {
-                    value = [self.detailItem.schema effectNameForIndex:[attribute objectForKey:@"floatValue"]];
+                    value = [self.detailItem.inventory.schema effectNameForIndex:[attribute objectForKey:@"floatValue"]];
                 }
             } else if ([valueFormat isEqual:@"value_is_percentage"]) {
                 NSNumber *numberValue = [NSNumber numberWithDouble:([(NSNumber *)[attribute objectForKey:@"value"] doubleValue] - 1) * 100];
@@ -165,30 +176,36 @@
         currentFrame.size.height = expectedFrame.height;
         self.descriptionLabel.frame = currentFrame;
 
-        int equippedClasses = self.detailItem.equippedClasses;
-        self.classScoutImage.equipped = equippedClasses & 1;
-        self.classSoldierImage.equipped = equippedClasses & 4;
-        self.classPyroImage.equipped = equippedClasses & 64;
-        self.classDemomanImage.equipped = equippedClasses & 8;
-        self.classHeavyImage.equipped = equippedClasses & 32;
-        self.classEngineerImage.equipped = (equippedClasses & 256) != 0;
-        self.classMedicImage.equipped = equippedClasses & 16;
-        self.classSniperImage.equipped = equippedClasses & 2;
-        self.classSpyImage.equipped = equippedClasses & 128;
+        if ([self.detailItem.inventory.game isTF2]) {
+            int equippedClasses = self.detailItem.equippedClasses;
+            self.classScoutImage.equipped = equippedClasses & 1;
+            self.classSoldierImage.equipped = equippedClasses & 4;
+            self.classPyroImage.equipped = equippedClasses & 64;
+            self.classDemomanImage.equipped = equippedClasses & 8;
+            self.classHeavyImage.equipped = equippedClasses & 32;
+            self.classEngineerImage.equipped = (equippedClasses & 256) != 0;
+            self.classMedicImage.equipped = equippedClasses & 16;
+            self.classSniperImage.equipped = equippedClasses & 2;
+            self.classSpyImage.equipped = equippedClasses & 128;
 
-        int equippableClasses = self.detailItem.equippableClasses;
-        self.classScoutImage.equippable = equippableClasses & 1;
-        self.classSoldierImage.equippable = equippableClasses & 4;
-        self.classPyroImage.equippable = equippableClasses & 64;
-        self.classDemomanImage.equippable = equippableClasses & 8;
-        self.classHeavyImage.equippable = equippableClasses & 32;
-        self.classEngineerImage.equippable = (equippableClasses & 256) != 0;
-        self.classMedicImage.equippable = equippableClasses & 16;
-        self.classSniperImage.equippable = equippableClasses & 2;
-        self.classSpyImage.equippable = equippableClasses & 128;
+            int equippableClasses = self.detailItem.equippableClasses;
+            self.classScoutImage.equippable = equippableClasses & 1;
+            self.classSoldierImage.equippable = equippableClasses & 4;
+            self.classPyroImage.equippable = equippableClasses & 64;
+            self.classDemomanImage.equippable = equippableClasses & 8;
+            self.classHeavyImage.equippable = equippableClasses & 32;
+            self.classEngineerImage.equippable = (equippableClasses & 256) != 0;
+            self.classMedicImage.equippable = equippableClasses & 16;
+            self.classSniperImage.equippable = equippableClasses & 2;
+            self.classSpyImage.equippable = equippableClasses & 128;
+        }
 
         [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-            if (view != self.killEaterLabel) {
+            if ([self.classImages containsObject:view]) {
+                if ([self.detailItem.inventory.game isTF2]) {
+                    view.hidden = NO;
+                }
+            } else if (view != self.killEaterLabel) {
                 view.hidden = NO;
             }
         }];
@@ -208,6 +225,8 @@
 
 - (void)viewDidLoad
 {
+    [self.navigationItem setRightBarButtonItem:nil animated:NO];
+
     [super viewDidLoad];
 
     [self.classScoutImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/scout.jpg"]];
@@ -324,8 +343,8 @@
             if ([itemSetText length] > 0) {
                 [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
             }
-            NSNumber *defindex = [self.detailItem.schema itemDefIndexForName:itemName];
-            [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:[self.detailItem.schema itemValueForDefIndex:defindex andKey:@"item_name"]]];
+            NSNumber *defindex = [self.detailItem.inventory.schema itemDefIndexForName:itemName];
+            [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:[self.detailItem.inventory.schema itemValueForDefIndex:defindex andKey:@"item_name"]]];
         }];
         [itemSetLabel setText:itemSetText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
             UIFont *nameFont;

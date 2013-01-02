@@ -22,4 +22,9 @@
     return self;
 }
 
+- (BOOL)isTF2
+{
+    return [_appId intValue] == 440 || [_appId intValue] == 520;
+}
+
 @end

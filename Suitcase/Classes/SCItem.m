@@ -2,7 +2,7 @@
 //  SCItem.m
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
 #import "SCItem.h"
@@ -13,16 +13,16 @@
 @synthesize dictionary = _dictionary;
 @synthesize equippedClasses = _equippedClasses;
 @synthesize equippableClasses = _equippableClasses;
+@synthesize inventory = _inventory;
 @synthesize position = _position;
-@synthesize schema = _schema;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary
-               andSchema:(SCSchema *)aSchema {
+            andInventory:(SCInventory *)anInventory {
     self.dictionary = aDictionary;
-    self.schema = aSchema;
+    self.inventory  = anInventory;
 
     _equippableClasses = -1;
-    _equippedClasses = -1;
+    _equippedClasses   = -1;
 
     return self;
 }
@@ -53,10 +53,10 @@
                 if (attributeKey != nil) {
                     NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
                     [attribute setValue:[itemAttribute objectForKey:@"account_info"] forKey:@"accountInfo"];
-                    [attribute setValue:[self.schema attributeValueFor:attributeKey andKey:@"description_string"] forKey:@"description"];
+                    [attribute setValue:[self.inventory.schema attributeValueFor:attributeKey andKey:@"description_string"] forKey:@"description"];
                     [attribute setValue:[itemAttribute objectForKey:@"float_value"] forKey:@"floatValue"];
                     [attribute setValue:[itemAttribute objectForKey:@"value"] forKey:@"value"];
-                    [attribute setValue:[self.schema attributeValueFor:attributeKey andKey:@"description_format"] forKey:@"valueFormat"];
+                    [attribute setValue:[self.inventory.schema attributeValueFor:attributeKey andKey:@"description_format"] forKey:@"valueFormat"];
 
                     [attributes addObject:[attribute copy]];
                 }
@@ -64,8 +64,8 @@
         }];
 
         if (killEaterScore != -1) {
-            NSDictionary *killEaterType = [self.schema killEaterTypeForIndex:killEaterTypeIndex];
-            NSString *itemLevel = [self.schema itemLevelForScore:killEaterScore andLevelType:[killEaterType objectForKey:@"level_data"]];
+            NSDictionary *killEaterType = [self.inventory.schema killEaterTypeForIndex:killEaterTypeIndex];
+            NSString *itemLevel = [self.inventory.schema itemLevelForScore:killEaterScore andLevelType:[killEaterType objectForKey:@"level_data"]];
 
             NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
             [attribute setValue:[NSString stringWithFormat:@"%@\n%%s1 %@", itemLevel, [killEaterType objectForKey:@"type_name"]] forKey:@"description"];
@@ -154,7 +154,7 @@
 
 - (NSDictionary *)itemSet {
     NSString *itemSetKey = [self valueForKey:@"item_set"];
-    return [self.schema itemSetForKey:itemSetKey];
+    return [self.inventory.schema itemSetForKey:itemSetKey];
 }
 
 - (NSString *)itemType {
@@ -171,7 +171,7 @@
 
 - (NSString *)origin {
     NSNumber *originIndex = [self.dictionary objectForKey:@"origin"];
-    return [self.schema originNameForIndex:[originIndex unsignedIntValue]];
+    return [self.inventory.schema originNameForIndex:[originIndex unsignedIntValue]];
 }
 
 - (NSNumber *)position {
@@ -185,7 +185,7 @@
 
 - (NSString *)quality {
     NSNumber *qualityIndex = [self.dictionary objectForKey:@"quality"];
-    return [self.schema qualityNameForIndex:[qualityIndex unsignedIntValue]];
+    return [self.inventory.schema qualityNameForIndex:[qualityIndex unsignedIntValue]];
 }
 
 - (NSNumber *)quantity {
@@ -193,7 +193,7 @@
 }
 
 - (id)valueForKey:(NSString *)key {
-    return [self.schema itemValueForDefIndex:self.defindex andKey:key];
+    return [self.inventory.schema itemValueForDefIndex:self.defindex andKey:key];
 }
 
 @end

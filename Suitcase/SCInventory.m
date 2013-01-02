@@ -2,7 +2,7 @@
 //  SCInventory.m
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
 #import <QuartzCore/QuartzCore.h>
@@ -24,11 +24,14 @@
 @synthesize schema = _schema;
 @synthesize showColors = _showColors;
 
-- (id)initWithItems:(NSArray *)itemsData andSchema:(SCSchema *)schema {
+- (id)initWithItems:(NSArray *)itemsData
+            andGame:(SCGame *)game
+          andSchema:(SCSchema *)schema {
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:[itemsData count]];
     [itemsData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [items addObject:[[SCItem alloc] initWithDictionary:obj andSchema:schema]];
+        [items addObject:[[SCItem alloc] initWithDictionary:obj andInventory:self]];
     }];
+    _game = game;
     _items = items;
     _schema = schema;
     NSNumber *showColors = [[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"];
