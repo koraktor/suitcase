@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="11">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
                 <navigationController id="3" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
@@ -20,13 +19,13 @@
                         <segue destination="OFf-mD-FT8" kind="relationship" relationship="rootViewController" id="hTJ-TF-nzW"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-41" y="64"/>
         </scene>
         <!--Steam Id Form Controller - Steam ID Form-->
         <scene sceneID="eZh-wh-Qhv">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5Um-fo-V11" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Steam ID Form" id="n1t-WO-e29" customClass="SCSteamIdFormController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VDl-rw-4hR">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -82,14 +81,14 @@ http://steamcommunity.com/profile/{Profile ID}
                         <outlet property="steamIdField" destination="agU-wR-SkB" id="r1Y-t9-LbC"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Um-fo-V11" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="307" y="-768"/>
         </scene>
-        <!--App Settings View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="Tn6-Jk-7uU">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9Wo-M6-nki" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="r9B-R6-ule" customClass="IASKAppSettingsViewController" sceneMemberID="viewController">
+                <tableViewController id="r9B-R6-ule" customClass="SCSettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="i90-aV-FUj">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -106,15 +105,21 @@ http://steamcommunity.com/profile/{Profile ID}
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" id="DVF-yZ-f2j"/>
+                    <navigationItem key="navigationItem" id="DVF-yZ-f2j">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="GSu-DH-HgI">
+                            <connections>
+                                <action selector="dismissSettings:" destination="r9B-R6-ule" id="FPo-1O-cds"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Wo-M6-nki" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1733" y="-670"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Vnm-y4-M3p">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3oe-Uz-9IP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="sOd-p5-uza" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="WUH-Da-ljW"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
@@ -127,13 +132,13 @@ http://steamcommunity.com/profile/{Profile ID}
                         <segue destination="r9B-R6-ule" kind="relationship" relationship="rootViewController" id="OgC-TB-4Wq"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3oe-Uz-9IP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1189" y="-670"/>
         </scene>
         <!--Games View Controller-->
         <scene sceneID="nSk-hw-ah7">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Tha-Gp-fup" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="OFf-mD-FT8" customClass="SCGamesViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rNZ-Ga-xu8">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -186,13 +191,13 @@ http://steamcommunity.com/profile/{Profile ID}
                         <segue destination="12" kind="push" identifier="showInventory" id="Zmm-7E-rdQ"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tha-Gp-fup" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="549" y="55"/>
         </scene>
         <!--Inventory View Controller - Inventory-->
         <scene sceneID="18">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="17" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="" title="Inventory" id="12" customClass="SCInventoryViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="13">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -242,13 +247,13 @@ http://steamcommunity.com/profile/{Profile ID}
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="17" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1123" y="55"/>
         </scene>
         <!--Item View Controller - Detail-->
         <scene sceneID="24">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="23" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="" title="Detail" id="21" customClass="SCItemViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="22">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -426,13 +431,13 @@ Kill eater score</string>
                         <segue destination="Rbk-sh-M5b" kind="push" identifier="showItemSet" id="XHB-f3-kTS"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="23" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1566" y="55"/>
         </scene>
         <!--View Controller - Item Set-->
         <scene sceneID="30b-1X-4mC">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qoq-V6-2So" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Item Set" id="Rbk-sh-M5b" sceneMemberID="viewController">
                     <label key="view" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item set" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="d1R-KG-DpA" customClass="TTTAttributedLabel">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -447,13 +452,13 @@ Kill eater score</string>
                     <navigationItem key="navigationItem" id="Qdi-Gf-Vp0"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qoq-V6-2So" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2093" y="48"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tpM-Sl-7CZ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bF0-Ch-Wch" sceneMemberID="firstResponder"/>
                 <navigationController id="09V-IM-Zg9" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
@@ -465,6 +470,7 @@ Kill eater score</string>
                         <segue destination="n1t-WO-e29" kind="relationship" relationship="rootViewController" id="aMx-Od-P0I"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bF0-Ch-Wch" sceneMemberID="firstResponder"/>
                 <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="item_placeholder.png" id="LMZ-dW-BJR">
                     <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
                     <autoresizingMask key="autoresizingMask"/>
@@ -502,11 +508,11 @@ Kill eater score</string>
         <class className="SCClassImageView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCClassImageView.h"/>
         </class>
+        <class className="SCGameCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCGameCell.h"/>
+        </class>
         <class className="SCGamesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCGamesViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="showSteamIdForm:"/>
-            </relationships>
         </class>
         <class className="SCInventoryViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCInventoryViewController.h"/>
@@ -540,11 +546,16 @@ Kill eater score</string>
                 <relationship kind="outletCollection" name="icons" candidateClass="UIImageView"/>
             </relationships>
         </class>
+        <class className="SCSettingsViewController" superclassName="IASKAppSettingsViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissSettings:"/>
+            </relationships>
+        </class>
         <class className="SCSteamIdFormController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSteamIdFormController.h"/>
             <relationships>
                 <relationship kind="action" name="dismissForm:"/>
-                <relationship kind="action" name="submitForm:"/>
                 <relationship kind="outlet" name="helpLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="steamIdField" candidateClass="UITextField"/>
             </relationships>

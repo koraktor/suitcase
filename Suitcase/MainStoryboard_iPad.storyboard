@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -29,7 +29,6 @@
         <!--Games View Controller - Games-->
         <scene sceneID="IDe-HG-bbx">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gBL-bx-swS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Games" id="dbF-Dt-raV" customClass="SCGamesViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Py7-Vb-XSX">
                         <rect key="frame" x="0.0" y="64" width="320" height="704"/>
@@ -84,6 +83,7 @@
                         <segue destination="19" kind="push" identifier="showInventory" splitViewControllerTargetIndex="0" id="Dxt-wv-bqA"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gBL-bx-swS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="685" y="-1665"/>
         </scene>
@@ -448,13 +448,14 @@ http://steamcommunity.com/profile/{Profile ID}
             </objects>
             <point key="canvasLocation" x="302" y="-680"/>
         </scene>
-        <!--App Settings View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="qXV-A1-RVO">
             <objects>
-                <tableViewController id="Men-12-BBe" customClass="IASKAppSettingsViewController" sceneMemberID="viewController">
+                <tableViewController id="Men-12-BBe" customClass="SCSettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="075-G2-3ux">
-                        <rect key="frame" x="0.0" y="44" width="540" height="532"/>
+                        <rect key="frame" x="0.0" y="64" width="540" height="512"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="SettingsCell" id="NeG-u2-HaO">
@@ -475,7 +476,7 @@ http://steamcommunity.com/profile/{Profile ID}
                     <toolbarItems>
                         <barButtonItem systemItem="done" id="ZKi-nX-IcC">
                             <connections>
-                                <action selector="dismiss:" destination="Men-12-BBe" id="gxW-Na-ufQ"/>
+                                <action selector="dismissSettings:" destination="Men-12-BBe" id="9xM-jZ-t5a"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -512,7 +513,7 @@ http://steamcommunity.com/profile/{Profile ID}
             <objects>
                 <viewController modalPresentationStyle="pageSheet" id="F4a-SA-CUY" sceneMemberID="viewController">
                     <label key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item set" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="RIw-cp-hWF" customClass="TTTAttributedLabel">
-                        <rect key="frame" x="0.0" y="0.0" width="384" height="192"/>
+                        <rect key="frame" x="0.0" y="20" width="384" height="192"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -531,7 +532,6 @@ http://steamcommunity.com/profile/{Profile ID}
         <!--View Controller-->
         <scene sceneID="VvE-Sx-tMJ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Hoh-uB-fkN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="u2V-bm-OPg" sceneMemberID="viewController">
                     <webView key="view" contentMode="scaleToFill" id="eja-tV-rBb">
                         <rect key="frame" x="0.0" y="64" width="703" height="704"/>
@@ -542,6 +542,7 @@ http://steamcommunity.com/profile/{Profile ID}
                     <navigationItem key="navigationItem" id="fQh-kd-Nx6"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hoh-uB-fkN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1884" y="393"/>
         </scene>
@@ -564,6 +565,9 @@ http://steamcommunity.com/profile/{Profile ID}
         </class>
         <class className="SCClassImageView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCClassImageView.h"/>
+        </class>
+        <class className="SCGameCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCGameCell.h"/>
         </class>
         <class className="SCGamesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCGamesViewController.h"/>
@@ -600,6 +604,12 @@ http://steamcommunity.com/profile/{Profile ID}
                 <relationship kind="outletCollection" name="icons" candidateClass="UIImageView"/>
             </relationships>
         </class>
+        <class className="SCSettingsViewController" superclassName="IASKAppSettingsViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissSettings:"/>
+            </relationships>
+        </class>
         <class className="SCSteamIdFormController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSteamIdFormController.h"/>
             <relationships>
@@ -618,6 +628,6 @@ http://steamcommunity.com/profile/{Profile ID}
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="D8W-4S-aKW"/>
+        <segue reference="eS2-5p-lpL"/>
     </inferredMetricsTieBreakers>
 </document>

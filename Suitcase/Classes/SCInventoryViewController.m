@@ -8,7 +8,6 @@
 #import "SCInventoryViewController.h"
 
 #import "ASIHTTPRequest.h"
-#import "IASKAppSettingsViewController.h"
 #import "IASKSettingsReader.h"
 #import "SCAppDelegate.h"
 #import "SCInventory.h"
@@ -16,6 +15,7 @@
 #import "SCItem.h"
 #import "SCItemCell.h"
 #import "SCSchema.h"
+#import "SCSettingsViewController.h"
 #import "SCSteamIdFormController.h"
 #import "UIImageView+ASIHTTPRequest.h"
 
@@ -233,7 +233,7 @@
         [segue.destinationViewController setDetailItem:item];
     } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
         UINavigationController *navigationController = segue.destinationViewController;
-        IASKAppSettingsViewController *settingsController = (IASKAppSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];
+        SCSettingsViewController *settingsController = (SCSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];
         settingsController.title = NSLocalizedString(@"Settings", @"Settings");
         settingsController.delegate = self;
         settingsController.showCreditsFooter = NO;

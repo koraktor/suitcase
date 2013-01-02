@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 020958C4169386B000A44851 /* SCSettingsViewController.m */; };
 		0209E13A157951300073385D /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0209E127157951300073385D /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0209E13B157951300073385D /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0209E127157951300073385D /* ASIAuthenticationDialog.m */; };
 		0209E13C157951300073385D /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0209E12A157951300073385D /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -136,6 +137,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		020958C3169386AF00A44851 /* SCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSettingsViewController.h; path = Classes/SCSettingsViewController.h; sourceTree = "<group>"; };
+		020958C4169386B000A44851 /* SCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSettingsViewController.m; path = Classes/SCSettingsViewController.m; sourceTree = "<group>"; };
 		0209E126157951300073385D /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIAuthenticationDialog.h; path = Classes/External/ASIHTTPRequest/Classes/ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		0209E127157951300073385D /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASIAuthenticationDialog.m; path = Classes/External/ASIHTTPRequest/Classes/ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		0209E128157951300073385D /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASICacheDelegate.h; path = Classes/External/ASIHTTPRequest/Classes/ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -541,6 +544,8 @@
 				028B64921526761C0040D2FF /* SCInventoryViewController.m */,
 				0255A14A155D9BF80092741E /* SCSchema.h */,
 				0255A14B155D9BF80092741E /* SCSchema.m */,
+				020958C3169386AF00A44851 /* SCSettingsViewController.h */,
+				020958C4169386B000A44851 /* SCSettingsViewController.m */,
 				0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */,
 				0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */,
 				0209E15615795E6C0073385D /* UIImageView+ASIHTTPRequest.h */,
@@ -854,6 +859,7 @@
 				0266E0991692479E009C6CE8 /* DDXMLElement.m in Sources */,
 				0266E09A1692479E009C6CE8 /* DDXMLNode.m in Sources */,
 				0266E0A11692EA14009C6CE8 /* NSString+DDXML.m in Sources */,
+				020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
