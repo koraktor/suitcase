@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 020958C4169386B000A44851 /* SCSettingsViewController.m */; };
+		020958C81693926300A44851 /* game_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 020958C61693926300A44851 /* game_placeholder.png */; };
+		020958C91693926300A44851 /* game_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 020958C71693926300A44851 /* game_placeholder@2x.png */; };
 		0209E13A157951300073385D /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0209E127157951300073385D /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0209E13B157951300073385D /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0209E127157951300073385D /* ASIAuthenticationDialog.m */; };
 		0209E13C157951300073385D /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0209E12A157951300073385D /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -88,6 +90,7 @@
 		0266E0991692479E009C6CE8 /* DDXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 0266E0951692479E009C6CE8 /* DDXMLElement.m */; };
 		0266E09A1692479E009C6CE8 /* DDXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0266E0971692479E009C6CE8 /* DDXMLNode.m */; };
 		0266E0A11692EA14009C6CE8 /* NSString+DDXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 0266E0A01692EA13009C6CE8 /* NSString+DDXML.m */; };
+		0266E0A416933ACF009C6CE8 /* SCGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 0266E0A316933ACE009C6CE8 /* SCGame.m */; };
 		0269A4A915CC3AEB008A287A /* SCGamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269A4A815CC3AEB008A287A /* SCGamesViewController.m */; };
 		026F215C156ADA1F00C7BD54 /* SCClassImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026F215B156ADA1F00C7BD54 /* SCClassImageView.m */; };
 		0275E20D158E6B5B008EA0AD /* SCItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0275E20C158E6B5B008EA0AD /* SCItemCell.m */; };
@@ -139,6 +142,8 @@
 /* Begin PBXFileReference section */
 		020958C3169386AF00A44851 /* SCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSettingsViewController.h; path = Classes/SCSettingsViewController.h; sourceTree = "<group>"; };
 		020958C4169386B000A44851 /* SCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSettingsViewController.m; path = Classes/SCSettingsViewController.m; sourceTree = "<group>"; };
+		020958C61693926300A44851 /* game_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_placeholder.png; path = Images/game_placeholder.png; sourceTree = "<group>"; };
+		020958C71693926300A44851 /* game_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game_placeholder@2x.png"; path = "Images/game_placeholder@2x.png"; sourceTree = "<group>"; };
 		0209E126157951300073385D /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIAuthenticationDialog.h; path = Classes/External/ASIHTTPRequest/Classes/ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		0209E127157951300073385D /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASIAuthenticationDialog.m; path = Classes/External/ASIHTTPRequest/Classes/ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		0209E128157951300073385D /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASICacheDelegate.h; path = Classes/External/ASIHTTPRequest/Classes/ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -260,6 +265,8 @@
 		0266E09C1692493C009C6CE8 /* DDXMLPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDXMLPrivate.h; path = Classes/External/KissXML/KissXML/Private/DDXMLPrivate.h; sourceTree = "<group>"; };
 		0266E09F1692EA13009C6CE8 /* NSString+DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+DDXML.h"; path = "Classes/External/KissXML/KissXML/Categories/NSString+DDXML.h"; sourceTree = "<group>"; };
 		0266E0A01692EA13009C6CE8 /* NSString+DDXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+DDXML.m"; path = "Classes/External/KissXML/KissXML/Categories/NSString+DDXML.m"; sourceTree = "<group>"; };
+		0266E0A216933ACE009C6CE8 /* SCGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCGame.h; path = Classes/SCGame.h; sourceTree = "<group>"; };
+		0266E0A316933ACE009C6CE8 /* SCGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCGame.m; path = Classes/SCGame.m; sourceTree = "<group>"; };
 		0269A4A715CC3AEB008A287A /* SCGamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCGamesViewController.h; path = Classes/SCGamesViewController.h; sourceTree = "<group>"; };
 		0269A4A815CC3AEB008A287A /* SCGamesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCGamesViewController.m; path = Classes/SCGamesViewController.m; sourceTree = "<group>"; };
 		026F215A156ADA1F00C7BD54 /* SCClassImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCClassImageView.h; path = Classes/SCClassImageView.h; sourceTree = "<group>"; };
@@ -526,6 +533,8 @@
 				028B648E1526761C0040D2FF /* SCAppDelegate.m */,
 				026F215A156ADA1F00C7BD54 /* SCClassImageView.h */,
 				026F215B156ADA1F00C7BD54 /* SCClassImageView.m */,
+				0266E0A216933ACE009C6CE8 /* SCGame.h */,
+				0266E0A316933ACE009C6CE8 /* SCGame.m */,
 				0220FFC615D7A84700AB8AA3 /* SCGameCell.h */,
 				0220FFC715D7A84700AB8AA3 /* SCGameCell.m */,
 				0269A4A715CC3AEB008A287A /* SCGamesViewController.h */,
@@ -595,6 +604,8 @@
 				02E7218615938BED00A18BF1 /* Default-Landscape~ipad.png */,
 				02E7218415938BE400A18BF1 /* Default@2x.png */,
 				02E7218215938BDE00A18BF1 /* Default.png */,
+				020958C61693926300A44851 /* game_placeholder.png */,
+				020958C71693926300A44851 /* game_placeholder@2x.png */,
 				02806D73158E263E003A0607 /* item_placeholder.png */,
 				02806D74158E263E003A0607 /* item_placeholder@2x.png */,
 				02D2E125157FCEA300DFBF7B /* Icon-72@2x.png */,
@@ -747,6 +758,8 @@
 				02E7218915938BF000A18BF1 /* Default-Landscape@2x~ipad.png in Resources */,
 				02E7218A15938C4500A18BF1 /* Default.png in Resources */,
 				02E7218B15938C4700A18BF1 /* Default@2x.png in Resources */,
+				020958C81693926300A44851 /* game_placeholder.png in Resources */,
+				020958C91693926300A44851 /* game_placeholder@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -859,6 +872,7 @@
 				0266E0991692479E009C6CE8 /* DDXMLElement.m in Sources */,
 				0266E09A1692479E009C6CE8 /* DDXMLNode.m in Sources */,
 				0266E0A11692EA14009C6CE8 /* NSString+DDXML.m in Sources */,
+				0266E0A416933ACF009C6CE8 /* SCGame.m in Sources */,
 				020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

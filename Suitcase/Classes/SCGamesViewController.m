@@ -11,6 +11,8 @@
 #import "DDXMLElement.h"
 
 #import "SCAppDelegate.h"
+#import "SCGame.h"
+#import "SCGameCell.h"
 #import "SCGamesViewController.h"
 #import "SCSteamIdFormController.h"
 
@@ -18,7 +20,7 @@
     NSArray *_availableGames;
     NSLock *_availableGamesLock;
     NSNumber *_currentAppId;
-    NSDictionary *_games;
+    NSArray *_games;
 }
 @end
 
@@ -106,14 +108,11 @@
 #endif
     NSURLRequest *gamesRequest = [NSURLRequest requestWithURL:gamesUrl];
     AFKissXMLRequestOperation *gamesRequestOperation = [AFKissXMLRequestOperation XMLDocumentRequestOperationWithRequest:gamesRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, DDXMLDocument *XMLDocument) {
-        NSMutableDictionary *games = [NSMutableDictionary dictionary];
+        NSMutableArray *games = [NSMutableArray array];
 
         DDXMLElement *gamesElement = [[[XMLDocument rootElement] elementsForName:@"games"] objectAtIndex:0];
         for (DDXMLElement *gameElement in [gamesElement elementsForName:@"game"]) {
-            DDXMLElement *appIdElement = [[gameElement elementsForName:@"appID"] objectAtIndex:0];
-            DDXMLElement *nameElement = [[gameElement elementsForName:@"name"] objectAtIndex:0];
-            NSNumber *appId = [NSNumber numberWithInt:[[appIdElement stringValue] intValue]];
-            [games setObject:[nameElement stringValue] forKey:appId];
+            [games addObject:[[SCGame alloc] initWithXMLElement:gameElement]];
         };
 
         [NSThread detachNewThreadSelector:@selector(populateGames:) toTarget:self withObject:[games copy]];
@@ -131,13 +130,13 @@
     return 1;
 }
 
-- (void)populateGames:(NSDictionary *)games
+- (void)populateGames:(NSArray *)games
 {
-    _games = [NSMutableDictionary dictionary];
+    _games = [NSMutableArray array];
     [_availableGamesLock lock];
-    [games enumerateKeysAndObjectsUsingBlock:^(NSString *appId, NSString *gameName, BOOL *stop) {
-        if ([_availableGames containsObject:appId]) {
-            [_games setValue:gameName forKey:appId];
+    [games enumerateObjectsUsingBlock:^(SCGame *game, NSUInteger idx, BOOL *stop) {
+        if ([_availableGames containsObject:game.appId]) {
+            [(NSMutableArray *)_games addObject:game];
         }
     }];
     [_availableGamesLock unlock];
@@ -187,15 +186,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GameCell"];
-    cell.textLabel.text = [[_games allValues] objectAtIndex:indexPath.row];
+    SCGame *game = [_games objectAtIndex:indexPath.row];
+    SCGameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GameCell"];
+    cell.game = game;
+    [cell loadImage];
 
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _currentAppId = [[_games allKeys] objectAtIndex:indexPath.row];
+    _currentAppId = ((SCGame *)[_games objectAtIndex:indexPath.row]).appId;
     [self performSegueWithIdentifier:@"showInventory" sender:self];
 }
 

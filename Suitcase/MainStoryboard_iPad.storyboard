@@ -37,7 +37,7 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GameCell" textLabel="6VQ-Ii-J05" imageView="ew5-Kz-Sah" style="IBUITableViewCellStyleDefault" id="1FZ-LF-IqA" customClass="SCItemCell">
+                            <tableViewCell autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GameCell" textLabel="6VQ-Ii-J05" imageView="ew5-Kz-Sah" style="IBUITableViewCellStyleDefault" id="1FZ-LF-IqA" customClass="SCGameCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -45,16 +45,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Game name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6VQ-Ii-J05">
-                                            <rect key="frame" x="43" y="0.0" width="267" height="43"/>
+                                            <rect key="frame" x="106" y="0.0" width="204" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </label>
-                                        <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="origin.png" id="ew5-Kz-Sah">
-                                            <rect key="frame" x="9" y="9" width="24" height="24"/>
+                                        <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="game_placeholder.png" id="ew5-Kz-Sah">
+                                            <rect key="frame" x="4" y="4" width="92" height="35"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                     </subviews>
@@ -548,6 +548,7 @@ http://steamcommunity.com/profile/{Profile ID}
         </scene>
     </scenes>
     <resources>
+        <image name="game_placeholder.png" width="92" height="35"/>
         <image name="item_placeholder.png" width="32" height="32"/>
         <image name="item_set.png" width="24" height="24"/>
         <image name="kill_eater.png" width="24" height="24"/>
@@ -614,6 +615,7 @@ http://steamcommunity.com/profile/{Profile ID}
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSteamIdFormController.h"/>
             <relationships>
                 <relationship kind="action" name="dismissForm:"/>
+                <relationship kind="action" name="submitForm:"/>
                 <relationship kind="outlet" name="helpLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="steamIdField" candidateClass="UITextField"/>
             </relationships>

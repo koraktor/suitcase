@@ -2,14 +2,17 @@
 //  SCGameCell.h
 //  Suitcase
 //
-//  Created by Sebastian Staudt on 12.08.12.
-//
+//  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
 #import <UIKit/UIKit.h>
 
+#import "SCGame.h"
+
 @interface SCGameCell : UITableViewCell
 
-@property (strong, nonatomic) NSNumber *appId;
+@property (strong, nonatomic) SCGame *game;
+
+- (void)loadImage;
 
 @end
