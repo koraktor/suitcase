@@ -57,26 +57,28 @@
 
         if ([weakApiListRequest responseStatusCode] >= 500) {
             errorMsg = [weakApiListRequest responseStatusMessage];
-        }
-
-        NSError *error = nil;
-        NSDictionary *apiListResponse = [[NSJSONSerialization JSONObjectWithData:[weakApiListRequest responseData] options:0 error:&error] objectForKey:@"apilist"];
-
-        if (error != nil) {
             NSLog(@"Error loading available Web API interfaces: %@", errorMsg);
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         } else {
-            NSArray *interfaces = [apiListResponse objectForKey:@"interfaces"];
-            _availableGames = [NSMutableArray array];
-            [interfaces enumerateObjectsUsingBlock:^(NSDictionary *interface, NSUInteger idx, BOOL *stop) {
-                NSString *interfaceName = [interface valueForKey:@"name"];
-                if ([interfaceName hasPrefix:@"IEconItems_"]) {
-                    NSNumber *appId = [NSNumber numberWithInt:[[interfaceName stringByReplacingCharactersInRange:NSMakeRange(0, 11) withString:@""] intValue]];
-                    [(NSMutableArray *)_availableGames addObject:appId];
-                }
-            }];
-            _availableGames = [_availableGames copy];
-            [_availableGamesLock unlock];
+            NSError *error = nil;
+            NSDictionary *apiListResponse = [[NSJSONSerialization JSONObjectWithData:[weakApiListRequest responseData] options:0 error:&error] objectForKey:@"apilist"];
+
+            if (error != nil) {
+                NSLog(@"Error loading available Web API interfaces: %@", errorMsg);
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            } else {
+                NSArray *interfaces = [apiListResponse objectForKey:@"interfaces"];
+                _availableGames = [NSMutableArray array];
+                [interfaces enumerateObjectsUsingBlock:^(NSDictionary *interface, NSUInteger idx, BOOL *stop) {
+                    NSString *interfaceName = [interface valueForKey:@"name"];
+                    if ([interfaceName hasPrefix:@"IEconItems_"]) {
+                        NSNumber *appId = [NSNumber numberWithInt:[[interfaceName stringByReplacingCharactersInRange:NSMakeRange(0, 11) withString:@""] intValue]];
+                        [(NSMutableArray *)_availableGames addObject:appId];
+                    }
+                }];
+                _availableGames = [_availableGames copy];
+                [_availableGamesLock unlock];
+            }
         }
     }];
     [apiListRequest setFailedBlock:^{
