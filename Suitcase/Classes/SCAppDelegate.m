@@ -2,7 +2,7 @@
 //  SCAppDelegate.m
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
 #import "ASIHTTPRequest.h"
@@ -107,6 +107,9 @@
 
     if (steamId64 == nil) {
         NSURL *steamIdUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001?vanityurl=%@&key=%@", steamId, [SCAppDelegate apiKey]]];
+#ifdef DEBUG
+        NSLog(@"Resolving 64bit Steam ID from: %@", steamIdUrl);
+#endif
         __unsafe_unretained __block ASIHTTPRequest *steamIdRequest = [ASIHTTPRequest requestWithURL:steamIdUrl];
         [steamIdRequest setCompletionBlock:^{
             NSError *error = nil;

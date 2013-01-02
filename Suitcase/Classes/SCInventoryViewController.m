@@ -72,6 +72,9 @@
 
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_%@/GetPlayerItems/v0001?steamid=%@&key=%@", _game.appId, steamId64, [SCAppDelegate apiKey]]];
+#ifdef DEBUG
+    NSLog(@"Loading inventory contents from: %@", inventoryUrl);
+#endif
     ASIHTTPRequest *inventoryRequest = [ASIHTTPRequest requestWithURL:inventoryUrl];
     __weak ASIHTTPRequest *weakInventoryRequest = inventoryRequest;
     [inventoryRequest setCompletionBlock:^{
@@ -116,6 +119,9 @@
 
 - (void)loadSchema {
     NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_%@/GetSchema/v0001?key=%@&language=%@", _game.appId, [SCAppDelegate apiKey], [[NSLocale preferredLanguages] objectAtIndex:0]]];
+#ifdef DEBUG
+    NSLog(@"Loading item schema data from: %@", schemaUrl);
+#endif
     ASIHTTPRequest *schemaRequest = [ASIHTTPRequest requestWithURL:schemaUrl];
     __weak ASIHTTPRequest *weakSchemaRequest = schemaRequest;
     [schemaRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];

@@ -13,8 +13,9 @@
 #import "SCAppDelegate.h"
 #import "SCGame.h"
 #import "SCGameCell.h"
-#import "SCGamesViewController.h"
 #import "SCSteamIdFormController.h"
+
+#import "SCGamesViewController.h"
 
 @interface SCGamesViewController () {
     NSArray *_availableGames;
@@ -45,6 +46,9 @@
 - (void)loadAvailableGames
 {
     NSURL *apiListUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/ISteamWebAPIUtil/GetSupportedAPIList/v0001?key=%@", [SCAppDelegate apiKey]]];
+#ifdef DEBUG
+    NSLog(@"Loading available games from: %@", apiListUrl);
+#endif
     ASIHTTPRequest *apiListRequest = [ASIHTTPRequest requestWithURL:apiListUrl];
     __weak ASIHTTPRequest *weakApiListRequest = apiListRequest;
     [apiListRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
