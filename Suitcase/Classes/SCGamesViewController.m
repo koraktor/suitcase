@@ -146,7 +146,9 @@
         }
     }];
     [_availableGamesLock unlock];
-    _games = [_games copy];
+    _games = [_games sortedArrayUsingComparator:^NSComparisonResult(SCGame *game1, SCGame *game2) {
+        return [game1.name compare:game2.name];
+    }];
 
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         [self.tableView reloadData];
