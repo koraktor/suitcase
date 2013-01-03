@@ -74,6 +74,11 @@
 		022D0CFB158494960071F665 /* quality-iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 022D0CF5158494960071F665 /* quality-iphone@2x.png */; };
 		022D0D0E1584E5770071F665 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */; };
 		022D0D0F1584E5770071F665 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */; };
+		0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */; };
+		0250CC55169589AD00B20A6F /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 0250CC51169589AD00B20A6F /* back.png */; };
+		0250CC56169589AD00B20A6F /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0250CC52169589AD00B20A6F /* back@2x.png */; };
+		0250CC57169589AD00B20A6F /* forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 0250CC53169589AD00B20A6F /* forward.png */; };
+		0250CC58169589AD00B20A6F /* forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0250CC54169589AD00B20A6F /* forward@2x.png */; };
 		0255A148155D9BE20092741E /* SCItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255A147155D9BE20092741E /* SCItem.m */; };
 		0255A14C155D9BF80092741E /* SCSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255A14B155D9BF80092741E /* SCSchema.m */; };
 		0266E067169243A0009C6CE8 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0266E055169243A0009C6CE8 /* AFHTTPClient.m */; };
@@ -229,6 +234,12 @@
 		022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		022D0D101584E7870071F665 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0250CBD91693C8D100B20A6F /* SCWikiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWikiViewController.h; path = Classes/SCWikiViewController.h; sourceTree = "<group>"; };
+		0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWikiViewController.m; path = Classes/SCWikiViewController.m; sourceTree = "<group>"; };
+		0250CC51169589AD00B20A6F /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = Images/back.png; sourceTree = "<group>"; };
+		0250CC52169589AD00B20A6F /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "back@2x.png"; path = "Images/back@2x.png"; sourceTree = "<group>"; };
+		0250CC53169589AD00B20A6F /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = forward.png; path = Images/forward.png; sourceTree = "<group>"; };
+		0250CC54169589AD00B20A6F /* forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward@2x.png"; path = "Images/forward@2x.png"; sourceTree = "<group>"; };
 		0255A146155D9BE20092741E /* SCItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItem.h; path = Classes/SCItem.h; sourceTree = "<group>"; };
 		0255A147155D9BE20092741E /* SCItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItem.m; path = Classes/SCItem.m; sourceTree = "<group>"; };
 		0255A14A155D9BF80092741E /* SCSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSchema.h; path = Classes/SCSchema.h; sourceTree = "<group>"; };
@@ -557,6 +568,8 @@
 				020958C4169386B000A44851 /* SCSettingsViewController.m */,
 				0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */,
 				0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */,
+				0250CBD91693C8D100B20A6F /* SCWikiViewController.h */,
+				0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */,
 				0209E15615795E6C0073385D /* UIImageView+ASIHTTPRequest.h */,
 				0209E15715795E6D0073385D /* UIImageView+ASIHTTPRequest.m */,
 				022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */,
@@ -600,10 +613,14 @@
 		02DDB47B1582918B004DB9D8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0250CC51169589AD00B20A6F /* back.png */,
+				0250CC52169589AD00B20A6F /* back@2x.png */,
 				02E7218815938BF000A18BF1 /* Default-Landscape@2x~ipad.png */,
 				02E7218615938BED00A18BF1 /* Default-Landscape~ipad.png */,
 				02E7218415938BE400A18BF1 /* Default@2x.png */,
 				02E7218215938BDE00A18BF1 /* Default.png */,
+				0250CC53169589AD00B20A6F /* forward.png */,
+				0250CC54169589AD00B20A6F /* forward@2x.png */,
 				020958C61693926300A44851 /* game_placeholder.png */,
 				020958C71693926300A44851 /* game_placeholder@2x.png */,
 				02806D73158E263E003A0607 /* item_placeholder.png */,
@@ -760,6 +777,10 @@
 				02E7218B15938C4700A18BF1 /* Default@2x.png in Resources */,
 				020958C81693926300A44851 /* game_placeholder.png in Resources */,
 				020958C91693926300A44851 /* game_placeholder@2x.png in Resources */,
+				0250CC55169589AD00B20A6F /* back.png in Resources */,
+				0250CC56169589AD00B20A6F /* back@2x.png in Resources */,
+				0250CC57169589AD00B20A6F /* forward.png in Resources */,
+				0250CC58169589AD00B20A6F /* forward@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -874,6 +895,7 @@
 				0266E0A11692EA14009C6CE8 /* NSString+DDXML.m in Sources */,
 				0266E0A416933ACF009C6CE8 /* SCGame.m in Sources */,
 				020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */,
+				0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

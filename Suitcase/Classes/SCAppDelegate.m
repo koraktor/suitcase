@@ -31,6 +31,7 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
         UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
+        navigationController.toolbar.tintColor = [UIColor blackColor];
         splitViewController.delegate = (id)navigationController.topViewController;
         masterViewController = [[splitViewController.viewControllers objectAtIndex:0] topViewController];
     } else {

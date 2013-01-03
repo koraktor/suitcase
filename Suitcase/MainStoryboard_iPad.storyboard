@@ -539,19 +539,39 @@ http://steamcommunity.com/profile/{Profile ID}
             </objects>
             <point key="canvasLocation" x="1025" y="455"/>
         </scene>
-        <!--View Controller-->
+        <!--Wiki View Controller-->
         <scene sceneID="VvE-Sx-tMJ">
             <objects>
-                <viewController id="u2V-bm-OPg" sceneMemberID="viewController">
+                <viewController id="u2V-bm-OPg" customClass="SCWikiViewController" sceneMemberID="viewController">
                     <webView key="view" contentMode="scaleToFill" id="eja-tV-rBb">
-                        <rect key="frame" x="0.0" y="64" width="703" height="704"/>
+                        <rect key="frame" x="0.0" y="64" width="703" height="660"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <dataDetectorType key="dataDetectorTypes"/>
+                        <connections>
+                            <outlet property="delegate" destination="u2V-bm-OPg" id="cmu-ZS-yNE"/>
+                        </connections>
                     </webView>
+                    <toolbarItems>
+                        <barButtonItem enabled="NO" image="back.png" id="TIm-1y-L9C">
+                            <connections>
+                                <action selector="goBack:" destination="u2V-bm-OPg" id="7Dk-Ee-w1k"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem enabled="NO" image="forward.png" id="E5m-2Z-V3b">
+                            <connections>
+                                <action selector="goForward:" destination="u2V-bm-OPg" id="dXP-G6-Lxf"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="fQh-kd-Nx6"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackOpaque"/>
+                    <connections>
+                        <outlet property="backButton" destination="TIm-1y-L9C" id="yXP-2p-XIx"/>
+                        <outlet property="forwardButton" destination="E5m-2Z-V3b" id="x20-3Y-4xw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hoh-uB-fkN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -559,6 +579,8 @@ http://steamcommunity.com/profile/{Profile ID}
         </scene>
     </scenes>
     <resources>
+        <image name="back.png" width="24" height="24"/>
+        <image name="forward.png" width="24" height="24"/>
         <image name="game_placeholder.png" width="92" height="35"/>
         <image name="item_placeholder.png" width="32" height="32"/>
         <image name="item_set.png" width="24" height="24"/>
@@ -631,6 +653,15 @@ http://steamcommunity.com/profile/{Profile ID}
                 <relationship kind="action" name="submitForm:"/>
                 <relationship kind="outlet" name="helpLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="steamIdField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="SCWikiViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCWikiViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goBack:"/>
+                <relationship kind="action" name="goForward:"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="forwardButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="TTTAttributedLabel" superclassName="UILabel">
