@@ -68,16 +68,7 @@
     SCInventory *inventory = [SCInventory currentInventory];
     if (inventory != nil && inventory.game == _game) {
         _inventory = inventory;
-        [self.tableView setDataSource:_inventory];
-
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-            [self.tableView reloadData];
-
-            if ([_inventory.itemSections count] > 0 && [[_inventory.itemSections objectAtIndex:0] count] > 0) {
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                                      atScrollPosition:UITableViewScrollPositionTop animated:YES];
-            }
-        });
+        [self reloadInventory];
 
         return;
     }
@@ -200,6 +191,21 @@
     _inventory = [[SCInventory alloc] initWithItems:itemsData andGame:_game andSchema:_itemSchema];
     [_schemaLock unlock];
     [_inventory sortItems];
+
+    [self reloadInventory];
+}
+
+- (void)settingsChanged:(NSNotification *)notification {
+    if ([[notification object] isEqual:@"sorting"]) {
+        [self sortInventory];
+    } else if ([[notification object] isEqual:@"show_colors"]) {
+        _inventory.showColors = [[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue];
+        [self refreshInventory];
+    }
+}
+
+- (void)reloadInventory
+{
     [self.tableView setDataSource:_inventory];
 
     dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -210,15 +216,6 @@
                                   atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }
     });
-}
-
-- (void)settingsChanged:(NSNotification *)notification {
-    if ([[notification object] isEqual:@"sorting"]) {
-        [self sortInventory];
-    } else if ([[notification object] isEqual:@"show_colors"]) {
-        _inventory.showColors = [[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue];
-        [self refreshInventory];
-    }
 }
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
