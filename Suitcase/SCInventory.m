@@ -20,9 +20,16 @@
 
 @implementation SCInventory
 
+static SCInventory *currentInventory;
+
 @synthesize itemSections = _itemSections;
 @synthesize schema = _schema;
 @synthesize showColors = _showColors;
+
++ (SCInventory *)currentInventory
+{
+    return currentInventory;
+}
 
 - (id)initWithItems:(NSArray *)itemsData
             andGame:(SCGame *)game
@@ -41,7 +48,7 @@
         _showColors = [showColors boolValue];
     }
 
-    return self;
+    return currentInventory = self;
 }
 
 - (void)sortItems {

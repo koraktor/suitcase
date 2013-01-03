@@ -65,6 +65,23 @@
 
 - (void)loadInventory
 {
+    SCInventory *inventory = [SCInventory currentInventory];
+    if (inventory != nil && inventory.game == _game) {
+        _inventory = inventory;
+        [self.tableView setDataSource:_inventory];
+
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            [self.tableView reloadData];
+
+            if ([_inventory.itemSections count] > 0 && [[_inventory.itemSections objectAtIndex:0] count] > 0) {
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                      atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            }
+        });
+
+        return;
+    }
+
     UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
     if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
         [(SCSteamIdFormController *)modal dismissForm:self];
@@ -118,6 +135,11 @@
 }
 
 - (void)loadSchema {
+    SCInventory *inventory = [SCInventory currentInventory];
+    if (inventory != nil && inventory.game == _game) {
+        return;
+    }
+
     NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_%@/GetSchema/v0001?key=%@&language=%@", _game.appId, [SCAppDelegate apiKey], [[NSLocale preferredLanguages] objectAtIndex:0]]];
 #ifdef DEBUG
     NSLog(@"Loading item schema data from: %@", schemaUrl);

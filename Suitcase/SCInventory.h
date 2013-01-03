@@ -17,6 +17,8 @@
 @property (strong, nonatomic) SCSchema *schema;
 @property (nonatomic) BOOL showColors;
 
++ (SCInventory *)currentInventory;
+
 - (id)initWithItems:(NSArray *)items
             andGame:(SCGame*)game
           andSchema:(SCSchema *)schema;
