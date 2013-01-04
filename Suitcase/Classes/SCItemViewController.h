@@ -10,6 +10,7 @@
 
 #import "SCClassImageView.h"
 #import "SCItem.h"
+#import "SCItemImageView.h"
 
 @interface SCItemViewController : UIViewController <UISplitViewControllerDelegate>
 
@@ -27,7 +28,7 @@
 @property (strong, nonatomic) IBOutletCollection(SCClassImageView) NSArray *classImages;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *icons;
-@property (strong, nonatomic) IBOutlet UIImageView *itemImage;
+@property (strong, nonatomic) IBOutlet SCItemImageView *itemImage;
 @property (strong, nonatomic) IBOutlet UIButton *itemSetButton;
 @property (strong, nonatomic) IBOutlet UIImageView *killEaterIcon;
 @property (strong, nonatomic) IBOutlet UILabel *killEaterLabel;

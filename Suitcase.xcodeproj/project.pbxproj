@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		02010B1D1696DE0A00007456 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02010B1C1696DE0A00007456 /* Default-568h@2x.png */; };
+		02010B291696E22B00007456 /* SCItemImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B281696E22A00007456 /* SCItemImageView.m */; };
 		020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 020958C4169386B000A44851 /* SCSettingsViewController.m */; };
 		020958C81693926300A44851 /* game_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 020958C61693926300A44851 /* game_placeholder.png */; };
 		020958C91693926300A44851 /* game_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 020958C71693926300A44851 /* game_placeholder@2x.png */; };
@@ -147,6 +148,8 @@
 
 /* Begin PBXFileReference section */
 		02010B1C1696DE0A00007456 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		02010B271696E22A00007456 /* SCItemImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemImageView.h; path = Classes/SCItemImageView.h; sourceTree = "<group>"; };
+		02010B281696E22A00007456 /* SCItemImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemImageView.m; path = Classes/SCItemImageView.m; sourceTree = "<group>"; };
 		020958C3169386AF00A44851 /* SCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSettingsViewController.h; path = Classes/SCSettingsViewController.h; sourceTree = "<group>"; };
 		020958C4169386B000A44851 /* SCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSettingsViewController.m; path = Classes/SCSettingsViewController.m; sourceTree = "<group>"; };
 		020958C61693926300A44851 /* game_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_placeholder.png; path = Images/game_placeholder.png; sourceTree = "<group>"; };
@@ -562,6 +565,8 @@
 				0255A147155D9BE20092741E /* SCItem.m */,
 				0275E20B158E6B5B008EA0AD /* SCItemCell.h */,
 				0275E20C158E6B5B008EA0AD /* SCItemCell.m */,
+				02010B271696E22A00007456 /* SCItemImageView.h */,
+				02010B281696E22A00007456 /* SCItemImageView.m */,
 				028B64911526761C0040D2FF /* SCInventoryViewController.h */,
 				028B64921526761C0040D2FF /* SCInventoryViewController.m */,
 				0255A14A155D9BF80092741E /* SCSchema.h */,
@@ -900,6 +905,7 @@
 				0266E0A416933ACF009C6CE8 /* SCGame.m in Sources */,
 				020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */,
 				0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */,
+				02010B291696E22B00007456 /* SCItemImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -95,14 +95,14 @@
                         <rect key="frame" x="0.0" y="64" width="703" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="TTs-KC-myH" userLabel="Item Image">
+                            <view contentMode="scaleToFill" id="yjV-rL-5U7" customClass="SCItemImageView">
                                 <rect key="frame" x="424" y="66" width="256" height="256"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
-                            </imageView>
+                            </view>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Qty." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="QAS-Pa-Xb8">
-                                <rect key="frame" x="632" y="297" width="48" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="622" y="287" width="48" height="25"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -191,23 +191,12 @@
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="21" adjustsFontSizeToFit="NO" id="GMM-gz-mXL">
-                                <rect key="frame" x="52" y="136" width="368" height="50"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <string key="text">Kill eater level
-Kill eater stats</string>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <size key="shadowOffset" width="0.0" height="1"/>
-                            </label>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="kill_eater.png" id="KAP-jc-Wvs">
-                                <rect key="frame" x="20" y="149" width="24" height="24"/>
+                                <rect key="frame" x="20" y="180" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button hidden="YES" autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" id="rR9-Fs-POz">
-                                <rect key="frame" x="21" y="194" width="399" height="50"/>
+                                <rect key="frame" x="20" y="139" width="399" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -232,6 +221,17 @@ Kill eater stats</string>
                                 <rect key="frame" x="20" y="107" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="21" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="lko-cW-jiq">
+                                <rect key="frame" x="51" y="177" width="368" height="50"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <string key="text">Kill eater level
+Kill eater score</string>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -255,10 +255,10 @@ Kill eater stats</string>
                         <outlet property="classSoldierImage" destination="VLU-n1-aZy" id="1yV-Rk-gNe"/>
                         <outlet property="classSpyImage" destination="br3-gv-fMW" id="eo0-T0-LFw"/>
                         <outlet property="descriptionLabel" destination="vdU-Is-CfC" id="qca-G0-XxC"/>
-                        <outlet property="itemImage" destination="TTs-KC-myH" id="HOY-6p-Syw"/>
+                        <outlet property="itemImage" destination="yjV-rL-5U7" id="OOg-YX-nCx"/>
                         <outlet property="itemSetButton" destination="rR9-Fs-POz" id="POH-of-g1L"/>
                         <outlet property="killEaterIcon" destination="KAP-jc-Wvs" id="yxh-2W-i25"/>
-                        <outlet property="killEaterLabel" destination="GMM-gz-mXL" id="iQY-jk-DDs"/>
+                        <outlet property="killEaterLabel" destination="lko-cW-jiq" id="o4a-eW-W5f"/>
                         <outlet property="levelLabel" destination="xBP-fs-YaV" id="8M6-f8-5Ga"/>
                         <outlet property="originLabel" destination="4Tb-db-YbY" id="D14-G4-KS4"/>
                         <outlet property="qualityLabel" destination="aLk-1t-UdJ" id="Jxf-11-Sx9"/>
