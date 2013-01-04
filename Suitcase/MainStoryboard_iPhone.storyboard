@@ -443,6 +443,7 @@ Kill eater score</string>
                         <outletCollection property="classImages" destination="ZqY-F7-O2Y" id="ZSX-Hb-qs9"/>
                         <outletCollection property="classImages" destination="eQh-0g-NF1" id="v4C-mJ-RxK"/>
                         <segue destination="Rbk-sh-M5b" kind="push" identifier="showItemSet" id="XHB-f3-kTS"/>
+                        <segue destination="lNQ-t2-rFd" kind="push" identifier="showWikiPage" id="B0L-jE-V1i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="23" sceneMemberID="firstResponder"/>
@@ -469,6 +470,41 @@ Kill eater score</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qoq-V6-2So" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2093" y="48"/>
+        </scene>
+        <!--Wiki View Controller-->
+        <scene sceneID="al6-ro-hMz">
+            <objects>
+                <viewController id="lNQ-t2-rFd" customClass="SCWikiViewController" sceneMemberID="viewController">
+                    <webView key="view" contentMode="scaleToFill" id="N6N-xL-zR8">
+                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <outlet property="delegate" destination="lNQ-t2-rFd" id="gLr-Nl-rRn"/>
+                        </connections>
+                    </webView>
+                    <toolbarItems>
+                        <barButtonItem enabled="NO" image="back.png" id="SjO-0w-XlB">
+                            <connections>
+                                <action selector="goBack:" destination="lNQ-t2-rFd" id="x2K-mc-PQK"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem enabled="NO" image="forward.png" id="aQh-Fy-uon">
+                            <connections>
+                                <action selector="goForward:" destination="lNQ-t2-rFd" id="84a-xC-KAA"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="o3N-Lw-4Iv"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackOpaque"/>
+                    <connections>
+                        <outlet property="backButton" destination="SjO-0w-XlB" id="Zc5-pw-dOs"/>
+                        <outlet property="forwardButton" destination="aQh-Fy-uon" id="nTe-Ex-phl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z26-CP-UFJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1573" y="664"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tpM-Sl-7CZ">
@@ -503,6 +539,8 @@ Kill eater score</string>
         </scene>
     </scenes>
     <resources>
+        <image name="back.png" width="24" height="24"/>
+        <image name="forward.png" width="24" height="24"/>
         <image name="game_placeholder.png" width="92" height="35"/>
         <image name="item_placeholder.png" width="32" height="32"/>
         <image name="item_set-iphone.png" width="16" height="16"/>

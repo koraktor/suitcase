@@ -41,6 +41,36 @@
 @synthesize masterPopoverController = _masterPopoverController;
 @synthesize wikiButton = _wikiButton;
 
+- (void)awakeFromNib
+{
+    self.navigationItem.rightBarButtonItem = nil;
+
+    [self.icons enumerateObjectsUsingBlock:^(UIImageView *icon, NSUInteger idx, BOOL *stop) {
+        icon.layer.shadowColor = [UIColor blackColor].CGColor;
+        icon.layer.shadowOffset = CGSizeMake(0, 1);
+        icon.layer.shadowOpacity = 1;
+        icon.layer.shadowRadius = 1.0;
+        icon.layer.masksToBounds = NO;
+    }];
+
+    self.itemImage.layer.borderColor = [[UIColor blackColor] CGColor];
+    self.itemImage.layer.cornerRadius = 5;
+    self.itemImage.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.itemImage.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+    self.itemImage.layer.shadowOpacity = 1.0;
+    self.itemImage.layer.shadowRadius = 2.5;
+
+    self.itemSetButton.imageView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.itemSetButton.imageView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.itemSetButton.imageView.layer.shadowOpacity = 1;
+    self.itemSetButton.imageView.layer.shadowRadius = 1.0;
+    self.itemSetButton.imageView.layer.masksToBounds = NO;
+    self.itemSetButton.titleLabel.numberOfLines = 2;
+
+    self.quantityLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
+    self.quantityLabel.layer.borderWidth = [[UIScreen mainScreen] scale];
+}
+
 #pragma mark - Managing the detail item
 
 - (void)setDetailItem:(SCItem *)newDetailItem
@@ -225,8 +255,6 @@
 
 - (void)viewDidLoad
 {
-    [self.navigationItem setRightBarButtonItem:nil animated:NO];
-
     [super viewDidLoad];
 
     [self.classScoutImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/scout.jpg"]];
@@ -238,31 +266,6 @@
     [self.classMedicImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/medic.jpg"]];
     [self.classSniperImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/sniper.jpg"]];
     [self.classSpyImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/spy.jpg"]];
-
-    [self.icons enumerateObjectsUsingBlock:^(UIImageView *icon, NSUInteger idx, BOOL *stop) {
-        icon.layer.shadowColor = [UIColor blackColor].CGColor;
-        icon.layer.shadowOffset = CGSizeMake(0, 1);
-        icon.layer.shadowOpacity = 1;
-        icon.layer.shadowRadius = 1.0;
-        icon.layer.masksToBounds = NO;
-    }];
-
-    self.itemImage.layer.borderColor = [[UIColor blackColor] CGColor];
-    self.itemImage.layer.cornerRadius = 5;
-    self.itemImage.layer.shadowColor = [[UIColor blackColor] CGColor];
-    self.itemImage.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-    self.itemImage.layer.shadowOpacity = 1.0;
-    self.itemImage.layer.shadowRadius = 2.5;
-
-    self.itemSetButton.imageView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.itemSetButton.imageView.layer.shadowOffset = CGSizeMake(0, 1);
-    self.itemSetButton.imageView.layer.shadowOpacity = 1;
-    self.itemSetButton.imageView.layer.shadowRadius = 1.0;
-    self.itemSetButton.imageView.layer.masksToBounds = NO;
-    self.itemSetButton.titleLabel.numberOfLines = 2;
-
-    self.quantityLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.quantityLabel.layer.borderWidth = [[UIScreen mainScreen] scale];
 
     [self configureView];
 }
@@ -321,12 +324,7 @@
 }
 
 - (IBAction)showWikiPage:(id)sender {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", self.detailItem.defindex, [[NSLocale preferredLanguages] objectAtIndex:0]]];
-        [[UIApplication sharedApplication] openURL:wikiUrl];
-    } else {
-        [self performSegueWithIdentifier:@"showWikiPage" sender:self];
-    }
+    [self performSegueWithIdentifier:@"showWikiPage" sender:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

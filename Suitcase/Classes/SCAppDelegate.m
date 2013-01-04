@@ -28,16 +28,18 @@
     [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
     
     UIViewController *masterViewController;
+    UINavigationController *navigationController;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-        UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-        navigationController.toolbar.tintColor = [UIColor blackColor];
+        navigationController = [splitViewController.viewControllers lastObject];
         splitViewController.delegate = (id)navigationController.topViewController;
         masterViewController = [[splitViewController.viewControllers objectAtIndex:0] topViewController];
     } else {
         [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
-        masterViewController = ((UINavigationController *)self.window.rootViewController).topViewController;
+        navigationController = (UINavigationController *)self.window.rootViewController;
+        masterViewController = navigationController.topViewController;
     }
+    navigationController.toolbar.tintColor = UIColor.blackColor;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadAvailableGames" object:nil];
 
