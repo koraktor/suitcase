@@ -104,6 +104,10 @@ http://steamcommunity.com/profile/{Profile ID}
                                 </view>
                             </tableViewCell>
                         </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="r9B-R6-ule" id="rUJ-Cu-l7p"/>
+                            <outlet property="delegate" destination="r9B-R6-ule" id="kYX-l8-Cbx"/>
+                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="DVF-yZ-f2j">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="GSu-DH-HgI">
@@ -242,7 +246,7 @@ http://steamcommunity.com/profile/{Profile ID}
                     <navigationItem key="navigationItem" title="Inventory" id="36">
                         <barButtonItem key="rightBarButtonItem" image="settings.png" id="bwp-8R-Wmc">
                             <connections>
-                                <segue destination="sOd-p5-uza" kind="modal" id="JIn-1w-RO4"/>
+                                <segue destination="sOd-p5-uza" kind="modal" identifier="showSettings" modalTransitionStyle="coverVertical" id="JIn-1w-RO4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -582,6 +586,6 @@ Kill eater score</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="srZ-Mq-OVS"/>
+        <segue reference="JIn-1w-RO4"/>
     </inferredMetricsTieBreakers>
 </document>
