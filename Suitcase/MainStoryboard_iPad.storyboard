@@ -67,7 +67,7 @@
                             <outlet property="delegate" destination="dbF-Dt-raV" id="vQx-0R-4hH"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="uNc-HA-9MJ">
+                    <navigationItem key="navigationItem" title="Games" id="uNc-HA-9MJ">
                         <barButtonItem key="leftBarButtonItem" image="user.png" id="DrV-SQ-KyY">
                             <connections>
                                 <segue destination="j2j-OJ-mM7" kind="modal" identifier="SteamIDForm" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="3wb-4m-iGG"/>

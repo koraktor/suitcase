@@ -138,7 +138,7 @@ http://steamcommunity.com/profile/{Profile ID}
             </objects>
             <point key="canvasLocation" x="1189" y="-670"/>
         </scene>
-        <!--Games View Controller-->
+        <!--Games View Controller - Games-->
         <scene sceneID="nSk-hw-ah7">
             <objects>
                 <tableViewController id="OFf-mD-FT8" customClass="SCGamesViewController" sceneMemberID="viewController">
@@ -177,7 +177,7 @@ http://steamcommunity.com/profile/{Profile ID}
                             <outlet property="delegate" destination="OFf-mD-FT8" id="uCX-TE-nBI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Q8r-A0-8Dt">
+                    <navigationItem key="navigationItem" title="Games" id="Q8r-A0-8Dt">
                         <barButtonItem key="leftBarButtonItem" image="user.png" id="O5P-D0-6iB">
                             <connections>
                                 <segue destination="09V-IM-Zg9" kind="modal" identifier="SteamIDForm" modalTransitionStyle="coverVertical" id="hZa-Pb-jK6"/>
