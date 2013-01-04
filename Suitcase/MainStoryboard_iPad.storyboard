@@ -546,7 +546,7 @@ http://steamcommunity.com/profile/{Profile ID}
                     <webView key="view" contentMode="scaleToFill" id="eja-tV-rBb">
                         <rect key="frame" x="0.0" y="64" width="703" height="660"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <dataDetectorType key="dataDetectorTypes"/>
                         <connections>

@@ -7,11 +7,20 @@
 
 #import "SCWikiViewController.h"
 
-@interface SCWikiViewController ()
-
+@interface SCWikiViewController () {
+    UIBarButtonItem *_activityButton;
+}
 @end
 
 @implementation SCWikiViewController
+
+- (void)awakeFromNib
+{
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    activityView.hidden = NO;
+    [activityView sizeToFit];
+    _activityButton = [[UIBarButtonItem alloc] initWithCustomView:activityView];
+}
 
 - (IBAction)goBack:(id)sender
 {
@@ -35,8 +44,16 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    [(UIActivityIndicatorView *)_activityButton.customView stopAnimating];
+    [self.navigationItem setRightBarButtonItem:nil animated:YES];
     self.backButton.enabled = [webView canGoBack];
     self.forwardButton.enabled = [webView canGoForward];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [(UIActivityIndicatorView *)_activityButton.customView startAnimating];
+    [self.navigationItem setRightBarButtonItem:_activityButton animated:YES];
 }
 
 @end
