@@ -99,7 +99,8 @@
             errorMsg = [error localizedDescription];
         }
 
-        if (![[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        if ([inventoryResponse objectForKey:@"status"] != nil &&
+            ![[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             errorMsg = [NSString stringWithFormat:@"Error loading the inventory: %@", [inventoryResponse objectForKey:@"statusDetail"]];
         }
 
@@ -152,7 +153,8 @@
             errorMsg = [error localizedDescription];
         }
 
-        if (![[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        if ([schemaResponse objectForKey:@"status"] != nil &&
+            ![[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             errorMsg = [NSString stringWithFormat:@"Error loading the item schema: %@", [schemaResponse objectForKey:@"statusDetail"]];
         }
 
