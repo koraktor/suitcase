@@ -233,9 +233,7 @@
 
         [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
             if ([self.classImages containsObject:view]) {
-                if ([self.detailItem.inventory.game isTF2]) {
-                    view.hidden = NO;
-                }
+                view.hidden = ![self.detailItem.inventory.game isTF2];
             } else if (view != self.killEaterLabel) {
                 view.hidden = NO;
             }
