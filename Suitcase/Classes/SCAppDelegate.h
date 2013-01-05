@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SCAppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate> {
+@interface SCAppDelegate : UIResponder <UIApplicationDelegate> {
 }
 
 @property (strong, nonatomic) UIWindow *window;

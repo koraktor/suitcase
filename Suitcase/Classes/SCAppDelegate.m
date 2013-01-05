@@ -103,19 +103,6 @@
     }
 }
 
-- (void)navigationController:(UINavigationController *)navigationController
-       didShowViewController:(UIViewController *)viewController
-                    animated:(BOOL)animated
-{
-    if ([viewController class] != NSClassFromString(@"SCItemViewController")) {
-        return;
-    }
-
-    [navigationController presentModalViewController:[[UIViewController alloc] init] animated:NO];
-    [navigationController dismissModalViewControllerAnimated:NO];
-    [UIViewController attemptRotationToDeviceOrientation];
-}
-
 - (void)resolveSteamId
 {
     NSString *steamId = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID"];

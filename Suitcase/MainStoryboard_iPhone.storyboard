@@ -19,7 +19,7 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
-                <customObject id="Me0-lk-KDq" customClass="SCAppDelegate"/>
+                <customObject id="Me0-lk-KDq" customClass="SCNavigationControllerDelegate"/>
             </objects>
             <point key="canvasLocation" x="-41" y="64"/>
         </scene>
@@ -557,9 +557,6 @@ Kill eater score</string>
                 <relationship kind="outlet" name="delegate"/>
             </relationships>
         </class>
-        <class className="SCAppDelegate" superclassName="UIResponder">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCAppDelegate.h"/>
-        </class>
         <class className="SCClassImageView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCClassImageView.h"/>
         </class>
@@ -605,6 +602,9 @@ Kill eater score</string>
                 <relationship kind="outletCollection" name="classImages" candidateClass="SCClassImageView"/>
                 <relationship kind="outletCollection" name="icons" candidateClass="UIImageView"/>
             </relationships>
+        </class>
+        <class className="SCNavigationControllerDelegate" superclassName="UIResponder">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCNavigationControllerDelegate.h"/>
         </class>
         <class className="SCSettingsViewController" superclassName="IASKAppSettingsViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSettingsViewController.h"/>
