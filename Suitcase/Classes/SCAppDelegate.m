@@ -10,6 +10,10 @@
 
 #import "SCAppDelegate.h"
 
+#ifndef __API_KEY__
+#define __API_KEY__ nil
+#endif
+
 @interface SCAppDelegate () {
     NSDictionary *_storedDefaults;
 }
