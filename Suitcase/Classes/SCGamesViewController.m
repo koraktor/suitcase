@@ -211,6 +211,11 @@
     }
 }
 
+- (void)viewDidLoad
+{
+    self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"Games");
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
