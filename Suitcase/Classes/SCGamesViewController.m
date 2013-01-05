@@ -183,15 +183,6 @@
     [sender.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return interfaceOrientation == UIInterfaceOrientationPortrait;
-    } else {
-        return UIInterfaceOrientationIsLandscape(interfaceOrientation);
-    }
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCGame *game = [_games objectAtIndex:indexPath.row];

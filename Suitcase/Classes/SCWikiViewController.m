@@ -32,6 +32,11 @@
     [(UIWebView *)self.view goForward];
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [UIViewController attemptRotationToDeviceOrientation];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setToolbarHidden:NO animated:animated];

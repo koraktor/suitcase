@@ -14,10 +14,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
+                        <outlet property="delegate" destination="Me0-lk-KDq" id="aun-eZ-1CM"/>
                         <segue destination="OFf-mD-FT8" kind="relationship" relationship="rootViewController" id="hTJ-TF-nzW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
+                <customObject id="Me0-lk-KDq" customClass="SCAppDelegate"/>
             </objects>
             <point key="canvasLocation" x="-41" y="64"/>
         </scene>
@@ -555,6 +557,9 @@ Kill eater score</string>
                 <relationship kind="outlet" name="delegate"/>
             </relationships>
         </class>
+        <class className="SCAppDelegate" superclassName="UIResponder">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCAppDelegate.h"/>
+        </class>
         <class className="SCClassImageView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCClassImageView.h"/>
         </class>
@@ -613,6 +618,15 @@ Kill eater score</string>
                 <relationship kind="action" name="dismissForm:"/>
                 <relationship kind="outlet" name="helpLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="steamIdField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="SCWikiViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCWikiViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goBack:"/>
+                <relationship kind="action" name="goForward:"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="forwardButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="TTTAttributedLabel" superclassName="UILabel">

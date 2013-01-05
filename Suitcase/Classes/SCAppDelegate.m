@@ -62,6 +62,19 @@
     return YES;
 }
 
+- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([((UINavigationController *) window.rootViewController).topViewController isMemberOfClass:[SCWikiViewController class]]) {
+            return UIInterfaceOrientationMaskAllButUpsideDown;
+        } else {
+            return UIInterfaceOrientationMaskPortrait;
+        }
+    } else {
+        return UIInterfaceOrientationMaskLandscape;
+    }
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     _storedDefaults = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
@@ -88,6 +101,19 @@
     } else if (![[defaults objectForKey:@"sorting"] isEqual:[_storedDefaults objectForKey:@"sorting"]]) {
         [defaultCenter postNotificationName:@"sortInventory" object:nil];
     }
+}
+
+- (void)navigationController:(UINavigationController *)navigationController
+       didShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated
+{
+    if ([viewController class] != NSClassFromString(@"SCItemViewController")) {
+        return;
+    }
+
+    [navigationController presentModalViewController:[[UIViewController alloc] init] animated:NO];
+    [navigationController dismissModalViewControllerAnimated:NO];
+    [UIViewController attemptRotationToDeviceOrientation];
 }
 
 - (void)resolveSteamId

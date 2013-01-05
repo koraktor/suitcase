@@ -231,15 +231,6 @@
     self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"Inventory title");
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return interfaceOrientation == UIInterfaceOrientationPortrait;
-    } else {
-        return UIInterfaceOrientationIsLandscape(interfaceOrientation);
-    }
-}
-
 #pragma mark - Table View
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
