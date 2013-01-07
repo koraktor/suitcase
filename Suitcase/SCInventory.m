@@ -10,7 +10,6 @@
 #import "SCInventory.h"
 #import "SCItem.h"
 #import "SCItemCell.h"
-#import "UIImageView+ASIHTTPRequest.h"
 
 @interface SCInventory () {
     NSArray *_itemTypes;

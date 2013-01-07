@@ -5,8 +5,7 @@
 //  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
-#import "ASIHTTPRequest.h"
-#import "ASIDownloadCache.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 #import "SCAppDelegate.h"
 
@@ -23,14 +22,36 @@
 
 @synthesize window = _window;
 
-+ (NSString *)apiKey {
-    return __API_KEY__;
+static SCWebApiHTTPClient *_webApiClient;
+
++ (void)errorWithMessage:(NSString *)errorMessage
+{
+#ifdef DEBUG
+    NSLog(@"%@", errorMessage);
+#endif
+    [[[UIAlertView alloc] initWithTitle:@"Error"
+                                message:errorMessage
+                               delegate:[UIApplication sharedApplication].delegate
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+}
+
++ (SCWebApiHTTPClient *)webApiClient
+{
+    if (_webApiClient == nil) {
+        _webApiClient = [[SCWebApiHTTPClient alloc] init];
+    }
+
+    return _webApiClient;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{    
-    [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
-    
+{
+    NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:5000000 diskCapacity:50000000 diskPath:nil];
+    [NSURLCache setSharedURLCache:cache];
+
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+
     UIViewController *masterViewController;
     UINavigationController *navigationController;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -126,39 +147,27 @@
     };
 
     if (steamId64 == nil) {
-        NSURL *steamIdUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001?vanityurl=%@&key=%@", steamId, [SCAppDelegate apiKey]]];
-#ifdef DEBUG
-        NSLog(@"Resolving 64bit Steam ID from: %@", steamIdUrl);
-#endif
-        __unsafe_unretained __block ASIHTTPRequest *steamIdRequest = [ASIHTTPRequest requestWithURL:steamIdUrl];
-        [steamIdRequest setCompletionBlock:^{
-            NSError *error = nil;
-            NSDictionary *steamIdResponse = [[NSJSONSerialization JSONObjectWithData:[steamIdRequest responseData] options:0 error:&error] objectForKey:@"response"];
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:steamId, @"vanityUrl", nil];
+        AFJSONRequestOperation *operation = [[SCAppDelegate webApiClient] jsonRequestForInterface:@"ISteamUser"
+                                                                                        andMethod:@"ResolveVanityURL"
+                                                                                       andVersion:1
+                                                                                   withParameters:params];
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *steamIdResponse = [responseObject objectForKey:@"response"];
             if ([[steamIdResponse objectForKey:@"success"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
                 steamId64 = [steamIdResponse objectForKey:@"steamid"];
                 SteamIdFound();
             } else {
-                NSString *errorMsg = [NSString stringWithFormat:@"Error resolving Steam ID: %@", [steamIdResponse objectForKey:@"message"]];
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            }
-        }];
-        [steamIdRequest setFailedBlock:^{
-            NSError *error = [steamIdRequest error];
-            NSString *errorMessage;
-            if (error == nil) {
-                errorMessage = [steamIdRequest responseStatusMessage];
-            } else {
-                errorMessage = [error localizedDescription];
-            }
-            NSLog(@"Error resolving Steam ID: %@", errorMessage);
-            NSString *errorMsg = [NSString stringWithFormat:@"Error resolving Steam ID: %@", errorMessage];
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                NSString *errorMessage = [NSString stringWithFormat:@"Error resolving Steam ID: %@", [steamIdResponse objectForKey:@"message"]];
+                [SCAppDelegate errorWithMessage:errorMessage];
 
-            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"SteamID"];
-            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"SteamID64"];
+                [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"SteamID"];
+                [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"SteamID64"];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [SCAppDelegate errorWithMessage:[error localizedDescription]];
         }];
-
-        [steamIdRequest startSynchronous];
+        [operation start];
     } else {
         SteamIdFound();
     }

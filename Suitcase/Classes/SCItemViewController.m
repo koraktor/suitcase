@@ -7,7 +7,6 @@
 
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
-#import "UIImageView+ASIHTTPRequest.h"
 
 #import "SCItemViewController.h"
 

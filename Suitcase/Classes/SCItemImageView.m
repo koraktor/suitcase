@@ -6,7 +6,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "UIImageView+ASIHTTPRequest.h"
+#import "UIImageView+AFNetworking.h"
 
 #import "SCItemImageView.h"
 
@@ -46,12 +46,12 @@
 {
     UIImageView *imageView = self.imageView;
 
-    [imageView setImageWithURL:url
-           andPlaceholderImage:nil
-           postprocessingBlock:nil
-               completionBlock:^(UIImage *image){
-                   imageView.image = image;
-               }];
+    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url]
+                     placeholderImage:nil
+                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                  imageView.image = image;
+                              }
+                              failure:nil];
 }
 
 @end

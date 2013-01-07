@@ -7,7 +7,7 @@
 
 
 #import <QuartzCore/QuartzCore.h>
-#import "UIImageView+ASIHTTPRequest.h"
+#import "UIImageView+AFNetworking.h"
 
 #import "SCClassImageView.h"
 
@@ -49,26 +49,26 @@
 {
     UIImageView *imageView = self.imageView;
 
-    [imageView setImageWithURL:url
-           andPlaceholderImage:nil
-           postprocessingBlock:nil
-               completionBlock:^(UIImage *image){
-        CGFloat scale = [[UIScreen mainScreen] scale];
-        CGRect imageRect = CGRectMake(0, 0, image.size.width * scale, image.size.height * scale);
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-        CGContextRef context = CGBitmapContextCreate(nil, image.size.width * scale, image.size.height * scale, 8, 0, colorSpace, kCGImageAlphaNone);
-        CGContextDrawImage(context, imageRect, [image CGImage]);
-        CGImageRef imageRef = CGBitmapContextCreateImage(context);
+    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url]
+                     placeholderImage:nil
+                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                  CGFloat scale = [[UIScreen mainScreen] scale];
+                                  CGRect imageRect = CGRectMake(0, 0, image.size.width * scale, image.size.height * scale);
+                                  CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+                                  CGContextRef context = CGBitmapContextCreate(nil, image.size.width * scale, image.size.height * scale, 8, 0, colorSpace, kCGImageAlphaNone);
+                                  CGContextDrawImage(context, imageRect, [image CGImage]);
+                                  CGImageRef imageRef = CGBitmapContextCreateImage(context);
 
-        imageView.highlightedImage = image;
-        imageView.image = [UIImage imageWithCGImage:imageRef
-                                         scale:scale
-                                   orientation:UIImageOrientationUp];
+                                  imageView.highlightedImage = image;
+                                  imageView.image = [UIImage imageWithCGImage:imageRef
+                                                                        scale:scale
+                                                                  orientation:UIImageOrientationUp];
 
-        CGColorSpaceRelease(colorSpace);
-        CGContextRelease(context);
-        CFRelease(imageRef);
-    }];
+                                  CGColorSpaceRelease(colorSpace);
+                                  CGContextRelease(context);
+                                  CFRelease(imageRef);
+                              }
+                              failure:nil];
 }
 
 - (void)setEquippable:(BOOL)equippable {

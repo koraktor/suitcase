@@ -6,7 +6,6 @@
 //
 
 #import "AFKissXMLRequestOperation.h"
-#import "ASIHTTPRequest.h"
 #import "DDXMLDocument.h"
 #import "DDXMLElement.h"
 
@@ -45,57 +44,36 @@
 
 - (void)loadAvailableGames
 {
-    NSURL *apiListUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/ISteamWebAPIUtil/GetSupportedAPIList/v0001?key=%@", [SCAppDelegate apiKey]]];
-#ifdef DEBUG
-    NSLog(@"Loading available games from: %@", apiListUrl);
-#endif
-    ASIHTTPRequest *apiListRequest = [ASIHTTPRequest requestWithURL:apiListUrl];
-    __weak ASIHTTPRequest *weakApiListRequest = apiListRequest;
-    [apiListRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
-    [apiListRequest setCompletionBlock:^{
-        NSString *errorMsg;
-
-        if ([weakApiListRequest responseStatusCode] >= 500) {
-            errorMsg = [weakApiListRequest responseStatusMessage];
-            NSLog(@"Error loading available Web API interfaces: %@", errorMsg);
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        } else {
-            NSError *error = nil;
-            NSDictionary *apiListResponse = [[NSJSONSerialization JSONObjectWithData:[weakApiListRequest responseData] options:0 error:&error] objectForKey:@"apilist"];
-
-            if (error != nil) {
-                NSLog(@"Error loading available Web API interfaces: %@", errorMsg);
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            } else {
-                NSArray *interfaces = [apiListResponse objectForKey:@"interfaces"];
-                _availableGames = [NSMutableArray array];
-                [interfaces enumerateObjectsUsingBlock:^(NSDictionary *interface, NSUInteger idx, BOOL *stop) {
-                    NSString *interfaceName = [interface valueForKey:@"name"];
-                    if ([interfaceName hasPrefix:@"IEconItems_"]) {
-                        NSNumber *appId = [NSNumber numberWithInt:[[interfaceName stringByReplacingCharactersInRange:NSMakeRange(0, 11) withString:@""] intValue]];
-                        [(NSMutableArray *)_availableGames addObject:appId];
-                    }
-                }];
-                _availableGames = [_availableGames copy];
-                [_availableGamesLock unlock];
+    AFJSONRequestOperation *apiListOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:@"ISteamWebAPIUtil"
+                                                                                           andMethod:@"GetSupportedAPIList"
+                                                                                          andVersion:1
+                                                                                      withParameters:nil];
+    [apiListOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *apiListResponse = [responseObject objectForKey:@"apilist"];
+        NSArray *interfaces = [apiListResponse objectForKey:@"interfaces"];
+        _availableGames = [NSMutableArray array];
+        [interfaces enumerateObjectsUsingBlock:^(NSDictionary *interface, NSUInteger idx, BOOL *stop) {
+            NSString *interfaceName = [interface valueForKey:@"name"];
+            if ([interfaceName hasPrefix:@"IEconItems_"]) {
+                NSNumber *appId = [NSNumber numberWithInt:[[interfaceName stringByReplacingCharactersInRange:NSMakeRange(0, 11) withString:@""] intValue]];
+                [(NSMutableArray *)_availableGames addObject:appId];
             }
-        }
-    }];
-    [apiListRequest setFailedBlock:^{
-        NSError *error = [weakApiListRequest error];
-        NSString *errorMessage;
-        if (error == nil) {
-            errorMessage = [weakApiListRequest responseStatusMessage];
-        } else {
-            errorMessage = [error localizedDescription];
-        }
-        NSLog(@"Error loading available Web API interfaces: %@", errorMessage);
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured while loading available games" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }];
+        _availableGames = [_availableGames copy];
         [_availableGamesLock unlock];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *errorMessage = [error description];
+#ifdef DEBUG
+        NSLog(@"%@", errorMessage);
+#endif
+        [[[UIAlertView alloc] initWithTitle:@"Error"
+                                    message:errorMessage
+                                   delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
     }];
-
     [_availableGamesLock lock];
-    [apiListRequest startAsynchronous];
+    [apiListOperation start];
 }
 
 - (void)loadGames
@@ -124,8 +102,7 @@
         [NSThread detachNewThreadSelector:@selector(populateGames:) toTarget:self withObject:[games copy]];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, DDXMLDocument *XMLDocument) {
         NSString *errorMessage = [NSString stringWithFormat:@"Error loading user's games: %@", [error localizedDescription]];
-        NSLog(@"%@", errorMessage);
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [SCAppDelegate errorWithMessage:errorMessage];
     }];
     [gamesRequestOperation start];
     [gamesRequestOperation waitUntilFinished];

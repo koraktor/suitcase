@@ -7,8 +7,9 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#import "UIImageView+AFNetworking.h"
+
 #import "SCGameCell.h"
-#import "UIImageView+ASIHTTPRequest.h"
 
 @implementation SCGameCell
 
@@ -39,19 +40,17 @@ static CGRect kTextLabelFrame;
 
 - (void)loadImage
 {
-    [self.imageView setImageWithURL:_game.logoUrl
-                andPlaceholderImage:kPlaceHolderImage
-                postprocessingBlock:^UIImage *(UIImage *image) {
-                    UIGraphicsBeginImageContext(kImageViewSize);
-                    [image drawInRect:kImageViewFrameScaled];
-                    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-                    UIGraphicsEndImageContext();
+    [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:_game.logoUrl]
+                          placeholderImage:kPlaceHolderImage
+                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                       UIGraphicsBeginImageContext(kImageViewSize);
+                                       [image drawInRect:kImageViewFrameScaled];
+                                       UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+                                       UIGraphicsEndImageContext();
 
-                    return scaledImage;
-                }
-                    completionBlock:^(UIImage *image) {
-                    self.imageView.image = image;
-                }];
+                                       self.imageView.image = scaledImage;
+                                   }
+                                   failure:nil];
 }
 
 - (void)setGame:(SCGame *)game

@@ -2,13 +2,14 @@
 //  SCItemCell.m
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
 #import <QuartzCore/QuartzCore.h>
 
+#import "UIImageView+AFNetworking.h"
+
 #import "SCItemCell.h"
-#import "UIImageView+ASIHTTPRequest.h"
 
 static CGRect kImageViewFrame;
 static CGRect kimageViewFrameScaled;
@@ -73,19 +74,17 @@ static CGRect kTextLabelFrame;
 
 - (void)loadImage
 {
-    [self.imageView setImageWithURL:[_item iconUrl]
-                andPlaceholderImage:kPlaceHolderImage
-                postprocessingBlock:^UIImage *(UIImage *image) {
-                    UIGraphicsBeginImageContext(kImageViewSize);
-                    [image drawInRect:kimageViewFrameScaled];
-                    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-                    UIGraphicsEndImageContext();
+    [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[_item iconUrl]]
+                          placeholderImage:kPlaceHolderImage
+                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                       UIGraphicsBeginImageContext(kImageViewSize);
+                                       [image drawInRect:kimageViewFrameScaled];
+                                       UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+                                       UIGraphicsEndImageContext();
 
-                    return scaledImage;
-                }
-                    completionBlock:^(UIImage *image) {
-                        self.imageView.image = image;
-                    }];
+                                       self.imageView.image = scaledImage;
+                                   }
+                                   failure:nil];
 
     [self changeColor];
 }

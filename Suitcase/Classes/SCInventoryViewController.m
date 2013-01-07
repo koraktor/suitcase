@@ -7,7 +7,6 @@
 
 #import "SCInventoryViewController.h"
 
-#import "ASIHTTPRequest.h"
 #import "IASKSettingsReader.h"
 #import "SCAppDelegate.h"
 #import "SCInventory.h"
@@ -17,7 +16,6 @@
 #import "SCSchema.h"
 #import "SCSettingsViewController.h"
 #import "SCSteamIdFormController.h"
-#import "UIImageView+ASIHTTPRequest.h"
 
 @interface SCInventoryViewController () {
     SCInventory *_inventory;
@@ -79,51 +77,28 @@
     }
 
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
-    NSURL *inventoryUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_%@/GetPlayerItems/v0001?steamid=%@&key=%@", _game.appId, steamId64, [SCAppDelegate apiKey]]];
-#ifdef DEBUG
-    NSLog(@"Loading inventory contents from: %@", inventoryUrl);
-#endif
-    ASIHTTPRequest *inventoryRequest = [ASIHTTPRequest requestWithURL:inventoryUrl];
-    __weak ASIHTTPRequest *weakInventoryRequest = inventoryRequest;
-    [inventoryRequest setCompletionBlock:^{
-        NSString *errorMsg;
+    NSDictionary *params = [NSDictionary dictionaryWithObject:steamId64 forKey:@"steamid"];
+    AFJSONRequestOperation *inventoryOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", _game.appId]
+                                                                                             andMethod:@"GetPlayerItems"
+                                                                                            andVersion:1
+                                                                                        withParameters:params];
+    [inventoryOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *inventoryResponse = [responseObject objectForKey:@"result"];
 
-        if ([weakInventoryRequest responseStatusCode] >= 500) {
-            errorMsg = [weakInventoryRequest responseStatusMessage];
-        }
-
-        NSError *error = nil;
-        NSDictionary *inventoryResponse = [[NSJSONSerialization JSONObjectWithData:[weakInventoryRequest responseData] options:0 error:&error] objectForKey:@"result"];
-
-        if (error != nil) {
-            errorMsg = [error localizedDescription];
-        }
-
-        if ([inventoryResponse objectForKey:@"status"] != nil &&
-            ![[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            errorMsg = [NSString stringWithFormat:@"Error loading the inventory: %@", [inventoryResponse objectForKey:@"statusDetail"]];
-        }
-
-        if (errorMsg == nil) {
+        if ([[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             NSArray *itemsResponse = [inventoryResponse objectForKey:@"items"];
             [NSThread detachNewThreadSelector:@selector(populateInventoryWithData:) toTarget:self withObject:itemsResponse];
         } else {
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
-    }];
-    [inventoryRequest setFailedBlock:^{
-        NSError *error = [weakInventoryRequest error];
-        NSString *errorMessage;
-        if (error == nil) {
-            errorMessage = [weakInventoryRequest responseStatusMessage];
-        } else {
-            errorMessage = [error localizedDescription];
-        }
-        NSLog(@"Error loading inventory contents: %@", errorMessage);
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured while loading the inventory contents" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }];
+            NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [inventoryResponse objectForKey:@"statusDetail"]];
+            [SCAppDelegate errorWithMessage:errorMessage];
 
-    [inventoryRequest startAsynchronous];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [error localizedDescription]];
+        [SCAppDelegate errorWithMessage:errorMessage];
+
+    }];
+    [inventoryOperation start];
 }
 
 - (void)loadSchema {
@@ -132,58 +107,29 @@
         return;
     }
 
-    NSURL *schemaUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.steampowered.com/IEconItems_%@/GetSchema/v0001?key=%@&language=%@", _game.appId, [SCAppDelegate apiKey], [[NSLocale preferredLanguages] objectAtIndex:0]]];
-#ifdef DEBUG
-    NSLog(@"Loading item schema data from: %@", schemaUrl);
-#endif
-    ASIHTTPRequest *schemaRequest = [ASIHTTPRequest requestWithURL:schemaUrl];
-    __weak ASIHTTPRequest *weakSchemaRequest = schemaRequest;
-    [schemaRequest setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
-    [schemaRequest setCompletionBlock:^{
-        NSString *errorMsg;
+    NSDictionary *params = [NSDictionary dictionaryWithObject:[[NSLocale preferredLanguages] objectAtIndex:0] forKey:@"language"];
+    AFJSONRequestOperation *schemaOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", _game.appId]
+                                                                                          andMethod:@"GetSchema"
+                                                                                         andVersion:1
+                                                                                     withParameters:params];
+    [schemaOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *schemaResponse = [responseObject objectForKey:@"result"];
 
-        if ([weakSchemaRequest responseStatusCode] >= 500) {
-            errorMsg = [weakSchemaRequest responseStatusMessage];
-        }
-
-        NSError *error = nil;
-        NSDictionary *schemaResponse = [[NSJSONSerialization JSONObjectWithData:[weakSchemaRequest responseData] options:0 error:&error] objectForKey:@"result"];
-
-        if (error != nil) {
-            errorMsg = [error localizedDescription];
-        }
-
-        if ([schemaResponse objectForKey:@"status"] != nil &&
-            ![[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            errorMsg = [NSString stringWithFormat:@"Error loading the item schema: %@", [schemaResponse objectForKey:@"statusDetail"]];
-        }
-
-        if (errorMsg == nil) {
+        if ([[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             _itemSchema = [[SCSchema alloc] initWithDictionary:schemaResponse];
+            [_schemaLock unlock];
         } else {
-            NSLog(@"Error loading game item schema: %@", errorMsg);
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [schemaResponse objectForKey:@"statusDetail"]];
+            [SCAppDelegate errorWithMessage:errorMessage];
         }
-
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *errorMessage = [NSString stringWithFormat:@"Error loading item schema: %@", [error localizedDescription]];
+        [SCAppDelegate errorWithMessage:errorMessage];
         [_schemaLock unlock];
     }];
-    [schemaRequest setFailedBlock:^{
-        NSError *error = [weakSchemaRequest error];
-        NSString *errorMessage;
-        if (error == nil) {
-            errorMessage = [weakSchemaRequest responseStatusMessage];
-        } else {
-            errorMessage = [error localizedDescription];
-        }
-        NSLog(@"Error loading game item schema: %@", errorMessage);
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"An error occured while loading game item schema" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        [_schemaLock unlock];
-    }];
-    [schemaRequest setTimeOutSeconds:60.0];
-
     _itemSchema = nil;
     [_schemaLock lock];
-    [schemaRequest startAsynchronous];
+    [schemaOperation start];
 }
 
 - (void)populateInventoryWithData:(NSArray *)itemsData {

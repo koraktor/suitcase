@@ -2,12 +2,11 @@
 //  SCSteamIdFormController.m
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
 #import "SCSteamIdFormController.h"
 
-#import "ASIHTTPRequest.h"
 #import "SCAppDelegate.h"
 
 @implementation SCSteamIdFormController
