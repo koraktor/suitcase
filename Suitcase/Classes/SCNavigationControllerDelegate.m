@@ -7,19 +7,24 @@
 
 #import "SCNavigationControllerDelegate.h"
 
+@interface SCNavigationControllerDelegate () {
+    UIViewController *_previousViewController;
+}
+@end
+
 @implementation SCNavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController *)navigationController
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated
 {
-    if ([viewController class] != NSClassFromString(@"SCItemViewController")) {
-        return;
+    if ([_previousViewController class] == NSClassFromString(@"SCWikiViewController")) {
+        [navigationController presentModalViewController:[[UIViewController alloc] init] animated:NO];
+        [navigationController dismissModalViewControllerAnimated:NO];
+        [UIViewController attemptRotationToDeviceOrientation];
     }
 
-    [navigationController presentModalViewController:[[UIViewController alloc] init] animated:NO];
-    [navigationController dismissModalViewControllerAnimated:NO];
-    [UIViewController attemptRotationToDeviceOrientation];
+    _previousViewController = viewController;
 }
 
 @end
