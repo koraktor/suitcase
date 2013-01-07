@@ -79,6 +79,9 @@
 - (void)loadGames
 {
     _games = nil;
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        [self.tableView reloadData];
+    });
 
     UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
     if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
@@ -105,7 +108,6 @@
         [SCAppDelegate errorWithMessage:errorMessage];
     }];
     [gamesRequestOperation start];
-    [gamesRequestOperation waitUntilFinished];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
