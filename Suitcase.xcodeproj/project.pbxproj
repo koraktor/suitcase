@@ -749,7 +749,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "gitSha=$(git log -1 --pretty=format:%h)\n/usr/libexec/PlistBuddy -c \"Delete CFBundleVersion\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Add CFBundleVersion string $gitSha\" Suitcase/Suitcase-Info.plist";
+			shellScript = "gitDescribe=$(git describe --always)\n/usr/libexec/PlistBuddy -c \"Delete CFBundleVersion\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Add CFBundleVersion string $gitDescribe\" Suitcase/Suitcase-Info.plist";
 		};
 		028B642B15265D690040D2FF /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
