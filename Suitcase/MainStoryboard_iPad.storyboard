@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
@@ -92,7 +91,7 @@
             <objects>
                 <viewController storyboardIdentifier="" title="Item" modalPresentationStyle="pageSheet" id="4" customClass="SCItemViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="26">
-                        <rect key="frame" x="0.0" y="64" width="703" height="704"/>
+                        <rect key="frame" x="0.0" y="20" width="703" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="yjV-rL-5U7" customClass="SCItemImageView">
@@ -101,7 +100,7 @@
                                 <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                             </view>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Qty." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="QAS-Pa-Xb8">
-                                <rect key="frame" x="622" y="287" width="48" height="25"/>
+                                <rect key="frame" x="622" y="287" width="47" height="26"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -111,7 +110,7 @@
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item level" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="21" adjustsFontSizeToFit="NO" id="xBP-fs-YaV">
-                                <rect key="frame" x="14" y="18" width="669" height="36"/>
+                                <rect key="frame" x="14" y="19" width="669" height="36"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -129,52 +128,52 @@
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="XLg-xc-SC5" userLabel="Item Image" customClass="SCClassImageView">
-                                <rect key="frame" x="20" y="620" width="64" height="64"/>
+                                <rect key="frame" x="18" y="618" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="VLU-n1-aZy" userLabel="Item Image" customClass="SCClassImageView">
-                                <rect key="frame" x="94" y="620" width="64" height="64"/>
+                                <rect key="frame" x="92" y="618" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="rN4-Ub-WFM" userLabel="Item Image" customClass="SCClassImageView">
-                                <rect key="frame" x="168" y="620" width="64" height="64"/>
+                                <rect key="frame" x="166" y="618" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="Qfa-7z-5dC" userLabel="Item Image" customClass="SCClassImageView">
-                                <rect key="frame" x="242" y="620" width="64" height="64"/>
+                                <rect key="frame" x="240" y="618" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="miq-Qg-gSH" userLabel="Item Image" customClass="SCClassImageView">
-                                <rect key="frame" x="316" y="620" width="64" height="64"/>
+                                <rect key="frame" x="314" y="618" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="OKK-nf-D0x" userLabel="Item Image" customClass="SCClassImageView">
-                                <rect key="frame" x="390" y="620" width="64" height="64"/>
+                                <rect key="frame" x="388" y="618" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="Gmk-Qg-RZf" userLabel="Item Image" customClass="SCClassImageView">
-                                <rect key="frame" x="464" y="620" width="64" height="64"/>
+                                <rect key="frame" x="462" y="618" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="PHh-ks-lYY" userLabel="Item Image" customClass="SCClassImageView">
-                                <rect key="frame" x="538" y="620" width="64" height="64"/>
+                                <rect key="frame" x="536" y="618" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="br3-gv-fMW" userLabel="Item Image" customClass="SCClassImageView">
-                                <rect key="frame" x="612" y="620" width="64" height="64"/>
+                                <rect key="frame" x="610" y="618" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item origin" lineBreakMode="tailTruncation" minimumFontSize="21" adjustsFontSizeToFit="NO" id="4Tb-db-YbY">
-                                <rect key="frame" x="51" y="66" width="370" height="30"/>
+                                <rect key="frame" x="51" y="70" width="369" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -183,7 +182,7 @@
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item quality" lineBreakMode="tailTruncation" minimumFontSize="21" adjustsFontSizeToFit="NO" id="aLk-1t-UdJ">
-                                <rect key="frame" x="52" y="104" width="370" height="30"/>
+                                <rect key="frame" x="52" y="111" width="369" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -222,7 +221,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="21" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="lko-cW-jiq">
-                                <rect key="frame" x="51" y="177" width="368" height="50"/>
+                                <rect key="frame" x="51" y="189" width="367" height="50"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <string key="text">Kill eater level
 Kill eater score</string>
@@ -316,7 +315,6 @@ Kill eater score</string>
                 <splitViewController id="5" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="9eW-5v-mUQ"/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <segue destination="3" kind="relationship" relationship="masterViewController" id="9"/>
@@ -450,6 +448,10 @@ http://steamcommunity.com/profile/{Profile ID}
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="xL2-ZX-JkP">
+                        <rect key="frame" x="0.0" y="724" width="703" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="4" kind="relationship" relationship="rootViewController" id="52"/>
                     </connections>
@@ -544,7 +546,7 @@ http://steamcommunity.com/profile/{Profile ID}
             <objects>
                 <viewController id="u2V-bm-OPg" customClass="SCWikiViewController" sceneMemberID="viewController">
                     <webView key="view" contentMode="scaleToFill" id="eja-tV-rBb">
-                        <rect key="frame" x="0.0" y="64" width="703" height="660"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -571,6 +573,7 @@ http://steamcommunity.com/profile/{Profile ID}
                     <connections>
                         <outlet property="backButton" destination="TIm-1y-L9C" id="yXP-2p-XIx"/>
                         <outlet property="forwardButton" destination="E5m-2Z-V3b" id="x20-3Y-4xw"/>
+                        <segue destination="4" kind="replace" identifier="closeWikiPage" splitViewControllerTargetIndex="1" id="yTo-Tf-acd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hoh-uB-fkN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -590,84 +593,6 @@ http://steamcommunity.com/profile/{Profile ID}
         <image name="settings.png" width="24" height="24"/>
         <image name="user.png" width="24" height="24"/>
     </resources>
-    <classes>
-        <class className="IASKAppSettingsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/IASKAppSettingsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-        <class className="SCClassImageView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCClassImageView.h"/>
-        </class>
-        <class className="SCGameCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCGameCell.h"/>
-        </class>
-        <class className="SCGamesViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCGamesViewController.h"/>
-        </class>
-        <class className="SCInventoryViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCInventoryViewController.h"/>
-        </class>
-        <class className="SCItemCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemCell.h"/>
-        </class>
-        <class className="SCItemViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="showItemSet:"/>
-                <relationship kind="action" name="showWikiPage:"/>
-                <relationship kind="outlet" name="classDemomanImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classEngineerImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classHeavyImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classMedicImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classPyroImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classScoutImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classSniperImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classSoldierImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classSpyImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="itemSetButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="killEaterIcon" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="killEaterLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="levelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="originLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="qualityLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wikiButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outletCollection" name="classImages" candidateClass="SCClassImageView"/>
-                <relationship kind="outletCollection" name="icons" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="SCSettingsViewController" superclassName="IASKAppSettingsViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissSettings:"/>
-            </relationships>
-        </class>
-        <class className="SCSteamIdFormController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSteamIdFormController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissForm:"/>
-                <relationship kind="action" name="submitForm:"/>
-                <relationship kind="outlet" name="helpLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="steamIdField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="SCWikiViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCWikiViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goBack:"/>
-                <relationship kind="action" name="goForward:"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="forwardButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="TTTAttributedLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>
@@ -675,5 +600,6 @@ http://steamcommunity.com/profile/{Profile ID}
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="eS2-5p-lpL"/>
+        <segue reference="yTo-Tf-acd"/>
     </inferredMetricsTieBreakers>
 </document>
