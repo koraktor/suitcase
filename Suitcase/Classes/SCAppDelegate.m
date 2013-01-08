@@ -90,7 +90,7 @@ static SCWebApiHTTPClient *_webApiClient;
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([((UINavigationController *) window.rootViewController).topViewController isMemberOfClass:[SCWikiViewController class]]) {
+        if ([((UINavigationController *) window.rootViewController).topViewController class] == NSClassFromString(@"SCWikiViewController")) {
             return UIInterfaceOrientationMaskAllButUpsideDown;
         } else {
             return UIInterfaceOrientationMaskPortrait;
