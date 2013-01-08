@@ -20,6 +20,8 @@
     activityView.hidden = NO;
     [activityView sizeToFit];
     _activityButton = [[UIBarButtonItem alloc] initWithCustomView:activityView];
+
+    [super awakeFromNib];
 }
 
 - (IBAction)goBack:(id)sender
