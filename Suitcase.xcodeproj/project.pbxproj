@@ -406,6 +406,25 @@
 			path = Classes/External/InAppSettingsKit/InAppSettingsKit;
 			sourceTree = "<group>";
 		};
+		021B96B016A3D9BE00EC2A25 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0269A4A715CC3AEB008A287A /* SCGamesViewController.h */,
+				0269A4A815CC3AEB008A287A /* SCGamesViewController.m */,
+				028B648F1526761C0040D2FF /* SCItemViewController.h */,
+				028B64901526761C0040D2FF /* SCItemViewController.m */,
+				028B64911526761C0040D2FF /* SCInventoryViewController.h */,
+				028B64921526761C0040D2FF /* SCInventoryViewController.m */,
+				020958C3169386AF00A44851 /* SCSettingsViewController.h */,
+				020958C4169386B000A44851 /* SCSettingsViewController.m */,
+				0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */,
+				0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */,
+				0250CBD91693C8D100B20A6F /* SCWikiViewController.h */,
+				0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		0266E053169243A0009C6CE8 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -488,6 +507,7 @@
 		028B641015265D690040D2FF /* Suitcase */ = {
 			isa = PBXGroup;
 			children = (
+				021B96B016A3D9BE00EC2A25 /* Controllers */,
 				02010B8B169E9CF600007456 /* External */,
 				02010B8C169E9DAA00007456 /* Models */,
 				02DDB47B1582918B004DB9D8 /* Resources */,
@@ -497,26 +517,14 @@
 				026F215B156ADA1F00C7BD54 /* SCClassImageView.m */,
 				0220FFC615D7A84700AB8AA3 /* SCGameCell.h */,
 				0220FFC715D7A84700AB8AA3 /* SCGameCell.m */,
-				0269A4A715CC3AEB008A287A /* SCGamesViewController.h */,
-				0269A4A815CC3AEB008A287A /* SCGamesViewController.m */,
-				028B648F1526761C0040D2FF /* SCItemViewController.h */,
-				028B64901526761C0040D2FF /* SCItemViewController.m */,
 				0275E20B158E6B5B008EA0AD /* SCItemCell.h */,
 				0275E20C158E6B5B008EA0AD /* SCItemCell.m */,
 				02010B271696E22A00007456 /* SCItemImageView.h */,
 				02010B281696E22A00007456 /* SCItemImageView.m */,
-				028B64911526761C0040D2FF /* SCInventoryViewController.h */,
-				028B64921526761C0040D2FF /* SCInventoryViewController.m */,
 				02010B2D169842FA00007456 /* SCNavigationControllerDelegate.h */,
 				02010B2E169842FA00007456 /* SCNavigationControllerDelegate.m */,
-				020958C3169386AF00A44851 /* SCSettingsViewController.h */,
-				020958C4169386B000A44851 /* SCSettingsViewController.m */,
-				0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */,
-				0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */,
 				02010B30169858E400007456 /* SCWebApiHTTPClient.h */,
 				02010B31169858E400007456 /* SCWebApiHTTPClient.m */,
-				0250CBD91693C8D100B20A6F /* SCWikiViewController.h */,
-				0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */,
 				022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */,
 				022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */,
 				028B641115265D690040D2FF /* Supporting Files */,
