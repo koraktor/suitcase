@@ -1,15 +1,15 @@
-[submodule "Suitcase/External/TTTAttributedLabel"]
+[submodule "TTTAttributedLabel"]
 	path = Suitcase/External/TTTAttributedLabel
 	url = git://github.com/mattt/TTTAttributedLabel.git
-[submodule "Suitcase/External/InAppSettingsKit"]
+[submodule "InAppSettingsKit"]
 	path = Suitcase/External/InAppSettingsKit
 	url = git://github.com/futuretap/InAppSettingsKit.git
-[submodule "Suitcase/External/AFNetworking"]
+[submodule "AFNetworking"]
 	path = Suitcase/External/AFNetworking
 	url = git://github.com/AFNetworking/AFNetworking.git
-[submodule "Suitcase/External/AFKissXMLRequestOperation"]
+[submodule "AFKissXMLRequestOperation"]
 	path = Suitcase/External/AFKissXMLRequestOperation
 	url = git://github.com/AFNetworking/AFKissXMLRequestOperation.git
-[submodule "Suitcase/External/KissXML"]
+[submodule "KissXML"]
 	path = Suitcase/External/KissXML
 	url = git://github.com/robbiehanson/KissXML.git
