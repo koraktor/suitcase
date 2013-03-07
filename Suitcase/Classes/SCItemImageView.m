@@ -44,14 +44,14 @@
 
 - (void)setImageWithURL:(NSURL *)url
 {
-    UIImageView *imageView = self.imageView;
+    __block UIImageView *imageView = self.imageView;
 
-    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url]
-                     placeholderImage:nil
-                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                  imageView.image = image;
-                              }
-                              failure:nil];
+    [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url]
+                          placeholderImage:nil
+                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                       imageView.image = image;
+                                   }
+                                   failure:nil];
 }
 
 @end

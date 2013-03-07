@@ -74,6 +74,7 @@ static CGRect kTextLabelFrame;
 
 - (void)loadImage
 {
+    __block SCItemCell *cell = self;
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[_item iconUrl]]
                           placeholderImage:kPlaceHolderImage
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -82,7 +83,7 @@ static CGRect kTextLabelFrame;
                                        UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
                                        UIGraphicsEndImageContext();
 
-                                       self.imageView.image = scaledImage;
+                                       cell.imageView.image = scaledImage;
                                    }
                                    failure:nil];
 

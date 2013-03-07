@@ -40,6 +40,7 @@ static CGRect kTextLabelFrame;
 
 - (void)loadImage
 {
+    __block SCGameCell *cell = self;
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:_game.logoUrl]
                           placeholderImage:kPlaceHolderImage
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -48,7 +49,7 @@ static CGRect kTextLabelFrame;
                                        UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
                                        UIGraphicsEndImageContext();
 
-                                       self.imageView.image = scaledImage;
+                                       cell.imageView.image = scaledImage;
                                    }
                                    failure:nil];
 }
