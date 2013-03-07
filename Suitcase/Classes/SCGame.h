@@ -5,15 +5,13 @@
 //  Copyright (c) 2013, Sebastian Staudt
 //
 
-#import "DDXMLElement.h"
-
 @interface SCGame : NSObject
 
 @property (readonly) NSNumber *appId;
 @property (readonly) NSURL *logoUrl;
 @property (readonly) NSString *name;
 
-- (id)initWithXMLElement:(DDXMLElement *)xmlElement;
+- (id)initWithJSONObject:(NSDictionary *)jsonObject;
 - (BOOL)isTF2;
 
 @end

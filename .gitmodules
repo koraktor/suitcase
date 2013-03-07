@@ -7,9 +7,3 @@
 [submodule "AFNetworking"]
 	path = Suitcase/External/AFNetworking
 	url = git://github.com/AFNetworking/AFNetworking.git
-[submodule "AFKissXMLRequestOperation"]
-	path = Suitcase/External/AFKissXMLRequestOperation
-	url = git://github.com/AFNetworking/AFKissXMLRequestOperation.git
-[submodule "KissXML"]
-	path = Suitcase/External/KissXML
-	url = git://github.com/robbiehanson/KissXML.git

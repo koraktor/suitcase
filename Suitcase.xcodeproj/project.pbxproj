@@ -11,7 +11,6 @@
 		02010B291696E22B00007456 /* SCItemImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B281696E22A00007456 /* SCItemImageView.m */; };
 		02010B2F169842FB00007456 /* SCNavigationControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B2E169842FA00007456 /* SCNavigationControllerDelegate.m */; };
 		02010B32169858E500007456 /* SCWebApiHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B31169858E400007456 /* SCWebApiHTTPClient.m */; };
-		02010B35169E9C5200007456 /* AFKissXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B34169E9C5200007456 /* AFKissXMLRequestOperation.m */; };
 		02010B45169E9C7000007456 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B37169E9C6F00007456 /* AFHTTPClient.m */; };
 		02010B46169E9C7000007456 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B39169E9C6F00007456 /* AFHTTPRequestOperation.m */; };
 		02010B47169E9C7000007456 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B3B169E9C6F00007456 /* AFImageRequestOperation.m */; };
@@ -33,10 +32,6 @@
 		02010B77169E9CA000007456 /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B67169E9CA000007456 /* IASKSlider.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		02010B78169E9CA000007456 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B69169E9CA000007456 /* IASKSwitch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		02010B79169E9CA000007456 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B6B169E9CA000007456 /* IASKTextField.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		02010B81169E9CB400007456 /* DDXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B7C169E9CB400007456 /* DDXMLDocument.m */; };
-		02010B82169E9CB400007456 /* DDXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B7E169E9CB400007456 /* DDXMLElement.m */; };
-		02010B83169E9CB400007456 /* DDXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B80169E9CB400007456 /* DDXMLNode.m */; };
-		02010B87169E9CC500007456 /* NSString+DDXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B86169E9CC500007456 /* NSString+DDXML.m */; };
 		02010B8A169E9CDA00007456 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B89169E9CDA00007456 /* TTTAttributedLabel.m */; };
 		020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 020958C4169386B000A44851 /* SCSettingsViewController.m */; };
 		020958C81693926300A44851 /* game_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 020958C61693926300A44851 /* game_placeholder.png */; };
@@ -133,8 +128,6 @@
 		02010B2E169842FA00007456 /* SCNavigationControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCNavigationControllerDelegate.m; path = Classes/SCNavigationControllerDelegate.m; sourceTree = "<group>"; };
 		02010B30169858E400007456 /* SCWebApiHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWebApiHTTPClient.h; path = Classes/SCWebApiHTTPClient.h; sourceTree = "<group>"; };
 		02010B31169858E400007456 /* SCWebApiHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWebApiHTTPClient.m; path = Classes/SCWebApiHTTPClient.m; sourceTree = "<group>"; };
-		02010B33169E9C5100007456 /* AFKissXMLRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFKissXMLRequestOperation.h; path = Suitcase/External/AFKissXMLRequestOperation/AFKissXMLRequestOperation.h; sourceTree = SOURCE_ROOT; };
-		02010B34169E9C5200007456 /* AFKissXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFKissXMLRequestOperation.m; path = Suitcase/External/AFKissXMLRequestOperation/AFKissXMLRequestOperation.m; sourceTree = SOURCE_ROOT; };
 		02010B36169E9C6F00007456 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPClient.h; path = Suitcase/External/AFNetworking/AFNetworking/AFHTTPClient.h; sourceTree = SOURCE_ROOT; };
 		02010B37169E9C6F00007456 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFHTTPClient.m; path = Suitcase/External/AFNetworking/AFNetworking/AFHTTPClient.m; sourceTree = SOURCE_ROOT; };
 		02010B38169E9C6F00007456 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperation.h; path = Suitcase/External/AFNetworking/AFNetworking/AFHTTPRequestOperation.h; sourceTree = SOURCE_ROOT; };
@@ -179,16 +172,6 @@
 		02010B69169E9CA000007456 /* IASKSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSwitch.m; sourceTree = "<group>"; };
 		02010B6A169E9CA000007456 /* IASKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextField.h; sourceTree = "<group>"; };
 		02010B6B169E9CA000007456 /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
-		02010B7A169E9CB400007456 /* DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDXML.h; path = External/KissXML/KissXML/DDXML.h; sourceTree = "<group>"; };
-		02010B7B169E9CB400007456 /* DDXMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDXMLDocument.h; path = External/KissXML/KissXML/DDXMLDocument.h; sourceTree = "<group>"; };
-		02010B7C169E9CB400007456 /* DDXMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDXMLDocument.m; path = External/KissXML/KissXML/DDXMLDocument.m; sourceTree = "<group>"; };
-		02010B7D169E9CB400007456 /* DDXMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDXMLElement.h; path = External/KissXML/KissXML/DDXMLElement.h; sourceTree = "<group>"; };
-		02010B7E169E9CB400007456 /* DDXMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDXMLElement.m; path = External/KissXML/KissXML/DDXMLElement.m; sourceTree = "<group>"; };
-		02010B7F169E9CB400007456 /* DDXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDXMLNode.h; path = External/KissXML/KissXML/DDXMLNode.h; sourceTree = "<group>"; };
-		02010B80169E9CB400007456 /* DDXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDXMLNode.m; path = External/KissXML/KissXML/DDXMLNode.m; sourceTree = "<group>"; };
-		02010B84169E9CBC00007456 /* DDXMLPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDXMLPrivate.h; path = External/KissXML/KissXML/Private/DDXMLPrivate.h; sourceTree = "<group>"; };
-		02010B85169E9CC400007456 /* NSString+DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+DDXML.h"; path = "External/KissXML/KissXML/Categories/NSString+DDXML.h"; sourceTree = "<group>"; };
-		02010B86169E9CC500007456 /* NSString+DDXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+DDXML.m"; path = "External/KissXML/KissXML/Categories/NSString+DDXML.m"; sourceTree = "<group>"; };
 		02010B88169E9CDA00007456 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = External/TTTAttributedLabel/TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
 		02010B89169E9CDA00007456 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = External/TTTAttributedLabel/TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
 		020958C3169386AF00A44851 /* SCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSettingsViewController.h; path = Classes/SCSettingsViewController.h; sourceTree = "<group>"; };
@@ -374,7 +357,6 @@
 			children = (
 				0266E053169243A0009C6CE8 /* AFNetworking */,
 				020EB3EE1585299B00654D2A /* InAppSettingsKit */,
-				0266E09B169247A4009C6CE8 /* KissXML */,
 				02F37EC2158014F200BFB1B5 /* TTTAttributedLabel */,
 			);
 			name = External;
@@ -436,8 +418,6 @@
 				02010B3B169E9C6F00007456 /* AFImageRequestOperation.m */,
 				02010B3C169E9C6F00007456 /* AFJSONRequestOperation.h */,
 				02010B3D169E9C7000007456 /* AFJSONRequestOperation.m */,
-				02010B33169E9C5100007456 /* AFKissXMLRequestOperation.h */,
-				02010B34169E9C5200007456 /* AFKissXMLRequestOperation.m */,
 				02010B3E169E9C7000007456 /* AFNetworkActivityIndicatorManager.h */,
 				02010B3F169E9C7000007456 /* AFNetworkActivityIndicatorManager.m */,
 				02010B40169E9C7000007456 /* AFNetworking.h */,
@@ -448,23 +428,6 @@
 			);
 			name = AFNetworking;
 			path = Classes/External/AFNetworking/AFNetworking;
-			sourceTree = "<group>";
-		};
-		0266E09B169247A4009C6CE8 /* KissXML */ = {
-			isa = PBXGroup;
-			children = (
-				02010B7A169E9CB400007456 /* DDXML.h */,
-				02010B7B169E9CB400007456 /* DDXMLDocument.h */,
-				02010B7C169E9CB400007456 /* DDXMLDocument.m */,
-				02010B7D169E9CB400007456 /* DDXMLElement.h */,
-				02010B7E169E9CB400007456 /* DDXMLElement.m */,
-				02010B7F169E9CB400007456 /* DDXMLNode.h */,
-				02010B80169E9CB400007456 /* DDXMLNode.m */,
-				02010B84169E9CBC00007456 /* DDXMLPrivate.h */,
-				02010B85169E9CC400007456 /* NSString+DDXML.h */,
-				02010B86169E9CC500007456 /* NSString+DDXML.m */,
-			);
-			name = KissXML;
 			sourceTree = "<group>";
 		};
 		028B63FB15265D680040D2FF = {
@@ -814,7 +777,6 @@
 				02010B291696E22B00007456 /* SCItemImageView.m in Sources */,
 				02010B2F169842FB00007456 /* SCNavigationControllerDelegate.m in Sources */,
 				02010B32169858E500007456 /* SCWebApiHTTPClient.m in Sources */,
-				02010B35169E9C5200007456 /* AFKissXMLRequestOperation.m in Sources */,
 				02010B45169E9C7000007456 /* AFHTTPClient.m in Sources */,
 				02010B46169E9C7000007456 /* AFHTTPRequestOperation.m in Sources */,
 				02010B47169E9C7000007456 /* AFImageRequestOperation.m in Sources */,
@@ -836,10 +798,6 @@
 				02010B77169E9CA000007456 /* IASKSlider.m in Sources */,
 				02010B78169E9CA000007456 /* IASKSwitch.m in Sources */,
 				02010B79169E9CA000007456 /* IASKTextField.m in Sources */,
-				02010B81169E9CB400007456 /* DDXMLDocument.m in Sources */,
-				02010B82169E9CB400007456 /* DDXMLElement.m in Sources */,
-				02010B83169E9CB400007456 /* DDXMLNode.m in Sources */,
-				02010B87169E9CC500007456 /* NSString+DDXML.m in Sources */,
 				02010B8A169E9CDA00007456 /* TTTAttributedLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

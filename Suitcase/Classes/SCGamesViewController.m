@@ -5,9 +5,6 @@
 //  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
-#import "AFKissXMLRequestOperation.h"
-#import "DDXMLDocument.h"
-#import "DDXMLElement.h"
 
 #import "SCAppDelegate.h"
 #import "SCGame.h"
@@ -78,36 +75,30 @@
 
 - (void)loadGames
 {
-    _games = nil;
-    dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.tableView reloadData];
-    });
-
-    UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
-    if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
-        [(SCSteamIdFormController *)modal dismissForm:self];
-    }
-
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
-    NSURL *gamesUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://steamcommunity.com/profiles/%@/games?xml=1", steamId64]];
+    NSDictionary *params = @{@"steamId": steamId64, @"include_appinfo": @1, @"include_played_free_games": @1};
+    AFJSONRequestOperation *gamesOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:@"IPlayerService"
+                                                                                          andMethod:@"GetOwnedGames"
+                                                                                         andVersion:1
+                                                                                     withParameters:params];
+    [gamesOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *gamesResponse = [responseObject objectForKey:@"response"];
+        NSArray *games = [gamesResponse objectForKey:@"games"];
+
+        NSMutableArray *gameObjects = [NSMutableArray arrayWithCapacity:[gamesResponse objectForKey:@"game_count"]];
+        for (NSDictionary *game in games) {
+            [gameObjects addObject:[[SCGame alloc] initWithJSONObject:game]];
+        }
+
+        [NSThread detachNewThreadSelector:@selector(populateGames:) toTarget:self withObject:[gameObjects copy]];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *errorMessage = [error description];
 #ifdef DEBUG
-    NSLog(@"Loading user's games from: %@", gamesUrl);
+        NSLog(@"%@", errorMessage);
 #endif
-    NSURLRequest *gamesRequest = [NSURLRequest requestWithURL:gamesUrl];
-    AFKissXMLRequestOperation *gamesRequestOperation = [AFKissXMLRequestOperation XMLDocumentRequestOperationWithRequest:gamesRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, DDXMLDocument *XMLDocument) {
-        NSMutableArray *games = [NSMutableArray array];
-
-        DDXMLElement *gamesElement = [[[XMLDocument rootElement] elementsForName:@"games"] objectAtIndex:0];
-        for (DDXMLElement *gameElement in [gamesElement elementsForName:@"game"]) {
-            [games addObject:[[SCGame alloc] initWithXMLElement:gameElement]];
-        };
-
-        [NSThread detachNewThreadSelector:@selector(populateGames:) toTarget:self withObject:[games copy]];
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, DDXMLDocument *XMLDocument) {
-        NSString *errorMessage = [NSString stringWithFormat:@"Error loading user's games: %@", [error localizedDescription]];
         [SCAppDelegate errorWithMessage:errorMessage];
     }];
-    [gamesRequestOperation start];
+    [gamesOperation start];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

@@ -13,11 +13,12 @@
 @synthesize logoUrl = _logoUrl;
 @synthesize name = _name;
 
-- (id)initWithXMLElement:(DDXMLElement *)xmlElement
+- (id)initWithJSONObject:(NSDictionary *)jsonObject
 {
-    _appId   = [NSNumber numberWithInt:[[[[xmlElement elementsForName:@"appID"] objectAtIndex:0] stringValue] intValue]];
-    _logoUrl = [NSURL URLWithString:[[[xmlElement elementsForName:@"logo"] objectAtIndex:0] stringValue]];
-    _name    = [[[xmlElement elementsForName:@"name"] objectAtIndex:0] stringValue];
+    _appId   = [jsonObject objectForKey:@"appid"];
+    NSString *logoUrl = [NSString stringWithFormat:@"http://media.steampowered.com/steamcommunity/public/images/apps/%@/%@.jpg", _appId, [jsonObject objectForKey:@"img_logo_url"]];
+    _logoUrl = [NSURL URLWithString:logoUrl];
+    _name    = [jsonObject objectForKey:@"name"];
 
     return self;
 }
