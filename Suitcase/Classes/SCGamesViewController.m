@@ -75,6 +75,11 @@
 
 - (void)loadGames
 {
+    UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
+    if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
+        [(SCSteamIdFormController *)modal dismissForm:self];
+    }
+
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     NSDictionary *params = @{@"steamId": steamId64, @"include_appinfo": @1, @"include_played_free_games": @1};
     AFJSONRequestOperation *gamesOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:@"IPlayerService"
