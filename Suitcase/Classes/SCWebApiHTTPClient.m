@@ -37,7 +37,7 @@
                                          parameters:[params copy]];
 
 #ifdef DEBUG
-    NSLog(@"Querying Steam Web API: %@", [request URL]);
+    NSLog(@"Querying Steam Web API: %@", [[[request URL] absoluteString] stringByReplacingOccurrencesOfString:__API_KEY__ withString:@"SECRET"]);
 #endif
 
     return [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
