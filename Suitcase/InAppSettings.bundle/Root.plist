@@ -22,6 +22,7 @@ Powered by Steam</string>
 			<key>Values</key>
 			<array>
 				<string>position</string>
+				<string>name</string>
 				<string>quality</string>
 				<string>type</string>
 				<string>origin</string>
@@ -29,6 +30,7 @@ Powered by Steam</string>
 			<key>Titles</key>
 			<array>
 				<string>Sort by inventory position</string>
+				<string>Sort by name</string>
 				<string>Sort by quality</string>
 				<string>Sort by type</string>
 				<string>Sort by origin</string>

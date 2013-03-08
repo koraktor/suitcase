@@ -19,11 +19,31 @@
 
 @implementation SCInventory
 
+static NSArray *alphabet;
+static NSArray *alphabetWithNumbers;
 static SCInventory *currentInventory;
 
 @synthesize itemSections = _itemSections;
 @synthesize schema = _schema;
 @synthesize showColors = _showColors;
+
++ (NSArray *)alphabet
+{
+    if (alphabet == nil) {
+        alphabet = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
+    }
+
+    return alphabet;
+}
+
++ (NSArray *)alphabetWithNumbers {
+    if (alphabetWithNumbers == nil) {
+        alphabetWithNumbers = @[@"0–9"];
+        alphabetWithNumbers = [alphabetWithNumbers arrayByAddingObjectsFromArray:[SCInventory alphabet]];
+    }
+
+    return alphabetWithNumbers;
+}
 
 + (SCInventory *)currentInventory
 {
@@ -57,6 +77,19 @@ static SCInventory *currentInventory;
         _itemSections = [NSArray arrayWithObject:[_items sortedArrayUsingComparator:^NSComparisonResult(SCItem *item1, SCItem *item2) {
             return [item1.position compare:item2.position];
         }]];
+    } else if ([sortOption isEqual:@"name"]) {
+        _itemSections = [NSMutableArray arrayWithCapacity:[SCInventory alphabet].count + 1];
+        for (NSUInteger i = 0; i <= alphabet.count; i ++) {
+            [(NSMutableArray *)_itemSections addObject:[NSMutableArray array]];
+        }
+        [_items enumerateObjectsUsingBlock:^(SCItem *item, NSUInteger idx, BOOL *stop) {
+            NSString *start = [[item.name substringToIndex:1] uppercaseString];
+            NSUInteger nameIndex = [[SCInventory alphabet] indexOfObject:start];
+            if (nameIndex == NSNotFound) {
+                nameIndex = -1;
+            }
+            [[_itemSections objectAtIndex:nameIndex + 1] addObject:item];
+        }];
     } else if ([sortOption isEqual:@"origin"]) {
         _itemSections = [NSMutableArray arrayWithCapacity:_schema.origins.count];
         for (NSUInteger i = 0; i < _schema.origins.count; i ++) {
@@ -128,7 +161,9 @@ static SCInventory *currentInventory;
 
     NSString *sortOption = [[NSUserDefaults standardUserDefaults] valueForKey:@"sorting"];
 
-    if ([sortOption isEqual:@"origin"]) {
+    if ([sortOption isEqual:@"name"]) {
+        return [[SCInventory alphabetWithNumbers] objectAtIndex:section];
+    } else if ([sortOption isEqual:@"origin"]) {
         return NSLocalizedString([_schema originNameForIndex:section], @"Origin name");
     } else if ([sortOption isEqual:@"quality"]) {
         return [_schema qualityNameForIndex:section];
