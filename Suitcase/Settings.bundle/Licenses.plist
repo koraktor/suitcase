@@ -4,8 +4,6 @@
 <dict>
 	<key>StringsTable</key>
 	<string>Licenses</string>
-	<key>New item</key>
-	<string></string>
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
