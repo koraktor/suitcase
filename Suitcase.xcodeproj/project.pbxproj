@@ -790,7 +790,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bundleVersion=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" Suitcase/Suitcase-Info.plist)\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:5:DefaultValue $bundleVersion\" Suitcase/Settings.bundle/Root.plist";
+			shellScript = "bundleVersion=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" Suitcase/Suitcase-Info.plist)\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:6:DefaultValue $bundleVersion\" Suitcase/Settings.bundle/Root.plist";
 		};
 /* End PBXShellScriptBuildPhase section */
 
