@@ -19,7 +19,11 @@
     self = [super initWithBaseURL:[NSURL URLWithString:apiUrl]];
 
     [self setDefaultHeader:@"Accept" value:@"application/json"];
-    [self setDefaultHeader:@"User-Agent" value:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
+    NSString *userAgent = [NSString stringWithFormat:@"%@ %@ (iOS %@)",
+                           [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+                           [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+                           [UIDevice currentDevice].systemVersion];
+    [self setDefaultHeader:@"User-Agent" value:userAgent];
 
     return self;
 }
