@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -180,12 +180,12 @@ http://steamcommunity.com/profile/{Profile ID}
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Games" id="Q8r-A0-8Dt">
-                        <barButtonItem key="leftBarButtonItem" image="user.png" id="O5P-D0-6iB">
+                        <barButtonItem key="leftBarButtonItem" title="…" id="O5P-D0-6iB">
                             <connections>
                                 <segue destination="09V-IM-Zg9" kind="modal" identifier="SteamIDForm" modalTransitionStyle="coverVertical" id="hZa-Pb-jK6"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="settings.png" id="jaD-ME-b0z">
+                        <barButtonItem key="rightBarButtonItem" title="…" id="jaD-ME-b0z">
                             <connections>
                                 <segue destination="sOd-p5-uza" kind="modal" identifier="showSettings" modalTransitionStyle="coverVertical" id="srZ-Mq-OVS"/>
                             </connections>
@@ -244,7 +244,7 @@ http://steamcommunity.com/profile/{Profile ID}
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Inventory" id="36">
-                        <barButtonItem key="rightBarButtonItem" image="settings.png" id="bwp-8R-Wmc">
+                        <barButtonItem key="rightBarButtonItem" title="…" id="bwp-8R-Wmc">
                             <connections>
                                 <segue destination="sOd-p5-uza" kind="modal" identifier="showSettings" modalTransitionStyle="coverVertical" id="JIn-1w-RO4"/>
                             </connections>
@@ -547,8 +547,6 @@ Kill eater score</string>
         <image name="kill_eater-iphone.png" width="16" height="16"/>
         <image name="origin-iphone.png" width="16" height="16"/>
         <image name="quality-iphone.png" width="16" height="16"/>
-        <image name="settings.png" width="24" height="24"/>
-        <image name="user.png" width="24" height="24"/>
     </resources>
     <classes>
         <class className="IASKAppSettingsViewController" superclassName="UITableViewController">
@@ -616,6 +614,7 @@ Kill eater score</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSteamIdFormController.h"/>
             <relationships>
                 <relationship kind="action" name="dismissForm:"/>
+                <relationship kind="action" name="submitForm:"/>
                 <relationship kind="outlet" name="helpLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="steamIdField" candidateClass="UITextField"/>
             </relationships>
@@ -639,6 +638,6 @@ Kill eater score</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="srZ-Mq-OVS"/>
+        <segue reference="JIn-1w-RO4"/>
     </inferredMetricsTieBreakers>
 </document>

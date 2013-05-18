@@ -5,6 +5,7 @@
 //  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
+#import "FontAwesomeKit.h"
 
 #import "SCAppDelegate.h"
 #import "SCGame.h"
@@ -35,6 +36,14 @@
                                                object:nil];
 
     _availableGamesLock = [[NSLock alloc] init];
+
+    self.navigationItem.leftBarButtonItem.title = FAKIconUser;
+    [self.navigationItem.leftBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
+                                                         forState:UIControlStateNormal];
+
+    self.navigationItem.rightBarButtonItem.title = FAKIconWrench;
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
+                                                         forState:UIControlStateNormal];
 
     [super awakeFromNib];
 }

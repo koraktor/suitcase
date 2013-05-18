@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -67,12 +67,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Games" id="uNc-HA-9MJ">
-                        <barButtonItem key="leftBarButtonItem" image="user.png" id="DrV-SQ-KyY">
+                        <barButtonItem key="leftBarButtonItem" title="…" id="DrV-SQ-KyY">
                             <connections>
                                 <segue destination="j2j-OJ-mM7" kind="modal" identifier="SteamIDForm" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="3wb-4m-iGG"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="settings.png" id="dml-ED-pTw">
+                        <barButtonItem key="rightBarButtonItem" title="…" id="dml-ED-pTw">
                             <connections>
                                 <segue destination="d7O-Ry-HBv" kind="modal" identifier="showSettings" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="eS2-5p-lpL"/>
                             </connections>
@@ -428,7 +428,7 @@ http://steamcommunity.com/profile/{Profile ID}
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Inventory" id="40">
-                        <barButtonItem key="rightBarButtonItem" image="settings.png" id="9Aq-a9-2tg">
+                        <barButtonItem key="rightBarButtonItem" title="…" id="9Aq-a9-2tg">
                             <connections>
                                 <segue destination="d7O-Ry-HBv" kind="modal" identifier="showSettings" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="D8W-4S-aKW"/>
                             </connections>
@@ -590,8 +590,6 @@ http://steamcommunity.com/profile/{Profile ID}
         <image name="kill_eater.png" width="24" height="24"/>
         <image name="origin.png" width="24" height="24"/>
         <image name="quality.png" width="24" height="24"/>
-        <image name="settings.png" width="24" height="24"/>
-        <image name="user.png" width="24" height="24"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>

@@ -6,7 +6,7 @@
 //
 
 #import "AFNetworkActivityIndicatorManager.h"
-#import "FAImageView.h"
+#import "FontAwesomeKit.h"
 #import "YRDropdownView.h"
 
 #import "SCAppDelegate.h"
@@ -162,14 +162,19 @@ static SCWebApiHTTPClient *_webApiClient;
             } else {
                 NSString *errorMessage = [NSString stringWithFormat:@"An error occured while resolving the Steam ID: %@", [steamIdResponse objectForKey:@"message"]];
 
-                FAImageView *image = [[FAImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 48.0, 48.0)];
-                image.image = nil;
-                image.defaultView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
-                image.defaultView.shadowOffset = CGSizeMake(2.0, 2.0);
-                image.defaultView.shadowColor = [UIColor colorWithRed:0.2 green:0.1 blue:0.1 alpha:1.0];
-                [image setDefaultIcon:FAIconWarningSign];
-                [image.defaultView sizeToFit];
-                image.frame = CGRectMake(0.0, 0.0, 48.0, 48.0);
+                NSDictionary *iconAttributes = @{
+                    FAKImageAttributeForegroundColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0],
+                    FAKImageAttributeShadow: @{
+                        FAKShadowAttributeBlur: @(1.0),
+                        FAKShadowAttributeColor: [UIColor colorWithRed:0.2 green:0.1 blue:0.1 alpha:1.0],
+                        FAKShadowAttributeOffset: [NSValue valueWithCGSize:CGSizeMake(3.0, 3.0)]
+                    }
+                };
+                UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 48.0, 48.0)];
+                image.image = [FontAwesomeKit imageForIcon:FAKIconWarningSign
+                                                 imageSize:CGSizeMake(48.0, 48.0)
+                                                  fontSize:46
+                                                attributes:iconAttributes];
 
                 YRDropdownView *errorView = [YRDropdownView dropdownInView:[((UIView *)[self.window.rootViewController.presentedViewController.view.subviews objectAtIndex:0]).subviews objectAtIndex:0]
                                                                      title:@"Not found"

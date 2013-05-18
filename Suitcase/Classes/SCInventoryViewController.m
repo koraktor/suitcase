@@ -5,9 +5,9 @@
 //  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
-#import "SCInventoryViewController.h"
-
+#import "FontAwesomeKit.h"
 #import "IASKSettingsReader.h"
+
 #import "SCAppDelegate.h"
 #import "SCInventory.h"
 #import "SCItemViewController.h"
@@ -16,6 +16,8 @@
 #import "SCSchema.h"
 #import "SCSettingsViewController.h"
 #import "SCSteamIdFormController.h"
+
+#import "SCInventoryViewController.h"
 
 @interface SCInventoryViewController () {
     SCInventory *_inventory;
@@ -57,6 +59,10 @@
                                                object:nil];
 
     _schemaLock = [[NSLock alloc] init];
+
+    self.navigationItem.rightBarButtonItem.title = FAKIconWrench;
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
+                                                          forState:UIControlStateNormal];
 
     [super awakeFromNib];
 }
