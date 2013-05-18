@@ -15,7 +15,7 @@
 
 - (id)init
 {
-    NSString *apiUrl = @"http://api.steampowered.com/";
+    NSString *apiUrl = @"https://api.steampowered.com/";
     self = [super initWithBaseURL:[NSURL URLWithString:apiUrl]];
 
     [self setDefaultHeader:@"Accept" value:@"application/json"];
