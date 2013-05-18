@@ -6,6 +6,8 @@
 //
 
 #import "AFNetworkActivityIndicatorManager.h"
+#import "FAImageView.h"
+#import "YRDropdownView.h"
 
 #import "SCAppDelegate.h"
 
@@ -158,8 +160,31 @@ static SCWebApiHTTPClient *_webApiClient;
                 steamId64 = [steamIdResponse objectForKey:@"steamid"];
                 SteamIdFound();
             } else {
-                NSString *errorMessage = [NSString stringWithFormat:@"Error resolving Steam ID: %@", [steamIdResponse objectForKey:@"message"]];
-                [SCAppDelegate errorWithMessage:errorMessage];
+                NSString *errorMessage = [NSString stringWithFormat:@"An error occured while resolving the Steam ID: %@", [steamIdResponse objectForKey:@"message"]];
+
+                FAImageView *image = [[FAImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 48.0, 48.0)];
+                image.image = nil;
+                image.defaultView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
+                image.defaultView.shadowOffset = CGSizeMake(2.0, 2.0);
+                image.defaultView.shadowColor = [UIColor colorWithRed:0.2 green:0.1 blue:0.1 alpha:1.0];
+                [image setDefaultIcon:FAIconWarningSign];
+                [image.defaultView sizeToFit];
+                image.frame = CGRectMake(0.0, 0.0, 48.0, 48.0);
+
+                YRDropdownView *errorView = [YRDropdownView dropdownInView:[((UIView *)[self.window.rootViewController.presentedViewController.view.subviews objectAtIndex:0]).subviews objectAtIndex:0]
+                                                                     title:@"Not found"
+                                                                    detail:errorMessage
+                                                             accessoryView:image
+                                                                  animated:YES];
+                [errorView setBackgroundColors:@[
+                    [UIColor colorWithRed:0.5 green:0.0 blue:0.0 alpha:1.0],
+                    [UIColor colorWithRed:0.4 green:0.0 blue:0.0 alpha:1.0]
+                ]];
+                [errorView setTextColor:[UIColor lightGrayColor]];
+                [errorView setTitleTextColor:[UIColor whiteColor]];
+                [errorView setTitleTextShadowColor:[UIColor colorWithRed:0.2 green:0.1 blue:0.1 alpha:1.0]];
+                [errorView setHideAfter:5.0];
+                [YRDropdownView presentDropdown:errorView];
 
                 [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"SteamID"];
                 [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"SteamID64"];

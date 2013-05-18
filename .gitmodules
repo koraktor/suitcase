@@ -7,3 +7,9 @@
 [submodule "AFNetworking"]
 	path = Suitcase/External/AFNetworking
 	url = git://github.com/AFNetworking/AFNetworking.git
+[submodule "YRDropdownView"]
+	path = Suitcase/External/YRDropdownView
+	url = https://github.com/iOctocat/YRDropdownView
+[submodule "ios-fontawesome"]
+	path = Suitcase/External/ios-fontawesome
+	url = git://github.com/alexdrone/ios-fontawesome.git
