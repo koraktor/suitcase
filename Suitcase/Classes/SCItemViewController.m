@@ -2,11 +2,13 @@
 //  SCDetailViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
+
+#import "FontAwesomeKit.h"
 
 #import "SCItemViewController.h"
 
@@ -68,6 +70,10 @@
 
     self.quantityLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.quantityLabel.layer.borderWidth = [[UIScreen mainScreen] scale];
+
+    self.wikiButton.title = FAKIconBook;
+    [self.wikiButton setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
+                                      forState:UIControlStateNormal];
 }
 
 #pragma mark - Managing the detail item

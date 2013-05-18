@@ -65,10 +65,6 @@
 		022E38A01747D356000CA309 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 022E389D1747D356000CA309 /* FontAwesome.otf */; };
 		022E38A11747D356000CA309 /* FontAwesomeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 022E389F1747D356000CA309 /* FontAwesomeKit.m */; };
 		0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */; };
-		0250CC55169589AD00B20A6F /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 0250CC51169589AD00B20A6F /* back.png */; };
-		0250CC56169589AD00B20A6F /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0250CC52169589AD00B20A6F /* back@2x.png */; };
-		0250CC57169589AD00B20A6F /* forward.png in Resources */ = {isa = PBXBuildFile; fileRef = 0250CC53169589AD00B20A6F /* forward.png */; };
-		0250CC58169589AD00B20A6F /* forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0250CC54169589AD00B20A6F /* forward@2x.png */; };
 		0250CC5E1696D6E900B20A6F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E7218215938BDE00A18BF1 /* Default.png */; };
 		0250CC5F1696D6EC00B20A6F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E7218415938BE400A18BF1 /* Default@2x.png */; };
 		0255A148155D9BE20092741E /* SCItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255A147155D9BE20092741E /* SCItem.m */; };
@@ -210,10 +206,6 @@
 		022E389F1747D356000CA309 /* FontAwesomeKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FontAwesomeKit.m; path = External/FontAwesomeKit/FontAwesomeKit/FontAwesomeKit.m; sourceTree = "<group>"; };
 		0250CBD91693C8D100B20A6F /* SCWikiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWikiViewController.h; path = Classes/SCWikiViewController.h; sourceTree = "<group>"; };
 		0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWikiViewController.m; path = Classes/SCWikiViewController.m; sourceTree = "<group>"; };
-		0250CC51169589AD00B20A6F /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = Images/back.png; sourceTree = "<group>"; };
-		0250CC52169589AD00B20A6F /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "back@2x.png"; path = "Images/back@2x.png"; sourceTree = "<group>"; };
-		0250CC53169589AD00B20A6F /* forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = forward.png; path = Images/forward.png; sourceTree = "<group>"; };
-		0250CC54169589AD00B20A6F /* forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward@2x.png"; path = "Images/forward@2x.png"; sourceTree = "<group>"; };
 		0255A146155D9BE20092741E /* SCItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItem.h; path = Classes/SCItem.h; sourceTree = "<group>"; };
 		0255A147155D9BE20092741E /* SCItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItem.m; path = Classes/SCItem.m; sourceTree = "<group>"; };
 		0255A14A155D9BF80092741E /* SCSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSchema.h; path = Classes/SCSchema.h; sourceTree = "<group>"; };
@@ -551,14 +543,10 @@
 			isa = PBXGroup;
 			children = (
 				02010B1C1696DE0A00007456 /* Default-568h@2x.png */,
-				0250CC51169589AD00B20A6F /* back.png */,
-				0250CC52169589AD00B20A6F /* back@2x.png */,
 				02E7218815938BF000A18BF1 /* Default-Landscape@2x~ipad.png */,
 				02E7218615938BED00A18BF1 /* Default-Landscape~ipad.png */,
 				02E7218415938BE400A18BF1 /* Default@2x.png */,
 				02E7218215938BDE00A18BF1 /* Default.png */,
-				0250CC53169589AD00B20A6F /* forward.png */,
-				0250CC54169589AD00B20A6F /* forward@2x.png */,
 				020958C61693926300A44851 /* game_placeholder.png */,
 				020958C71693926300A44851 /* game_placeholder@2x.png */,
 				02806D73158E263E003A0607 /* item_placeholder.png */,
@@ -705,10 +693,6 @@
 				02E7218915938BF000A18BF1 /* Default-Landscape@2x~ipad.png in Resources */,
 				020958C81693926300A44851 /* game_placeholder.png in Resources */,
 				020958C91693926300A44851 /* game_placeholder@2x.png in Resources */,
-				0250CC55169589AD00B20A6F /* back.png in Resources */,
-				0250CC56169589AD00B20A6F /* back@2x.png in Resources */,
-				0250CC57169589AD00B20A6F /* forward.png in Resources */,
-				0250CC58169589AD00B20A6F /* forward@2x.png in Resources */,
 				0250CC5E1696D6E900B20A6F /* Default.png in Resources */,
 				0250CC5F1696D6EC00B20A6F /* Default@2x.png in Resources */,
 				02010B1D1696DE0A00007456 /* Default-568h@2x.png in Resources */,

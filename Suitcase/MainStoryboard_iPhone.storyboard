@@ -32,7 +32,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" clearButtonMode="whileEditing" id="agU-wR-SkB">
-                                <rect key="frame" x="46" y="82" width="229" height="31"/>
+                                <rect key="frame" x="46" y="117" width="229" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -42,7 +42,7 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SteamID help" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="NfD-g1-xMo">
-                                <rect key="frame" x="20" y="20" width="280" height="54"/>
+                                <rect key="frame" x="20" y="55" width="280" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,7 +51,7 @@
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                             <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" id="zKW-xp-Cbx">
-                                <rect key="frame" x="20" y="121" width="280" height="39"/>
+                                <rect key="frame" x="20" y="167" width="280" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <string key="text">http://steamcommunity.com/id/{Custom URL}
 http://steamcommunity.com/profile/{Profile ID}
@@ -403,7 +403,7 @@ Kill eater score</string>
                         <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Item" id="26">
-                        <barButtonItem key="rightBarButtonItem" title="Wiki" id="gK6-Cu-cfz">
+                        <barButtonItem key="rightBarButtonItem" title="…" id="gK6-Cu-cfz">
                             <connections>
                                 <action selector="showWikiPage:" destination="21" id="4C0-qz-mot"/>
                             </connections>
@@ -484,12 +484,12 @@ Kill eater score</string>
                         </connections>
                     </webView>
                     <toolbarItems>
-                        <barButtonItem enabled="NO" image="back.png" id="SjO-0w-XlB">
+                        <barButtonItem enabled="NO" title="…" id="SjO-0w-XlB">
                             <connections>
                                 <action selector="goBack:" destination="lNQ-t2-rFd" id="x2K-mc-PQK"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem enabled="NO" image="forward.png" id="aQh-Fy-uon">
+                        <barButtonItem enabled="NO" title="…" id="aQh-Fy-uon">
                             <connections>
                                 <action selector="goForward:" destination="lNQ-t2-rFd" id="84a-xC-KAA"/>
                             </connections>
@@ -539,8 +539,6 @@ Kill eater score</string>
         </scene>
     </scenes>
     <resources>
-        <image name="back.png" width="24" height="24"/>
-        <image name="forward.png" width="24" height="24"/>
         <image name="game_placeholder.png" width="92" height="35"/>
         <image name="item_placeholder.png" width="32" height="32"/>
         <image name="item_set-iphone.png" width="16" height="16"/>

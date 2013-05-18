@@ -237,7 +237,7 @@ Kill eater score</string>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="53">
-                        <barButtonItem key="rightBarButtonItem" title="Wiki" id="XN6-yb-dwO">
+                        <barButtonItem key="rightBarButtonItem" title="…" id="XN6-yb-dwO">
                             <connections>
                                 <action selector="showWikiPage:" destination="4" id="zUJ-LC-Uou"/>
                             </connections>
@@ -556,12 +556,12 @@ http://steamcommunity.com/profile/{Profile ID}
                         </connections>
                     </webView>
                     <toolbarItems>
-                        <barButtonItem enabled="NO" image="back.png" id="TIm-1y-L9C">
+                        <barButtonItem enabled="NO" title="…" id="TIm-1y-L9C">
                             <connections>
                                 <action selector="goBack:" destination="u2V-bm-OPg" id="7Dk-Ee-w1k"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem enabled="NO" image="forward.png" id="E5m-2Z-V3b">
+                        <barButtonItem enabled="NO" title="…" id="E5m-2Z-V3b">
                             <connections>
                                 <action selector="goForward:" destination="u2V-bm-OPg" id="dXP-G6-Lxf"/>
                             </connections>
@@ -582,8 +582,6 @@ http://steamcommunity.com/profile/{Profile ID}
         </scene>
     </scenes>
     <resources>
-        <image name="back.png" width="24" height="24"/>
-        <image name="forward.png" width="24" height="24"/>
         <image name="game_placeholder.png" width="92" height="35"/>
         <image name="item_placeholder.png" width="32" height="32"/>
         <image name="item_set.png" width="24" height="24"/>

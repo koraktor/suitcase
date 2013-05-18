@@ -5,6 +5,8 @@
 //  Copyright (c) 2013, Sebastian Staudt
 //
 
+#import "FontAwesomeKit.h"
+
 #import "SCWikiViewController.h"
 
 @interface SCWikiViewController () {
@@ -20,6 +22,13 @@
     activityView.hidden = NO;
     [activityView sizeToFit];
     _activityButton = [[UIBarButtonItem alloc] initWithCustomView:activityView];
+
+    self.backButton.title = FAKIconCircleArrowLeft;
+    [self.backButton setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
+                                      forState:UIControlStateNormal];
+    self.forwardButton.title = FAKIconCircleArrowRight;
+    [self.forwardButton setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
+                                                          forState:UIControlStateNormal];
 
     [super awakeFromNib];
 }
