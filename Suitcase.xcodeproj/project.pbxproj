@@ -72,6 +72,7 @@
 		0266DE2716D2ABAD001D47D3 /* YRDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0266DE2616D2ABAD001D47D3 /* YRDropdownView.m */; };
 		0266E0A416933ACF009C6CE8 /* SCGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 0266E0A316933ACE009C6CE8 /* SCGame.m */; };
 		0269A4A915CC3AEB008A287A /* SCGamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269A4A815CC3AEB008A287A /* SCGamesViewController.m */; };
+		026EE9F71748B45600FB8484 /* BPBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 026EE9F61748B45600FB8484 /* BPBarButtonItem.m */; };
 		026F215C156ADA1F00C7BD54 /* SCClassImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026F215B156ADA1F00C7BD54 /* SCClassImageView.m */; };
 		0275E20D158E6B5B008EA0AD /* SCItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0275E20C158E6B5B008EA0AD /* SCItemCell.m */; };
 		02806D75158E263E003A0607 /* item_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 02806D73158E263E003A0607 /* item_placeholder.png */; };
@@ -217,6 +218,8 @@
 		0266E0A316933ACE009C6CE8 /* SCGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCGame.m; path = Classes/SCGame.m; sourceTree = "<group>"; };
 		0269A4A715CC3AEB008A287A /* SCGamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCGamesViewController.h; path = Classes/SCGamesViewController.h; sourceTree = "<group>"; };
 		0269A4A815CC3AEB008A287A /* SCGamesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCGamesViewController.m; path = Classes/SCGamesViewController.m; sourceTree = "<group>"; };
+		026EE9F51748B45600FB8484 /* BPBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPBarButtonItem.h; path = External/BPBarButtonItem/BPBarButtonItem/BPBarButtonItem.h; sourceTree = "<group>"; };
+		026EE9F61748B45600FB8484 /* BPBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPBarButtonItem.m; path = External/BPBarButtonItem/BPBarButtonItem/BPBarButtonItem.m; sourceTree = "<group>"; };
 		026F215A156ADA1F00C7BD54 /* SCClassImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCClassImageView.h; path = Classes/SCClassImageView.h; sourceTree = "<group>"; };
 		026F215B156ADA1F00C7BD54 /* SCClassImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCClassImageView.m; path = Classes/SCClassImageView.m; sourceTree = "<group>"; };
 		0275E20B158E6B5B008EA0AD /* SCItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemCell.h; path = Classes/SCItemCell.h; sourceTree = "<group>"; };
@@ -348,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				0266E053169243A0009C6CE8 /* AFNetworking */,
+				026EE9F41748B43F00FB8484 /* BPBarButtonItem */,
 				022E389C1747D346000CA309 /* FontAwesomeKit */,
 				020EB3EE1585299B00654D2A /* InAppSettingsKit */,
 				02F37EC2158014F200BFB1B5 /* TTTAttributedLabel */,
@@ -441,6 +445,15 @@
 			);
 			name = AFNetworking;
 			path = Classes/External/AFNetworking/AFNetworking;
+			sourceTree = "<group>";
+		};
+		026EE9F41748B43F00FB8484 /* BPBarButtonItem */ = {
+			isa = PBXGroup;
+			children = (
+				026EE9F51748B45600FB8484 /* BPBarButtonItem.h */,
+				026EE9F61748B45600FB8484 /* BPBarButtonItem.m */,
+			);
+			name = BPBarButtonItem;
 			sourceTree = "<group>";
 		};
 		028B63FB15265D680040D2FF = {
@@ -799,6 +812,7 @@
 				02010B8A169E9CDA00007456 /* TTTAttributedLabel.m in Sources */,
 				0266DE2716D2ABAD001D47D3 /* YRDropdownView.m in Sources */,
 				022E38A11747D356000CA309 /* FontAwesomeKit.m in Sources */,
+				026EE9F71748B45600FB8484 /* BPBarButtonItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

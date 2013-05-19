@@ -5,6 +5,7 @@
 //  Copyright (c) 2013, Sebastian Staudt
 //
 
+#import "BPBarButtonItem.h"
 #import "FontAwesomeKit.h"
 
 #import "SCWikiViewController.h"
@@ -26,9 +27,11 @@
     self.backButton.title = FAKIconCircleArrowLeft;
     [self.backButton setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
                                       forState:UIControlStateNormal];
+    [BPBarButtonItem customizeBarButtonItem:self.backButton withStyle:BPBarButtonItemStyleStandardDark];
     self.forwardButton.title = FAKIconCircleArrowRight;
     [self.forwardButton setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
                                                           forState:UIControlStateNormal];
+    [BPBarButtonItem customizeBarButtonItem:self.forwardButton withStyle:BPBarButtonItemStyleStandardDark];
 
     [super awakeFromNib];
 }

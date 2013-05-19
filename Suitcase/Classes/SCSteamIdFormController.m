@@ -5,6 +5,8 @@
 //  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
+#import "BPBarButtonItem.h"
+
 #import "SCSteamIdFormController.h"
 
 #import "SCAppDelegate.h"
@@ -13,6 +15,13 @@
 
 @synthesize helpLabel = _helpLabel;
 @synthesize steamIdField = _steamIdField;
+
+- (void)awakeFromNib
+{
+    [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withTintColor:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:1.0]];
+
+    [super awakeFromNib];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

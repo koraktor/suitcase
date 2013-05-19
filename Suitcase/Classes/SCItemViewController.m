@@ -8,6 +8,7 @@
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
 
+#import "BPBarButtonItem.h"
 #import "FontAwesomeKit.h"
 
 #import "SCItemViewController.h"
@@ -74,6 +75,7 @@
     self.wikiButton.title = FAKIconBook;
     [self.wikiButton setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
                                       forState:UIControlStateNormal];
+    [BPBarButtonItem customizeBarButtonItem:self.wikiButton withStyle:BPBarButtonItemStyleStandardDark];
 }
 
 #pragma mark - Managing the detail item

@@ -5,6 +5,7 @@
 //  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
+#import "BPBarButtonItem.h"
 #import "FontAwesomeKit.h"
 
 #import "SCAppDelegate.h"
@@ -40,10 +41,12 @@
     self.navigationItem.leftBarButtonItem.title = FAKIconUser;
     [self.navigationItem.leftBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
                                                          forState:UIControlStateNormal];
+    [BPBarButtonItem customizeBarButtonItem:self.navigationItem.leftBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
 
     self.navigationItem.rightBarButtonItem.title = FAKIconWrench;
     [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
                                                          forState:UIControlStateNormal];
+    [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
 
     [super awakeFromNib];
 }
