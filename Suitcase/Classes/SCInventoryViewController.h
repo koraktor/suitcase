@@ -13,7 +13,7 @@
 
 @class SCItemViewController;
 
-@interface SCInventoryViewController : UITableViewController <IASKSettingsDelegate>
+@interface SCInventoryViewController : UITableViewController <IASKSettingsDelegate, UITableViewDelegate>
 
 @property (strong, nonatomic) SCItemViewController *detailViewController;
 @property (strong, nonatomic) SCGame *game;

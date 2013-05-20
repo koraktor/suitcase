@@ -423,7 +423,7 @@ http://steamcommunity.com/profile/{Profile ID}
                         </prototypes>
                         <sections/>
                         <connections>
-                            <outlet property="delegate" destination="19" id="21"/>
+                            <outlet property="delegate" destination="19" id="wff-DM-t8p"/>
                         </connections>
                     </tableView>
                     <toolbarItems/>

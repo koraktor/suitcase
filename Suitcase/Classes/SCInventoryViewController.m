@@ -5,6 +5,8 @@
 //  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "BPBarButtonItem.h"
 #import "FontAwesomeKit.h"
 #import "IASKSettingsReader.h"
@@ -165,6 +167,7 @@
 - (void)reloadInventory
 {
     [self.tableView setDataSource:_inventory];
+    [self.tableView setDelegate:self];
 
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         [self.tableView reloadData];
@@ -232,6 +235,53 @@
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                               atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (tableView.dataSource == self) {
+        return 0.0;
+    }
+
+    NSString *title = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
+
+    if (title == nil) {
+        return 0.0;
+    }
+
+    return 20.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (tableView.dataSource == self) {
+        return nil;
+    }
+
+    NSString *title = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
+
+    if (title == nil) {
+        return nil;
+    }
+
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, 20.0)];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, headerView.frame.size.width, 20.0)];
+
+    headerLabel.backgroundColor = UIColor.clearColor;
+    headerLabel.text = title;
+    headerLabel.textColor = UIColor.whiteColor;
+    headerLabel.font = [UIFont boldSystemFontOfSize:18.0];
+
+    headerView.alpha = 0.8f;
+    headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header_gradient"]];
+    headerView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    headerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+    headerView.layer.shadowOpacity = 0.5f;
+    headerView.layer.shadowRadius = 3.25f;
+    headerView.layer.masksToBounds = NO;
+
+    [headerView addSubview:headerLabel];
+
+    return headerView;
 }
 
 - (void)dealloc

@@ -66,9 +66,12 @@ static SCWebApiHTTPClient *_webApiClient;
         navigationController = (UINavigationController *)self.window.rootViewController;
         masterViewController = navigationController.topViewController;
     }
-    navigationController.toolbar.tintColor = UIColor.blackColor;
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadAvailableGames" object:nil];
+
+    UIImage *barGradientImage = [UIImage imageNamed:@"bar_gradient"];
+    [[UINavigationBar appearance] setBackgroundImage:barGradientImage forBarMetrics:UIBarMetricsDefault];
+    [[UIToolbar appearance] setBackgroundImage:barGradientImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 
     NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     if (steamId64 == nil) {
