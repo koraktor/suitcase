@@ -102,7 +102,7 @@
         NSDictionary *gamesResponse = [responseObject objectForKey:@"response"];
         NSArray *games = [gamesResponse objectForKey:@"games"];
 
-        NSMutableArray *gameObjects = [NSMutableArray arrayWithCapacity:[gamesResponse objectForKey:@"game_count"]];
+        NSMutableArray *gameObjects = [NSMutableArray arrayWithCapacity:[(NSNumber *)[gamesResponse objectForKey:@"game_count"] unsignedIntegerValue]];
         for (NSDictionary *game in games) {
             [gameObjects addObject:[[SCGame alloc] initWithJSONObject:game]];
         }
