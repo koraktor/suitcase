@@ -47,31 +47,6 @@
 {
     self.navigationItem.rightBarButtonItem = nil;
 
-    [self.icons enumerateObjectsUsingBlock:^(UIImageView *icon, NSUInteger idx, BOOL *stop) {
-        icon.layer.shadowColor = [UIColor blackColor].CGColor;
-        icon.layer.shadowOffset = CGSizeMake(0, 1);
-        icon.layer.shadowOpacity = 1;
-        icon.layer.shadowRadius = 1.0;
-        icon.layer.masksToBounds = NO;
-    }];
-
-    self.itemImage.layer.borderColor = [[UIColor blackColor] CGColor];
-    self.itemImage.layer.cornerRadius = 5;
-    self.itemImage.layer.shadowColor = [[UIColor blackColor] CGColor];
-    self.itemImage.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-    self.itemImage.layer.shadowOpacity = 1.0;
-    self.itemImage.layer.shadowRadius = 2.5;
-
-    self.itemSetButton.imageView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.itemSetButton.imageView.layer.shadowOffset = CGSizeMake(0, 1);
-    self.itemSetButton.imageView.layer.shadowOpacity = 1;
-    self.itemSetButton.imageView.layer.shadowRadius = 1.0;
-    self.itemSetButton.imageView.layer.masksToBounds = NO;
-    self.itemSetButton.titleLabel.numberOfLines = 2;
-
-    self.quantityLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.quantityLabel.layer.borderWidth = [[UIScreen mainScreen] scale];
-
     self.wikiButton.title = FAKIconBook;
     [self.wikiButton setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
                                       forState:UIControlStateNormal];
@@ -273,6 +248,38 @@
     [self.classSniperImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/sniper.jpg"]];
     [self.classSpyImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/spy.jpg"]];
 
+    NSDictionary *shadowAttributes = @{
+        FAKShadowAttributeBlur: @(1.0),
+        FAKShadowAttributeColor: UIColor.blackColor,
+        FAKShadowAttributeOffset: [NSValue valueWithCGSize:CGSizeMake(1.0, 1.0)]
+    };
+    NSDictionary *iconAttributes = @{
+        FAKImageAttributeRect: [NSValue valueWithCGRect:CGRectMake(0.0, 0.0, 24.0, 24.0)],
+        FAKImageAttributeForegroundColor: UIColor.whiteColor,
+        FAKImageAttributeShadow: shadowAttributes
+    };
+    CGSize iconSize = CGSizeMake(22.0, 22.0);
+
+    self.killEaterIcon.image = [FontAwesomeKit imageForIcon:FAKIconStar
+                                                  imageSize:iconSize
+                                                   fontSize:20.0
+                                                 attributes:iconAttributes];
+    [self.itemSetButton setImage:[FontAwesomeKit imageForIcon:FAKIconLink
+                                                    imageSize:iconSize
+                                                     fontSize:20.0
+                                                   attributes:iconAttributes] forState:UIControlStateNormal];
+    self.originIcon.image = [FontAwesomeKit imageForIcon:FAKIconDownloadAlt
+                                               imageSize:iconSize
+                                                fontSize:20.0
+                                              attributes:iconAttributes];
+    self.qualityIcon.image = [FontAwesomeKit imageForIcon:FAKIconFlag
+                                                imageSize:iconSize
+                                                 fontSize:20.0
+                                               attributes:iconAttributes];
+
+    self.quantityLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
+    self.quantityLabel.layer.borderWidth = [[UIScreen mainScreen] scale];
+
     [self configureView];
 }
 
@@ -291,8 +298,10 @@
     [self setIcons:nil];
     [self setItemImage:nil];
     [self setLevelLabel:nil];
+    [self setOriginIcon:nil];
     [self setOriginLabel:nil];
     [self setQuantityLabel:nil];
+    [self setQualityIcon:nil];
     [self setQualityLabel:nil];
     [self setKillEaterLabel:nil];
     [self setKillEaterIcon:nil];

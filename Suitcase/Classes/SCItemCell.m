@@ -7,6 +7,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#import "FontAwesomeKit.h"
 #import "UIImageView+AFNetworking.h"
 
 #import "SCItemCell.h"
@@ -24,10 +25,19 @@ static CGRect kTextLabelFrame;
 
 + (void)initialize
 {
+    NSDictionary *iconAttributes = @{
+        FAKImageAttributeRect: [NSValue valueWithCGRect:CGRectMake(7.0, 7.0, 44.0, 44.0)],
+        FAKImageAttributeForegroundColor: UIColor.whiteColor
+    };
+    CGSize iconSize = CGSizeMake(44.0, 44.0);
+
     kImageViewFrame = CGRectMake(0.0, 0.0, 44.0, 44.0);
     kImageViewSize = CGSizeMake(44.0 * [[UIScreen mainScreen] scale], 44.0 * [[UIScreen mainScreen] scale]);
     kimageViewFrameScaled = CGRectMake(0, 0, kImageViewSize.width, kImageViewSize.height);
-    kPlaceHolderImage = [UIImage imageNamed:@"item_placeholder.png"];
+    kPlaceHolderImage = [FontAwesomeKit imageForIcon:FAKIconBriefcase
+                                           imageSize:iconSize
+                                            fontSize:30.0
+                                          attributes:iconAttributes];
     kTextLabelFrame = CGRectMake(53.0, 0.0, 257.0, 43.0);
 }
 
@@ -37,7 +47,7 @@ static CGRect kTextLabelFrame;
 
     self.imageView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
     self.imageView.layer.shadowOpacity = 1.0;
-    self.imageView.layer.shadowRadius = 5.0;
+    self.imageView.layer.shadowRadius = 4.0;
 
     return self;
 }

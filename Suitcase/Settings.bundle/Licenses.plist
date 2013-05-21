@@ -68,16 +68,6 @@
 			<key>DefaultValue</key>
 			<string></string>
 		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
-			<key>Title</key>
-			<string>TWG Retina Display Icon Set</string>
-			<key>Key</key>
-			<string>TWG Retina Display Icon Set</string>
-			<key>DefaultValue</key>
-			<string></string>
-		</dict>
 	</array>
 </dict>
 </plist>

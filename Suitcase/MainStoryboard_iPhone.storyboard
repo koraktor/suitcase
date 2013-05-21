@@ -225,8 +225,8 @@ http://steamcommunity.com/profile/{Profile ID}
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </label>
-                                        <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="item_placeholder.png" id="8qV-vI-9XP">
-                                            <rect key="frame" x="5" y="5" width="32" height="32"/>
+                                        <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="8qV-vI-9XP">
+                                            <rect key="frame" x="10" y="13" width="16" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                     </subviews>
@@ -370,15 +370,15 @@ Kill eater score</string>
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="origin-iphone.png" id="WQ1-Pi-F4J">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="WQ1-Pi-F4J">
                                 <rect key="frame" x="8" y="35" width="16" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="quality-iphone.png" id="7jq-aT-cM8">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="7jq-aT-cM8">
                                 <rect key="frame" x="8" y="56" width="16" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="kill_eater-iphone.png" id="m1u-TZ-6Pt">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="m1u-TZ-6Pt">
                                 <rect key="frame" x="8" y="109" width="16" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -388,7 +388,7 @@ Kill eater score</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="Item set" image="item_set-iphone.png">
+                                <state key="normal" title="Item set">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 </state>
@@ -426,7 +426,9 @@ Kill eater score</string>
                         <outlet property="killEaterIcon" destination="m1u-TZ-6Pt" id="Pax-XW-CLt"/>
                         <outlet property="killEaterLabel" destination="JUK-Cv-VE4" id="mdL-4p-Tsa"/>
                         <outlet property="levelLabel" destination="37S-oI-aFV" id="JI8-sg-6cw"/>
+                        <outlet property="originIcon" destination="WQ1-Pi-F4J" id="Mvn-Jh-69d"/>
                         <outlet property="originLabel" destination="duX-zx-lRX" id="W2y-6G-aQG"/>
+                        <outlet property="qualityIcon" destination="7jq-aT-cM8" id="E0y-iP-ouz"/>
                         <outlet property="qualityLabel" destination="gWe-Yk-aBv" id="1GB-fb-DgZ"/>
                         <outlet property="quantityLabel" destination="ZGN-cL-h15" id="XMA-i7-2Ue"/>
                         <outlet property="wikiButton" destination="gK6-Cu-cfz" id="wRX-Y3-T7J"/>
@@ -521,30 +523,12 @@ Kill eater score</string>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bF0-Ch-Wch" sceneMemberID="firstResponder"/>
-                <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="item_placeholder.png" id="LMZ-dW-BJR">
-                    <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                </imageView>
-                <label clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LjW-li-BWn">
-                    <rect key="frame" x="0.0" y="0.0" width="243" height="43"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
-                </label>
             </objects>
             <point key="canvasLocation" x="-193" y="-768"/>
         </scene>
     </scenes>
     <resources>
         <image name="game_placeholder.png" width="92" height="35"/>
-        <image name="item_placeholder.png" width="32" height="32"/>
-        <image name="item_set-iphone.png" width="16" height="16"/>
-        <image name="kill_eater-iphone.png" width="16" height="16"/>
-        <image name="origin-iphone.png" width="16" height="16"/>
-        <image name="quality-iphone.png" width="16" height="16"/>
     </resources>
     <classes>
         <class className="IASKAppSettingsViewController" superclassName="UITableViewController">
@@ -591,7 +575,9 @@ Kill eater score</string>
                 <relationship kind="outlet" name="killEaterIcon" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="killEaterLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="levelLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="originIcon" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="originLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="qualityIcon" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="qualityLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="wikiButton" candidateClass="UIBarButtonItem"/>

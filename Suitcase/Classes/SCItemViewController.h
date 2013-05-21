@@ -33,7 +33,9 @@
 @property (strong, nonatomic) IBOutlet UIImageView *killEaterIcon;
 @property (strong, nonatomic) IBOutlet UILabel *killEaterLabel;
 @property (strong, nonatomic) IBOutlet UILabel *levelLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *originIcon;
 @property (strong, nonatomic) IBOutlet UILabel *originLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *qualityIcon;
 @property (strong, nonatomic) IBOutlet UILabel *qualityLabel;
 @property (strong, nonatomic) IBOutlet UILabel *quantityLabel;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *wikiButton;

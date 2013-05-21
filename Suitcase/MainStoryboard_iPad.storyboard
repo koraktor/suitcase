@@ -190,7 +190,7 @@
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="kill_eater.png" id="KAP-jc-Wvs">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="KAP-jc-Wvs">
                                 <rect key="frame" x="20" y="180" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -200,7 +200,7 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="Item set title" image="item_set.png">
+                                <state key="normal" title="Item set title">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" cocoaTouchSystemColor="lightTextColor"/>
                                 </state>
@@ -212,11 +212,11 @@
                                     <action selector="showItemSet:" destination="4" eventType="touchUpInside" id="rO8-lP-OJo"/>
                                 </connections>
                             </button>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="origin.png" id="dwx-mi-d6I">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="dwx-mi-d6I">
                                 <rect key="frame" x="20" y="69" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="quality.png" id="vTL-ol-9yt">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="vTL-ol-9yt">
                                 <rect key="frame" x="20" y="107" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -259,7 +259,9 @@ Kill eater score</string>
                         <outlet property="killEaterIcon" destination="KAP-jc-Wvs" id="yxh-2W-i25"/>
                         <outlet property="killEaterLabel" destination="lko-cW-jiq" id="o4a-eW-W5f"/>
                         <outlet property="levelLabel" destination="xBP-fs-YaV" id="8M6-f8-5Ga"/>
+                        <outlet property="originIcon" destination="dwx-mi-d6I" id="piO-OJ-S36"/>
                         <outlet property="originLabel" destination="4Tb-db-YbY" id="D14-G4-KS4"/>
+                        <outlet property="qualityIcon" destination="vTL-ol-9yt" id="FXu-2j-As8"/>
                         <outlet property="qualityLabel" destination="aLk-1t-UdJ" id="Jxf-11-Sx9"/>
                         <outlet property="quantityLabel" destination="QAS-Pa-Xb8" id="Qs2-5y-CaY"/>
                         <outlet property="wikiButton" destination="XN6-yb-dwO" id="ReU-31-qcq"/>
@@ -412,8 +414,8 @@ http://steamcommunity.com/profile/{Profile ID}
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </label>
-                                        <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="item_placeholder.png" id="CIl-RR-YZN">
-                                            <rect key="frame" x="5" y="5" width="32" height="32"/>
+                                        <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="CIl-RR-YZN">
+                                            <rect key="frame" x="10" y="13" width="16" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                     </subviews>
@@ -583,11 +585,6 @@ http://steamcommunity.com/profile/{Profile ID}
     </scenes>
     <resources>
         <image name="game_placeholder.png" width="92" height="35"/>
-        <image name="item_placeholder.png" width="32" height="32"/>
-        <image name="item_set.png" width="24" height="24"/>
-        <image name="kill_eater.png" width="24" height="24"/>
-        <image name="origin.png" width="24" height="24"/>
-        <image name="quality.png" width="24" height="24"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
