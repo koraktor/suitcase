@@ -48,6 +48,7 @@
 		022D0D0F1584E5770071F665 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */; };
 		022E38A01747D356000CA309 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 022E389D1747D356000CA309 /* FontAwesome.otf */; };
 		022E38A11747D356000CA309 /* FontAwesomeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 022E389F1747D356000CA309 /* FontAwesomeKit.m */; };
+		0238B35A1756AD5600284204 /* SCInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0238B3591756AD5600284204 /* SCInventory.m */; };
 		0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */; };
 		0250CC5E1696D6E900B20A6F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E7218215938BDE00A18BF1 /* Default.png */; };
 		0250CC5F1696D6EC00B20A6F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E7218415938BE400A18BF1 /* Default@2x.png */; };
@@ -81,7 +82,6 @@
 		028B64981526761C0040D2FF /* SCInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCInventoryViewController.m */; };
 		0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */; };
 		029B08F4159261A600BD6271 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 029B08F3159261A600BD6271 /* Settings.bundle */; };
-		02CCB0BB158E7C6F0080BF45 /* SCInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 02CCB0BA158E7C6F0080BF45 /* SCInventory.m */; };
 		02CFAACE157818730086E34B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 02CFAACD157818730086E34B /* Icon.png */; };
 		02CFAAD0157818760086E34B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02CFAACF157818760086E34B /* Icon@2x.png */; };
 		02CFAAD2157818820086E34B /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 02CFAAD1157818820086E34B /* Icon-72.png */; };
@@ -175,6 +175,8 @@
 		022E389D1747D356000CA309 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = External/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
 		022E389E1747D356000CA309 /* FontAwesomeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FontAwesomeKit.h; path = External/FontAwesomeKit/FontAwesomeKit/FontAwesomeKit.h; sourceTree = "<group>"; };
 		022E389F1747D356000CA309 /* FontAwesomeKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FontAwesomeKit.m; path = External/FontAwesomeKit/FontAwesomeKit/FontAwesomeKit.m; sourceTree = "<group>"; };
+		0238B3581756AD5500284204 /* SCInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCInventory.h; path = Classes/SCInventory.h; sourceTree = "<group>"; };
+		0238B3591756AD5600284204 /* SCInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCInventory.m; path = Classes/SCInventory.m; sourceTree = "<group>"; };
 		0250CBD91693C8D100B20A6F /* SCWikiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWikiViewController.h; path = Classes/SCWikiViewController.h; sourceTree = "<group>"; };
 		0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWikiViewController.m; path = Classes/SCWikiViewController.m; sourceTree = "<group>"; };
 		0255A146155D9BE20092741E /* SCItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItem.h; path = Classes/SCItem.h; sourceTree = "<group>"; };
@@ -221,8 +223,6 @@
 		0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSteamIdFormController.h; path = Classes/SCSteamIdFormController.h; sourceTree = "<group>"; };
 		0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSteamIdFormController.m; path = Classes/SCSteamIdFormController.m; sourceTree = "<group>"; };
 		029B08F3159261A600BD6271 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		02CCB0B9158E7C6F0080BF45 /* SCInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCInventory.h; sourceTree = "<group>"; };
-		02CCB0BA158E7C6F0080BF45 /* SCInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCInventory.m; sourceTree = "<group>"; };
 		02CFAACD157818730086E34B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
 		02CFAACF157818760086E34B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		02CFAAD1157818820086E34B /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "../Icon-72.png"; sourceTree = "<group>"; };
@@ -337,8 +337,8 @@
 			children = (
 				0266E0A216933ACE009C6CE8 /* SCGame.h */,
 				0266E0A316933ACE009C6CE8 /* SCGame.m */,
-				02CCB0B9158E7C6F0080BF45 /* SCInventory.h */,
-				02CCB0BA158E7C6F0080BF45 /* SCInventory.m */,
+				0238B3581756AD5500284204 /* SCInventory.h */,
+				0238B3591756AD5600284204 /* SCInventory.m */,
 				0255A146155D9BE20092741E /* SCItem.h */,
 				0255A147155D9BE20092741E /* SCItem.m */,
 				0255A14A155D9BF80092741E /* SCSchema.h */,
@@ -723,7 +723,6 @@
 				0255A14C155D9BF80092741E /* SCSchema.m in Sources */,
 				026F215C156ADA1F00C7BD54 /* SCClassImageView.m in Sources */,
 				0275E20D158E6B5B008EA0AD /* SCItemCell.m in Sources */,
-				02CCB0BB158E7C6F0080BF45 /* SCInventory.m in Sources */,
 				0269A4A915CC3AEB008A287A /* SCGamesViewController.m in Sources */,
 				0220FFC815D7A84700AB8AA3 /* SCGameCell.m in Sources */,
 				0266E0A416933ACF009C6CE8 /* SCGame.m in Sources */,
@@ -757,6 +756,7 @@
 				0266DE2716D2ABAD001D47D3 /* YRDropdownView.m in Sources */,
 				022E38A11747D356000CA309 /* FontAwesomeKit.m in Sources */,
 				026EE9F71748B45600FB8484 /* BPBarButtonItem.m in Sources */,
+				0238B35A1756AD5600284204 /* SCInventory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
