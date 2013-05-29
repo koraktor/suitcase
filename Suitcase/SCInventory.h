@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "AFJSONRequestOperation.h"
+
 #import "SCGame.h"
 #import "SCSchema.h"
 
@@ -17,12 +19,12 @@
 @property (strong, nonatomic) SCSchema *schema;
 @property (nonatomic) BOOL showColors;
 
-+ (SCInventory *)currentInventory;
++ (NSDictionary *)inventories;
++ (AFJSONRequestOperation *)inventoryForSteamId64:(NSNumber *)steamId64
+                                          andGame:(SCGame *)game;
 
-- (id)initWithItems:(NSArray *)items
-            andGame:(SCGame*)game
-          andSchema:(SCSchema *)schema;
-
+- (BOOL)isEmpty;
+- (BOOL)isSuccessful;
 - (void)sortItems;
 
 @end

@@ -9,14 +9,14 @@
 
 #import "IASKAppSettingsViewController.h"
 
-#import "SCGame.h"
+#import "SCInventory.h"
 
 @class SCItemViewController;
 
 @interface SCInventoryViewController : UITableViewController <IASKSettingsDelegate, UITableViewDelegate>
 
 @property (strong, nonatomic) SCItemViewController *detailViewController;
-@property (strong, nonatomic) SCGame *game;
+@property (strong, nonatomic) SCInventory *inventory;
 
 - (void)loadInventory;
 

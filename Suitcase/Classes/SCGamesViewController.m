@@ -11,6 +11,7 @@
 #import "SCAppDelegate.h"
 #import "SCGame.h"
 #import "SCGameCell.h"
+#import "SCInventory.h"
 #import "SCSteamIdFormController.h"
 
 #import "SCGamesViewController.h"
@@ -18,8 +19,10 @@
 @interface SCGamesViewController () {
     NSArray *_availableGames;
     NSLock *_availableGamesLock;
-    SCGame *_currentGame;
+    SCInventory *_currentInventory;
     NSArray *_games;
+    NSLock *_gamesLock;
+    NSArray *_inventories;
 }
 @end
 
@@ -37,6 +40,7 @@
                                                object:nil];
 
     _availableGamesLock = [[NSLock alloc] init];
+    _gamesLock = [[NSLock alloc] init];
 
     self.navigationItem.leftBarButtonItem.title = FAKIconUser;
     [self.navigationItem.leftBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
@@ -107,7 +111,11 @@
             [gameObjects addObject:[[SCGame alloc] initWithJSONObject:game]];
         }
 
-        [NSThread detachNewThreadSelector:@selector(populateGames:) toTarget:self withObject:[gameObjects copy]];
+        [_gamesLock unlock];
+
+        [NSThread detachNewThreadSelector:@selector(populateGames:)
+                                 toTarget:self
+                               withObject:[gameObjects copy]];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *errorMessage = [error description];
 #ifdef DEBUG
@@ -115,16 +123,40 @@
 #endif
         [SCAppDelegate errorWithMessage:errorMessage];
     }];
+    [_gamesLock lock];
     [gamesOperation start];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)populateInventories
 {
-    return 1;
+    NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
+
+    _inventories = [NSMutableArray array];
+    NSArray *inventories = [[[SCInventory inventories] valueForKeyPath:steamId64] allValues];
+    [inventories enumerateObjectsUsingBlock:^(SCInventory *inventory, NSUInteger idx, BOOL *stop) {
+        if (![inventory isEmpty] && [inventory isSuccessful]) {
+            [(NSMutableArray *)_inventories addObject:inventory];
+        }
+    }];
+
+#ifdef DEBUG
+    NSLog(@"Loaded %d inventories for user %@.", [_inventories count], steamId64);
+#endif
+
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        [self.tableView reloadData];
+
+        if ([_inventories count] > 0) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
+    });
 }
 
 - (void)populateGames:(NSArray *)games
 {
+    [_gamesLock lock];
+
     _games = [NSMutableArray array];
     [_availableGamesLock lock];
     [games enumerateObjectsUsingBlock:^(SCGame *game, NSUInteger idx, BOOL *stop) {
@@ -137,24 +169,38 @@
         return [game1.name compare:game2.name];
     }];
 
-    dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.tableView reloadData];
+    NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
 
-        if ([_games count] > 0) {
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        }
-    });
+#ifdef DEBUG
+    NSLog(@"Loaded %d games for user %@.", [_games count], steamId64);
+#endif
+
+    NSOperationQueue *inventoryOperationsQueue = [[NSOperationQueue alloc] init];
+    inventoryOperationsQueue.MaxConcurrentOperationCount = 10;
+    for (SCGame *game in _games) {
+        [inventoryOperationsQueue addOperation:[SCInventory inventoryForSteamId64:steamId64
+                                                                          andGame:game]];
+    }
+
+    [_gamesLock unlock];
+
+    [inventoryOperationsQueue waitUntilAllOperationsAreFinished];
+
+    [self populateInventories];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showInventory"]) {
         SCInventoryViewController *inventoryController = segue.destinationViewController;
-        inventoryController.game = _currentGame;
+        if (inventoryController.inventory == _currentInventory) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadInventory" object:nil];
+        } else {
+            inventoryController.inventory = _currentInventory;
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchema" object:nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchema" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
+        }
     } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
         UINavigationController *navigationController = segue.destinationViewController;
         IASKAppSettingsViewController *settingsController = (IASKAppSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];
@@ -172,9 +218,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCGame *game = [_games objectAtIndex:indexPath.row];
+    SCInventory *inventory = [_inventories objectAtIndex:indexPath.row];
     SCGameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GameCell"];
-    cell.game = game;
+    cell.game = inventory.game;
     [cell loadImage];
 
     return cell;
@@ -182,13 +228,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _currentGame = [_games objectAtIndex:indexPath.row];
+    _currentInventory = [_inventories objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier:@"showInventory" sender:self];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_games count];
+    return [_inventories count];
 }
 
 - (void)viewDidAppear:(BOOL)animated

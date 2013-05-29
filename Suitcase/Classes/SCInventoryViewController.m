@@ -32,7 +32,7 @@
 @implementation SCInventoryViewController
 
 @synthesize detailViewController = _detailViewController;
-@synthesize game = _game;
+@synthesize inventory = _inventory;
 
 - (void)awakeFromNib
 {
@@ -51,6 +51,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadInventory)
                                                  name:@"loadInventory"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadInventory)
+                                                 name:@"reloadInventory"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshInventory)
@@ -75,52 +79,17 @@
 
 - (void)loadInventory
 {
-    SCInventory *inventory = [SCInventory currentInventory];
-    if (inventory != nil && inventory.game == _game) {
-        _inventory = inventory;
-        [self reloadInventory];
-
-        return;
-    }
-
     UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
     if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
         [(SCSteamIdFormController *)modal dismissForm:self];
     }
 
-    NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
-    NSDictionary *params = [NSDictionary dictionaryWithObject:steamId64 forKey:@"steamid"];
-    AFJSONRequestOperation *inventoryOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", _game.appId]
-                                                                                             andMethod:@"GetPlayerItems"
-                                                                                            andVersion:1
-                                                                                        withParameters:params];
-    [inventoryOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *inventoryResponse = [responseObject objectForKey:@"result"];
-
-        if ([[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            NSArray *itemsResponse = [inventoryResponse objectForKey:@"items"];
-            [NSThread detachNewThreadSelector:@selector(populateInventoryWithData:) toTarget:self withObject:itemsResponse];
-        } else {
-            NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [inventoryResponse objectForKey:@"statusDetail"]];
-            [SCAppDelegate errorWithMessage:errorMessage];
-
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [error localizedDescription]];
-        [SCAppDelegate errorWithMessage:errorMessage];
-
-    }];
-    [inventoryOperation start];
+    [NSThread detachNewThreadSelector:@selector(populateInventory) toTarget:self withObject:nil];
 }
 
 - (void)loadSchema {
-    SCInventory *inventory = [SCInventory currentInventory];
-    if (inventory != nil && inventory.game == _game) {
-        return;
-    }
-
     NSDictionary *params = [NSDictionary dictionaryWithObject:[[NSLocale preferredLanguages] objectAtIndex:0] forKey:@"language"];
-    AFJSONRequestOperation *schemaOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", _game.appId]
+    AFJSONRequestOperation *schemaOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", _inventory.game.appId]
                                                                                           andMethod:@"GetSchema"
                                                                                          andVersion:1
                                                                                      withParameters:params];
@@ -144,11 +113,11 @@
     [schemaOperation start];
 }
 
-- (void)populateInventoryWithData:(NSArray *)itemsData {
+- (void)populateInventory {
     self.detailViewController.detailItem = nil;
 
     [_schemaLock lock];
-    _inventory = [[SCInventory alloc] initWithItems:itemsData andGame:_game andSchema:_itemSchema];
+    _inventory.schema = _itemSchema;
     [_schemaLock unlock];
     [_inventory sortItems];
 

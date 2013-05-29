@@ -7,6 +7,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#import "SCAppDelegate.h"
 #import "SCInventory.h"
 #import "SCItem.h"
 #import "SCItemCell.h"
@@ -14,6 +15,7 @@
 @interface SCInventory () {
     NSArray *_itemTypes;
     NSArray *_items;
+    BOOL _successful;
 }
 @end
 
@@ -21,7 +23,7 @@
 
 static NSArray *alphabet;
 static NSArray *alphabetWithNumbers;
-static SCInventory *currentInventory;
+static NSMutableDictionary *__inventories;
 
 @synthesize itemSections = _itemSections;
 @synthesize schema = _schema;
@@ -45,21 +47,71 @@ static SCInventory *currentInventory;
     return alphabetWithNumbers;
 }
 
-+ (SCInventory *)currentInventory
++ (NSDictionary *)inventories
 {
-    return currentInventory;
+    return [__inventories copy];
+}
+
++ (AFJSONRequestOperation *)inventoryForSteamId64:(NSNumber *)steamId64
+                                          andGame:(SCGame *)game
+{
+    if (__inventories == nil) {
+        __inventories = [NSMutableDictionary dictionary];
+    }
+
+    if ([__inventories objectForKey:steamId64] == nil) {
+        [__inventories setObject:[NSMutableDictionary dictionary] forKey:steamId64];
+    }
+    __block NSMutableDictionary *userInventories = [__inventories objectForKey:steamId64];
+
+    NSDictionary *params = [NSDictionary dictionaryWithObject:steamId64 forKey:@"steamid"];
+    AFJSONRequestOperation *inventoryOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", game.appId]
+                                                                                             andMethod:@"GetPlayerItems"
+                                                                                            andVersion:1
+                                                                                        withParameters:params];
+    [inventoryOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *inventoryResponse = [responseObject objectForKey:@"result"];
+        SCInventory *inventory;
+
+        if ([[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            NSArray *itemsResponse = [inventoryResponse objectForKey:@"items"];
+            inventory = [[SCInventory alloc] initWithItems:itemsResponse
+                                                   andGame:game];
+        } else {
+            NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [inventoryResponse objectForKey:@"statusDetail"]];
+            inventory = [[SCInventory alloc] initWithGame:game andErrorMessage:errorMessage];
+        }
+
+        [userInventories setObject:inventory forKey:game.appId];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [error localizedDescription]];
+        SCInventory *inventory = [[SCInventory alloc] initWithGame:game andErrorMessage:errorMessage];
+        [userInventories setObject:inventory forKey:game.appId];
+    }];
+
+    return inventoryOperation;
+}
+
+- (id)initWithGame:(SCGame *)game
+   andErrorMessage:(NSString *)errorMessage
+{
+    _game = game;
+    _successful = NO;
+
+    return self;
 }
 
 - (id)initWithItems:(NSArray *)itemsData
             andGame:(SCGame *)game
-          andSchema:(SCSchema *)schema {
+{
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:[itemsData count]];
     [itemsData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [items addObject:[[SCItem alloc] initWithDictionary:obj andInventory:self]];
     }];
     _game = game;
-    _items = items;
-    _schema = schema;
+    _items = [items copy];
+    _successful = YES;
+
     NSNumber *showColors = [[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"];
     if (showColors == nil) {
         _showColors = YES;
@@ -67,7 +119,17 @@ static SCInventory *currentInventory;
         _showColors = [showColors boolValue];
     }
 
-    return currentInventory = self;
+    return self;
+}
+
+- (BOOL)isEmpty
+{
+    return _items.count == 0;
+}
+
+- (BOOL)isSuccessful
+{
+    return _successful;
 }
 
 - (void)sortItems {
