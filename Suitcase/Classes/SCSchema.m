@@ -2,12 +2,15 @@
 //  SCSchema.m
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
+#import "SCAppDelegate.h"
 #import "SCSchema.h"
 
 @implementation SCSchema
+
+static NSMutableDictionary *__schemas;
 
 @synthesize attributes = _attributes;
 @synthesize effects = _effects;
@@ -18,6 +21,55 @@
 @synthesize killEaterTypes = _killEaterTypes;
 @synthesize origins = _origins;
 @synthesize qualities = _qualities;
+
++ (NSDictionary *)schemas
+{
+    return [__schemas copy];
+}
+
++ (AFJSONRequestOperation *)schemaOperationForGame:(NSNumber *)appId
+                                       andLanguage:(NSString *)language
+                                          lockedBy:(NSLock *)lock
+{
+    if (__schemas == nil) {
+        __schemas = [NSMutableDictionary dictionary];
+    }
+
+    if ([__schemas objectForKey:appId] == nil) {
+        [__schemas setObject:[NSMutableDictionary dictionary] forKey:appId];
+    } else if ([[__schemas objectForKey:appId] objectForKey:language] != nil) {
+        return nil;
+    }
+    __block NSMutableDictionary *gameSchemas = [__schemas objectForKey:appId];
+
+    NSDictionary *params = [NSDictionary dictionaryWithObject:language forKey:@"language"];
+    AFJSONRequestOperation *schemaOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", appId]
+                                                                                          andMethod:@"GetSchema"
+                                                                                         andVersion:1
+                                                                                     withParameters:params];
+    [schemaOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *schemaResponse = [responseObject objectForKey:@"result"];
+
+        if ([[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            SCSchema *schema = [[SCSchema alloc] initWithDictionary:schemaResponse];
+            [gameSchemas setObject:schema forKey:language];
+        } else {
+            NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [schemaResponse objectForKey:@"statusDetail"]];
+            [SCAppDelegate errorWithMessage:errorMessage];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [lock unlock];
+        });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *errorMessage = [NSString stringWithFormat:@"Error loading item schema: %@", [error localizedDescription]];
+        [SCAppDelegate errorWithMessage:errorMessage];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [lock unlock];
+        });
+    }];
+
+    return schemaOperation;
+}
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     NSArray *attributesArray = [dictionary objectForKey:@"attributes"];

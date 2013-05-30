@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "AFJSONRequestOperation.h"
+
 @interface SCSchema : NSObject
 
 @property (strong, readonly) NSDictionary *attributes;
@@ -18,6 +20,11 @@
 @property (strong, readonly) NSArray *killEaterTypes;
 @property (strong, readonly) NSArray *origins;
 @property (strong, readonly) NSArray *qualities;
+
++ (NSDictionary *)schemas;
++ (AFJSONRequestOperation *)schemaOperationForGame:(NSNumber *)appId
+                                       andLanguage:(NSString *)language
+                                          lockedBy:(NSLock *)lock;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

@@ -77,6 +77,11 @@
     [super awakeFromNib];
 }
 
+- (NSString *)currentLanguage
+{
+    return [[NSLocale preferredLanguages] objectAtIndex:0];
+}
+
 - (void)loadInventory
 {
     UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
@@ -88,36 +93,21 @@
 }
 
 - (void)loadSchema {
-    NSDictionary *params = [NSDictionary dictionaryWithObject:[[NSLocale preferredLanguages] objectAtIndex:0] forKey:@"language"];
-    AFJSONRequestOperation *schemaOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", _inventory.game.appId]
-                                                                                          andMethod:@"GetSchema"
-                                                                                         andVersion:1
-                                                                                     withParameters:params];
-    [schemaOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *schemaResponse = [responseObject objectForKey:@"result"];
+    AFJSONRequestOperation *schemaOperation = [SCSchema schemaOperationForGame:_inventory.game.appId
+                                                                   andLanguage:[self currentLanguage]
+                                                                      lockedBy:_schemaLock];
 
-        if ([[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            _itemSchema = [[SCSchema alloc] initWithDictionary:schemaResponse];
-            [_schemaLock unlock];
-        } else {
-            NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [schemaResponse objectForKey:@"statusDetail"]];
-            [SCAppDelegate errorWithMessage:errorMessage];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *errorMessage = [NSString stringWithFormat:@"Error loading item schema: %@", [error localizedDescription]];
-        [SCAppDelegate errorWithMessage:errorMessage];
-        [_schemaLock unlock];
-    }];
-    _itemSchema = nil;
-    [_schemaLock lock];
-    [schemaOperation start];
+    if (schemaOperation != nil) {
+        [_schemaLock lock];
+        [schemaOperation start];
+    }
 }
 
 - (void)populateInventory {
     self.detailViewController.detailItem = nil;
 
     [_schemaLock lock];
-    _inventory.schema = _itemSchema;
+    _inventory.schema = [[[SCSchema schemas] objectForKey:_inventory.game.appId] objectForKey:[self currentLanguage]];
     [_schemaLock unlock];
     [_inventory sortItems];
 
