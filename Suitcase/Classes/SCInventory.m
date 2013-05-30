@@ -61,6 +61,8 @@ static NSMutableDictionary *__inventories;
 
     if ([__inventories objectForKey:steamId64] == nil) {
         [__inventories setObject:[NSMutableDictionary dictionary] forKey:steamId64];
+    } else if ([[__inventories objectForKey:steamId64] objectForKey:game.appId] != nil) {
+        return nil;
     }
     __block NSMutableDictionary *userInventories = [__inventories objectForKey:steamId64];
 

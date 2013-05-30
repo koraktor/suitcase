@@ -178,8 +178,11 @@
     NSOperationQueue *inventoryOperationsQueue = [[NSOperationQueue alloc] init];
     inventoryOperationsQueue.MaxConcurrentOperationCount = 10;
     for (SCGame *game in _games) {
-        [inventoryOperationsQueue addOperation:[SCInventory inventoryForSteamId64:steamId64
-                                                                          andGame:game]];
+        NSOperation *inventoryOperation = [SCInventory inventoryForSteamId64:steamId64
+                                                                     andGame:game];
+        if (inventoryOperation != nil) {
+            [inventoryOperationsQueue addOperation:inventoryOperation];
+        }
     }
 
     [_gamesLock unlock];
