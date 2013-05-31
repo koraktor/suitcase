@@ -243,7 +243,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _currentInventory = [_inventories objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"showInventory" sender:self];
+    if (_currentInventory.schema == nil) {
+        [_currentInventory loadSchema];
+    }
+    if ([_currentInventory.schema.items count] > 0) {
+        [self performSegueWithIdentifier:@"showInventory" sender:self];
+    } else {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

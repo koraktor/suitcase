@@ -67,11 +67,6 @@
     [super awakeFromNib];
 }
 
-- (NSString *)currentLanguage
-{
-    return [[NSLocale preferredLanguages] objectAtIndex:0];
-}
-
 - (void)settingsChanged:(NSNotification *)notification {
     if ([[notification object] isEqual:@"sorting"]) {
         [self sortInventory];
@@ -91,27 +86,10 @@
         [(SCSteamIdFormController *)modal dismissForm:self];
     }
 
-    NSCondition *schemaCondition = [[NSCondition alloc] init];
-
-    AFJSONRequestOperation *schemaOperation = [SCSchema schemaOperationForInventory:_inventory
-                                                                        andLanguage:[self currentLanguage]
-                                                                       andCondition:schemaCondition];
-    if (schemaOperation != nil) {
-        [schemaOperation setFailureCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-        [schemaOperation setSuccessCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-        [schemaOperation start];
+    if ([_inventory.schema.items count] > 0) {
+        [_inventory sortItems];
+        [self reloadInventory];
     }
-
-    [schemaCondition lock];
-
-    while (_inventory.schema == nil) {
-        [schemaCondition wait];
-    }
-    [_inventory sortItems];
-
-    [schemaCondition unlock];
-
-    [self reloadInventory];
 }
 
 - (void)reloadInventory
@@ -134,12 +112,30 @@
     [sender.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (_inventory == nil) {
+        [self.navigationController popViewControllerAnimated:NO];
+    } else {
+        [super viewDidAppear:animated];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     self.detailViewController = (SCItemViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"Inventory title");
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (_inventory == nil) {
+        [super viewWillAppear:NO];
+    } else {
+        [super viewWillAppear:animated];
+    }
 }
 
 #pragma mark - Table View

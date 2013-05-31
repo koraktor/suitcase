@@ -32,6 +32,7 @@
 
 - (BOOL)isEmpty;
 - (BOOL)isSuccessful;
+- (void)loadSchema;
 - (void)sortItems;
 
 @end

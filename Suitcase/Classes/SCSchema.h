@@ -23,6 +23,7 @@
 @property (strong, readonly) NSArray *origins;
 @property (strong, readonly) NSArray *qualities;
 
++ (SCSchema *)brokenSchema;
 + (NSDictionary *)schemas;
 + (AFJSONRequestOperation *)schemaOperationForInventory:(SCInventory *)inventory
                                             andLanguage:(NSString *)language

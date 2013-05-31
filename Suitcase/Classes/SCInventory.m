@@ -158,6 +158,28 @@ static NSUInteger __inventoriesToLoad;
     return self;
 }
 
+- (void)loadSchema
+{
+    NSCondition *schemaCondition = [[NSCondition alloc] init];
+
+    AFJSONRequestOperation *schemaOperation = [SCSchema schemaOperationForInventory:self
+                                                                        andLanguage:[[NSLocale preferredLanguages] objectAtIndex:0]
+                                                                       andCondition:schemaCondition];
+    if (schemaOperation != nil) {
+        [schemaOperation setFailureCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+        [schemaOperation setSuccessCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+        [schemaOperation start];
+    }
+
+    [schemaCondition lock];
+
+    while (_schema == nil) {
+        [schemaCondition wait];
+    }
+
+    [schemaCondition unlock];
+}
+
 - (BOOL)isEmpty
 {
     return _items.count == 0;

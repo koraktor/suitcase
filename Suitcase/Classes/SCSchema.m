@@ -23,6 +23,13 @@ static NSMutableDictionary *__schemas;
 @synthesize origins = _origins;
 @synthesize qualities = _qualities;
 
++ (SCSchema *)brokenSchema
+{
+    SCSchema *schema = [[SCSchema alloc] init];
+
+    return schema;
+}
+
 + (NSDictionary *)schemas
 {
     return [__schemas copy];
@@ -65,18 +72,22 @@ static NSMutableDictionary *__schemas;
             SCSchema *schema = [[SCSchema alloc] initWithDictionary:schemaResponse];
             [gameSchemas setObject:schema forKey:language];
             inventory.schema = schema;
+            [condition signal];
+            [condition unlock];
         } else {
             NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [schemaResponse objectForKey:@"statusDetail"]];
+            inventory.schema = [SCSchema brokenSchema];
+            [condition signal];
+            [condition unlock];
             [SCAppDelegate errorWithMessage:errorMessage];
         }
-        [condition signal];
-        [condition unlock];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *errorMessage = [NSString stringWithFormat:@"Error loading item schema: %@", [error localizedDescription]];
-        [SCAppDelegate errorWithMessage:errorMessage];
         [condition lock];
+        inventory.schema = [SCSchema brokenSchema];
         [condition signal];
         [condition unlock];
+        [SCAppDelegate errorWithMessage:errorMessage];
     }];
 
     return schemaOperation;
