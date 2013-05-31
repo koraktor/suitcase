@@ -91,6 +91,9 @@
 
 - (void)loadGames
 {
+    _inventories = nil;
+    [self.tableView reloadData];
+
     UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
     if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
         [(SCSteamIdFormController *)modal dismissForm:self];
