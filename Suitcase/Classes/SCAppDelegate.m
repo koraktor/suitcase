@@ -31,11 +31,12 @@ static SCWebApiHTTPClient *_webApiClient;
 #ifdef DEBUG
     NSLog(@"%@", errorMessage);
 #endif
-    [[[UIAlertView alloc] initWithTitle:@"Error"
-                                message:errorMessage
-                               delegate:[UIApplication sharedApplication].delegate
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:errorMessage
+                                                       delegate:[UIApplication sharedApplication].delegate
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
 }
 
 + (SCWebApiHTTPClient *)webApiClient
