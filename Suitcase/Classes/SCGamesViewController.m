@@ -211,9 +211,6 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadInventory" object:nil];
         } else {
             inventoryController.inventory = _currentInventory;
-
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchema" object:nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
         }
     } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
         UINavigationController *navigationController = segue.destinationViewController;

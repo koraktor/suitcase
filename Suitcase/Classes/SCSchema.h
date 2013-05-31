@@ -2,12 +2,14 @@
 //  SCSchema.h
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2013, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
 
 #import "AFJSONRequestOperation.h"
+
+#import "SCInventory.h"
 
 @interface SCSchema : NSObject
 
@@ -22,9 +24,9 @@
 @property (strong, readonly) NSArray *qualities;
 
 + (NSDictionary *)schemas;
-+ (AFJSONRequestOperation *)schemaOperationForGame:(NSNumber *)appId
-                                       andLanguage:(NSString *)language
-                                          lockedBy:(NSLock *)lock;
++ (AFJSONRequestOperation *)schemaOperationForInventory:(SCInventory *)inventory
+                                            andLanguage:(NSString *)language
+                                           andCondition:(NSCondition *)condition;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

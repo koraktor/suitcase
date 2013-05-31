@@ -10,6 +10,9 @@
 #import "AFJSONRequestOperation.h"
 
 #import "SCGame.h"
+
+@class SCInventory;
+
 #import "SCSchema.h"
 
 @interface SCInventory : NSObject <UITableViewDataSource>

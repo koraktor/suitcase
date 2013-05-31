@@ -18,6 +18,4 @@
 @property (strong, nonatomic) SCItemViewController *detailViewController;
 @property (strong, nonatomic) SCInventory *inventory;
 
-- (void)loadInventory;
-
 @end

@@ -25,7 +25,6 @@
 @interface SCInventoryViewController () {
     SCInventory *_inventory;
 	SCSchema *_itemSchema;
-    NSLock *_schemaLock;
 }
 @end
 
@@ -46,13 +45,6 @@
                                                  name:kIASKAppSettingChanged
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(loadSchema)
-                                                 name:@"loadSchema" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(loadInventory)
-                                                 name:@"loadInventory"
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadInventory)
                                                  name:@"reloadInventory"
                                                object:nil];
@@ -64,8 +56,6 @@
                                              selector:@selector(sortInventory)
                                                  name:@"sortInventory"
                                                object:nil];
-
-    _schemaLock = [[NSLock alloc] init];
 
     [BPBarButtonItem customizeBarButtonItem:self.navigationItem.leftBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
 
@@ -82,38 +72,6 @@
     return [[NSLocale preferredLanguages] objectAtIndex:0];
 }
 
-- (void)loadInventory
-{
-    UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
-    if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
-        [(SCSteamIdFormController *)modal dismissForm:self];
-    }
-
-    [NSThread detachNewThreadSelector:@selector(populateInventory) toTarget:self withObject:nil];
-}
-
-- (void)loadSchema {
-    AFJSONRequestOperation *schemaOperation = [SCSchema schemaOperationForGame:_inventory.game.appId
-                                                                   andLanguage:[self currentLanguage]
-                                                                      lockedBy:_schemaLock];
-
-    if (schemaOperation != nil) {
-        [_schemaLock lock];
-        [schemaOperation start];
-    }
-}
-
-- (void)populateInventory {
-    self.detailViewController.detailItem = nil;
-
-    [_schemaLock lock];
-    _inventory.schema = [[[SCSchema schemas] objectForKey:_inventory.game.appId] objectForKey:[self currentLanguage]];
-    [_schemaLock unlock];
-    [_inventory sortItems];
-
-    [self reloadInventory];
-}
-
 - (void)settingsChanged:(NSNotification *)notification {
     if ([[notification object] isEqual:@"sorting"]) {
         [self sortInventory];
@@ -121,6 +79,39 @@
         _inventory.showColors = [[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue];
         [self refreshInventory];
     }
+}
+
+- (void)setInventory:(SCInventory *)inventory
+{
+    _inventory = inventory;
+    self.detailViewController.detailItem = nil;
+
+    UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
+    if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
+        [(SCSteamIdFormController *)modal dismissForm:self];
+    }
+
+    NSCondition *schemaCondition = [[NSCondition alloc] init];
+
+    AFJSONRequestOperation *schemaOperation = [SCSchema schemaOperationForInventory:_inventory
+                                                                        andLanguage:[self currentLanguage]
+                                                                       andCondition:schemaCondition];
+    if (schemaOperation != nil) {
+        [schemaOperation setFailureCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+        [schemaOperation setSuccessCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+        [schemaOperation start];
+    }
+
+    [schemaCondition lock];
+
+    while (_inventory.schema == nil) {
+        [schemaCondition wait];
+    }
+    [_inventory sortItems];
+
+    [schemaCondition unlock];
+
+    [self reloadInventory];
 }
 
 - (void)reloadInventory
