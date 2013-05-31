@@ -19,9 +19,13 @@
 @property (strong, nonatomic) SCSchema *schema;
 @property (nonatomic) BOOL showColors;
 
++ (void)decreaseInventoriesToLoad;
 + (NSDictionary *)inventories;
++ (NSUInteger)inventoriesToLoad;
 + (AFJSONRequestOperation *)inventoryForSteamId64:(NSNumber *)steamId64
-                                          andGame:(SCGame *)game;
+                                          andGame:(SCGame *)game
+                                     andCondition:(NSCondition *)condition;
++ (void)setInventoriesToLoad:(NSUInteger)count;
 
 - (BOOL)isEmpty;
 - (BOOL)isSuccessful;

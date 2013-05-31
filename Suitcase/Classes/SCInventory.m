@@ -24,6 +24,7 @@
 static NSArray *alphabet;
 static NSArray *alphabetWithNumbers;
 static NSMutableDictionary *__inventories;
+static NSUInteger __inventoriesToLoad;
 
 @synthesize itemSections = _itemSections;
 @synthesize schema = _schema;
@@ -47,13 +48,26 @@ static NSMutableDictionary *__inventories;
     return alphabetWithNumbers;
 }
 
++ (void)decreaseInventoriesToLoad
+{
+    @synchronized([SCInventory class]) {
+        __inventoriesToLoad = __inventoriesToLoad - 1;
+    }
+}
+
 + (NSDictionary *)inventories
 {
     return [__inventories copy];
 }
 
++ (NSUInteger)inventoriesToLoad
+{
+    return __inventoriesToLoad;
+}
+
 + (AFJSONRequestOperation *)inventoryForSteamId64:(NSNumber *)steamId64
                                           andGame:(SCGame *)game
+                                     andCondition:(NSCondition *)condition
 {
     if (__inventories == nil) {
         __inventories = [NSMutableDictionary dictionary];
@@ -62,6 +76,8 @@ static NSMutableDictionary *__inventories;
     if ([__inventories objectForKey:steamId64] == nil) {
         [__inventories setObject:[NSMutableDictionary dictionary] forKey:steamId64];
     } else if ([[__inventories objectForKey:steamId64] objectForKey:game.appId] != nil) {
+        [SCInventory decreaseInventoriesToLoad];
+        [condition signal];
         return nil;
     }
     __block NSMutableDictionary *userInventories = [__inventories objectForKey:steamId64];
@@ -85,13 +101,27 @@ static NSMutableDictionary *__inventories;
         }
 
         [userInventories setObject:inventory forKey:game.appId];
+
+#ifdef DEBUG
+        NSLog(@"Inventory for %@ loaded.", game.name);
+#endif
+
+        [SCInventory decreaseInventoriesToLoad];
+        [condition signal];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [error localizedDescription]];
         SCInventory *inventory = [[SCInventory alloc] initWithGame:game andErrorMessage:errorMessage];
         [userInventories setObject:inventory forKey:game.appId];
+        [SCInventory decreaseInventoriesToLoad];
+        [condition signal];
     }];
 
     return inventoryOperation;
+}
+
++ (void)setInventoriesToLoad:(NSUInteger)count
+{
+    __inventoriesToLoad = count;
 }
 
 - (id)initWithGame:(SCGame *)game
@@ -99,6 +129,10 @@ static NSMutableDictionary *__inventories;
 {
     _game = game;
     _successful = NO;
+
+#ifdef DEBUG
+    NSLog(@"Loading inventory for game \"%@\" failed with error: %@", game.name, errorMessage);
+#endif
 
     return self;
 }

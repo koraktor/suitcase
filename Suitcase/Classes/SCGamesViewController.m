@@ -175,21 +175,32 @@
     NSLog(@"Loaded %d games for user %@.", [_games count], steamId64);
 #endif
 
-    NSOperationQueue *inventoryOperationsQueue = [[NSOperationQueue alloc] init];
-    inventoryOperationsQueue.MaxConcurrentOperationCount = 10;
+    [SCInventory setInventoriesToLoad:[_games count]];
+    NSCondition *inventoriesCondition = [[NSCondition alloc] init];
+
     for (SCGame *game in _games) {
         NSOperation *inventoryOperation = [SCInventory inventoryForSteamId64:steamId64
-                                                                     andGame:game];
+                                                                     andGame:game
+                                                                andCondition:inventoriesCondition];
         if (inventoryOperation != nil) {
-            [inventoryOperationsQueue addOperation:inventoryOperation];
+            [inventoryOperation start];
         }
     }
 
     [_gamesLock unlock];
 
-    [inventoryOperationsQueue waitUntilAllOperationsAreFinished];
+    [inventoriesCondition lock];
+    while ([SCInventory inventoriesToLoad] > 0) {
+        [inventoriesCondition wait];
+    }
+
+#ifdef DEBUG
+    NSLog(@"All inventories loaded");
+#endif
 
     [self populateInventories];
+
+    [inventoriesCondition unlock];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
