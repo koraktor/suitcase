@@ -54,6 +54,8 @@ static SCWebApiHTTPClient *_webApiClient;
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadAvailableGames" object:nil];
+
     UIViewController *masterViewController;
     UINavigationController *navigationController;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -66,8 +68,6 @@ static SCWebApiHTTPClient *_webApiClient;
         navigationController = (UINavigationController *)self.window.rootViewController;
         masterViewController = navigationController.topViewController;
     }
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadAvailableGames" object:nil];
 
     UIImage *barGradientImage = [UIImage imageNamed:@"bar_gradient"];
     [[UINavigationBar appearance] setBackgroundImage:barGradientImage forBarMetrics:UIBarMetricsDefault];
