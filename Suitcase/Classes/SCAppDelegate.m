@@ -148,6 +148,11 @@ static SCWebApiHTTPClient *_webApiClient;
             [[NSUserDefaults standardUserDefaults] setObject:steamId forKey:@"SteamID"];
             [[NSUserDefaults standardUserDefaults] setObject:steamId64 forKey:@"SteamID64"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loadGames" object:nil];
+        } else {
+            UIViewController *modal = [[[[[self window] rootViewController] presentedViewController] childViewControllers] objectAtIndex:0];
+            if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
+                [modal dismissModalViewControllerAnimated:YES];
+            }
         }
     };
 

@@ -96,7 +96,7 @@
 
     UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
     if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
-        [(SCSteamIdFormController *)modal dismissForm:self];
+        [modal dismissModalViewControllerAnimated:YES];
     }
 
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
