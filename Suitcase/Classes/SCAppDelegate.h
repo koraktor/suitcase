@@ -17,6 +17,5 @@
 + (void)errorWithMessage:(NSString *)errorMessage;
 
 - (void)defaultsChanged:(NSNotification *)notification;
-- (void)resolveSteamId;
 
 @end
