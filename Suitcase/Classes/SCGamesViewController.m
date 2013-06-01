@@ -28,6 +28,19 @@
 
 @implementation SCGamesViewController
 
+const NSInteger kSCAvailableGamesErrorView = 0;
+NSString *const kSCAvailableGamesErrorMessage = @"kSCAvailableGamesErrorMessage";
+NSString *const kSCAvailableGamesErrorTitle   = @"kSCAvailableGamesErrorTitle";
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (alertView.tag) {
+        case kSCAvailableGamesErrorView:
+            [self loadAvailableGames];
+            break;
+    }
+}
+
 - (void)awakeFromNib
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -75,17 +88,19 @@
         _availableGames = [_availableGames copy];
         [_availableGamesLock unlock];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *errorMessage = [error description];
+        NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCAvailableGamesErrorMessage, kSCAvailableGamesErrorMessage), [error localizedDescription]];
 #ifdef DEBUG
         NSLog(@"%@", errorMessage);
 #endif
-        [[[UIAlertView alloc] initWithTitle:@"Error"
-                                    message:errorMessage
-                                   delegate:self
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil] show];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kSCAvailableGamesErrorTitle, kSCAvailableGamesErrorTitle)
+                                                            message:errorMessage
+                                                           delegate:self
+                                                  cancelButtonTitle:NSLocalizedString(@"Retry", @"Retry")
+                                                  otherButtonTitles:nil];
+        alertView.tag = kSCAvailableGamesErrorView;
+        [alertView show];
     }];
-    [_availableGamesLock lock];
+    [_availableGamesLock tryLock];
     [apiListOperation start];
 }
 

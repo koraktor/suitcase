@@ -8,6 +8,6 @@
 #import <UIKit/UIKit.h>
 #import "IASKAppSettingsViewController.h"
 
-@interface SCGamesViewController : UITableViewController <IASKSettingsDelegate>
+@interface SCGamesViewController : UITableViewController <IASKSettingsDelegate, UIAlertViewDelegate>
 
 @end
