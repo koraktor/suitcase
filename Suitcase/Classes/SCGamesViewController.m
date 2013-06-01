@@ -156,6 +156,9 @@ NSString *const kSCAvailableGamesErrorTitle   = @"kSCAvailableGamesErrorTitle";
             [(NSMutableArray *)_inventories addObject:inventory];
         }
     }];
+    _inventories = [_inventories sortedArrayUsingComparator:^NSComparisonResult(SCInventory* inv1, SCInventory *inv2) {
+        return [inv1.game.name compare:inv2.game.name];
+    }];
 
 #ifdef DEBUG
     NSLog(@"Loaded %d inventories for user %@.", [_inventories count], steamId64);
