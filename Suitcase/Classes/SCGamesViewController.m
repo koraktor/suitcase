@@ -104,7 +104,7 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
         _availableGames = [_availableGames copy];
         [_availableGamesLock unlock];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCAvailableGamesErrorMessage, kSCAvailableGamesErrorMessage), [error localizedDescription]];
+        NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCAvailableGamesErrorMessage, kSCAvailableGamesErrorMessage), [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
 #ifdef DEBUG
         NSLog(@"%@", errorMessage);
 #endif

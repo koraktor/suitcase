@@ -109,7 +109,7 @@ static NSUInteger __inventoriesToLoad;
         [SCInventory decreaseInventoriesToLoad];
         [condition signal];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [error localizedDescription]];
+        NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
         SCInventory *inventory = [[SCInventory alloc] initWithGame:game andErrorMessage:errorMessage];
         [userInventories setObject:inventory forKey:game.appId];
         [SCInventory decreaseInventoriesToLoad];

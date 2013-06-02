@@ -5,7 +5,7 @@
  * Copyright (c) 2012-2013, Sebastian Staudt
  */
 
-"kSCAvailableGamesErrorMessage" = "Could not load available games: %@\n\nThis is required to display inventories.";
+"kSCAvailableGamesErrorMessage" = "Could not load available games:\n%@\n\nThis is required to display inventories.";
 "kSCAvailableGamesErrorTitle"   = "Error loading available games";
 "kSCGamesErrorMessage"          = "Could not load user's games:\n%@\n\nYou can either retry or choose a different user.";
 "kSCGamesErrorTitle"            = "Error loading this user's games";
