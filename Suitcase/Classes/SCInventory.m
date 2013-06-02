@@ -29,6 +29,7 @@ static NSUInteger __inventoriesToLoad;
 @synthesize items = _items;
 @synthesize schema = _schema;
 @synthesize showColors = _showColors;
+@synthesize slots = _slots;
 
 + (NSArray *)alphabet
 {
@@ -94,6 +95,7 @@ static NSUInteger __inventoriesToLoad;
         if ([[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             NSArray *itemsResponse = [inventoryResponse objectForKey:@"items"];
             inventory = [[SCInventory alloc] initWithItems:itemsResponse
+                                                  andSlots:[inventoryResponse objectForKey:@"num_backpack_slots"]
                                                    andGame:game];
         } else {
             NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [inventoryResponse objectForKey:@"statusDetail"]];
@@ -128,6 +130,7 @@ static NSUInteger __inventoriesToLoad;
    andErrorMessage:(NSString *)errorMessage
 {
     _game = game;
+    _slots = [NSNumber numberWithInt:0];
     _successful = NO;
 
 #ifdef DEBUG
@@ -138,6 +141,7 @@ static NSUInteger __inventoriesToLoad;
 }
 
 - (id)initWithItems:(NSArray *)itemsData
+           andSlots:(NSNumber *)slots
             andGame:(SCGame *)game
 {
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:[itemsData count]];
@@ -146,6 +150,7 @@ static NSUInteger __inventoriesToLoad;
     }];
     _game = game;
     _items = [items copy];
+    _slots = slots;
     _successful = YES;
 
     NSNumber *showColors = [[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"];

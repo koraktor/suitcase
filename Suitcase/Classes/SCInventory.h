@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSArray *items;
 @property (strong, nonatomic) SCGame *game;
 @property (strong, nonatomic) SCSchema *schema;
+@property (strong, nonatomic) NSNumber *slots;
 @property (nonatomic) BOOL showColors;
 
 + (void)decreaseInventoriesToLoad;
