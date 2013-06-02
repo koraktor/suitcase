@@ -14,7 +14,6 @@
 
 @interface SCInventory () {
     NSArray *_itemTypes;
-    NSArray *_items;
     BOOL _successful;
 }
 @end
@@ -27,6 +26,7 @@ static NSMutableDictionary *__inventories;
 static NSUInteger __inventoriesToLoad;
 
 @synthesize itemSections = _itemSections;
+@synthesize items = _items;
 @synthesize schema = _schema;
 @synthesize showColors = _showColors;
 

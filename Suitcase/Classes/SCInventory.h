@@ -18,6 +18,7 @@
 @interface SCInventory : NSObject <UITableViewDataSource>
 
 @property (strong, nonatomic) NSArray *itemSections;
+@property (strong, nonatomic) NSArray *items;
 @property (strong, nonatomic) SCGame *game;
 @property (strong, nonatomic) SCSchema *schema;
 @property (nonatomic) BOOL showColors;

@@ -42,7 +42,7 @@
 		0209E155157954DF0073385D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0209E154157954DF0073385D /* libz.dylib */; };
 		020EB42E15852A2A00654D2A /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 020EB42D15852A2A00654D2A /* InAppSettings.bundle */; };
 		020EB43015852C2800654D2A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 020EB42F15852C2800654D2A /* MessageUI.framework */; };
-		0220FFC815D7A84700AB8AA3 /* SCGameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0220FFC715D7A84700AB8AA3 /* SCGameCell.m */; };
+		0220FFC815D7A84700AB8AA3 /* SCInventoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */; };
 		022D0CCF158349B80071F665 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 022D0CCD158349B80071F665 /* Localizable.strings */; };
 		022D0D0E1584E5770071F665 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */; };
 		022D0D0F1584E5770071F665 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */; };
@@ -166,8 +166,8 @@
 		0209E154157954DF0073385D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		020EB42D15852A2A00654D2A /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = InAppSettings.bundle; sourceTree = "<group>"; };
 		020EB42F15852C2800654D2A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		0220FFC615D7A84700AB8AA3 /* SCGameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCGameCell.h; path = Classes/SCGameCell.h; sourceTree = "<group>"; };
-		0220FFC715D7A84700AB8AA3 /* SCGameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCGameCell.m; path = Classes/SCGameCell.m; sourceTree = "<group>"; };
+		0220FFC615D7A84700AB8AA3 /* SCInventoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCInventoryCell.h; path = Classes/SCInventoryCell.h; sourceTree = "<group>"; };
+		0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCInventoryCell.m; path = Classes/SCInventoryCell.m; sourceTree = "<group>"; };
 		022D0CCE158349B80071F665 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
@@ -476,8 +476,8 @@
 				028B648E1526761C0040D2FF /* SCAppDelegate.m */,
 				026F215A156ADA1F00C7BD54 /* SCClassImageView.h */,
 				026F215B156ADA1F00C7BD54 /* SCClassImageView.m */,
-				0220FFC615D7A84700AB8AA3 /* SCGameCell.h */,
-				0220FFC715D7A84700AB8AA3 /* SCGameCell.m */,
+				0220FFC615D7A84700AB8AA3 /* SCInventoryCell.h */,
+				0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */,
 				0275E20B158E6B5B008EA0AD /* SCItemCell.h */,
 				0275E20C158E6B5B008EA0AD /* SCItemCell.m */,
 				02010B271696E22A00007456 /* SCItemImageView.h */,
@@ -724,7 +724,7 @@
 				026F215C156ADA1F00C7BD54 /* SCClassImageView.m in Sources */,
 				0275E20D158E6B5B008EA0AD /* SCItemCell.m in Sources */,
 				0269A4A915CC3AEB008A287A /* SCGamesViewController.m in Sources */,
-				0220FFC815D7A84700AB8AA3 /* SCGameCell.m in Sources */,
+				0220FFC815D7A84700AB8AA3 /* SCInventoryCell.m in Sources */,
 				0266E0A416933ACF009C6CE8 /* SCGame.m in Sources */,
 				020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */,
 				0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */,

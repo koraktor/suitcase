@@ -150,7 +150,7 @@ http://steamcommunity.com/profile/{Profile ID}
                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GameCell" textLabel="wyG-tS-PuW" imageView="wmH-N0-ekf" style="IBUITableViewCellStyleDefault" id="gAH-vt-EYE" customClass="SCGameCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InventoryCell" textLabel="wyG-tS-PuW" imageView="wmH-N0-ekf" style="IBUITableViewCellStyleDefault" id="gAH-vt-EYE" customClass="SCInventoryCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

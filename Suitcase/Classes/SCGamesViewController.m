@@ -11,8 +11,8 @@
 
 #import "SCAppDelegate.h"
 #import "SCGame.h"
-#import "SCGameCell.h"
 #import "SCInventory.h"
+#import "SCInventoryCell.h"
 #import "SCSteamIdFormController.h"
 
 #import "SCGamesViewController.h"
@@ -291,8 +291,8 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCInventory *inventory = [_inventories objectAtIndex:indexPath.row];
-    SCGameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GameCell"];
-    cell.game = inventory.game;
+    SCInventoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InventoryCell"];
+    cell.inventory = inventory;
     [cell loadImage];
 
     return cell;
