@@ -7,6 +7,11 @@
 
 "kSCAvailableGamesErrorMessage" = "Verfügbare Spiele konnten nicht geladen werden: %@\n\nDies ist notwendig, um die Inventare anzeigen zu können.";
 "kSCAvailableGamesErrorTitle"   = "Fehler beim Laden der verfügbaren Spiele";
+"kSCGamesErrorMessage"          = "Spiele des Benutzers konnten nicht geladen werden:\n%@\n\nDu kannst es entweder erneut versuchen oder einen anderen Benutzer auswählen.";
+"kSCGamesErrorTitle"            = "Fehler beim Laden der Spiele dieses Benutzers";
+"kSCResolveSteamIdErrorMessage" = "Beim Auflösen der Steam ID ist ein Fehler aufgetreten: %@";
+"kSCResolveSteamIdErrorTitle"   = "Nicht gefunden";
+"Cancel"                        = "Abbrechen";
 "Inventory"                     = "Inventar";
 "Retry"                         = "Wiederholen";
 "Select an account"             = "Account auswählen";

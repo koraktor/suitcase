@@ -32,12 +32,23 @@
 const NSInteger kSCAvailableGamesErrorView = 0;
 NSString *const kSCAvailableGamesErrorMessage = @"kSCAvailableGamesErrorMessage";
 NSString *const kSCAvailableGamesErrorTitle   = @"kSCAvailableGamesErrorTitle";
+const NSInteger kSCGamesErrorView = 1;
+NSString *const kSCGamesErrorMessage = @"kSCGamesErrorMessage";
+NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     switch (alertView.tag) {
         case kSCAvailableGamesErrorView:
             [self loadAvailableGames];
+            break;
+        case kSCGamesErrorView:
+            if (buttonIndex == 1) {
+                [self loadGames];
+            } else {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"SteamID64"];
+                [self performSegueWithIdentifier:@"SteamIDForm" sender:self];
+            }
             break;
     }
 }
@@ -140,13 +151,19 @@ NSString *const kSCAvailableGamesErrorTitle   = @"kSCAvailableGamesErrorTitle";
                                  toTarget:self
                                withObject:[gameObjects copy]];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *errorMessage = [error description];
+        NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCGamesErrorMessage, kSCGamesErrorMessage), [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
 #ifdef DEBUG
         NSLog(@"%@", errorMessage);
 #endif
-        [SCAppDelegate errorWithMessage:errorMessage];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(kSCGamesErrorTitle, kSCGamesErrorTitle)
+                                                            message:errorMessage
+                                                           delegate:self
+                                                  cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                                  otherButtonTitles:NSLocalizedString(@"Retry", @"Retry"), nil];
+        alertView.tag = kSCGamesErrorView;
+        [alertView show];
     }];
-    [_gamesLock lock];
+    [_gamesLock tryLock];
     [gamesOperation start];
 }
 
