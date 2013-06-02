@@ -14,6 +14,22 @@
 		</dict>
 		<dict>
 			<key>Title</key>
+			<string>Inventory listing</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>skip_empty_inventories</string>
+			<key>Title</key>
+			<string>Ignore empty inventories</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
 			<string>Item listing</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>

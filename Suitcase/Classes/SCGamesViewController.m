@@ -7,6 +7,7 @@
 
 #import "BPBarButtonItem.h"
 #import "FontAwesomeKit.h"
+#import "IASKSettingsReader.h"
 
 #import "SCAppDelegate.h"
 #import "SCGame.h"
@@ -43,6 +44,10 @@ NSString *const kSCAvailableGamesErrorTitle   = @"kSCAvailableGamesErrorTitle";
 
 - (void)awakeFromNib
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(settingsChanged:)
+                                                 name:kIASKAppSettingChanged
+                                               object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadAvailableGames)
                                                  name:@"loadAvailableGames"
@@ -149,12 +154,24 @@ NSString *const kSCAvailableGamesErrorTitle   = @"kSCAvailableGamesErrorTitle";
 {
     NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
 
+    BOOL skipEmptyInventories;
+    NSNumber *rawSkipEmptyInventories = [[NSUserDefaults standardUserDefaults] valueForKey:@"skip_empty_inventories"];
+    if (rawSkipEmptyInventories == nil) {
+        skipEmptyInventories = YES;
+    } else {
+        skipEmptyInventories = [rawSkipEmptyInventories boolValue];
+    }
+
     _inventories = [NSMutableArray array];
     NSArray *inventories = [[[SCInventory inventories] valueForKeyPath:steamId64] allValues];
     [inventories enumerateObjectsUsingBlock:^(SCInventory *inventory, NSUInteger idx, BOOL *stop) {
-        if (![inventory isEmpty] && [inventory isSuccessful]) {
-            [(NSMutableArray *)_inventories addObject:inventory];
+        if (![inventory isSuccessful]) {
+            return;
         }
+        if (skipEmptyInventories && [inventory isEmpty]) {
+            return;
+        }
+        [(NSMutableArray *)_inventories addObject:inventory];
     }];
     _inventories = [_inventories sortedArrayUsingComparator:^NSComparisonResult(SCInventory* inv1, SCInventory *inv2) {
         return [inv1.game.name compare:inv2.game.name];
@@ -240,6 +257,12 @@ NSString *const kSCAvailableGamesErrorTitle   = @"kSCAvailableGamesErrorTitle";
         settingsController.delegate = self;
         settingsController.showCreditsFooter = NO;
         settingsController.showDoneButton = NO;
+    }
+}
+
+- (void)settingsChanged:(NSNotification *)notification {
+    if ([notification.object isEqual:@"skip_empty_inventories"]) {
+        [self populateInventories];
     }
 }
 
