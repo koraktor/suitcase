@@ -570,6 +570,7 @@
 				0252CC4F15C055AE0040C949 /* ShellScript */,
 				028B640415265D680040D2FF /* Resources */,
 				029B08F5159262FF00BD6271 /* ShellScript */,
+				020E221B175DA8B300C002EE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -668,6 +669,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		020E221B175DA8B300C002EE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cfBundleIdentifier=$(/usr/libexec/PlistBuddy -c \"Print CFBundleIdentifier\" Suitcase/Suitcase-Info.plist | sed 's/\\.dev$//')\ncfBundleDisplayName=\"\\${PRODUCT_NAME}\"\n\nif test $CONFIGURATION = \"Debug\"; then\n    cfBundleIdentifier=\"$cfBundleIdentifier.dev\"\n    cfBundleDisplayName=\"$cfBundleDisplayName Dev\"\nfi\n\n/usr/libexec/PlistBuddy -c \"Delete CFBundleIdentifier\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Add CFBundleIdentifier string $cfBundleIdentifier\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Delete CFBundleDisplayName\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Add CFBundleDisplayName string '$cfBundleDisplayName'\" Suitcase/Suitcase-Info.plist";
+		};
 		0252CC4F15C055AE0040C949 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
