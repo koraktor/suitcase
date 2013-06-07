@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -91,7 +91,7 @@
             <objects>
                 <viewController storyboardIdentifier="" title="Item" modalPresentationStyle="pageSheet" id="4" customClass="SCItemViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="26">
-                        <rect key="frame" x="0.0" y="20" width="703" height="748"/>
+                        <rect key="frame" x="0.0" y="64" width="703" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="yjV-rL-5U7" customClass="SCItemImageView">
@@ -110,7 +110,7 @@
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item level" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="21" adjustsFontSizeToFit="NO" id="xBP-fs-YaV">
-                                <rect key="frame" x="14" y="19" width="669" height="36"/>
+                                <rect key="frame" x="14" y="17" width="669" height="36"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -173,7 +173,7 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item origin" lineBreakMode="tailTruncation" minimumFontSize="21" adjustsFontSizeToFit="NO" id="4Tb-db-YbY">
-                                <rect key="frame" x="51" y="70" width="369" height="30"/>
+                                <rect key="frame" x="51" y="65" width="369" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -182,7 +182,7 @@
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Item quality" lineBreakMode="tailTruncation" minimumFontSize="21" adjustsFontSizeToFit="NO" id="aLk-1t-UdJ">
-                                <rect key="frame" x="52" y="111" width="369" height="30"/>
+                                <rect key="frame" x="52" y="104" width="369" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -221,7 +221,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="21" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" id="lko-cW-jiq">
-                                <rect key="frame" x="51" y="189" width="367" height="50"/>
+                                <rect key="frame" x="51" y="177" width="367" height="50"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <string key="text">Kill eater level
 Kill eater score</string>
@@ -406,7 +406,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tIi-5l-S0i">
-                                            <rect key="frame" x="47" y="0.0" width="263" height="43"/>
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
@@ -548,7 +548,7 @@ http://steamcommunity.com/profile/{Profile ID}
             <objects>
                 <viewController id="u2V-bm-OPg" customClass="SCWikiViewController" sceneMemberID="viewController">
                     <webView key="view" contentMode="scaleToFill" id="eja-tV-rBb">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="660"/>
+                        <rect key="frame" x="0.0" y="64" width="703" height="660"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -592,7 +592,7 @@ http://steamcommunity.com/profile/{Profile ID}
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="52"/>
         <segue reference="eS2-5p-lpL"/>
-        <segue reference="yTo-Tf-acd"/>
     </inferredMetricsTieBreakers>
 </document>
