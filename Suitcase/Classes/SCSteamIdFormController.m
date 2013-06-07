@@ -18,9 +18,6 @@
 NSString *const kSCResolveSteamIdErrorMessage = @"kSCResolveSteamIdErrorMessage";
 NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
 
-@synthesize helpLabel = _helpLabel;
-@synthesize steamIdField = _steamIdField;
-
 - (void)awakeFromNib
 {
     [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withTintColor:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:1.0]];

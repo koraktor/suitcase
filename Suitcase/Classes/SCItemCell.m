@@ -20,9 +20,6 @@ static CGRect kTextLabelFrame;
 
 @implementation SCItemCell
 
-@synthesize item = _item;
-@synthesize showColors = _showColors;
-
 + (void)initialize
 {
     NSDictionary *iconAttributes = @{

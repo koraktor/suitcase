@@ -13,16 +13,6 @@
 
 static NSMutableDictionary *__schemas;
 
-@synthesize attributes = _attributes;
-@synthesize effects = _effects;
-@synthesize items = _items;
-@synthesize itemLevels = _itemLevels;
-@synthesize itemNameMap = _itemNameMap;
-@synthesize itemSets = _itemSets;
-@synthesize killEaterTypes = _killEaterTypes;
-@synthesize origins = _origins;
-@synthesize qualities = _qualities;
-
 + (SCSchema *)brokenSchema
 {
     SCSchema *schema = [[SCSchema alloc] init];

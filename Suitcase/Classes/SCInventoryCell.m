@@ -13,9 +13,6 @@
 
 @implementation SCInventoryCell
 
-@synthesize inventory = _inventory;
-@synthesize itemCountLabel = _itemCountLabel;
-
 static CGRect kImageViewFrame;
 static CGRect kImageViewFrameScaled;
 static CGSize kImageViewSize;

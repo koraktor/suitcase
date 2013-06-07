@@ -30,9 +30,6 @@
 
 @implementation SCInventoryViewController
 
-@synthesize detailViewController = _detailViewController;
-@synthesize inventory = _inventory;
-
 - (void)awakeFromNib
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {

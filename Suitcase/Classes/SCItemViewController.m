@@ -20,29 +20,6 @@
 
 @implementation SCItemViewController
 
-@synthesize detailItem = _detailItem;
-@synthesize classScoutImage = _classScoutImage;
-@synthesize classSoldierImage = _classSoldierImage;
-@synthesize classPyroImage = _classPyroImage;
-@synthesize classDemomanImage = _classDemomanImage;
-@synthesize classHeavyImage = _classHeavyImage;
-@synthesize classEngineerImage = _classEngineerImage;
-@synthesize classMedicImage = _classMedicImage;
-@synthesize classSniperImage = _classSniperImage;
-@synthesize classSpyImage = _classSpyImage;
-@synthesize descriptionLabel = _descriptionLabel;
-@synthesize icons = _icons;
-@synthesize itemImage = _itemImage;
-@synthesize itemSetButton = _itemSetButton;
-@synthesize killEaterIcon = _killEaterIcon;
-@synthesize killEaterLabel = _killEaterLabel;
-@synthesize levelLabel = _levelLabel;
-@synthesize originLabel = _originLabel;
-@synthesize qualityLabel = _qualityLabel;
-@synthesize quantityLabel = _quantityLabel;
-@synthesize masterPopoverController = _masterPopoverController;
-@synthesize wikiButton = _wikiButton;
-
 - (void)awakeFromNib
 {
     self.navigationItem.rightBarButtonItem = nil;

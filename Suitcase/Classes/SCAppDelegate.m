@@ -22,8 +22,6 @@
 
 @implementation SCAppDelegate
 
-@synthesize window = _window;
-
 static SCWebApiHTTPClient *_webApiClient;
 
 + (void)errorWithMessage:(NSString *)errorMessage

@@ -10,10 +10,8 @@
 @implementation SCItem
 
 @synthesize attributes = _attributes;
-@synthesize dictionary = _dictionary;
-@synthesize equippedClasses = _equippedClasses;
 @synthesize equippableClasses = _equippableClasses;
-@synthesize inventory = _inventory;
+@synthesize equippedClasses = _equippedClasses;
 @synthesize position = _position;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary

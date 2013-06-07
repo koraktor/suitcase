@@ -9,10 +9,6 @@
 
 @implementation SCGame
 
-@synthesize appId = _appId;
-@synthesize logoUrl = _logoUrl;
-@synthesize name = _name;
-
 - (id)initWithJSONObject:(NSDictionary *)jsonObject
 {
     _appId   = [jsonObject objectForKey:@"appid"];

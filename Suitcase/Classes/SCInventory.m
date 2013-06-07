@@ -29,12 +29,6 @@ static NSArray *alphabetWithNumbers;
 static NSMutableDictionary *__inventories;
 static NSUInteger __inventoriesToLoad;
 
-@synthesize itemSections = _itemSections;
-@synthesize items = _items;
-@synthesize schema = _schema;
-@synthesize showColors = _showColors;
-@synthesize slots = _slots;
-
 + (NSArray *)alphabet
 {
     if (alphabet == nil) {
