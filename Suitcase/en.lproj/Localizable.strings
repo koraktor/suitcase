@@ -9,6 +9,7 @@
 "kSCAvailableGamesErrorTitle"   = "Error loading available games";
 "kSCGamesErrorMessage"          = "Could not load user's games:\n%@\n\nYou can either retry or choose a different user.";
 "kSCGamesErrorTitle"            = "Error loading this user's games";
+"kSCInventoryError"             = "Error loading the inventory: %@";
 "kSCResolveSteamIdErrorMessage" = "An error occured while resolving the Steam ID: %@";
 "kSCResolveSteamIdErrorTitle"   = "Not found";
 "SteamID help"                  = "Please supply the custom URL or profile ID of the Steam Community profile:";
