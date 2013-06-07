@@ -182,7 +182,7 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
     _inventories = [NSMutableArray array];
     NSArray *inventories = [[[SCInventory inventories] valueForKeyPath:steamId64] allValues];
     [inventories enumerateObjectsUsingBlock:^(SCInventory *inventory, NSUInteger idx, BOOL *stop) {
-        if (![inventory isSuccessful]) {
+        if (![inventory isSuccessful] && ![inventory temporaryFailed]) {
             return;
         }
         if (skipEmptyInventories && [inventory isEmpty]) {
@@ -265,6 +265,17 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
         if (inventoryController.inventory == _currentInventory) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadInventory" object:nil];
         } else {
+            if ([_currentInventory temporaryFailed]) {
+                NSCondition *reloadCondition = [[NSCondition alloc] init];
+                [_currentInventory reloadWithCondition:reloadCondition];
+
+                [SCInventory setInventoriesToLoad:1];
+                [reloadCondition lock];
+                while ([SCInventory inventoriesToLoad] > 0) {
+                    [reloadCondition wait];
+                }
+                [reloadCondition unlock];
+            }
             inventoryController.inventory = _currentInventory;
         }
     } else if ([[segue identifier] isEqualToString:@"showSettings"]) {

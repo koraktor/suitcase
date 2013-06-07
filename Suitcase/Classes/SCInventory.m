@@ -14,7 +14,9 @@
 
 @interface SCInventory () {
     NSArray *_itemTypes;
+    NSNumber *_steamId64;
     BOOL _successful;
+    BOOL _temporaryFailed;
 }
 @end
 
@@ -66,6 +68,16 @@ static NSUInteger __inventoriesToLoad;
     return __inventoriesToLoad;
 }
 
++ (AFJSONRequestOperation *)inventoryOperationForSteamId64:(NSNumber *)steamId64
+                                                   andGame:(SCGame *)game
+{
+    NSDictionary *params = [NSDictionary dictionaryWithObject:steamId64 forKey:@"steamid"];
+    return [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", game.appId]
+                                                       andMethod:@"GetPlayerItems"
+                                                      andVersion:1
+                                                  withParameters:params];
+}
+
 + (AFJSONRequestOperation *)inventoryForSteamId64:(NSNumber *)steamId64
                                           andGame:(SCGame *)game
                                      andCondition:(NSCondition *)condition
@@ -83,23 +95,24 @@ static NSUInteger __inventoriesToLoad;
     }
     __block NSMutableDictionary *userInventories = [__inventories objectForKey:steamId64];
 
-    NSDictionary *params = [NSDictionary dictionaryWithObject:steamId64 forKey:@"steamid"];
-    AFJSONRequestOperation *inventoryOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", game.appId]
-                                                                                             andMethod:@"GetPlayerItems"
-                                                                                            andVersion:1
-                                                                                        withParameters:params];
+    AFJSONRequestOperation *inventoryOperation = [SCInventory inventoryOperationForSteamId64:steamId64
+                                                                                     andGame:game];
     [inventoryOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *inventoryResponse = [responseObject objectForKey:@"result"];
         SCInventory *inventory;
 
         if ([[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             NSArray *itemsResponse = [inventoryResponse objectForKey:@"items"];
-            inventory = [[SCInventory alloc] initWithItems:itemsResponse
-                                                  andSlots:[inventoryResponse objectForKey:@"num_backpack_slots"]
-                                                   andGame:game];
+            inventory = [[SCInventory alloc] initWithSteamId64:steamId64
+                                                      andItems:itemsResponse
+                                                      andSlots:[inventoryResponse objectForKey:@"num_backpack_slots"]
+                                                       andGame:game];
         } else {
             NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [inventoryResponse objectForKey:@"statusDetail"]];
-            inventory = [[SCInventory alloc] initWithGame:game andErrorMessage:errorMessage];
+            inventory = [[SCInventory alloc] initWithSteamId64:steamId64
+                                                       andGame:game
+                                            andTemporaryFailed:NO
+                                              withErrorMessage:errorMessage];
         }
 
         [userInventories setObject:inventory forKey:game.appId];
@@ -112,7 +125,10 @@ static NSUInteger __inventoriesToLoad;
         [condition signal];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
-        SCInventory *inventory = [[SCInventory alloc] initWithGame:game andErrorMessage:errorMessage];
+        SCInventory *inventory = [[SCInventory alloc] initWithSteamId64:steamId64
+                                                                andGame:game
+                                                     andTemporaryFailed:YES
+                                                       withErrorMessage:errorMessage];
         [userInventories setObject:inventory forKey:game.appId];
         [SCInventory decreaseInventoriesToLoad];
         [condition signal];
@@ -126,12 +142,16 @@ static NSUInteger __inventoriesToLoad;
     __inventoriesToLoad = count;
 }
 
-- (id)initWithGame:(SCGame *)game
-   andErrorMessage:(NSString *)errorMessage
+- (id)initWithSteamId64:(NSNumber *)steamId64
+                andGame:(SCGame *)game
+     andTemporaryFailed:(BOOL)temporaryFailed
+       withErrorMessage:(NSString *)errorMessage
 {
     _game = game;
     _slots = [NSNumber numberWithInt:0];
+    _steamId64 = steamId64;
     _successful = NO;
+    _temporaryFailed = temporaryFailed;
 
 #ifdef DEBUG
     NSLog(@"Loading inventory for game \"%@\" failed with error: %@", game.name, errorMessage);
@@ -140,9 +160,10 @@ static NSUInteger __inventoriesToLoad;
     return self;
 }
 
-- (id)initWithItems:(NSArray *)itemsData
-           andSlots:(NSNumber *)slots
-            andGame:(SCGame *)game
+- (id)initWithSteamId64:(NSNumber *)steamId64
+               andItems:(NSArray *)itemsData
+               andSlots:(NSNumber *)slots
+                andGame:(SCGame *)game
 {
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:[itemsData count]];
     [itemsData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -151,6 +172,7 @@ static NSUInteger __inventoriesToLoad;
     _game = game;
     _items = [items copy];
     _slots = slots;
+    _steamId64 = steamId64;
     _successful = YES;
 
     NSNumber *showColors = [[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"];
@@ -187,12 +209,63 @@ static NSUInteger __inventoriesToLoad;
 
 - (BOOL)isEmpty
 {
-    return _items.count == 0;
+    return _successful && _items.count == 0;
 }
 
 - (BOOL)isSuccessful
 {
     return _successful;
+}
+
+- (void)reloadWithCondition:(NSCondition *)condition
+{
+    AFJSONRequestOperation* inventoryOperation = [SCInventory inventoryOperationForSteamId64:_steamId64
+                                                                            andGame:_game];
+    [inventoryOperation setFailureCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    [inventoryOperation setSuccessCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    [inventoryOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *inventoryResponse = [responseObject objectForKey:@"result"];
+
+        if ([[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+            NSArray *itemsData = [inventoryResponse objectForKey:@"items"];
+            _items = [NSMutableArray arrayWithCapacity:[itemsData count]];
+            [itemsData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [(NSMutableArray *)_items addObject:[[SCItem alloc] initWithDictionary:obj
+                                                                          andInventory:self]];
+            }];
+            _slots = [inventoryResponse objectForKey:@"num_backpack_slots"];
+
+            _successful = YES;
+            _temporaryFailed = NO;
+        } else {
+            NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [inventoryResponse objectForKey:@"statusDetail"]];
+#ifdef DEBUG
+            NSLog(@"Loading inventory for game \"%@\" failed with error: %@", _game.name, errorMessage);
+#endif
+            _successful = NO;
+            _temporaryFailed = NO;
+        }
+
+        [condition lock];
+        [SCInventory decreaseInventoriesToLoad];
+        [condition signal];
+        [condition unlock];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
+#ifdef DEBUG
+        NSLog(@"Loading inventory for game \"%@\" failed with error: %@", _game.name, errorMessage);
+#endif
+
+        _successful = NO;
+        _temporaryFailed = YES;
+
+        [condition lock];
+        [SCInventory decreaseInventoriesToLoad];
+        [condition signal];
+        [condition unlock];
+    }];
+
+    [inventoryOperation start];
 }
 
 - (void)sortItems {
@@ -297,6 +370,11 @@ static NSUInteger __inventoriesToLoad;
     } else {
         return nil;
     }
+}
+
+- (BOOL)temporaryFailed
+{
+    return _temporaryFailed;
 }
 
 @end
