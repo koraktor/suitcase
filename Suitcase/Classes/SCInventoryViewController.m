@@ -116,13 +116,16 @@
     } else {
         [super viewDidAppear:animated];
     }
+
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        self.detailViewController = (SCItemViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    self.detailViewController = (SCItemViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"Inventory title");
 }
 
