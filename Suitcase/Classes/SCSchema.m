@@ -132,7 +132,7 @@ static NSMutableDictionary *__schemas;
         [(NSMutableDictionary *)_killEaterTypes setObject:obj
                                                    forKey:[obj objectForKey:@"type"]];
     }];
-    _killEaterTypes = [killEaterTypes copy];
+    _killEaterTypes = [_killEaterTypes copy];
 
     NSArray *originsArray = [dictionary objectForKey:@"originNames"];
     _origins = [NSMutableArray arrayWithCapacity:[originsArray count]];
@@ -197,8 +197,8 @@ static NSMutableDictionary *__schemas;
     return [self.itemSets objectForKey:itemSetKey];
 }
 
-- (NSDictionary *)killEaterTypeForIndex:(NSUInteger)typeIndex {
-    return [self.killEaterTypes objectAtIndex:typeIndex];
+- (NSDictionary *)killEaterTypeForIndex:(NSNumber *)typeIndex {
+    return [_killEaterTypes objectForKey:typeIndex];
 }
 
 - (NSString *)originNameForIndex:(NSUInteger)originIndex {
