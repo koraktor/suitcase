@@ -46,6 +46,10 @@ static CGRect kTextLabelFrame;
     self.imageView.layer.shadowOpacity = 1.0;
     self.imageView.layer.shadowRadius = 4.0;
 
+    UIView *selectionView = [[UIView alloc] initWithFrame:self.frame];
+    selectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cell_selection_gradient"]];
+    self.selectedBackgroundView = selectionView;
+
     return self;
 }
 

@@ -42,6 +42,8 @@
 		0209E155157954DF0073385D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0209E154157954DF0073385D /* libz.dylib */; };
 		020EB42E15852A2A00654D2A /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 020EB42D15852A2A00654D2A /* InAppSettings.bundle */; };
 		020EB43015852C2800654D2A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 020EB42F15852C2800654D2A /* MessageUI.framework */; };
+		0213CC331769087F0010908D /* cell_selection_gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 0213CC311769087F0010908D /* cell_selection_gradient.png */; };
+		0213CC341769087F0010908D /* cell_selection_gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0213CC321769087F0010908D /* cell_selection_gradient@2x.png */; };
 		0220FFC815D7A84700AB8AA3 /* SCInventoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */; };
 		022D0CCF158349B80071F665 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 022D0CCD158349B80071F665 /* Localizable.strings */; };
 		022D0D0E1584E5770071F665 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */; };
@@ -166,6 +168,8 @@
 		0209E154157954DF0073385D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		020EB42D15852A2A00654D2A /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = InAppSettings.bundle; sourceTree = "<group>"; };
 		020EB42F15852C2800654D2A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		0213CC311769087F0010908D /* cell_selection_gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cell_selection_gradient.png; path = Images/cell_selection_gradient.png; sourceTree = "<group>"; };
+		0213CC321769087F0010908D /* cell_selection_gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cell_selection_gradient@2x.png"; path = "Images/cell_selection_gradient@2x.png"; sourceTree = "<group>"; };
 		0220FFC615D7A84700AB8AA3 /* SCInventoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCInventoryCell.h; path = Classes/SCInventoryCell.h; sourceTree = "<group>"; };
 		0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCInventoryCell.m; path = Classes/SCInventoryCell.m; sourceTree = "<group>"; };
 		022D0CCE158349B80071F665 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -527,6 +531,8 @@
 		02DDB47B1582918B004DB9D8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0213CC311769087F0010908D /* cell_selection_gradient.png */,
+				0213CC321769087F0010908D /* cell_selection_gradient@2x.png */,
 				026EEA061749716300FB8484 /* header_gradient.png */,
 				026EEA071749716300FB8484 /* header_gradient@2x.png */,
 				026EEA0217491B1900FB8484 /* bar_gradient.png */,
@@ -655,6 +661,8 @@
 				026EEA0517491B1900FB8484 /* bar_gradient@2x.png in Resources */,
 				026EEA081749716300FB8484 /* header_gradient.png in Resources */,
 				026EEA091749716300FB8484 /* header_gradient@2x.png in Resources */,
+				0213CC331769087F0010908D /* cell_selection_gradient.png in Resources */,
+				0213CC341769087F0010908D /* cell_selection_gradient@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

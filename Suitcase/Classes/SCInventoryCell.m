@@ -42,6 +42,10 @@ static CGRect kTextLabelFrame;
     _itemCountLabel.shadowColor = [UIColor blackColor];
     [self.contentView addSubview:_itemCountLabel];
 
+    UIView *selectionView = [[UIView alloc] initWithFrame:self.frame];
+    selectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cell_selection_gradient"]];
+    self.selectedBackgroundView = selectionView;
+
     return self;
 }
 
