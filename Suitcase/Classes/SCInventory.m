@@ -271,56 +271,66 @@ static NSUInteger __inventoriesToLoad;
         _itemSections = [NSArray arrayWithObject:[_items sortedArrayUsingComparator:^NSComparisonResult(SCItem *item1, SCItem *item2) {
             return [item1.position compare:item2.position];
         }]];
-    } else if ([sortOption isEqual:@"name"]) {
-        _itemSections = [NSMutableArray arrayWithCapacity:[SCInventory alphabet].count + 1];
-        for (NSUInteger i = 0; i <= alphabet.count; i ++) {
-            [(NSMutableArray *)_itemSections addObject:[NSMutableArray array]];
-        }
-        [_items enumerateObjectsUsingBlock:^(SCItem *item, NSUInteger idx, BOOL *stop) {
-            NSString *start = [[item.name substringToIndex:1] uppercaseString];
-            NSUInteger nameIndex = [[SCInventory alphabet] indexOfObject:start];
-            if (nameIndex == NSNotFound) {
-                nameIndex = -1;
+    } else {
+        if ([sortOption isEqual:@"name"]) {
+            _itemSections = [NSMutableArray arrayWithCapacity:[SCInventory alphabet].count + 1];
+            for (NSUInteger i = 0; i <= alphabet.count; i ++) {
+                [(NSMutableArray *)_itemSections addObject:[NSMutableArray array]];
             }
-            [[_itemSections objectAtIndex:nameIndex + 1] addObject:item];
-        }];
-    } else if ([sortOption isEqual:@"origin"]) {
-        _itemSections = [NSMutableArray arrayWithCapacity:_schema.origins.count];
-        for (NSUInteger i = 0; i < _schema.origins.count; i ++) {
-            [(NSMutableArray *)_itemSections addObject:[NSMutableArray array]];
-        }
-        [_items enumerateObjectsUsingBlock:^(SCItem *item, NSUInteger idx, BOOL *stop) {
-            NSUInteger originIndex = [[item.dictionary objectForKey:@"origin"] unsignedIntegerValue];
-            [[_itemSections objectAtIndex:originIndex] addObject:item];
-        }];
-    } else if ([sortOption isEqual:@"quality"]) {
-        _itemSections = [NSMutableArray arrayWithCapacity:_schema.qualities.count];
-        for (NSUInteger i = 0; i < _schema.qualities.count; i ++) {
-            [(NSMutableArray *)_itemSections addObject:[NSMutableArray array]];
-        }
-        [_items enumerateObjectsUsingBlock:^(SCItem *item, NSUInteger idx, BOOL *stop) {
-            NSUInteger qualityIndex = [[item.dictionary objectForKey:@"quality"] unsignedIntegerValue];
-            [[_itemSections objectAtIndex:qualityIndex] addObject:item];
-        }];
-    } else if ([sortOption isEqual:@"type"]) {
-        if (_itemTypes == nil) {
-            _itemTypes = [NSMutableArray array];
             [_items enumerateObjectsUsingBlock:^(SCItem *item, NSUInteger idx, BOOL *stop) {
-                if (![_itemTypes containsObject:item.itemType]) {
-                    [(NSMutableArray *)_itemTypes addObject:item.itemType];
+                NSString *start = [[item.name substringToIndex:1] uppercaseString];
+                NSUInteger nameIndex = [[SCInventory alphabet] indexOfObject:start];
+                if (nameIndex == NSNotFound) {
+                    nameIndex = -1;
                 }
+                [[_itemSections objectAtIndex:nameIndex + 1] addObject:item];
             }];
-            _itemTypes = [_itemTypes sortedArrayUsingSelector:@selector(compare:)];
+        } else if ([sortOption isEqual:@"origin"]) {
+            _itemSections = [NSMutableArray arrayWithCapacity:_schema.origins.count];
+            for (NSUInteger i = 0; i < _schema.origins.count; i ++) {
+                [(NSMutableArray *)_itemSections addObject:[NSMutableArray array]];
+            }
+            [_items enumerateObjectsUsingBlock:^(SCItem *item, NSUInteger idx, BOOL *stop) {
+                NSUInteger originIndex = [[item.dictionary objectForKey:@"origin"] unsignedIntegerValue];
+                [[_itemSections objectAtIndex:originIndex] addObject:item];
+            }];
+        } else if ([sortOption isEqual:@"quality"]) {
+            _itemSections = [NSMutableArray arrayWithCapacity:_schema.qualities.count];
+            for (NSUInteger i = 0; i < _schema.qualities.count; i ++) {
+                [(NSMutableArray *)_itemSections addObject:[NSMutableArray array]];
+            }
+            [_items enumerateObjectsUsingBlock:^(SCItem *item, NSUInteger idx, BOOL *stop) {
+                NSUInteger qualityIndex = [[item.dictionary objectForKey:@"quality"] unsignedIntegerValue];
+                [[_itemSections objectAtIndex:qualityIndex] addObject:item];
+            }];
+        } else if ([sortOption isEqual:@"type"]) {
+            if (_itemTypes == nil) {
+                _itemTypes = [NSMutableArray array];
+                [_items enumerateObjectsUsingBlock:^(SCItem *item, NSUInteger idx, BOOL *stop) {
+                    if (![_itemTypes containsObject:item.itemType]) {
+                        [(NSMutableArray *)_itemTypes addObject:item.itemType];
+                    }
+                }];
+                _itemTypes = [_itemTypes sortedArrayUsingSelector:@selector(compare:)];
+            }
+
+            _itemSections = [NSMutableArray arrayWithCapacity:_itemTypes.count];
+            for (NSUInteger i = 0; i < _itemTypes.count; i ++) {
+                [(NSMutableArray *)_itemSections addObject:[NSMutableArray array]];
+            }
+            [_items enumerateObjectsUsingBlock:^(SCItem *item, NSUInteger idx, BOOL *stop) {
+                NSUInteger typeIndex = [_itemTypes indexOfObject:item.itemType];
+                [[_itemSections objectAtIndex:typeIndex] addObject:item];
+            }];
         }
 
-        _itemSections = [NSMutableArray arrayWithCapacity:_itemTypes.count];
-        for (NSUInteger i = 0; i < _itemTypes.count; i ++) {
-            [(NSMutableArray *)_itemSections addObject:[NSMutableArray array]];
-        }
-        [_items enumerateObjectsUsingBlock:^(SCItem *item, NSUInteger idx, BOOL *stop) {
-            NSUInteger typeIndex = [_itemTypes indexOfObject:item.itemType];
-            [[_itemSections objectAtIndex:typeIndex] addObject:item];
+        NSMutableArray *sortedItemSections = [NSMutableArray arrayWithCapacity:[_itemSections count]];
+        [_itemSections enumerateObjectsUsingBlock:^(NSArray *section, NSUInteger idx, BOOL *stop) {
+            [sortedItemSections addObject:[section sortedArrayUsingComparator:^NSComparisonResult(SCItem *item1, SCItem *item2) {
+                return [item1.name compare:item2.name];
+            }]];
         }];
+        _itemSections = sortedItemSections;
     }
 
     _itemSections = [_itemSections copy];
