@@ -275,6 +275,8 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
                     [reloadCondition wait];
                 }
                 [reloadCondition unlock];
+                [self populateInventories];
+                [self.tableView reloadData];
             }
             inventoryController.inventory = _currentInventory;
         }
