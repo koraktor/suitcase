@@ -152,7 +152,6 @@
                                                                 lineBreakMode:self.killEaterLabel.lineBreakMode];
                     currentFrame.size.height = expectedFrame.height;
                     self.killEaterLabel.frame = currentFrame;
-                    [self.killEaterLabel sizeToFit];
                     self.killEaterLabel.hidden = NO;
                     self.killEaterIcon.alpha = 1.0;
                 } else {

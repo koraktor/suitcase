@@ -35,7 +35,9 @@
 - (NSString *)effectNameForIndex:(NSNumber *)effectIndex;
 - (NSNumber *)itemDefIndexForName:(NSString *)itemName;
 - (id)itemValueForDefIndex:(NSNumber *)defindex andKey:(NSString *)key;
-- (NSString *)itemLevelForScore:(NSUInteger)score andLevelType:(NSString *)levelType;
+- (NSString *)itemLevelForScore:(NSUInteger)score
+                   andLevelType:(NSString *)levelType
+                    andItemType:(NSString *)itemType;
 - (NSDictionary *)itemSetForKey:(NSString *)itemSetKey;
 - (NSDictionary *)killEaterTypeForIndex:(NSNumber *)typeIndex;
 - (NSString *)originNameForIndex:(NSUInteger)originIndex;

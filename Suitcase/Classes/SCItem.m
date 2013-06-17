@@ -63,7 +63,9 @@
 
         if (killEaterScore != -1) {
             NSDictionary *killEaterType = [self.inventory.schema killEaterTypeForIndex:[NSNumber numberWithUnsignedInteger:killEaterTypeIndex]];
-            NSString *itemLevel = [self.inventory.schema itemLevelForScore:killEaterScore andLevelType:[killEaterType objectForKey:@"level_data"]];
+            NSString *itemLevel = [self.inventory.schema itemLevelForScore:killEaterScore
+                                                              andLevelType:[killEaterType objectForKey:@"level_data"]
+                                                               andItemType:self.itemType];
 
             NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
             [attribute setValue:[NSString stringWithFormat:@"%@\n%%s1 %@", itemLevel, [killEaterType objectForKey:@"type_name"]] forKey:@"description"];

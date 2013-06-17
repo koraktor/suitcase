@@ -177,7 +177,9 @@ static NSMutableDictionary *__schemas;
     return [[self.items objectForKey:defindex] objectForKey:key];
 }
 
-- (NSString *)itemLevelForScore:(NSUInteger)score andLevelType:(NSString *)levelType {
+- (NSString *)itemLevelForScore:(NSUInteger)score
+                   andLevelType:(NSString *)levelType
+                    andItemType:(NSString *)itemType {
     __block NSString *itemLevel;
 
     NSArray *itemLevels = [self.itemLevels objectForKey:levelType];
@@ -190,7 +192,15 @@ static NSMutableDictionary *__schemas;
         }
     }];
 
-    return itemLevel;
+    if (itemLevel == nil) {
+        return itemType;
+    }
+
+    if ([[[NSLocale preferredLanguages] objectAtIndex:0] isEqualToString:@"de"]) {
+        return [NSString stringWithFormat:@"%@ (%@)", itemType, itemLevel];
+    } else {
+        return [NSString stringWithFormat:@"%@ %@", itemLevel, itemType];
+    }
 }
 
 - (NSDictionary *)itemSetForKey:(NSString *)itemSetKey {
