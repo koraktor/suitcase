@@ -28,22 +28,25 @@
     [self.wikiButton setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
                                       forState:UIControlStateNormal];
     [BPBarButtonItem customizeBarButtonItem:self.wikiButton withStyle:BPBarButtonItemStyleStandardDark];
+
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(clearItem)
+                                                     name:@"loadGames"
+                                                   object:nil];
+    }
+}
+
+- (void)clearItem
+{
+    _detailItem = nil;
+    [self configureView];
 }
 
 #pragma mark - Managing the detail item
 
 - (void)setDetailItem:(SCItem *)newDetailItem
 {
-    if ([newDetailItem.inventory.game isTF2]) {
-        if (self.navigationItem.rightBarButtonItem == nil) {
-            [self.navigationItem setRightBarButtonItem:_wikiButton animated:YES];
-        }
-    } else {
-        if (self.navigationItem.rightBarButtonItem == _wikiButton) {
-            [self.navigationItem setRightBarButtonItem:nil animated:YES];
-        }
-    }
-
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
 
@@ -58,6 +61,25 @@
 
 - (void)configureView
 {
+    if (_detailItem == nil) {
+        [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+            view.hidden = YES;
+        }];
+        [self.navigationItem setRightBarButtonItem:nil animated:YES];
+        self.title = nil;
+        return;
+    }
+
+    if ([_detailItem.inventory.game isTF2]) {
+        if (self.navigationItem.rightBarButtonItem == nil) {
+            [self.navigationItem setRightBarButtonItem:_wikiButton animated:YES];
+        }
+    } else {
+        if (self.navigationItem.rightBarButtonItem == _wikiButton) {
+            [self.navigationItem setRightBarButtonItem:nil animated:YES];
+        }
+    }
+
     [self.itemImage setImageWithURL:self.detailItem.imageUrl];
 
     self.title = self.detailItem.name;
@@ -157,57 +179,51 @@
         self.itemSetButton.enabled = NO;
     }
 
-    if (self.detailItem) {
-        CGRect currentFrame = self.descriptionLabel.frame;
-        CGSize maxFrame = CGSizeMake(currentFrame.size.width, 500);
-        CGSize expectedFrame = [descriptionLabelText sizeWithFont:self.descriptionLabel.font
-                                                constrainedToSize:maxFrame
-                                                    lineBreakMode:self.descriptionLabel.lineBreakMode];
-        currentFrame.size.height = expectedFrame.height;
-        self.descriptionLabel.frame = currentFrame;
+    CGRect currentFrame = self.descriptionLabel.frame;
+    CGSize maxFrame = CGSizeMake(currentFrame.size.width, 500);
+    CGSize expectedFrame = [descriptionLabelText sizeWithFont:self.descriptionLabel.font
+                                            constrainedToSize:maxFrame
+                                                lineBreakMode:self.descriptionLabel.lineBreakMode];
+    currentFrame.size.height = expectedFrame.height;
+    self.descriptionLabel.frame = currentFrame;
 
-        if ([self.detailItem.inventory.game isTF2]) {
-            int equippedClasses = self.detailItem.equippedClasses;
-            self.classScoutImage.equipped = equippedClasses & 1;
-            self.classSoldierImage.equipped = equippedClasses & 4;
-            self.classPyroImage.equipped = equippedClasses & 64;
-            self.classDemomanImage.equipped = equippedClasses & 8;
-            self.classHeavyImage.equipped = equippedClasses & 32;
-            self.classEngineerImage.equipped = (equippedClasses & 256) != 0;
-            self.classMedicImage.equipped = equippedClasses & 16;
-            self.classSniperImage.equipped = equippedClasses & 2;
-            self.classSpyImage.equipped = equippedClasses & 128;
+    if ([self.detailItem.inventory.game isTF2]) {
+        int equippedClasses = self.detailItem.equippedClasses;
+        self.classScoutImage.equipped = equippedClasses & 1;
+        self.classSoldierImage.equipped = equippedClasses & 4;
+        self.classPyroImage.equipped = equippedClasses & 64;
+        self.classDemomanImage.equipped = equippedClasses & 8;
+        self.classHeavyImage.equipped = equippedClasses & 32;
+        self.classEngineerImage.equipped = (equippedClasses & 256) != 0;
+        self.classMedicImage.equipped = equippedClasses & 16;
+        self.classSniperImage.equipped = equippedClasses & 2;
+        self.classSpyImage.equipped = equippedClasses & 128;
 
-            int equippableClasses = self.detailItem.equippableClasses;
-            self.classScoutImage.equippable = equippableClasses & 1;
-            self.classSoldierImage.equippable = equippableClasses & 4;
-            self.classPyroImage.equippable = equippableClasses & 64;
-            self.classDemomanImage.equippable = equippableClasses & 8;
-            self.classHeavyImage.equippable = equippableClasses & 32;
-            self.classEngineerImage.equippable = (equippableClasses & 256) != 0;
-            self.classMedicImage.equippable = equippableClasses & 16;
-            self.classSniperImage.equippable = equippableClasses & 2;
-            self.classSpyImage.equippable = equippableClasses & 128;
+        int equippableClasses = self.detailItem.equippableClasses;
+        self.classScoutImage.equippable = equippableClasses & 1;
+        self.classSoldierImage.equippable = equippableClasses & 4;
+        self.classPyroImage.equippable = equippableClasses & 64;
+        self.classDemomanImage.equippable = equippableClasses & 8;
+        self.classHeavyImage.equippable = equippableClasses & 32;
+        self.classEngineerImage.equippable = (equippableClasses & 256) != 0;
+        self.classMedicImage.equippable = equippableClasses & 16;
+        self.classSniperImage.equippable = equippableClasses & 2;
+        self.classSpyImage.equippable = equippableClasses & 128;
+    }
+
+    [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+        if ([self.classImages containsObject:view]) {
+            view.hidden = ![self.detailItem.inventory.game isTF2];
+        } else if (view != self.killEaterLabel) {
+            view.hidden = NO;
         }
+    }];
 
-        [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-            if ([self.classImages containsObject:view]) {
-                view.hidden = ![self.detailItem.inventory.game isTF2];
-            } else if (view != self.killEaterLabel) {
-                view.hidden = NO;
-            }
-        }];
-
-        if ([self.detailItem.quantity intValue] > 1) {
-            self.quantityLabel.text = [NSString stringWithFormat:@"%@ x", self.detailItem.quantity];
-            self.quantityLabel.hidden = NO;
-        } else {
-            self.quantityLabel.hidden = YES;
-        }
+    if ([self.detailItem.quantity intValue] > 1) {
+        self.quantityLabel.text = [NSString stringWithFormat:@"%@ x", self.detailItem.quantity];
+        self.quantityLabel.hidden = NO;
     } else {
-        [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-            view.hidden = YES;
-        }];
+        self.quantityLabel.hidden = YES;
     }
 }
 
@@ -353,6 +369,11 @@
             [webView loadRequest:wikiRequest];
         }
     }
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
