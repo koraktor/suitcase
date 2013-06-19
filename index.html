@@ -1,0 +1,136 @@
+---
+layout: default
+title:  Suitcase – An iOS inventory viewer for Steam games
+---
+
+<div class="row-fluid">
+  <div class="span8">
+    <h1>Suitcase</h1>
+    <h2>An iOS inventory viewer for Steam games</h2>
+
+    <hr class="spacer">
+
+    <div class="row-fluid">
+      <h2>All games…</h2>
+      <div class="row-fluid">
+        <div class="span5">
+          <img alt="Games" class="screenshot" src="img/games.png">
+        </div>
+        <div class="span7 justified">
+          <p>
+            Supports all games that provide inventory information via Steam's
+            Web API. Currently these are the following games:
+          </p>
+
+          <ul>
+            <li>Counter-Strike: Global Offensive</li>
+            <li>Dota 2</li>
+            <li>Portal 2</li>
+            <li>Team Fortress 2</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <hr class="spacer">
+
+    <div class="row-fluid">
+      <h2>… all items…</h2>
+      <div class="row-fluid">
+        <div class="span5">
+          <img alt="Items" class="screenshot" src="img/items.png">
+        </div>
+        <div class="span7 justified">
+          <p>
+            Get a quick overview about all items in an inventory. All items
+            will be displayed with their name and an icon as known from the
+            games.
+          </p>
+
+          <p>
+            Additionally, you can see the quality of an item with a quick
+            glance at the (optional) colored halo around its icon.<sup>2</sup>
+          </p>
+
+          <p>Sort items by:</p>
+          <ul>
+            <li>Position in the inventory</li>
+            <li>Item name</li>
+            <li>Type of the item</li>
+            <li>Origin</li>
+            <li>Item quality</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <hr class="spacer">
+
+    <div class="row-fluid">
+      <h2>… all information</h2>
+      <div class="row-fluid">
+        <div class="span5 layered">
+          <img alt="Portal 2 – Snorkel" class="item" src="img/snorkel.png"><br>
+          <img alt="Team Fortress 2 – Noise Maker" class="item" src="img/noisemaker.png"><br>
+          <img alt="Item attributes" src="img/attributes.png"><br>
+          <img alt="Team Fortress 2 – Classes" src="img/classes.png">
+        </div>
+        <div class="span7 justified">
+          <p>
+            Get detailed information on every aspect of an item. See which type
+            an item is and where it wasa obtained from, read its full
+            description and all of its attributes.
+          </p>
+
+          <p>
+            Additionally, you will find the following useful information:
+          </p>
+          <ul>
+            <li>
+              Item sets
+              <p>See which item set, if any, an item belongs to.</p>
+            </li>
+            <li>
+              “Kill eater” ranks
+              <p>
+                Some items have a rank that increases with kills or other
+                actions completed with this item.
+              </p>
+            </li>
+            <li>
+              Equipped items<sup>2</sup>
+              <p>
+                Which class can equip an item? And which one actually has it
+                equipped at the moment?
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="span3 hidden-phone">
+    {% include appstore.html %}
+
+    <hr>
+
+    {% include twitter.html %}
+  </div>
+</div>
+
+<div class="row-fluid visible-phone">
+  <hr>
+  {% include appstore.html %}
+</div>
+
+<div class="row-fluid">
+  <div class="span8">
+    <hr class="spacer">
+
+    <sup>1</sup> Item names, descriptions and other attributes will be
+    displayed in the language set in your device preferences as far as
+    supported by the game's translation.<br>
+    <sup>2</sup> Currently, this is only supported for Team Fortress 2 and the
+    Team Fortress 2 beta.
+  </div>
+</div>

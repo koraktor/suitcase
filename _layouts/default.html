@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+    <title>{{page.title}}</title>
+    {% include google_analytics.html %}
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="span3 visible-desktop"></div>
+      <div class="span9">
+        {{content}}
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12" style="margin-left: 0">
+        <hr>
+
+        <p class="muted text-center">
+          © 2013 – Sebastian Staudt | <a href="http://koraktor.de">koraktor.de</a>
+          <span class="hidden-phone">|</span>
+          <a href="https://twitter.com/suitcaseapp">Twitter</a> |
+          <a href="https://plus.google.com/112550920854237410789" rel="publisher">Google+</a>
+        </p>
+
+        <p class="disclaimer muted text-center">
+          Valve, Steam, Counter-Strike, Dota, Portal, and Team Fortress are
+          trademarks and/or registered trademarks of Valve Corporation.<br>
+          Suitcase is not affiliated with Valve in any way.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
