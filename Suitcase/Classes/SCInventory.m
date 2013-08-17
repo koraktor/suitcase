@@ -13,6 +13,7 @@
 #import "SCItemCell.h"
 
 @interface SCInventory () {
+    NSDate *_timestamp;
     NSArray *_itemTypes;
     NSNumber *_steamId64;
     BOOL _successful;
@@ -170,6 +171,7 @@ static NSUInteger __inventoriesToLoad;
     _slots = slots;
     _steamId64 = steamId64;
     _successful = YES;
+    _timestamp = [NSDate date];
 
     NSNumber *showColors = [[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"];
     if (showColors == nil) {
@@ -213,6 +215,11 @@ static NSUInteger __inventoriesToLoad;
     return _successful;
 }
 
+- (BOOL)outdated
+{
+    return [_timestamp timeIntervalSinceNow] < -600;
+}
+
 - (void)reloadWithCondition:(NSCondition *)condition
 {
     AFJSONRequestOperation* inventoryOperation = [SCInventory inventoryOperationForSteamId64:_steamId64
@@ -233,6 +240,7 @@ static NSUInteger __inventoriesToLoad;
 
             _successful = YES;
             _temporaryFailed = NO;
+            _timestamp = [NSDate date];
         } else {
             NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [inventoryResponse objectForKey:@"statusDetail"]];
 #ifdef DEBUG

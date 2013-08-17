@@ -263,25 +263,25 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
 {
     if ([[segue identifier] isEqualToString:@"showInventory"]) {
         SCInventoryViewController *inventoryController = segue.destinationViewController;
-        if (_lastInventory == _currentInventory) {
+        if (_lastInventory == _currentInventory && ![_lastInventory outdated]) {
             inventoryController.inventory = _lastInventory;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadInventory" object:nil];
-        } else {
-            if ([_currentInventory temporaryFailed]) {
-                NSCondition *reloadCondition = [[NSCondition alloc] init];
-                [_currentInventory reloadWithCondition:reloadCondition];
-
-                [SCInventory setInventoriesToLoad:1];
-                [reloadCondition lock];
-                while ([SCInventory inventoriesToLoad] > 0) {
-                    [reloadCondition wait];
-                }
-                [reloadCondition unlock];
-                [self populateInventories];
-                [self.tableView reloadData];
-            }
-            inventoryController.inventory = _lastInventory = _currentInventory;
+            return;
         }
+        if ([_currentInventory temporaryFailed] || [_currentInventory outdated]) {
+            NSCondition *reloadCondition = [[NSCondition alloc] init];
+            [_currentInventory reloadWithCondition:reloadCondition];
+
+            [SCInventory setInventoriesToLoad:1];
+            [reloadCondition lock];
+            while ([SCInventory inventoriesToLoad] > 0) {
+                [reloadCondition wait];
+            }
+            [reloadCondition unlock];
+            [self populateInventories];
+            [self.tableView reloadData];
+        }
+        inventoryController.inventory = _lastInventory = _currentInventory;
     } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
         UINavigationController *navigationController = segue.destinationViewController;
         IASKAppSettingsViewController *settingsController = (IASKAppSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];
