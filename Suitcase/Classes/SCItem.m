@@ -115,7 +115,9 @@
             [attributes addObject:attribute];
         }
 
-        _attributes = [attributes copy];
+        _attributes = [attributes sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *attribute1, NSDictionary *attribute2) {
+            return [attribute1[@"defindex"] compare:attribute2[@"defindex"]];
+        }];
     }
 
     return _attributes;
