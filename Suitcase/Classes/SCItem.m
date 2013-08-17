@@ -28,33 +28,72 @@
 - (NSArray *)attributes {
     if (_attributes == nil) {
         NSArray *schemaAttributes = [self valueForKey:@"attributes"];
-        NSArray *itemAttributes = [self.dictionary objectForKey:@"attributes"];
-        NSUInteger attributeCount = [schemaAttributes count] + [itemAttributes count];
-        NSMutableArray *mergedAttributes = [NSMutableArray arrayWithCapacity:attributeCount];
-        [mergedAttributes addObjectsFromArray:schemaAttributes];
-        [mergedAttributes addObjectsFromArray:itemAttributes];
-        NSMutableArray *attributes = [NSMutableArray arrayWithCapacity:attributeCount];
+        NSArray *itemAttributes = self.dictionary[@"attributes"];
+
+        NSMutableDictionary *generalAttributes = [NSMutableDictionary dictionary];
+        [schemaAttributes enumerateObjectsUsingBlock:^(NSDictionary *attributeData, NSUInteger idx, BOOL *stop) {
+            NSObject *attributeKey = attributeData[@"defindex"];
+            if (attributeKey == nil) {
+                attributeKey = attributeData[@"name"];
+            }
+
+            if (attributeKey != nil) {
+                NSDictionary *schemaAttributeData = self.inventory.schema.attributes[attributeKey];
+                NSNumber *defindex = schemaAttributeData[@"defindex"];
+                NSMutableDictionary *attributes = [attributeData mutableCopy];
+                [attributes addEntriesFromDictionary:schemaAttributeData];
+                generalAttributes[defindex] = [attributes copy];
+            }
+        }];
+
+        NSMutableDictionary *specificAttributes = [NSMutableDictionary dictionary];
+        [itemAttributes enumerateObjectsUsingBlock:^(NSDictionary *attributeData, NSUInteger idx, BOOL *stop) {
+            NSObject *attributeKey = attributeData[@"defindex"];
+            if (attributeKey == nil) {
+                attributeKey = attributeData[@"name"];
+            }
+
+            if (attributeKey != nil) {
+                NSDictionary *schemaAttributeData = self.inventory.schema.attributes[attributeKey];
+                NSNumber *defindex = schemaAttributeData[@"defindex"];
+                NSMutableDictionary *attributes = [attributeData mutableCopy];
+                [attributes addEntriesFromDictionary:schemaAttributeData];
+                specificAttributes[defindex] = [attributes copy];
+            }
+        }];
+
+        NSMutableDictionary *attributesDictionary = [NSMutableDictionary dictionaryWithDictionary:generalAttributes];
+        [specificAttributes enumerateKeysAndObjectsUsingBlock:^(id defindex, NSDictionary *attribute, BOOL *stop) {
+            NSDictionary *currentAttribute = [attributesDictionary objectForKey:defindex];
+            if (currentAttribute == nil) {
+                [attributesDictionary setObject:attribute forKey:defindex];
+            } else {
+                NSMutableDictionary *newAttribute = [NSMutableDictionary dictionaryWithDictionary:currentAttribute];
+                [newAttribute addEntriesFromDictionary:attribute];
+                [attributesDictionary setObject:newAttribute forKey:defindex];
+            }
+        }];
+
+        NSArray *mergedAttributes = [attributesDictionary allValues];
+        NSMutableArray *attributes = [NSMutableArray arrayWithCapacity:[mergedAttributes count]];
 
         __block NSInteger killEaterScore = -1;
         __block NSUInteger killEaterTypeIndex = 0;
 
         [mergedAttributes enumerateObjectsUsingBlock:^(NSDictionary *itemAttribute, NSUInteger idx, BOOL *stop) {
-            if ([[itemAttribute objectForKey:@"defindex"] isEqual:[NSNumber numberWithInt:214]]) {
-                killEaterScore = [[itemAttribute objectForKey:@"value"] integerValue];
-            } else if ([[itemAttribute objectForKey:@"name"] isEqual:@"kill eater score type"]) {
-                killEaterTypeIndex = [[itemAttribute objectForKey:@"value"] integerValue];
+            if ([itemAttribute[@"defindex"] isEqual:[NSNumber numberWithInt:214]]) {
+                killEaterScore = [itemAttribute[@"value"] integerValue];
+            } else if ([itemAttribute[@"name"] isEqual:@"kill eater score type"]) {
+                killEaterTypeIndex = [itemAttribute[@"value"] integerValue];
             } else {
-                id attributeKey = [itemAttribute objectForKey:@"defindex"];
-                if (attributeKey == nil) {
-                    attributeKey = [itemAttribute objectForKey:@"name"];
-                }
-                if (attributeKey != nil) {
+                if (itemAttribute[@"defindex"] != nil) {
                     NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
-                    [attribute setValue:[itemAttribute objectForKey:@"account_info"] forKey:@"accountInfo"];
-                    [attribute setValue:[self.inventory.schema attributeValueFor:attributeKey andKey:@"description_string"] forKey:@"description"];
-                    [attribute setValue:[itemAttribute objectForKey:@"float_value"] forKey:@"floatValue"];
-                    [attribute setValue:[itemAttribute objectForKey:@"value"] forKey:@"value"];
-                    [attribute setValue:[self.inventory.schema attributeValueFor:attributeKey andKey:@"description_format"] forKey:@"valueFormat"];
+                    [attribute setValue:itemAttribute[@"defindex"] forKey:@"defindex"];
+                    [attribute setValue:itemAttribute[@"account_info"] forKey:@"accountInfo"];
+                    [attribute setValue:itemAttribute[@"description_string"] forKey:@"description"];
+                    [attribute setValue:itemAttribute[@"float_value"] forKey:@"floatValue"];
+                    [attribute setValue:itemAttribute[@"value"] forKey:@"value"];
+                    [attribute setValue:itemAttribute[@"description_format"] forKey:@"valueFormat"];
 
                     [attributes addObject:[attribute copy]];
                 }
@@ -64,13 +103,15 @@
         if (killEaterScore != -1) {
             NSDictionary *killEaterType = [self.inventory.schema killEaterTypeForIndex:[NSNumber numberWithUnsignedInteger:killEaterTypeIndex]];
             NSString *itemLevel = [self.inventory.schema itemLevelForScore:killEaterScore
-                                                              andLevelType:[killEaterType objectForKey:@"level_data"]
+                                                              andLevelType:killEaterType[@"level_data"]
                                                                andItemType:self.itemType];
 
             NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
-            [attribute setValue:[NSString stringWithFormat:@"%@\n%%s1 %@", itemLevel, [killEaterType objectForKey:@"type_name"]] forKey:@"description"];
-            [attribute setValue:[NSNumber numberWithInteger:killEaterScore] forKey:@"value"];
-            [attribute setValue:@"kill_eater" forKey:@"valueFormat"];
+            attribute[@"defindex"]    = @0;
+            attribute[@"description"] = [NSString stringWithFormat:@"%@\n%%s1 %@", itemLevel, killEaterType[@"type_name"]];
+            attribute[@"value"]       = [NSNumber numberWithInteger:killEaterScore];
+            attribute[@"valueFormat"] = @"kill_eater";
+
             [attributes addObject:attribute];
         }
 
