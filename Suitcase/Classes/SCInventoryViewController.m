@@ -76,12 +76,6 @@
 - (void)setInventory:(SCInventory *)inventory
 {
     _inventory = inventory;
-    self.detailViewController.detailItem = nil;
-
-    UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
-    if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
-        [(SCSteamIdFormController *)modal dismissForm:self];
-    }
 
     if ([_inventory.schema.items count] > 0) {
         [_inventory sortItems];
@@ -111,14 +105,23 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        self.detailViewController = (SCItemViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    }
+
     if (_inventory == nil) {
         [self.navigationController popViewControllerAnimated:NO];
     } else {
-        [super viewDidAppear:animated];
-    }
+        if (_inventory != self.detailViewController.detailItem.inventory) {
+            self.detailViewController.detailItem = nil;
+        }
 
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.detailViewController = (SCItemViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+        UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
+        if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
+            [(SCSteamIdFormController *)modal dismissForm:self];
+        }
+
+        [super viewDidAppear:animated];
     }
 }
 

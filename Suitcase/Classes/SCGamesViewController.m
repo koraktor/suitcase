@@ -24,6 +24,7 @@
     NSArray *_games;
     NSLock *_gamesLock;
     NSArray *_inventories;
+    SCInventory *_lastInventory;
 }
 @end
 
@@ -262,7 +263,8 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
 {
     if ([[segue identifier] isEqualToString:@"showInventory"]) {
         SCInventoryViewController *inventoryController = segue.destinationViewController;
-        if (inventoryController.inventory == _currentInventory) {
+        if (_lastInventory == _currentInventory) {
+            inventoryController.inventory = _lastInventory;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadInventory" object:nil];
         } else {
             if ([_currentInventory temporaryFailed]) {
@@ -278,7 +280,7 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
                 [self populateInventories];
                 [self.tableView reloadData];
             }
-            inventoryController.inventory = _currentInventory;
+            inventoryController.inventory = _lastInventory = _currentInventory;
         }
     } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
         UINavigationController *navigationController = segue.destinationViewController;
