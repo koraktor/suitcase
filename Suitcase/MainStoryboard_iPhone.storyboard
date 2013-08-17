@@ -299,8 +299,8 @@ http://steamcommunity.com/profile/{Profile ID}
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item description" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="KUr-nq-qlo">
-                                <rect key="frame" x="20" y="171" width="281" height="21"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="20" y="171" width="281" height="129"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>

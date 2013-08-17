@@ -121,8 +121,8 @@
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item description" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsFontSizeToFit="NO" id="vdU-Is-CfC">
-                                <rect key="frame" x="15" y="347" width="666" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="15" y="347" width="666" height="263"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
