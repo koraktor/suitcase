@@ -13,8 +13,6 @@
 #import "SCItemCell.h"
 
 static CGRect kImageViewFrame;
-static CGRect kimageViewFrameScaled;
-static CGSize kImageViewSize;
 static UIImage *kPlaceHolderImage;
 static CGRect kTextLabelFrame;
 
@@ -29,8 +27,6 @@ static CGRect kTextLabelFrame;
     CGSize iconSize = CGSizeMake(44.0, 44.0);
 
     kImageViewFrame = CGRectMake(0.0, 0.0, 44.0, 44.0);
-    kImageViewSize = CGSizeMake(44.0 * [[UIScreen mainScreen] scale], 44.0 * [[UIScreen mainScreen] scale]);
-    kimageViewFrameScaled = CGRectMake(0, 0, kImageViewSize.width, kImageViewSize.height);
     kPlaceHolderImage = [FontAwesomeKit imageForIcon:FAKIconBriefcase
                                            imageSize:iconSize
                                             fontSize:30.0
@@ -89,12 +85,7 @@ static CGRect kTextLabelFrame;
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[_item iconUrl]]
                           placeholderImage:kPlaceHolderImage
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       UIGraphicsBeginImageContext(kImageViewSize);
-                                       [image drawInRect:kimageViewFrameScaled];
-                                       UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-                                       UIGraphicsEndImageContext();
-
-                                       cell.imageView.image = scaledImage;
+                                       cell.imageView.image = image;
                                    }
                                    failure:nil];
 

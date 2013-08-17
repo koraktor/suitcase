@@ -14,8 +14,6 @@
 @implementation SCInventoryCell
 
 static CGRect kImageViewFrame;
-static CGRect kImageViewFrameScaled;
-static CGSize kImageViewSize;
 static CGRect kItemCountFrame;
 static UIImage *kPlaceHolderImage;
 static CGRect kTextLabelFrame;
@@ -23,8 +21,6 @@ static CGRect kTextLabelFrame;
 + (void)initialize
 {
     kImageViewFrame = CGRectMake(4.0, 4.0, 92.5, 34.5);
-    kImageViewSize = CGSizeMake(92.0 * [[UIScreen mainScreen] scale], 34.5 * [[UIScreen mainScreen] scale]);
-    kImageViewFrameScaled = CGRectMake(0.0, 0.0, kImageViewSize.width, kImageViewSize.height);
     kItemCountFrame = CGRectMake(100.5, 25.0, 218.0, 17.0);
     kPlaceHolderImage = [UIImage imageNamed:@"game_placeholder.png"];
     kTextLabelFrame = CGRectMake(100.5, 0.0, 219.5, 25.0);
@@ -63,12 +59,7 @@ static CGRect kTextLabelFrame;
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:_inventory.game.logoUrl]
                           placeholderImage:kPlaceHolderImage
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       UIGraphicsBeginImageContext(kImageViewSize);
-                                       [image drawInRect:kImageViewFrameScaled];
-                                       UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-                                       UIGraphicsEndImageContext();
-
-                                       cell.imageView.image = scaledImage;
+                                       cell.imageView.image = image;
                                    }
                                    failure:nil];
 }
