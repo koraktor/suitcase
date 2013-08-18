@@ -74,8 +74,11 @@ static NSUInteger kMaxImageSize;
                                        }
                                        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, imageWidth, imageHeight);
                                        imageView.image = image;
+                                       self.hidden = NO;
                                    }
-                                   failure:nil];
+                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                       self.hidden = YES;
+                                   }];
 }
 
 @end
