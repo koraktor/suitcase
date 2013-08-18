@@ -192,7 +192,12 @@
 }
 
 - (NSURL *)imageUrl {
-    return [NSURL URLWithString:[self valueForKey:@"image_url_large"]];
+    NSString *url = [self valueForKey:@"image_url_large"];
+    if ([url isEqualToString:@""]) {
+        return self.iconUrl;
+    }
+
+    return [NSURL URLWithString:url];
 }
 
 - (NSDictionary *)itemSet {
