@@ -242,8 +242,8 @@ static NSUInteger __inventoriesToLoad;
             _temporaryFailed = NO;
             _timestamp = [NSDate date];
         } else {
-            NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [inventoryResponse objectForKey:@"statusDetail"]];
 #ifdef DEBUG
+            NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [inventoryResponse objectForKey:@"statusDetail"]];
             NSLog(@"Loading inventory for game \"%@\" failed with error: %@", _game.name, errorMessage);
 #endif
             _successful = NO;
@@ -255,8 +255,8 @@ static NSUInteger __inventoriesToLoad;
         [condition signal];
         [condition unlock];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
 #ifdef DEBUG
+        NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
         NSLog(@"Loading inventory for game \"%@\" failed with error: %@", _game.name, errorMessage);
 #endif
 
