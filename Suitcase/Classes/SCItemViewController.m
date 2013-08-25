@@ -153,36 +153,34 @@ NSString *const kSCHours = @"kSCHours";
                 value = [numberFormatter stringFromNumber:numberValue];
             }
 
-            if (attributeDescription != nil) {
-                if (value != nil) {
-                    [attributeDescription replaceOccurrencesOfString:@"%s1"
-                                                          withString:value
-                                                             options:NSLiteralSearch
-                                                               range:NSMakeRange(0, [attributeDescription length])];
-                }
+            if (value != nil) {
+                [attributeDescription replaceOccurrencesOfString:@"%s1"
+                                                      withString:value
+                                                         options:NSLiteralSearch
+                                                           range:NSMakeRange(0, [attributeDescription length])];
+            }
 
-                if ([valueFormat isEqual:@"kill_eater"]) {
-                    self.killEaterLabel.text = attributeDescription;
-                    CGRect currentFrame = self.killEaterLabel.frame;
-                    CGSize maxFrame = CGSizeMake(currentFrame.size.width, 500);
-                    CGSize expectedFrame = [attributeDescription sizeWithFont:self.killEaterLabel.font
-                                                            constrainedToSize:maxFrame
-                                                                lineBreakMode:self.killEaterLabel.lineBreakMode];
-                    currentFrame.size.height = expectedFrame.height;
-                    self.killEaterLabel.frame = currentFrame;
-                    self.killEaterLabel.hidden = NO;
-                    self.killEaterIcon.alpha = 1.0;
-                } else {
-                    if ([descriptionLabelText length] > 0) {
-                        if (firstAttribute) {
-                            [descriptionLabelText appendString:@"\n"];
-                        }
+            if ([valueFormat isEqual:@"kill_eater"]) {
+                self.killEaterLabel.text = attributeDescription;
+                CGRect currentFrame = self.killEaterLabel.frame;
+                CGSize maxFrame = CGSizeMake(currentFrame.size.width, 500);
+                CGSize expectedFrame = [attributeDescription sizeWithFont:self.killEaterLabel.font
+                                                        constrainedToSize:maxFrame
+                                                            lineBreakMode:self.killEaterLabel.lineBreakMode];
+                currentFrame.size.height = expectedFrame.height;
+                self.killEaterLabel.frame = currentFrame;
+                self.killEaterLabel.hidden = NO;
+                self.killEaterIcon.alpha = 1.0;
+            } else {
+                if ([descriptionLabelText length] > 0) {
+                    if (firstAttribute) {
                         [descriptionLabelText appendString:@"\n"];
                     }
-
-                    [descriptionLabelText appendString:attributeDescription];
-                    firstAttribute = NO;
+                    [descriptionLabelText appendString:@"\n"];
                 }
+
+                [descriptionLabelText appendString:attributeDescription];
+                firstAttribute = NO;
             }
         }
     }];
