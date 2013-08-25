@@ -9,6 +9,8 @@
 "kSCAvailableGamesErrorTitle"   = "Fehler beim Laden der verfügbaren Spiele";
 "kSCGamesErrorMessage"          = "Spiele des Benutzers konnten nicht geladen werden:\n%@\n\nDu kannst es entweder erneut versuchen oder einen anderen Benutzer auswählen.";
 "kSCGamesErrorTitle"            = "Fehler beim Laden der Spiele dieses Benutzers";
+"kSCHour"                       = "%d Stunde";
+"kSCHours"                      = "%d Stunden";
 "kSCInventoryError"             = "Fehler beim Laden des Inventars: %@";
 "kSCResolveSteamIdErrorMessage" = "Beim Auflösen der Steam ID ist ein Fehler aufgetreten: %@";
 "kSCResolveSteamIdErrorTitle"   = "Nicht gefunden";

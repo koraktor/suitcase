@@ -20,6 +20,9 @@
 
 @implementation SCItemViewController
 
+NSString *const kSCHour = @"kSCHour";
+NSString *const kSCHours = @"kSCHours";
+
 - (void)awakeFromNib
 {
     self.navigationItem.rightBarButtonItem = nil;
@@ -132,6 +135,10 @@
                 }
                 numberValue = [NSNumber numberWithDouble:(1 - [numberValue doubleValue]) * 100];
                 value = [numberFormatter stringFromNumber:numberValue];
+            } else if ([valueFormat isEqualToString:@"value_is_mins_as_hours"]) {
+                int hours = [(NSNumber *)attribute[@"floatValue"] floatValue] / 60;
+                NSString *formatString = (hours == 1) ? NSLocalizedString(kSCHour, kSCHour) : NSLocalizedString(kSCHours, kSCHours);
+                value = [NSString stringWithFormat:formatString, hours];
             } else if ([valueFormat isEqual:@"value_is_particle_index"]) {
                 value = [self.detailItem.inventory.schema effectNameForIndex:[attribute objectForKey:@"value"]];
                 if (value == nil) {
