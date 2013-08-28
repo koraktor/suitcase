@@ -22,7 +22,7 @@ static CGRect kTextLabelFrame;
 {
     NSDictionary *iconAttributes = @{
         FAKImageAttributeRect: [NSValue valueWithCGRect:CGRectMake(7.0, 7.0, 44.0, 44.0)],
-        FAKImageAttributeForegroundColor: UIColor.whiteColor
+        FAKImageAttributeForegroundColor: UIColor.lightGrayColor
     };
     CGSize iconSize = CGSizeMake(44.0, 44.0);
 
