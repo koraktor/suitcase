@@ -53,8 +53,9 @@ NSString *const kSCHours = @"kSCHours";
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
 
-        // Update the view.
-        [self configureView];
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            [self configureView];
+        }
     }
 
     if (self.masterPopoverController != nil) {
@@ -287,8 +288,6 @@ NSString *const kSCHours = @"kSCHours";
 
     self.quantityLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.quantityLabel.layer.borderWidth = [[UIScreen mainScreen] scale];
-
-    [self configureView];
 }
 
 - (void)viewDidUnload
@@ -315,6 +314,10 @@ NSString *const kSCHours = @"kSCHours";
     [self setKillEaterIcon:nil];
 
     [super viewDidUnload];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self configureView];
 }
 
 #pragma mark - Split view
