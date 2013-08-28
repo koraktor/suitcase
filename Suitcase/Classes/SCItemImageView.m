@@ -52,7 +52,7 @@ static NSUInteger kMaxImageSize;
         imageView = [self.subviews objectAtIndex:0];
     }
 
-    imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
 
     return imageView;
 }
@@ -64,16 +64,14 @@ static NSUInteger kMaxImageSize;
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url]
                           placeholderImage:nil
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       NSUInteger imageHeight = image.size.height;
-                                       NSUInteger imageWidth  = image.size.width;
-                                       if (imageWidth > kMaxImageSize) {
-                                           imageHeight = round((double) imageHeight * ((double) kMaxImageSize / imageWidth));
-                                           imageWidth  = kMaxImageSize;
-                                       } else {
-                                           imageHeight = MIN(imageHeight, kMaxImageSize);
-                                       }
-                                       self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, imageWidth, imageHeight);
+                                       CGFloat factor = (double) kMaxImageSize / image.size.width;
+                                       self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y,
+                                                               kMaxImageSize + 2 * self.layer.borderWidth,
+                                                               factor * image.size.height + 2 * self.layer.borderWidth);
                                        imageView.image = image;
+                                       imageView.frame = CGRectMake(self.layer.borderWidth, self.layer.borderWidth,
+                                                                    self.frame.size.width - 2 * self.layer.borderWidth,
+                                                                    self.frame.size.height - 2 * self.layer.borderWidth);
                                        self.hidden = NO;
                                    }
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
