@@ -31,6 +31,11 @@ static NSUInteger kMaxImageSize;
         self.layer.shadowOffset = CGSizeMake(0.0, 0.0);
         self.layer.shadowOpacity = 1.0;
         self.layer.shadowRadius = 1.5;
+
+        self.frame = CGRectMake(self.frame.origin.x - self.layer.borderWidth,
+                                self.frame.origin.y + self.layer.borderWidth,
+                                kMaxImageSize + 2 * self.layer.borderWidth,
+                                kMaxImageSize + 2 * self.layer.borderWidth);
     }
 
     return self;
