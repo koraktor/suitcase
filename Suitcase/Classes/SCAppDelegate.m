@@ -69,9 +69,11 @@ static SCWebApiHTTPClient *_webApiClient;
         masterViewController = navigationController.topViewController;
     }
 
-    UIImage *barGradientImage = [UIImage imageNamed:@"bar_gradient"];
-    [[UINavigationBar appearance] setBackgroundImage:barGradientImage forBarMetrics:UIBarMetricsDefault];
-    [[UIToolbar appearance] setBackgroundImage:barGradientImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        UIImage *barGradientImage = [UIImage imageNamed:@"bar_gradient"];
+        [[UINavigationBar appearance] setBackgroundImage:barGradientImage forBarMetrics:UIBarMetricsDefault];
+        [[UIToolbar appearance] setBackgroundImage:barGradientImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    }
 
     NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     if (steamId64 == nil) {
