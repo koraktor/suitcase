@@ -13,7 +13,9 @@
 
 - (void)awakeFromNib
 {
-    [BPBarButtonItem customizeBarButtonItem:self.navigationItem.leftBarButtonItem withStyle:BPBarButtonItemStyleAction];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        [BPBarButtonItem customizeBarButtonItem:self.navigationItem.leftBarButtonItem withStyle:BPBarButtonItemStyleAction];
+    }
 
     [super awakeFromNib];
 }

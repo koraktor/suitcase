@@ -30,9 +30,10 @@
     [self.backButton setTitleTextAttributes:@{UITextAttributeFont:fontAwesome} forState:UIControlStateNormal];
     [BPBarButtonItem customizeBarButtonItem:self.backButton withStyle:BPBarButtonItemStyleStandardDark];
 
-    self.forwardButton.title = [[FAKFontAwesome arrowRightIconWithSize:0.0] characterCode];
-    [self.forwardButton setTitleTextAttributes:@{UITextAttributeFont:fontAwesome} forState:UIControlStateNormal];
-    [BPBarButtonItem customizeBarButtonItem:self.forwardButton withStyle:BPBarButtonItemStyleStandardDark];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        [BPBarButtonItem customizeBarButtonItem:self.backButton withStyle:BPBarButtonItemStyleStandardDark];
+        [BPBarButtonItem customizeBarButtonItem:self.forwardButton withStyle:BPBarButtonItemStyleStandardDark];
+    }
 
     [super awakeFromNib];
 }

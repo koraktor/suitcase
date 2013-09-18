@@ -31,7 +31,10 @@ NSString *const kSCHours = @"kSCHours";
     self.wikiButton.title = [NSString stringWithFormat:@" %@ ", [bookIcon characterCode]];
     [self.wikiButton setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
                                       forState:UIControlStateNormal];
-    [BPBarButtonItem customizeBarButtonItem:self.wikiButton withStyle:BPBarButtonItemStyleStandardDark];
+
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        [BPBarButtonItem customizeBarButtonItem:self.wikiButton withStyle:BPBarButtonItemStyleStandardDark];
+    }
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         [[NSNotificationCenter defaultCenter] addObserver:self

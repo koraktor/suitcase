@@ -20,7 +20,9 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
 
 - (void)awakeFromNib
 {
-    [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withTintColor:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:1.0]];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withTintColor:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:1.0]];
+    }
 
     [super awakeFromNib];
 }
