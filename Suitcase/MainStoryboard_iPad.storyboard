@@ -318,10 +318,9 @@ Kill eater score</string>
         <!--Split View Controller-->
         <scene sceneID="18">
             <objects>
-                <splitViewController id="5" sceneMemberID="viewController">
+                <splitViewController id="5" customClass="SCSplitViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="9eW-5v-mUQ"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <segue destination="3" kind="relationship" relationship="masterViewController" id="9"/>
                         <segue destination="42" kind="relationship" relationship="detailViewController" id="51"/>

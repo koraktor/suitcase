@@ -107,6 +107,7 @@
 		02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BAAB5F17BFAE1E004E635F /* Security.framework */; };
 		02DDB4861582A9E0004DB9D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DDB4851582A9E0004DB9D8 /* QuartzCore.framework */; };
 		02EC921E1889FEAA00CC268C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02EC921D1889FEAA00CC268C /* Images.xcassets */; };
+		02F36DF81826AC3C0036D1C6 /* SCSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F36DF71826AC3C0036D1C6 /* SCSplitViewController.m */; };
 		02F37EC41580152300BFB1B5 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F37EC31580152300BFB1B5 /* CoreText.framework */; };
 /* End PBXBuildFile section */
 
@@ -271,6 +272,8 @@
 		029B08F3159261A600BD6271 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		02BAAB5F17BFAE1E004E635F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		02DDB4851582A9E0004DB9D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		02F36DF61826AC3C0036D1C6 /* SCSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSplitViewController.h; path = Classes/SCSplitViewController.h; sourceTree = "<group>"; };
+		02F36DF71826AC3C0036D1C6 /* SCSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSplitViewController.m; path = Classes/SCSplitViewController.m; sourceTree = "<group>"; };
 		02EC921D1889FEAA00CC268C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		02F37EC31580152300BFB1B5 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -413,6 +416,8 @@
 				0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */,
 				0250CBD91693C8D100B20A6F /* SCWikiViewController.h */,
 				0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */,
+				02F36DF61826AC3C0036D1C6 /* SCSplitViewController.h */,
+				02F36DF71826AC3C0036D1C6 /* SCSplitViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -890,6 +895,7 @@
 				02010B78169E9CA000007456 /* IASKSwitch.m in Sources */,
 				02010B79169E9CA000007456 /* IASKTextField.m in Sources */,
 				02010B8A169E9CDA00007456 /* TTTAttributedLabel.m in Sources */,
+				02F36DF81826AC3C0036D1C6 /* SCSplitViewController.m in Sources */,
 				026EE9F71748B45600FB8484 /* BPBarButtonItem.m in Sources */,
 				0253608018334BDE0019D250 /* HexColor.m in Sources */,
 				0238B35A1756AD5600284204 /* SCInventory.m in Sources */,
