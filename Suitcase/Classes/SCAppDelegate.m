@@ -7,6 +7,7 @@
 
 #import "AFNetworkActivityIndicatorManager.h"
 #import "TSMessage.h"
+#import "IASKSpecifierValuesViewController.h"
 
 #import "SCAppDelegate.h"
 
@@ -45,6 +46,21 @@ static SCWebApiHTTPClient *_webApiClient;
     return _webApiClient;
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    UINavigationController *navigationController;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        navigationController = ((UISplitViewController *)self.window.rootViewController).viewControllers[0];
+    } else {
+        navigationController = (UINavigationController *)self.window.rootViewController;
+    }
+
+    NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
+    if (steamId64 == nil) {
+        [navigationController.topViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
+    }
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:5000000 diskCapacity:50000000 diskPath:nil];
@@ -64,21 +80,25 @@ static SCWebApiHTTPClient *_webApiClient;
         splitViewController.delegate = (id)navigationController.topViewController;
         masterViewController = [[splitViewController.viewControllers objectAtIndex:0] topViewController];
     } else {
-        [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
         navigationController = (UINavigationController *)self.window.rootViewController;
         masterViewController = navigationController.topViewController;
     }
 
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+
         UIImage *barGradientImage = [UIImage imageNamed:@"bar_gradient"];
         [[UINavigationBar appearance] setBackgroundImage:barGradientImage forBarMetrics:UIBarMetricsDefault];
         [[UIToolbar appearance] setBackgroundImage:barGradientImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    } else {
+        //[[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.4 alpha:0.5]];
+
+        //[[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.3 alpha:0.5]];
+        //[[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.4 alpha:0.5]];
     }
 
     NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
-    if (steamId64 == nil) {
-        [masterViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
-    } else {
+    if (steamId64 != nil) {
         if ([masterViewController class] == NSClassFromString(@"SCGamesViewController")) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loadGames" object:nil];
         } else {
@@ -125,6 +145,16 @@ static SCWebApiHTTPClient *_webApiClient;
         [defaultCenter postNotificationName:@"refreshInventory" object:nil];
     } else if (![[defaults objectForKey:@"sorting"] isEqual:[_storedDefaults objectForKey:@"sorting"]]) {
         [defaultCenter postNotificationName:@"sortInventory" object:nil];
+    }
+}
+
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated
+{
+    if ([viewController isKindOfClass:[IASKSpecifierValuesViewController class]]) {
+        UITableView *tableView = (UITableView *)viewController.view;
+        tableView.backgroundColor = [UIColor colorWithRed:0.3647 green:0.4235 blue:0.4706 alpha:1.0];
     }
 }
 

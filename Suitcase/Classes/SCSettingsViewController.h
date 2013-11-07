@@ -7,7 +7,7 @@
 
 #import "IASKAppSettingsViewController.h"
 
-@interface SCSettingsViewController : IASKAppSettingsViewController
+@interface SCSettingsViewController : IASKAppSettingsViewController <IASKSettingsDelegate>
 
 - (IBAction)dismissSettings:(id)sender;
 

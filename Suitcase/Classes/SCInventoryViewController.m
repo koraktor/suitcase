@@ -101,11 +101,6 @@
     });
 }
 
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
-{
-    [sender.parentViewController dismissModalViewControllerAnimated:YES];
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -164,7 +159,6 @@
         UINavigationController *navigationController = segue.destinationViewController;
         SCSettingsViewController *settingsController = (SCSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];
         settingsController.title = NSLocalizedString(@"Settings", @"Settings");
-        settingsController.delegate = self;
         settingsController.showCreditsFooter = NO;
         settingsController.showDoneButton = NO;
     }

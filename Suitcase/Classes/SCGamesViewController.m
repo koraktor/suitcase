@@ -314,7 +314,6 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
         UINavigationController *navigationController = segue.destinationViewController;
         IASKAppSettingsViewController *settingsController = (IASKAppSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];
         settingsController.title = NSLocalizedString(@"Settings", @"Settings");
-        settingsController.delegate = self;
         settingsController.showCreditsFooter = NO;
         settingsController.showDoneButton = NO;
     }
