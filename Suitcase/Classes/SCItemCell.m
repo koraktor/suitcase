@@ -37,9 +37,11 @@ static CGRect kTextLabelFrame;
     self.imageView.layer.shadowOpacity = 1.0;
     self.imageView.layer.shadowRadius = 4.0;
 
-    UIView *selectionView = [[UIView alloc] initWithFrame:self.frame];
-    selectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cell_selection_gradient"]];
-    self.selectedBackgroundView = selectionView;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        UIView *selectionView = [[UIView alloc] initWithFrame:self.frame];
+        selectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cell_selection_gradient"]];
+        self.selectedBackgroundView = selectionView;
+    }
 
     return self;
 }
@@ -68,7 +70,9 @@ static CGRect kTextLabelFrame;
 
 - (void)layoutSubviews
 {
-    [super layoutSubviews];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        [super layoutSubviews];
+    }
 
     self.imageView.frame = kImageViewFrame;
     self.textLabel.frame = kTextLabelFrame;
