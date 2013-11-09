@@ -53,7 +53,8 @@ static NSMutableDictionary *__schemas;
     AFJSONRequestOperation *schemaOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", appId]
                                                                                           andMethod:@"GetSchema"
                                                                                          andVersion:1
-                                                                                     withParameters:params];
+                                                                                     withParameters:params
+                                                                                            encoded:NO];
     [schemaOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [condition lock];
         NSDictionary *schemaResponse = [responseObject objectForKey:@"result"];

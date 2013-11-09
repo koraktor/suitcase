@@ -72,7 +72,8 @@ static NSUInteger __inventoriesToLoad;
     return [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", game.appId]
                                                        andMethod:@"GetPlayerItems"
                                                       andVersion:1
-                                                  withParameters:params];
+                                                  withParameters:params
+                                                         encoded:NO];
 }
 
 + (AFJSONRequestOperation *)inventoryForSteamId64:(NSNumber *)steamId64

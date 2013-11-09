@@ -13,6 +13,7 @@
 - (AFJSONRequestOperation *)jsonRequestForInterface:(NSString *)interface
                                           andMethod:(NSString *)method
                                          andVersion:(NSUInteger)version
-                                     withParameters:(NSDictionary *)parameters;
+                                     withParameters:(NSDictionary *)parameters
+                                            encoded:(BOOL)encoded;
 
 @end

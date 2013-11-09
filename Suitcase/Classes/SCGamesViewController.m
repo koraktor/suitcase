@@ -90,7 +90,8 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
     AFJSONRequestOperation *apiListOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:@"ISteamWebAPIUtil"
                                                                                            andMethod:@"GetSupportedAPIList"
                                                                                           andVersion:1
-                                                                                      withParameters:nil];
+                                                                                      withParameters:nil
+                                                                                             encoded:NO];
     [apiListOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *apiListResponse = [responseObject objectForKey:@"apilist"];
         NSArray *interfaces = [apiListResponse objectForKey:@"interfaces"];
@@ -117,7 +118,7 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
         alertView.tag = kSCAvailableGamesErrorView;
         [alertView show];
     }];
-    [_availableGamesLock tryLock];
+    [_availableGamesLock lock];
     [apiListOperation start];
 }
 
@@ -131,12 +132,28 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
         [modal dismissModalViewControllerAnimated:YES];
     }
 
+    [NSThread detachNewThreadSelector:@selector(doLoadGames) toTarget:self withObject:nil];
+}
+
+- (void)doLoadGames
+{
+    [_availableGamesLock lock];
+
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
-    NSDictionary *params = @{@"steamId": steamId64, @"include_appinfo": @1, @"include_played_free_games": @1};
+    NSDictionary *params = @{
+        @"appids_filter": _availableGames,
+        @"steamId": steamId64,
+        @"include_appinfo": @1,
+        @"include_played_free_games": @1
+    };
+
+    [_availableGamesLock unlock];
+
     AFJSONRequestOperation *gamesOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:@"IPlayerService"
-                                                                                          andMethod:@"GetOwnedGames"
-                                                                                         andVersion:1
-                                                                                     withParameters:params];
+                                                                                         andMethod:@"GetOwnedGames"
+                                                                                        andVersion:1
+                                                                                    withParameters:params
+                                                                                           encoded:YES];
     [gamesOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *gamesResponse = [responseObject objectForKey:@"response"];
         NSArray *games = [gamesResponse objectForKey:@"games"];
@@ -164,8 +181,11 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
         alertView.tag = kSCGamesErrorView;
         [alertView show];
     }];
-    [_gamesLock tryLock];
-    [gamesOperation start];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_gamesLock lock];
+        [gamesOperation start];
+    });
 }
 
 - (void)populateInventories
@@ -211,16 +231,12 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
 
 - (void)populateGames:(NSArray *)games
 {
-    [_gamesLock lock];
-
     _games = [NSMutableArray array];
-    [_availableGamesLock lock];
     [games enumerateObjectsUsingBlock:^(SCGame *game, NSUInteger idx, BOOL *stop) {
         if ([_availableGames containsObject:game.appId]) {
             [(NSMutableArray *)_games addObject:game];
         }
     }];
-    [_availableGamesLock unlock];
     _games = [_games sortedArrayUsingComparator:^NSComparisonResult(SCGame *game1, SCGame *game2) {
         return [game1.name compare:game2.name];
     }];
@@ -242,8 +258,6 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
             [inventoryOperation start];
         }
     }
-
-    [_gamesLock unlock];
 
     [inventoriesCondition lock];
     while ([SCInventory inventoriesToLoad] > 0) {

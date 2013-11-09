@@ -50,7 +50,8 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
         AFJSONRequestOperation *operation = [[SCAppDelegate webApiClient] jsonRequestForInterface:@"ISteamUser"
                                                                                         andMethod:@"ResolveVanityURL"
                                                                                        andVersion:1
-                                                                                   withParameters:params];
+                                                                                   withParameters:params
+                                                                                          encoded:NO];
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *steamIdResponse = [responseObject objectForKey:@"response"];
             if ([[steamIdResponse objectForKey:@"success"] isEqualToNumber:[NSNumber numberWithInt:1]]) {

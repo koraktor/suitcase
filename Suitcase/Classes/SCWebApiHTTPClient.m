@@ -32,10 +32,23 @@
                                           andMethod:(NSString *)method
                                          andVersion:(NSUInteger)version
                                      withParameters:(NSDictionary *)parameters
+                                            encoded:(BOOL)encoded
 {
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+
+    if (encoded) {
+        if (parameters != nil) {
+            NSError *error;
+            NSData *inputJson = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:&error];
+            [params setObject:[[NSString alloc] initWithData:inputJson encoding:NSUTF8StringEncoding] forKey:@"input_json"];
+        }
+    } else {
+        [params addEntriesFromDictionary:parameters];
+    }
+
     [params setObject:__API_KEY__ forKey:@"key"];
     NSString *path = [NSString stringWithFormat:@"%@/%@/v%04d", interface, method, version];
+    self.stringEncoding = NSUTF8StringEncoding;
     NSURLRequest *request = [self requestWithMethod:@"GET"
                                                path:path
                                          parameters:[params copy]];
