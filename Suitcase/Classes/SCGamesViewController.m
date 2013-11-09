@@ -430,6 +430,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 {
     SCInventory *inventory = [_inventories objectAtIndex:indexPath.row];
     SCInventoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InventoryCell"];
+    cell.backgroundColor = [UIColor clearColor];
     cell.inventory = inventory;
     [cell loadImage];
 
