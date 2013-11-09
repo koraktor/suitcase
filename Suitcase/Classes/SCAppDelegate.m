@@ -22,7 +22,7 @@
 
 @implementation SCAppDelegate
 
-static SCWebApiHTTPClient *_webApiClient;
+static SCWebApiRequestOperationManager *_webApiClient;
 
 + (void)errorWithMessage:(NSString *)errorMessage
 {
@@ -37,10 +37,10 @@ static SCWebApiHTTPClient *_webApiClient;
     [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
 }
 
-+ (SCWebApiHTTPClient *)webApiClient
++ (SCWebApiRequestOperationManager *)webApiClient
 {
     if (_webApiClient == nil) {
-        _webApiClient = [[SCWebApiHTTPClient alloc] init];
+        _webApiClient = [[SCWebApiRequestOperationManager alloc] init];
     }
 
     return _webApiClient;

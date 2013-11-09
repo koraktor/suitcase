@@ -25,7 +25,7 @@ static NSMutableDictionary *__schemas;
     return [__schemas copy];
 }
 
-+ (AFJSONRequestOperation *)schemaOperationForInventory:(SCInventory *)inventory
++ (AFHTTPRequestOperation *)schemaOperationForInventory:(SCInventory *)inventory
                                             andLanguage:(NSString *)language
 {
     if (__schemas == nil) {
@@ -51,7 +51,7 @@ static NSMutableDictionary *__schemas;
     }
 
     NSDictionary *params = [NSDictionary dictionaryWithObject:language forKey:@"language"];
-    AFJSONRequestOperation *schemaOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", appId]
+    AFHTTPRequestOperation *schemaOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", appId]
                                                                                           andMethod:@"GetSchema"
                                                                                          andVersion:version
                                                                                      withParameters:params
@@ -77,8 +77,7 @@ static NSMutableDictionary *__schemas;
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
     }];
-    [schemaOperation setFailureCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-    [schemaOperation setSuccessCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    schemaOperation.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
     return schemaOperation;
 }

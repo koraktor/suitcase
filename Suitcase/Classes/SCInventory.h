@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AFJSONRequestOperation.h"
+#import "AFHTTPRequestOperation.h"
 
 #import "SCGame.h"
 
@@ -27,7 +27,7 @@
 + (void)decreaseInventoriesToLoad;
 + (NSDictionary *)inventories;
 + (NSUInteger)inventoriesToLoad;
-+ (AFJSONRequestOperation *)inventoryForSteamId64:(NSNumber *)steamId64
++ (AFHTTPRequestOperation *)inventoryForSteamId64:(NSNumber *)steamId64
                                           andGame:(SCGame *)game
                                      andCondition:(NSCondition *)condition;
 + (void)setInventoriesToLoad:(NSUInteger)count;

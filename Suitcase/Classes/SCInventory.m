@@ -65,7 +65,7 @@ static NSUInteger __inventoriesToLoad;
     return __inventoriesToLoad;
 }
 
-+ (AFJSONRequestOperation *)inventoryOperationForSteamId64:(NSNumber *)steamId64
++ (AFHTTPRequestOperation *)inventoryOperationForSteamId64:(NSNumber *)steamId64
                                                    andGame:(SCGame *)game
 {
     NSDictionary *params = [NSDictionary dictionaryWithObject:steamId64 forKey:@"steamid"];
@@ -76,7 +76,7 @@ static NSUInteger __inventoriesToLoad;
                                                          encoded:NO];
 }
 
-+ (AFJSONRequestOperation *)inventoryForSteamId64:(NSNumber *)steamId64
++ (AFHTTPRequestOperation *)inventoryForSteamId64:(NSNumber *)steamId64
                                           andGame:(SCGame *)game
                                      andCondition:(NSCondition *)condition
 {
@@ -93,7 +93,7 @@ static NSUInteger __inventoriesToLoad;
     }
     __block NSMutableDictionary *userInventories = [__inventories objectForKey:steamId64];
 
-    AFJSONRequestOperation *inventoryOperation = [SCInventory inventoryOperationForSteamId64:steamId64
+    AFHTTPRequestOperation *inventoryOperation = [SCInventory inventoryOperationForSteamId64:steamId64
                                                                                      andGame:game];
     [inventoryOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *inventoryResponse = [responseObject objectForKey:@"result"];
@@ -186,7 +186,7 @@ static NSUInteger __inventoriesToLoad;
 
 - (void)loadSchema
 {
-    AFJSONRequestOperation *schemaOperation = [SCSchema schemaOperationForInventory:self
+    AFHTTPRequestOperation *schemaOperation = [SCSchema schemaOperationForInventory:self
                                                                         andLanguage:[[NSLocale preferredLanguages] objectAtIndex:0]];
     if (schemaOperation != nil) {
         [schemaOperation start];
@@ -213,9 +213,9 @@ static NSUInteger __inventoriesToLoad;
 
 - (void)reload
 {
-    AFJSONRequestOperation* inventoryOperation = [SCInventory inventoryOperationForSteamId64:_steamId64
+    AFHTTPRequestOperation* inventoryOperation = [SCInventory inventoryOperationForSteamId64:_steamId64
                                                                             andGame:_game];
-    [inventoryOperation setFailureCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    inventoryOperation.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
     NSCondition *condition = [[NSCondition alloc] init];
     [inventoryOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {

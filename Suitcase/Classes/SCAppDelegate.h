@@ -7,13 +7,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SCWebApiHTTPClient.h"
+#import "SCWebApiRequestOperationManager.h"
 
 @interface SCAppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-+ (SCWebApiHTTPClient *)webApiClient;
++ (SCWebApiRequestOperationManager *)webApiClient;
 + (void)errorWithMessage:(NSString *)errorMessage;
 
 - (void)defaultsChanged:(NSNotification *)notification;

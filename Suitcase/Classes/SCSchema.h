@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AFJSONRequestOperation.h"
+#import "AFHTTPRequestOperation.h"
 
 #import "SCInventory.h"
 
@@ -25,7 +25,7 @@
 
 + (SCSchema *)brokenSchema;
 + (NSDictionary *)schemas;
-+ (AFJSONRequestOperation *)schemaOperationForInventory:(SCInventory *)inventory
++ (AFHTTPRequestOperation *)schemaOperationForInventory:(SCInventory *)inventory
                                             andLanguage:(NSString *)language;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;

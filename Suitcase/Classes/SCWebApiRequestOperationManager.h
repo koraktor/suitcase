@@ -1,16 +1,15 @@
 //
-//  SCWebApiHTTPClient.h
+//  SCWebApiAFHTTPRequestOperationManager.h
 //  Suitcase
 //
 //  Copyright (c) 2013, Sebastian Staudt
 //
 
-#import "AFHTTPClient.h"
-#import "AFJSONRequestOperation.h"
+#import "AFHTTPRequestOperationManager.h"
 
-@interface SCWebApiHTTPClient : AFHTTPClient
+@interface SCWebApiRequestOperationManager : AFHTTPRequestOperationManager
 
-- (AFJSONRequestOperation *)jsonRequestForInterface:(NSString *)interface
+- (AFHTTPRequestOperation *)jsonRequestForInterface:(NSString *)interface
                                           andMethod:(NSString *)method
                                          andVersion:(NSUInteger)version
                                      withParameters:(NSDictionary *)parameters
