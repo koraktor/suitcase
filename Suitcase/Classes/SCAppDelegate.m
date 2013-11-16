@@ -7,7 +7,7 @@
 
 #import "AFNetworkActivityIndicatorManager.h"
 #import "FontAwesomeKit.h"
-#import "YRDropdownView.h"
+#import "TSMessage.h"
 
 #import "SCAppDelegate.h"
 
@@ -54,6 +54,8 @@ static SCWebApiHTTPClient *_webApiClient;
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadAvailableGames" object:nil];
+
+    [TSMessage addCustomDesignFromFileWithName:@"TSMessagesDesign.json"];
 
     UIViewController *masterViewController;
     UINavigationController *navigationController;

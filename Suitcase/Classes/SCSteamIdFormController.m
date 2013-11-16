@@ -7,7 +7,7 @@
 
 #import "BPBarButtonItem.h"
 #import "FontAwesomeKit.h"
-#import "YRDropdownView.h"
+#import "TSMessage.h"
 
 #import "SCSteamIdFormController.h"
 
@@ -76,23 +76,17 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
                                                   fontSize:46
                                                 attributes:iconAttributes];
 
-                YRDropdownView *errorView = [YRDropdownView dropdownInView:self.view
-                                                                     title:NSLocalizedString(kSCResolveSteamIdErrorTitle, kSCResolveSteamIdErrorTitle)
-                                                                    detail:errorMessage
-                                                             accessoryView:image
-                                                                  animated:YES];
-                [errorView setBackgroundColors:@[
-                 [UIColor colorWithRed:0.5 green:0.0 blue:0.0 alpha:1.0],
-                 [UIColor colorWithRed:0.4 green:0.0 blue:0.0 alpha:1.0]
-                 ]];
-                [errorView setTextColor:[UIColor lightGrayColor]];
-                [errorView setTitleTextColor:[UIColor whiteColor]];
-                [errorView setTitleTextShadowColor:[UIColor colorWithRed:0.2 green:0.1 blue:0.1 alpha:1.0]];
-                [errorView setHideAfter:5.0];
-                [YRDropdownView presentDropdown:errorView];
-
-                [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"SteamID"];
-                [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"SteamID64"];
+                [TSMessage showNotificationInViewController:self
+                                                      title:NSLocalizedString(kSCResolveSteamIdErrorTitle, kSCResolveSteamIdErrorTitle)
+                                                   subtitle:errorMessage
+                                                      image:nil
+                                                       type:TSMessageNotificationTypeError
+                                                   duration:TSMessageNotificationDurationAutomatic
+                                                   callback:nil
+                                                buttonTitle:nil
+                                             buttonCallback:nil
+                                                 atPosition:TSMessageNotificationPositionTop
+                                        canBeDismisedByUser:NO];
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [SCAppDelegate errorWithMessage:[error localizedDescription]];

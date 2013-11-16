@@ -7,12 +7,12 @@
 [submodule "AFNetworking"]
 	path = Suitcase/External/AFNetworking
 	url = git://github.com/AFNetworking/AFNetworking.git
-[submodule "YRDropdownView"]
-	path = Suitcase/External/YRDropdownView
-	url = https://github.com/iOctocat/YRDropdownView
 [submodule "FontAwesomeKit"]
 	path = Suitcase/External/FontAwesomeKit
 	url = https://github.com/PrideChung/FontAwesomeKit.git
 [submodule "Suitcase/External/BPBarButtonItem"]
 	path = Suitcase/External/BPBarButtonItem
 	url = https://github.com/BitSuites/BPBarButtonItem.git
+[submodule "Suitcase/External/TSMessages"]
+	path = Suitcase/External/TSMessages
+	url = git@github.com:toursprung/TSMessages.git
