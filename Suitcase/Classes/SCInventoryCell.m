@@ -71,6 +71,8 @@ static CGRect kTextLabelFrame;
     self.textLabel.text = inventory.game.name;
     if ([inventory temporaryFailed]) {
         self.itemCountLabel.text = @"";
+    } else if (inventory.slots == nil) {
+        self.itemCountLabel.text = [NSString stringWithFormat:@"%d items", [inventory.items count]];
     } else {
         self.itemCountLabel.text = [NSString stringWithFormat:@"%d/%@ items", [inventory.items count], inventory.slots];
     }
