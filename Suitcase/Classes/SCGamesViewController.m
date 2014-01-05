@@ -151,7 +151,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
     UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
     if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
-        [modal dismissModalViewControllerAnimated:YES];
+        [modal dismissViewControllerAnimated:YES completion:nil];
     }
 
     [NSThread detachNewThreadSelector:@selector(doLoadGames) toTarget:self withObject:nil];

@@ -2,7 +2,7 @@
 //  SCNavigationControllerDelegate.m
 //  Suitcase
 //
-//  Copyright (c) 2013, Sebastian Staudt
+//  Copyright (c) 2013-2014, Sebastian Staudt
 //
 
 #import "SCNavigationControllerDelegate.h"
@@ -19,8 +19,8 @@
                     animated:(BOOL)animated
 {
     if ([_previousViewController class] == NSClassFromString(@"SCWikiViewController")) {
-        [navigationController presentModalViewController:[[UIViewController alloc] init] animated:NO];
-        [navigationController dismissModalViewControllerAnimated:NO];
+        [navigationController presentViewController:[[UIViewController alloc] init] animated:NO completion:nil];
+        [navigationController dismissViewControllerAnimated:NO completion:nil];
         [UIViewController attemptRotationToDeviceOrientation];
     }
 

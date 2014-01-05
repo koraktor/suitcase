@@ -21,6 +21,7 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
 - (void)awakeFromNib
 {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withTintColor:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:1.0]];
     }
 
@@ -43,7 +44,7 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
             [[NSUserDefaults standardUserDefaults] setObject:steamId64 forKey:@"SteamID64"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loadGames" object:nil];
         } else {
-            [self dismissModalViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     };
 
@@ -144,7 +145,7 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
 }
 
 - (IBAction)dismissForm:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 
     self.steamIdField.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID"];
 }

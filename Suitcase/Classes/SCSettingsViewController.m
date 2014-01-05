@@ -60,7 +60,7 @@
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
-    [sender.parentViewController dismissModalViewControllerAnimated:YES];
+    [sender.parentViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

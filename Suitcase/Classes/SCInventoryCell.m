@@ -2,7 +2,7 @@
 //  SCGameCell.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import <QuartzCore/QuartzCore.h>
@@ -40,10 +40,12 @@ static CGRect kTextLabelFrame;
     _itemCountLabel.shadowColor = [UIColor blackColor];
     [self.contentView addSubview:_itemCountLabel];
 
+    UIView *selectionView = [[UIView alloc] initWithFrame:self.frame];
+    self.selectedBackgroundView = selectionView;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-        UIView *selectionView = [[UIView alloc] initWithFrame:self.frame];
         selectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cell_selection_gradient"]];
-        self.selectedBackgroundView = selectionView;
+    } else {
+        selectionView.backgroundColor = [UIColor colorWithRed:0.6 green:0.64 blue:0.7 alpha:1.0];
     }
 
     return self;

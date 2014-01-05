@@ -218,7 +218,11 @@
     headerLabel.font = [UIFont boldSystemFontOfSize:18.0];
 
     headerView.alpha = 0.8f;
-    headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header_gradient"]];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header_gradient"]];
+    } else {
+        headerView.backgroundColor = [UIColor colorWithRed:0.5372 green:0.6196 blue:0.7294 alpha:0.63];
+    }
     headerView.layer.shadowColor = [[UIColor blackColor] CGColor];
     headerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
     headerView.layer.shadowOpacity = 0.5f;

@@ -2,7 +2,7 @@
 //  SCClassImageView.m
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 
@@ -55,7 +55,7 @@
                                        CGFloat scale = [[UIScreen mainScreen] scale];
                                        CGRect imageRect = CGRectMake(0, 0, image.size.width * scale, image.size.height * scale);
                                        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-                                       CGContextRef context = CGBitmapContextCreate(nil, image.size.width * scale, image.size.height * scale, 8, 0, colorSpace, kCGImageAlphaNone);
+                                       CGContextRef context = CGBitmapContextCreate(nil, image.size.width * scale, image.size.height * scale, 8, 0, colorSpace, (CGBitmapInfo) kCGImageAlphaNone);
                                        CGContextDrawImage(context, imageRect, [image CGImage]);
                                        CGImageRef imageRef = CGBitmapContextCreateImage(context);
 
