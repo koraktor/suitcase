@@ -26,8 +26,7 @@
 + (SCSchema *)brokenSchema;
 + (NSDictionary *)schemas;
 + (AFJSONRequestOperation *)schemaOperationForInventory:(SCInventory *)inventory
-                                            andLanguage:(NSString *)language
-                                           andCondition:(NSCondition *)condition;
+                                            andLanguage:(NSString *)language;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

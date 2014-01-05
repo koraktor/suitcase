@@ -8,6 +8,7 @@
 #import "BPBarButtonItem.h"
 #import "FAKFontAwesome.h"
 #import "IASKSettingsReader.h"
+#import "TSMessage.h"
 
 #import "SCAppDelegate.h"
 #import "SCGame.h"
@@ -34,8 +35,10 @@ const NSInteger kSCAvailableGamesErrorView = 0;
 NSString *const kSCAvailableGamesErrorMessage = @"kSCAvailableGamesErrorMessage";
 NSString *const kSCAvailableGamesErrorTitle   = @"kSCAvailableGamesErrorTitle";
 const NSInteger kSCGamesErrorView = 1;
-NSString *const kSCGamesErrorMessage = @"kSCGamesErrorMessage";
-NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
+NSString *const kSCGamesErrorMessage     = @"kSCGamesErrorMessage";
+NSString *const kSCGamesErrorTitle       = @"kSCGamesErrorTitle";
+NSString *const kSCSchemaIsLoading       = @"kSCSchemaIsLoading";
+NSString *const kSCSchemaIsLoadingDetail = @"kSCSchemaIsLoadingDetail";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -67,6 +70,14 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadGames)
                                                  name:@"loadGames"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadSchemaStarted)
+                                                 name:@"loadSchemaStarted"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadSchemaFinished)
+                                                 name:@"loadSchemaFinished"
                                                object:nil];
 
     _availableGamesLock = [[NSLock alloc] init];
@@ -308,15 +319,43 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
     }
 }
 
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
+{
+    [sender.parentViewController dismissModalViewControllerAnimated:YES];
+}
+
 - (void)settingsChanged:(NSNotification *)notification {
     if ([notification.object isEqual:@"skip_empty_inventories"]) {
         [self populateInventories];
     }
 }
 
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
+- (void)loadSchemaFinished
 {
-    [sender.parentViewController dismissModalViewControllerAnimated:YES];
+    [self showInventory];
+    [TSMessage dismissActiveNotification];
+    [self.view setUserInteractionEnabled:YES];
+}
+
+- (void)loadSchemaStarted
+{
+    [self.view setUserInteractionEnabled:NO];
+    [TSMessage showNotificationInViewController:self.navigationController
+                                          title:NSLocalizedString(kSCSchemaIsLoading, kSCSchemaIsLoading)
+                                       subtitle:NSLocalizedString(kSCSchemaIsLoadingDetail, kSCSchemaIsLoadingDetail)
+                                          image:nil
+                                           type:TSMessageNotificationTypeMessage
+                                       duration:TSMessageNotificationDurationEndless
+                                       callback:nil
+                                    buttonTitle:nil
+                                 buttonCallback:nil
+                                     atPosition:TSMessageNotificationPositionTop
+                            canBeDismisedByUser:NO];
+}
+
+- (void)showInventory
+{
+    [self performSegueWithIdentifier:@"showInventory" sender:self];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -334,11 +373,8 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
     _currentInventory = [_inventories objectAtIndex:indexPath.row];
     if (_currentInventory.schema == nil) {
         [_currentInventory loadSchema];
-    }
-    if ([_currentInventory.schema.items count] > 0) {
-        [self performSegueWithIdentifier:@"showInventory" sender:self];
     } else {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self showInventory];
     }
 }
 

@@ -14,6 +14,8 @@
 "kSCInventoryError"             = "Fehler beim Laden des Inventars: %@";
 "kSCResolveSteamIdErrorMessage" = "Beim Auflösen der Steam ID ist ein Fehler aufgetreten: %@";
 "kSCResolveSteamIdErrorTitle"   = "Nicht gefunden";
+"kSCSchemaIsLoading"            = "Lade…";
+"kSCSchemaIsLoadingDetail"      = "Das kann eine Weile dauern.";
 "Cancel"                        = "Abbrechen";
 "Inventory"                     = "Inventar";
 "Retry"                         = "Wiederholen";

@@ -14,4 +14,6 @@
 "kSCInventoryError"             = "Error loading the inventory: %@";
 "kSCResolveSteamIdErrorMessage" = "An error occured while resolving the Steam ID: %@";
 "kSCResolveSteamIdErrorTitle"   = "Not found";
+"kSCSchemaIsLoading"            = "Loading…";
+"kSCSchemaIsLoadingDetail"      = "This might take some time.";
 "SteamID help"                  = "Please supply the custom URL or profile ID of the Steam Community profile:";

@@ -27,7 +27,6 @@ static NSMutableDictionary *__schemas;
 
 + (AFJSONRequestOperation *)schemaOperationForInventory:(SCInventory *)inventory
                                             andLanguage:(NSString *)language
-                                           andCondition:(NSCondition *)condition
 {
     if (__schemas == nil) {
         __schemas = [NSMutableDictionary dictionary];
@@ -40,10 +39,7 @@ static NSMutableDictionary *__schemas;
     } else {
         SCSchema *schema = [[__schemas objectForKey:appId] objectForKey:language];
         if (schema != nil) {
-            [condition lock];
             inventory.schema = schema;
-            [condition signal];
-            [condition unlock];
             return nil;
         }
     }
@@ -56,29 +52,25 @@ static NSMutableDictionary *__schemas;
                                                                                      withParameters:params
                                                                                             encoded:NO];
     [schemaOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [condition lock];
         NSDictionary *schemaResponse = [responseObject objectForKey:@"result"];
 
         if ([[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             SCSchema *schema = [[SCSchema alloc] initWithDictionary:schemaResponse];
             [gameSchemas setObject:schema forKey:language];
             inventory.schema = schema;
-            [condition signal];
-            [condition unlock];
         } else {
             NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [schemaResponse objectForKey:@"statusDetail"]];
             inventory.schema = [SCSchema brokenSchema];
-            [condition signal];
-            [condition unlock];
             [SCAppDelegate errorWithMessage:errorMessage];
         }
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *errorMessage = [NSString stringWithFormat:@"Error loading item schema: %@", [error localizedDescription]];
-        [condition lock];
         inventory.schema = [SCSchema brokenSchema];
-        [condition signal];
-        [condition unlock];
         [SCAppDelegate errorWithMessage:errorMessage];
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
     }];
 
     return schemaOperation;
