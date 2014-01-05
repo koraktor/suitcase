@@ -2,11 +2,11 @@
 //  SCGamesViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import "BPBarButtonItem.h"
-#import "FontAwesomeKit.h"
+#import "FAKFontAwesome.h"
 #import "IASKSettingsReader.h"
 
 #import "SCAppDelegate.h"
@@ -72,13 +72,15 @@ NSString *const kSCGamesErrorTitle   = @"kSCGamesErrorTitle";
     _availableGamesLock = [[NSLock alloc] init];
     _gamesLock = [[NSLock alloc] init];
 
-    self.navigationItem.leftBarButtonItem.title = FAKIconUser;
-    [self.navigationItem.leftBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
+    FAKIcon *userIcon = [FAKFontAwesome userIconWithSize:0.0];
+    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:@" %@ ", [userIcon characterCode]];
+    [self.navigationItem.leftBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
                                                          forState:UIControlStateNormal];
     [BPBarButtonItem customizeBarButtonItem:self.navigationItem.leftBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
 
-    self.navigationItem.rightBarButtonItem.title = FAKIconWrench;
-    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
+    FAKIcon *wrenchIcon = [FAKFontAwesome wrenchIconWithSize:0.0];
+    self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@" %@ ", [wrenchIcon characterCode]];
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
                                                          forState:UIControlStateNormal];
     [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
 

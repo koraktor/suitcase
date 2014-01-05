@@ -2,12 +2,12 @@
 //  SCItemCell.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "FontAwesomeKit.h"
+#import "FAKFontAwesome.h"
 #import "UIImageView+AFNetworking.h"
 
 #import "SCItemCell.h"
@@ -20,17 +20,12 @@ static CGRect kTextLabelFrame;
 
 + (void)initialize
 {
-    NSDictionary *iconAttributes = @{
-        FAKImageAttributeRect: [NSValue valueWithCGRect:CGRectMake(7.0, 7.0, 44.0, 44.0)],
-        FAKImageAttributeForegroundColor: UIColor.lightGrayColor
-    };
     CGSize iconSize = CGSizeMake(44.0, 44.0);
 
     kImageViewFrame = CGRectMake(0.0, 0.0, 44.0, 44.0);
-    kPlaceHolderImage = [FontAwesomeKit imageForIcon:FAKIconBriefcase
-                                           imageSize:iconSize
-                                            fontSize:30.0
-                                          attributes:iconAttributes];
+    FAKIcon *suitcaseIcon = [FAKFontAwesome suitcaseIconWithSize:30.0];
+    [suitcaseIcon addAttribute:NSForegroundColorAttributeName value:UIColor.lightGrayColor];
+    kPlaceHolderImage = [suitcaseIcon imageWithSize:iconSize];
     kTextLabelFrame = CGRectMake(53.0, 0.0, 257.0, 43.0);
 }
 

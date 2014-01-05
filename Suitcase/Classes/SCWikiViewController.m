@@ -6,7 +6,7 @@
 //
 
 #import "BPBarButtonItem.h"
-#import "FontAwesomeKit.h"
+#import "FAKFontAwesome.h"
 
 #import "SCWikiViewController.h"
 
@@ -24,13 +24,14 @@
     [activityView sizeToFit];
     _activityButton = [[UIBarButtonItem alloc] initWithCustomView:activityView];
 
-    self.backButton.title = FAKIconCircleArrowLeft;
-    [self.backButton setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
-                                      forState:UIControlStateNormal];
+    UIFont *fontAwesome = [FAKFontAwesome iconFontWithSize:20.0];
+
+    self.backButton.title = [[FAKFontAwesome arrowLeftIconWithSize:0.0] characterCode];
+    [self.backButton setTitleTextAttributes:@{UITextAttributeFont:fontAwesome} forState:UIControlStateNormal];
     [BPBarButtonItem customizeBarButtonItem:self.backButton withStyle:BPBarButtonItemStyleStandardDark];
-    self.forwardButton.title = FAKIconCircleArrowRight;
-    [self.forwardButton setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
-                                                          forState:UIControlStateNormal];
+
+    self.forwardButton.title = [[FAKFontAwesome arrowRightIconWithSize:0.0] characterCode];
+    [self.forwardButton setTitleTextAttributes:@{UITextAttributeFont:fontAwesome} forState:UIControlStateNormal];
     [BPBarButtonItem customizeBarButtonItem:self.forwardButton withStyle:BPBarButtonItemStyleStandardDark];
 
     [super awakeFromNib];

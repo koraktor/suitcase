@@ -2,13 +2,13 @@
 //  SCMasterViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import <QuartzCore/QuartzCore.h>
 
 #import "BPBarButtonItem.h"
-#import "FontAwesomeKit.h"
+#import "FAKFontAwesome.h"
 #import "IASKSettingsReader.h"
 
 #import "SCAppDelegate.h"
@@ -54,10 +54,9 @@
                                                  name:@"sortInventory"
                                                object:nil];
 
-    [BPBarButtonItem customizeBarButtonItem:self.navigationItem.leftBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
-
-    self.navigationItem.rightBarButtonItem.title = FAKIconWrench;
-    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
+    FAKIcon *wrenchIcon = [FAKFontAwesome wrenchIconWithSize:0.0];
+    self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@" %@ ", [wrenchIcon characterCode]];
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
                                                           forState:UIControlStateNormal];
     [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
 

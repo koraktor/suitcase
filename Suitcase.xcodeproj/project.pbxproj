@@ -49,8 +49,9 @@
 		022D0D0E1584E5770071F665 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */; };
 		022D0D0F1584E5770071F665 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */; };
 		022E38A01747D356000CA309 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 022E389D1747D356000CA309 /* FontAwesome.otf */; };
-		022E38A11747D356000CA309 /* FontAwesomeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 022E389F1747D356000CA309 /* FontAwesomeKit.m */; };
 		0238B35A1756AD5600284204 /* SCInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0238B3591756AD5600284204 /* SCInventory.m */; };
+		023DECE0187963A4007FE4AA /* FAKFontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DECDF187963A4007FE4AA /* FAKFontAwesome.m */; };
+		023DECE618796C99007FE4AA /* FAKIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DECE518796C99007FE4AA /* FAKIcon.m */; };
 		0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */; };
 		0250CC5E1696D6E900B20A6F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E7218215938BDE00A18BF1 /* Default.png */; };
 		0250CC5F1696D6EC00B20A6F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E7218415938BE400A18BF1 /* Default@2x.png */; };
@@ -201,10 +202,12 @@
 		022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		022D0D101584E7870071F665 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		022E389D1747D356000CA309 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = External/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
-		022E389E1747D356000CA309 /* FontAwesomeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FontAwesomeKit.h; path = External/FontAwesomeKit/FontAwesomeKit/FontAwesomeKit.h; sourceTree = "<group>"; };
-		022E389F1747D356000CA309 /* FontAwesomeKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FontAwesomeKit.m; path = External/FontAwesomeKit/FontAwesomeKit/FontAwesomeKit.m; sourceTree = "<group>"; };
 		0238B3581756AD5500284204 /* SCInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCInventory.h; path = Classes/SCInventory.h; sourceTree = "<group>"; };
 		0238B3591756AD5600284204 /* SCInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCInventory.m; path = Classes/SCInventory.m; sourceTree = "<group>"; };
+		023DECDE187963A4007FE4AA /* FAKFontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FAKFontAwesome.h; path = External/FontAwesomeKit/FontAwesomeKit/FAKFontAwesome.h; sourceTree = "<group>"; };
+		023DECDF187963A4007FE4AA /* FAKFontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FAKFontAwesome.m; path = External/FontAwesomeKit/FontAwesomeKit/FAKFontAwesome.m; sourceTree = "<group>"; };
+		023DECE418796C99007FE4AA /* FAKIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FAKIcon.h; path = External/FontAwesomeKit/FontAwesomeKit/FAKIcon.h; sourceTree = "<group>"; };
+		023DECE518796C99007FE4AA /* FAKIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FAKIcon.m; path = External/FontAwesomeKit/FontAwesomeKit/FAKIcon.m; sourceTree = "<group>"; };
 		0250CBD91693C8D100B20A6F /* SCWikiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWikiViewController.h; path = Classes/SCWikiViewController.h; sourceTree = "<group>"; };
 		0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWikiViewController.m; path = Classes/SCWikiViewController.m; sourceTree = "<group>"; };
 		0253603818334AF50019D250 /* TSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMessage.h; sourceTree = "<group>"; };
@@ -436,9 +439,11 @@
 		022E389C1747D346000CA309 /* FontAwesomeKit */ = {
 			isa = PBXGroup;
 			children = (
+				023DECDE187963A4007FE4AA /* FAKFontAwesome.h */,
+				023DECDF187963A4007FE4AA /* FAKFontAwesome.m */,
+				023DECE418796C99007FE4AA /* FAKIcon.h */,
+				023DECE518796C99007FE4AA /* FAKIcon.m */,
 				022E389D1747D356000CA309 /* FontAwesome.otf */,
-				022E389E1747D356000CA309 /* FontAwesomeKit.h */,
-				022E389F1747D356000CA309 /* FontAwesomeKit.m */,
 			);
 			name = FontAwesomeKit;
 			sourceTree = "<group>";
@@ -887,6 +892,7 @@
 				026F215C156ADA1F00C7BD54 /* SCClassImageView.m in Sources */,
 				0253606418334AF50019D250 /* TSBlurView.m in Sources */,
 				0275E20D158E6B5B008EA0AD /* SCItemCell.m in Sources */,
+				023DECE0187963A4007FE4AA /* FAKFontAwesome.m in Sources */,
 				0253605218334AF50019D250 /* TSMessage.m in Sources */,
 				0269A4A915CC3AEB008A287A /* SCGamesViewController.m in Sources */,
 				0220FFC815D7A84700AB8AA3 /* SCInventoryCell.m in Sources */,
@@ -894,6 +900,7 @@
 				020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */,
 				0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */,
 				02010B291696E22B00007456 /* SCItemImageView.m in Sources */,
+				023DECE618796C99007FE4AA /* FAKIcon.m in Sources */,
 				02010B2F169842FB00007456 /* SCNavigationControllerDelegate.m in Sources */,
 				02010B32169858E500007456 /* SCWebApiHTTPClient.m in Sources */,
 				02010B45169E9C7000007456 /* AFHTTPClient.m in Sources */,
@@ -919,7 +926,6 @@
 				02010B78169E9CA000007456 /* IASKSwitch.m in Sources */,
 				02010B79169E9CA000007456 /* IASKTextField.m in Sources */,
 				02010B8A169E9CDA00007456 /* TTTAttributedLabel.m in Sources */,
-				022E38A11747D356000CA309 /* FontAwesomeKit.m in Sources */,
 				026EE9F71748B45600FB8484 /* BPBarButtonItem.m in Sources */,
 				0253608018334BDE0019D250 /* HexColor.m in Sources */,
 				0238B35A1756AD5600284204 /* SCInventory.m in Sources */,

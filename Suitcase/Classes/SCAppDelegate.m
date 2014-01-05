@@ -6,7 +6,6 @@
 //
 
 #import "AFNetworkActivityIndicatorManager.h"
-#import "FontAwesomeKit.h"
 #import "TSMessage.h"
 
 #import "SCAppDelegate.h"

@@ -2,11 +2,11 @@
 //  SCSteamIdFormController.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import "BPBarButtonItem.h"
-#import "FontAwesomeKit.h"
+#import "FAKFontAwesome.h"
 #import "TSMessage.h"
 
 #import "SCSteamIdFormController.h"
@@ -62,19 +62,18 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
 
                 NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCResolveSteamIdErrorMessage, kSCResolveSteamIdErrorMessage), [steamIdResponse objectForKey:@"message"]];
 
+                NSShadow *iconShadow = [NSShadow new];
+                [iconShadow setShadowBlurRadius:1.0];
+                [iconShadow setShadowColor:[UIColor colorWithRed:0.2 green:0.1 blue:0.1 alpha:1.0]];
+                [iconShadow setShadowOffset:CGSizeMake(3.0, 3.0)];
                 NSDictionary *iconAttributes = @{
-                                                 FAKImageAttributeForegroundColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0],
-                                                 FAKImageAttributeShadow: @{
-                                                         FAKShadowAttributeBlur: @(1.0),
-                                                         FAKShadowAttributeColor: [UIColor colorWithRed:0.2 green:0.1 blue:0.1 alpha:1.0],
-                                                         FAKShadowAttributeOffset: [NSValue valueWithCGSize:CGSizeMake(3.0, 3.0)]
-                                                         }
-                                                 };
+                                                 NSForegroundColorAttributeName: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0],
+                                                 NSShadowAttributeName: iconShadow
+                                               };
                 UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 48.0, 48.0)];
-                image.image = [FontAwesomeKit imageForIcon:FAKIconWarningSign
-                                                 imageSize:CGSizeMake(48.0, 48.0)
-                                                  fontSize:46
-                                                attributes:iconAttributes];
+                FAKIcon *warningIcon = [FAKFontAwesome exclamationTriangleIconWithSize:46.0];
+                [warningIcon addAttributes:iconAttributes];
+                image.image = [warningIcon imageWithSize:CGSizeMake(48.0, 48.0)];
 
                 [TSMessage showNotificationInViewController:self
                                                       title:NSLocalizedString(kSCResolveSteamIdErrorTitle, kSCResolveSteamIdErrorTitle)

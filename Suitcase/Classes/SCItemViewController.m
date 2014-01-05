@@ -2,14 +2,14 @@
 //  SCDetailViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
 
 #import "BPBarButtonItem.h"
-#import "FontAwesomeKit.h"
+#import "FAKFontAwesome.h"
 
 #import "SCItemViewController.h"
 
@@ -27,8 +27,9 @@ NSString *const kSCHours = @"kSCHours";
 {
     self.navigationItem.rightBarButtonItem = nil;
 
-    self.wikiButton.title = FAKIconBook;
-    [self.wikiButton setTitleTextAttributes:@{UITextAttributeFont:[FontAwesomeKit fontWithSize:20]}
+    FAKIcon *bookIcon = [FAKFontAwesome bookIconWithSize:0.0];
+    self.wikiButton.title = [NSString stringWithFormat:@" %@ ", [bookIcon characterCode]];
+    [self.wikiButton setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
                                       forState:UIControlStateNormal];
     [BPBarButtonItem customizeBarButtonItem:self.wikiButton withStyle:BPBarButtonItemStyleStandardDark];
 
@@ -257,34 +258,29 @@ NSString *const kSCHours = @"kSCHours";
     [self.classSniperImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/sniper.jpg"]];
     [self.classSpyImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/spy.jpg"]];
 
-    NSDictionary *shadowAttributes = @{
-        FAKShadowAttributeBlur: @(1.0),
-        FAKShadowAttributeColor: UIColor.blackColor,
-        FAKShadowAttributeOffset: [NSValue valueWithCGSize:CGSizeMake(1.0, 1.0)]
-    };
+    NSShadow *iconShadow = [NSShadow new];
+    [iconShadow setShadowBlurRadius:1.0];
+    [iconShadow setShadowColor:UIColor.blackColor];
+    [iconShadow setShadowOffset:CGSizeMake(1.0, 1.0)];
     NSDictionary *iconAttributes = @{
-        FAKImageAttributeRect: [NSValue valueWithCGRect:CGRectMake(0.0, 0.0, 24.0, 24.0)],
-        FAKImageAttributeForegroundColor: UIColor.whiteColor,
-        FAKImageAttributeShadow: shadowAttributes
+        NSForegroundColorAttributeName: UIColor.whiteColor,
+        NSShadowAttributeName: iconShadow
     };
     CGSize iconSize = CGSizeMake(22.0, 22.0);
 
-    self.killEaterIcon.image = [FontAwesomeKit imageForIcon:FAKIconStar
-                                                  imageSize:iconSize
-                                                   fontSize:20.0
-                                                 attributes:iconAttributes];
-    [self.itemSetButton setImage:[FontAwesomeKit imageForIcon:FAKIconLink
-                                                    imageSize:iconSize
-                                                     fontSize:20.0
-                                                   attributes:iconAttributes] forState:UIControlStateNormal];
-    self.originIcon.image = [FontAwesomeKit imageForIcon:FAKIconDownloadAlt
-                                               imageSize:iconSize
-                                                fontSize:20.0
-                                              attributes:iconAttributes];
-    self.qualityIcon.image = [FontAwesomeKit imageForIcon:FAKIconFlag
-                                                imageSize:iconSize
-                                                 fontSize:20.0
-                                               attributes:iconAttributes];
+    FAKIcon *starIcon = [FAKFontAwesome starIconWithSize:20.0];
+    [starIcon addAttributes:iconAttributes];
+    FAKIcon *linkIcon = [FAKFontAwesome linkIconWithSize:20.0];
+    [linkIcon addAttributes:iconAttributes];
+    FAKIcon *downloadIcon = [FAKFontAwesome downloadIconWithSize:20.0];
+    [downloadIcon addAttributes:iconAttributes];
+    FAKIcon *flagIcon = [FAKFontAwesome flagIconWithSize:20.0];
+    [flagIcon addAttributes:iconAttributes];
+
+    self.killEaterIcon.image = [starIcon imageWithSize:iconSize];
+    [self.itemSetButton setImage:[linkIcon imageWithSize:iconSize] forState:UIControlStateNormal];
+    self.originIcon.image = [downloadIcon imageWithSize:iconSize];
+    self.qualityIcon.image = [flagIcon imageWithSize:iconSize];
 
     self.quantityLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.quantityLabel.layer.borderWidth = [[UIScreen mainScreen] scale];
