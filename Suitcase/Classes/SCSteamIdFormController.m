@@ -27,7 +27,7 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
 
 - (void)resolveSteamId
 {
-    NSString *steamId = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID"];
+    NSString *steamId = self.steamIdField.text;
     steamId = [steamId stringByReplacingOccurrencesOfString:@"(?:http://)?steamcommunity\\.com/(id|profiles)/"
                                                  withString:@""
                                                     options:NSRegularExpressionSearch
@@ -106,8 +106,6 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
 }
 
 - (IBAction)submitForm:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setObject:[self.steamIdField text]
-                                              forKey:@"SteamID"];
     [self resolveSteamId];
 }
 
@@ -145,6 +143,8 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
 
 - (IBAction)dismissForm:(id)sender {
     [self dismissModalViewControllerAnimated:YES];
+
+    self.steamIdField.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID"];
 }
 
 @end
