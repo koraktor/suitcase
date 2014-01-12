@@ -39,7 +39,6 @@
 		0209E14F157954C20073385D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0209E14E157954C20073385D /* CFNetwork.framework */; };
 		0209E151157954C70073385D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0209E150157954C70073385D /* SystemConfiguration.framework */; };
 		0209E153157954D00073385D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0209E152157954D00073385D /* MobileCoreServices.framework */; };
-		0209E155157954DF0073385D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0209E154157954DF0073385D /* libz.dylib */; };
 		020EB42E15852A2A00654D2A /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 020EB42D15852A2A00654D2A /* InAppSettings.bundle */; };
 		020EB43015852C2800654D2A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 020EB42F15852C2800654D2A /* MessageUI.framework */; };
 		0213CC331769087F0010908D /* cell_selection_gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 0213CC311769087F0010908D /* cell_selection_gradient.png */; };
@@ -308,7 +307,6 @@
 				02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */,
 				0209E151157954C70073385D /* SystemConfiguration.framework in Frameworks */,
 				028B640B15265D690040D2FF /* UIKit.framework in Frameworks */,
-				0209E155157954DF0073385D /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
