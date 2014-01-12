@@ -2,7 +2,7 @@
 //  SCInventory.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import <QuartzCore/QuartzCore.h>
@@ -189,8 +189,6 @@ static NSUInteger __inventoriesToLoad;
     AFJSONRequestOperation *schemaOperation = [SCSchema schemaOperationForInventory:self
                                                                         andLanguage:[[NSLocale preferredLanguages] objectAtIndex:0]];
     if (schemaOperation != nil) {
-        [schemaOperation setFailureCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-        [schemaOperation setSuccessCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
         [schemaOperation start];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaStarted" object:nil];
     } else {

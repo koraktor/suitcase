@@ -2,7 +2,7 @@
 //  SCSchema.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import "SCAppDelegate.h"
@@ -72,6 +72,8 @@ static NSMutableDictionary *__schemas;
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
     }];
+    [schemaOperation setFailureCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    [schemaOperation setSuccessCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
 
     return schemaOperation;
 }
