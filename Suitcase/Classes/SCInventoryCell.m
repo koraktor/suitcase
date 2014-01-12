@@ -72,9 +72,9 @@ static CGRect kTextLabelFrame;
     if ([inventory temporaryFailed]) {
         self.itemCountLabel.text = @"";
     } else if (inventory.slots == nil) {
-        self.itemCountLabel.text = [NSString stringWithFormat:@"%d items", [inventory.items count]];
+        self.itemCountLabel.text = [NSString stringWithFormat:@"%d %@", [inventory.items count], NSLocalizedString(@"items", @"items")];
     } else {
-        self.itemCountLabel.text = [NSString stringWithFormat:@"%d/%@ items", [inventory.items count], inventory.slots];
+        self.itemCountLabel.text = [NSString stringWithFormat:@"%d/%@ %@", [inventory.items count], inventory.slots, NSLocalizedString(@"items", @"items")];
     }
 
     self.contentView.alpha = ([inventory isSuccessful]) ? 1.0 : 0.6;

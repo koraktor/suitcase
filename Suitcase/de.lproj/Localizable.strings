@@ -2,7 +2,7 @@
  * Localizable.strings
  * Suitcase
  *
- * Copyright (c) 2012-2013, Sebastian Staudt
+ * Copyright (c) 2012-2014, Sebastian Staudt
  */
 
 "kSCAvailableGamesErrorMessage" = "Verfügbare Spiele konnten nicht geladen werden:\n%@\n\nDies ist notwendig, um die Inventare anzeigen zu können.";
@@ -33,6 +33,7 @@
 "Games"                       = "Spiele";
 "Gifted"                      = "Geschenkt";
 "Halloween Drop"              = "Halloween-Fund";
+"items"                       = "Gegenstände";
 "Preview Item"                = "Vorschaugegenstand";
 "Purchased"                   = "Gekauft";
 "Steam Purchase"              = "Steam-Kauf";
