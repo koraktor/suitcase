@@ -11,6 +11,7 @@
 "kSCGamesErrorTitle"            = "Error loading this user's games";
 "kSCHour"                       = "%d Hour";
 "kSCHours"                      = "%d Hours";
+"kSCInventoryCellLoadingFailed" = "Loading failed. Tap to try again.";
 "kSCInventoryError"             = "Error loading the inventory: %@";
 "kSCResolveSteamIdErrorMessage" = "An error occured while resolving the Steam ID: %@";
 "kSCResolveSteamIdErrorTitle"   = "Not found";

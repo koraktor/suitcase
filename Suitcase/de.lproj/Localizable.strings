@@ -11,6 +11,7 @@
 "kSCGamesErrorTitle"            = "Fehler beim Laden der Spiele dieses Benutzers";
 "kSCHour"                       = "%d Stunde";
 "kSCHours"                      = "%d Stunden";
+"kSCInventoryCellLoadingFailed" = "Fehler. Antippen zum Wiederholen.";
 "kSCInventoryError"             = "Fehler beim Laden des Inventars: %@";
 "kSCResolveSteamIdErrorMessage" = "Beim Auflösen der Steam ID ist ein Fehler aufgetreten: %@";
 "kSCResolveSteamIdErrorTitle"   = "Nicht gefunden";
