@@ -364,11 +364,8 @@ NSString *const kSCHours = @"kSCHours";
             } else {
                 nameFont = [UIFont boldSystemFontOfSize:18.0];
             }
-            CTFontRef font = CTFontCreateWithName((__bridge_retained CFStringRef)nameFont.fontName, nameFont.pointSize, NULL);
-            NSDictionary *nameAttributes = [NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)font, (NSString *)kCTFontAttributeName, nil];
-            CFRelease(font);
             NSRange nameRange = [[itemSetText string] rangeOfString:itemSetName];
-            [mutableAttributedString addAttributes:nameAttributes range:nameRange];
+            [mutableAttributedString addAttributes:@{NSFontAttributeName: nameFont} range:nameRange];
 
             return mutableAttributedString;
         }];
