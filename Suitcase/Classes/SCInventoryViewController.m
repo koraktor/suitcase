@@ -76,7 +76,7 @@
 {
     _inventory = inventory;
 
-    if ([_inventory.schema.items count] > 0) {
+    if ([_inventory.items count] > 0) {
         [_inventory sortItems];
         [self reloadInventory];
     }
