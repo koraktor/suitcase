@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
     <dependencies>
-        <deployment defaultVersion="1280" identifier="iOS"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
@@ -10,12 +10,25 @@
             <objects>
                 <navigationController id="3" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="4">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="4">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.63137257099151611" green="0.69803923368453979" blue="0.77647066116333008" alpha="1" colorSpace="deviceRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                        </textAttributes>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="KyV-LJ-ks8">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.53860629559999995" green="0.61986770069999997" blue="0.72747490879999999" alpha="0.63" colorSpace="calibratedRGB"/>
+                    </toolbar>
                     <connections>
                         <outlet property="delegate" destination="Me0-lk-KDq" id="aun-eZ-1CM"/>
                         <segue destination="OFf-mD-FT8" kind="relationship" relationship="rootViewController" id="hTJ-TF-nzW"/>
@@ -30,8 +43,8 @@
         <scene sceneID="eZh-wh-Qhv">
             <objects>
                 <viewController title="Steam ID Form" id="n1t-WO-e29" customClass="SCSteamIdFormController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="VDl-rw-4hR">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                    <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="VDl-rw-4hR">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" clearButtonMode="whileEditing" id="agU-wR-SkB">
@@ -64,8 +77,9 @@ http://steamcommunity.com/profile/{Profile ID}
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <color key="backgroundColor" red="0.37647062540054321" green="0.43137258291244507" blue="0.48235297203063965" alpha="1" colorSpace="deviceRGB"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Select an account" id="anc-QY-Zxb">
                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="Kl0-8V-H8T">
@@ -82,14 +96,6 @@ http://steamcommunity.com/profile/{Profile ID}
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Um-fo-V11" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationItem title="Select an account" id="fOY-b4-OSg">
-                    <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="Zhg-W3-x4g">
-                        <color key="tintColor" red="0.63138686129999999" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <action selector="dismissForm:" destination="n1t-WO-e29" id="XIh-rW-UXK"/>
-                        </connections>
-                    </barButtonItem>
-                </navigationItem>
             </objects>
             <point key="canvasLocation" x="307" y="-768"/>
         </scene>
@@ -98,12 +104,12 @@ http://steamcommunity.com/profile/{Profile ID}
             <objects>
                 <tableViewController id="r9B-R6-ule" customClass="SCSettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="i90-aV-FUj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCell" id="AEk-Jp-9m5">
-                                <rect key="frame" x="0.0" y="119" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="55" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AEk-Jp-9m5" id="59Q-q4-4tz">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -131,13 +137,13 @@ http://steamcommunity.com/profile/{Profile ID}
         <!--Navigation Controller-->
         <scene sceneID="Vnm-y4-M3p">
             <objects>
-                <navigationController definesPresentationContext="YES" id="sOd-p5-uza" sceneMemberID="viewController">
+                <navigationController id="sOd-p5-uza" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="WUH-Da-ljW"/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" id="X9i-6K-ARw">
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="X9i-6K-ARw">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.63137257099999999" green="0.69803923369999998" blue="0.77647066119999997" alpha="1" colorSpace="deviceRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="r9B-R6-ule" kind="relationship" relationship="rootViewController" id="OgC-TB-4Wq"/>
@@ -152,15 +158,15 @@ http://steamcommunity.com/profile/{Profile ID}
             <objects>
                 <tableViewController id="OFf-mD-FT8" customClass="SCGamesViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rNZ-Ga-xu8">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
-                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InventoryCell" textLabel="wyG-tS-PuW" imageView="wmH-N0-ekf" style="IBUITableViewCellStyleDefault" id="gAH-vt-EYE" customClass="SCInventoryCell">
+                            <tableViewCell opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InventoryCell" textLabel="wyG-tS-PuW" imageView="wmH-N0-ekf" style="IBUITableViewCellStyleDefault" id="gAH-vt-EYE" customClass="SCInventoryCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gAH-vt-EYE" id="9Tz-lJ-5md">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gAH-vt-EYE" id="9Tz-lJ-5md">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -172,14 +178,16 @@ http://steamcommunity.com/profile/{Profile ID}
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="game_placeholder.png" id="wmH-N0-ekf">
+                                        <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" image="game_placeholder.png" id="wmH-N0-ekf">
                                             <rect key="frame" x="15" y="4" width="92" height="35"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                             </tableViewCell>
                         </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="OFf-mD-FT8" id="9Xi-mV-shm"/>
                             <outlet property="delegate" destination="OFf-mD-FT8" id="uCX-TE-nBI"/>
@@ -211,10 +219,11 @@ http://steamcommunity.com/profile/{Profile ID}
             <objects>
                 <tableViewController title="Inventory" id="12" customClass="SCInventoryViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="13">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItemCell" textLabel="phq-AM-6qj" imageView="8qV-vI-9XP" style="IBUITableViewCellStyleDefault" id="lJ0-d7-vTF" customClass="SCItemCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -238,6 +247,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <segue destination="21" kind="push" identifier="showDetail" id="jZb-fq-zAk"/>
                                 </connections>
@@ -267,7 +277,7 @@ http://steamcommunity.com/profile/{Profile ID}
             <objects>
                 <viewController title="Detail" id="21" customClass="SCItemViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="22">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="aKy-Mc-PtF" customClass="SCItemImageView">
@@ -315,47 +325,47 @@ http://steamcommunity.com/profile/{Profile ID}
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="Xr5-1l-OYD" customClass="SCClassImageView">
-                                <rect key="frame" x="55" y="356" width="40" height="40"/>
+                                <rect key="frame" x="55" y="444" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="duO-EM-bmM" customClass="SCClassImageView">
-                                <rect key="frame" x="113" y="356" width="40" height="40"/>
+                                <rect key="frame" x="113" y="444" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="ZqY-F7-O2Y" customClass="SCClassImageView">
-                                <rect key="frame" x="170" y="356" width="40" height="40"/>
+                                <rect key="frame" x="170" y="444" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="eQh-0g-NF1" customClass="SCClassImageView">
-                                <rect key="frame" x="225" y="356" width="40" height="40"/>
+                                <rect key="frame" x="225" y="444" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="QAH-4u-DRB" customClass="SCClassImageView">
-                                <rect key="frame" x="26" y="308" width="40" height="40"/>
+                                <rect key="frame" x="26" y="396" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="ouv-tu-uPv" customClass="SCClassImageView">
-                                <rect key="frame" x="84" y="308" width="40" height="40"/>
+                                <rect key="frame" x="84" y="396" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="Pxf-7N-iFZ" customClass="SCClassImageView">
-                                <rect key="frame" x="142" y="308" width="40" height="40"/>
+                                <rect key="frame" x="142" y="396" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="bW7-6X-aLf" customClass="SCClassImageView">
-                                <rect key="frame" x="198" y="308" width="40" height="40"/>
+                                <rect key="frame" x="198" y="396" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="ZWz-13-Bll" customClass="SCClassImageView">
-                                <rect key="frame" x="254" y="308" width="40" height="40"/>
+                                <rect key="frame" x="254" y="396" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
@@ -419,7 +429,6 @@ Kill eater score</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="classDemomanImage" destination="bW7-6X-aLf" id="YZ4-DB-b2u"/>
                         <outlet property="classEngineerImage" destination="Xr5-1l-OYD" id="ImC-eb-0cF"/>
@@ -467,7 +476,7 @@ Kill eater score</string>
             <objects>
                 <viewController title="Item Set" id="Rbk-sh-M5b" sceneMemberID="viewController">
                     <label key="view" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item set" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="d1R-KG-DpA" customClass="TTTAttributedLabel">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -487,7 +496,7 @@ Kill eater score</string>
             <objects>
                 <viewController id="lNQ-t2-rFd" customClass="SCWikiViewController" sceneMemberID="viewController">
                     <webView key="view" contentMode="scaleToFill" id="N6N-xL-zR8">
-                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
@@ -508,7 +517,7 @@ Kill eater score</string>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="o3N-Lw-4Iv"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="backButton" destination="SjO-0w-XlB" id="Zc5-pw-dOs"/>
                         <outlet property="forwardButton" destination="aQh-Fy-uon" id="nTe-Ex-phl"/>
@@ -516,16 +525,17 @@ Kill eater score</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z26-CP-UFJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1573" y="664"/>
+            <point key="canvasLocation" x="1743" y="756"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tpM-Sl-7CZ">
             <objects>
                 <navigationController id="09V-IM-Zg9" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="7O0-zP-NMb">
+                    <navigationBar key="navigationBar" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="7O0-zP-NMb">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.63137257099999999" green="0.69803923369999998" blue="0.77647066119999997" alpha="1" colorSpace="deviceRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="n1t-WO-e29" kind="relationship" relationship="rootViewController" id="aMx-Od-P0I"/>
@@ -542,7 +552,7 @@ Kill eater score</string>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="srZ-Mq-OVS"/>
