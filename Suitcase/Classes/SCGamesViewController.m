@@ -324,29 +324,34 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
 - (void)loadSchemaFinished
 {
-    [self showInventory];
-    [TSMessage dismissActiveNotification];
-    [self.view setUserInteractionEnabled:YES];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self showInventory];
+        [TSMessage dismissActiveNotification];
+        [self.view setUserInteractionEnabled:YES];
+    });
 }
 
 - (void)loadSchemaStarted
 {
-    [self.view setUserInteractionEnabled:NO];
-    [TSMessage showNotificationInViewController:self.navigationController
-                                          title:NSLocalizedString(kSCSchemaIsLoading, kSCSchemaIsLoading)
-                                       subtitle:[NSString stringWithFormat:NSLocalizedString(kSCSchemaIsLoadingDetail, kSCSchemaIsLoadingDetail), _currentInventory.game.name]
-                                          image:nil
-                                           type:TSMessageNotificationTypeMessage
-                                       duration:TSMessageNotificationDurationEndless
-                                       callback:nil
-                                    buttonTitle:nil
-                                 buttonCallback:nil
-                                     atPosition:TSMessageNotificationPositionTop
-                            canBeDismisedByUser:NO];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [TSMessage showNotificationInViewController:self.navigationController
+                                              title:NSLocalizedString(kSCSchemaIsLoading, kSCSchemaIsLoading)
+                                           subtitle:[NSString stringWithFormat:NSLocalizedString(kSCSchemaIsLoadingDetail, kSCSchemaIsLoadingDetail), _currentInventory.game.name]
+                                              image:nil
+                                               type:TSMessageNotificationTypeMessage
+                                           duration:TSMessageNotificationDurationEndless
+                                           callback:nil
+                                        buttonTitle:nil
+                                     buttonCallback:nil
+                                         atPosition:TSMessageNotificationPositionTop
+                                canBeDismisedByUser:NO];
+    });
 }
 
 - (void)prepareInventory
 {
+    [self.view setUserInteractionEnabled:NO];
+
     if ([_currentInventory temporaryFailed] || [_currentInventory outdated]) {
         [self reloadInventory];
     }
@@ -354,6 +359,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
     if ([_currentInventory isSuccessful]) {
         [_currentInventory loadSchema];
     } else {
+        [self.view setUserInteractionEnabled:YES];
         [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
         [TSMessage showNotificationInViewController:self.navigationController
                                               title:NSLocalizedString(kSCInventoryLoadingFailed, kSCInventoryLoadingFailed)
