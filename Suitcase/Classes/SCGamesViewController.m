@@ -35,10 +35,16 @@ const NSInteger kSCAvailableGamesErrorView = 0;
 NSString *const kSCAvailableGamesErrorMessage = @"kSCAvailableGamesErrorMessage";
 NSString *const kSCAvailableGamesErrorTitle   = @"kSCAvailableGamesErrorTitle";
 const NSInteger kSCGamesErrorView = 1;
-NSString *const kSCGamesErrorMessage     = @"kSCGamesErrorMessage";
-NSString *const kSCGamesErrorTitle       = @"kSCGamesErrorTitle";
-NSString *const kSCSchemaIsLoading       = @"kSCSchemaIsLoading";
-NSString *const kSCSchemaIsLoadingDetail = @"kSCSchemaIsLoadingDetail";
+NSString *const kSCGamesErrorMessage                = @"kSCGamesErrorMessage";
+NSString *const kSCGamesErrorTitle                  = @"kSCGamesErrorTitle";
+NSString *const kSCInventoryLoadingFailed           = @"kSCInventoryLoadingFailed";
+NSString *const kSCInventoryLoadingFailedDetail     = @"kSCInventoryLoadingFailedDetail";
+NSString *const kSCReloadingFailedInventory         = @"kSCReloadingFailedInventory";
+NSString *const kSCReloadingFailedInventoryDetail   = @"kSCReloadingFailedInventoryDetail";
+NSString *const kSCReloadingOutdatedInventory       = @"kSCReloadingOutdatedInventory";
+NSString *const kSCReloadingOutdatedInventoryDetail = @"kSCReloadingOutdatedInventoryDetail";
+NSString *const kSCSchemaIsLoading                  = @"kSCSchemaIsLoading";
+NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -290,25 +296,11 @@ NSString *const kSCSchemaIsLoadingDetail = @"kSCSchemaIsLoadingDetail";
 {
     if ([[segue identifier] isEqualToString:@"showInventory"]) {
         SCInventoryViewController *inventoryController = segue.destinationViewController;
-        if (_lastInventory == _currentInventory && ![_lastInventory outdated]) {
-            inventoryController.inventory = _lastInventory;
+        inventoryController.inventory = _currentInventory;
+        if (_lastInventory == _currentInventory && [_lastInventory outdated]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadInventory" object:nil];
-            return;
         }
-        if ([_currentInventory temporaryFailed] || [_currentInventory outdated]) {
-            NSCondition *reloadCondition = [[NSCondition alloc] init];
-            [_currentInventory reloadWithCondition:reloadCondition];
-
-            [SCInventory setInventoriesToLoad:1];
-            [reloadCondition lock];
-            while ([SCInventory inventoriesToLoad] > 0) {
-                [reloadCondition wait];
-            }
-            [reloadCondition unlock];
-            [self populateInventories];
-            [self.tableView reloadData];
-        }
-        inventoryController.inventory = _lastInventory = _currentInventory;
+        _lastInventory = _currentInventory;
     } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
         UINavigationController *navigationController = segue.destinationViewController;
         IASKAppSettingsViewController *settingsController = (IASKAppSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];
@@ -342,7 +334,7 @@ NSString *const kSCSchemaIsLoadingDetail = @"kSCSchemaIsLoadingDetail";
     [self.view setUserInteractionEnabled:NO];
     [TSMessage showNotificationInViewController:self.navigationController
                                           title:NSLocalizedString(kSCSchemaIsLoading, kSCSchemaIsLoading)
-                                       subtitle:NSLocalizedString(kSCSchemaIsLoadingDetail, kSCSchemaIsLoadingDetail)
+                                       subtitle:[NSString stringWithFormat:NSLocalizedString(kSCSchemaIsLoadingDetail, kSCSchemaIsLoadingDetail), _currentInventory.game.name]
                                           image:nil
                                            type:TSMessageNotificationTypeMessage
                                        duration:TSMessageNotificationDurationEndless
@@ -351,6 +343,68 @@ NSString *const kSCSchemaIsLoadingDetail = @"kSCSchemaIsLoadingDetail";
                                  buttonCallback:nil
                                      atPosition:TSMessageNotificationPositionTop
                             canBeDismisedByUser:NO];
+}
+
+- (void)prepareInventory
+{
+    if ([_currentInventory temporaryFailed] || [_currentInventory outdated]) {
+        [self reloadInventory];
+    }
+
+    if ([_currentInventory isSuccessful]) {
+        [_currentInventory loadSchema];
+    } else {
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+        [TSMessage showNotificationInViewController:self.navigationController
+                                              title:NSLocalizedString(kSCInventoryLoadingFailed, kSCInventoryLoadingFailed)
+                                           subtitle:[NSString stringWithFormat:NSLocalizedString(kSCInventoryLoadingFailedDetail, kSCInventoryLoadingFailedDetail), _currentInventory.game.name]
+                                              image:nil
+                                               type:TSMessageNotificationTypeError
+                                           duration:TSMessageNotificationDurationAutomatic
+                                           callback:nil
+                                        buttonTitle:nil
+                                     buttonCallback:nil
+                                         atPosition:TSMessageNotificationPositionTop
+                                canBeDismisedByUser:YES];
+    }
+}
+
+- (void)reloadInventory
+{
+    NSString *messageTitle;
+    NSString *messageTitleDetail;
+    if ([_currentInventory temporaryFailed]) {
+        messageTitle = NSLocalizedString(kSCReloadingFailedInventory, kSCReloadingFailedInventory);
+        messageTitleDetail = NSLocalizedString(kSCReloadingFailedInventoryDetail, kSCReloadingFailedInventoryDetail);
+    } else {
+        messageTitle = NSLocalizedString(kSCReloadingOutdatedInventory, kSCReloadingOutdatedInventory);
+        messageTitleDetail = NSLocalizedString(kSCReloadingOutdatedInventoryDetail, kSCReloadingOutdatedInventoryDetail);
+    }
+
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [TSMessage showNotificationInViewController:self.navigationController
+                                              title:messageTitle
+                                           subtitle:[NSString stringWithFormat:messageTitleDetail, _currentInventory.game.name]
+                                              image:nil
+                                               type:TSMessageNotificationTypeMessage
+                                           duration:TSMessageNotificationDurationEndless
+                                           callback:nil
+                                        buttonTitle:nil
+                                     buttonCallback:nil
+                                         atPosition:TSMessageNotificationPositionTop
+                                canBeDismisedByUser:NO];
+    });
+
+    [SCInventory setInventoriesToLoad:1];
+    [_currentInventory reload];
+
+    while ([TSMessage isNotificationActive]) {
+        [NSThread sleepForTimeInterval:0.01];
+        [TSMessage dismissActiveNotification];
+    }
+
+    [self populateInventories];
+    [self.tableView reloadData];
 }
 
 - (void)showInventory
@@ -371,11 +425,8 @@ NSString *const kSCSchemaIsLoadingDetail = @"kSCSchemaIsLoadingDetail";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _currentInventory = [_inventories objectAtIndex:indexPath.row];
-    if (_currentInventory.schema == nil) {
-        [_currentInventory loadSchema];
-    } else {
-        [self showInventory];
-    }
+
+    [NSThread detachNewThreadSelector:@selector(prepareInventory) toTarget:self withObject:nil];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

@@ -211,12 +211,13 @@ static NSUInteger __inventoriesToLoad;
     return [_timestamp timeIntervalSinceNow] < -600;
 }
 
-- (void)reloadWithCondition:(NSCondition *)condition
+- (void)reload
 {
     AFJSONRequestOperation* inventoryOperation = [SCInventory inventoryOperationForSteamId64:_steamId64
                                                                             andGame:_game];
     [inventoryOperation setFailureCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-    [inventoryOperation setSuccessCallbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+
+    NSCondition *condition = [[NSCondition alloc] init];
     [inventoryOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *inventoryResponse = [responseObject objectForKey:@"result"];
 
@@ -242,7 +243,6 @@ static NSUInteger __inventoriesToLoad;
         }
 
         [condition lock];
-        [SCInventory decreaseInventoriesToLoad];
         [condition signal];
         [condition unlock];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -255,12 +255,14 @@ static NSUInteger __inventoriesToLoad;
         _temporaryFailed = YES;
 
         [condition lock];
-        [SCInventory decreaseInventoriesToLoad];
         [condition signal];
         [condition unlock];
     }];
 
+    [condition lock];
     [inventoryOperation start];
+    [condition wait];
+    [condition unlock];
 }
 
 - (void)sortItems {

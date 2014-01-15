@@ -36,7 +36,7 @@
 - (BOOL)isSuccessful;
 - (void)loadSchema;
 - (BOOL)outdated;
-- (void)reloadWithCondition:(NSCondition *)condition;
+- (void)reload;
 - (void)sortItems;
 - (BOOL)temporaryFailed;
 
