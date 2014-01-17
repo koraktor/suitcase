@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+        <deployment defaultVersion="1280" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="11">
             <objects>
                 <navigationController id="3" sceneMemberID="viewController">
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="4">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="4">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -28,7 +29,7 @@
             <objects>
                 <viewController title="Steam ID Form" id="n1t-WO-e29" customClass="SCSteamIdFormController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VDl-rw-4hR">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" clearButtonMode="whileEditing" id="agU-wR-SkB">
@@ -72,10 +73,9 @@ http://steamcommunity.com/profile/{Profile ID}
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="helpLabel" destination="NfD-g1-xMo" id="ZAk-R4-zUH"/>
                         <outlet property="steamIdField" destination="agU-wR-SkB" id="r1Y-t9-LbC"/>
@@ -89,19 +89,18 @@ http://steamcommunity.com/profile/{Profile ID}
         <scene sceneID="Tn6-Jk-7uU">
             <objects>
                 <tableViewController id="r9B-R6-ule" customClass="SCSettingsViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="i90-aV-FUj">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="i90-aV-FUj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCell" id="AEk-Jp-9m5">
                                 <rect key="frame" x="0.0" y="46" width="320" height="46"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AEk-Jp-9m5" id="C3y-dG-K8A">
                                     <rect key="frame" x="10" y="1" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -126,9 +125,9 @@ http://steamcommunity.com/profile/{Profile ID}
             <objects>
                 <navigationController definesPresentationContext="YES" id="sOd-p5-uza" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="WUH-Da-ljW"/>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="X9i-6K-ARw">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" id="X9i-6K-ARw">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -144,7 +143,7 @@ http://steamcommunity.com/profile/{Profile ID}
         <scene sceneID="nSk-hw-ah7">
             <objects>
                 <tableViewController id="OFf-mD-FT8" customClass="SCGamesViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rNZ-Ga-xu8">
+                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rNZ-Ga-xu8">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
@@ -153,12 +152,12 @@ http://steamcommunity.com/profile/{Profile ID}
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InventoryCell" textLabel="wyG-tS-PuW" imageView="wmH-N0-ekf" style="IBUITableViewCellStyleDefault" id="gAH-vt-EYE" customClass="SCInventoryCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gAH-vt-EYE" id="cgt-Vb-yRU">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Game name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wyG-tS-PuW">
-                                            <rect key="frame" x="106" y="0.0" width="204" height="43"/>
+                                            <rect key="frame" x="122" y="0.0" width="183" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -166,12 +165,11 @@ http://steamcommunity.com/profile/{Profile ID}
                                             <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="game_placeholder.png" id="wmH-N0-ekf">
-                                            <rect key="frame" x="4" y="4" width="92" height="35"/>
+                                            <rect key="frame" x="15" y="4" width="92" height="35"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -202,8 +200,8 @@ http://steamcommunity.com/profile/{Profile ID}
         <!--Inventory View Controller - Inventory-->
         <scene sceneID="18">
             <objects>
-                <tableViewController storyboardIdentifier="" title="Inventory" id="12" customClass="SCInventoryViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="13">
+                <tableViewController title="Inventory" id="12" customClass="SCInventoryViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="13">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
@@ -212,12 +210,12 @@ http://steamcommunity.com/profile/{Profile ID}
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItemCell" textLabel="phq-AM-6qj" imageView="8qV-vI-9XP" style="IBUITableViewCellStyleDefault" id="lJ0-d7-vTF" customClass="SCItemCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lJ0-d7-vTF" id="p99-aW-Rtx">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="phq-AM-6qj">
-                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                            <rect key="frame" x="15" y="0.0" width="270" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
@@ -230,8 +228,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
+                                </tableViewCellContentView>
                                 <connections>
                                     <segue destination="21" kind="push" identifier="showDetail" id="jZb-fq-zAk"/>
                                 </connections>
@@ -258,7 +255,7 @@ http://steamcommunity.com/profile/{Profile ID}
         <!--Item View Controller - Detail-->
         <scene sceneID="24">
             <objects>
-                <viewController storyboardIdentifier="" title="Detail" id="21" customClass="SCItemViewController" sceneMemberID="viewController">
+                <viewController title="Detail" id="21" customClass="SCItemViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="22">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -268,7 +265,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Qty." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="ZGN-cL-h15">
-                                        <rect key="frame" x="98" y="116" width="34" height="17"/>
+                                        <rect key="frame" x="97.999999655759268" y="116" width="34" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
@@ -404,6 +401,7 @@ Kill eater score</string>
                         </subviews>
                         <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Item" id="26">
                         <barButtonItem key="rightBarButtonItem" title="…" id="gK6-Cu-cfz">
                             <connections>
@@ -411,7 +409,6 @@ Kill eater score</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <connections>
                         <outlet property="classDemomanImage" destination="bW7-6X-aLf" id="YZ4-DB-b2u"/>
                         <outlet property="classEngineerImage" destination="Xr5-1l-OYD" id="ImC-eb-0cF"/>
@@ -459,7 +456,7 @@ Kill eater score</string>
             <objects>
                 <viewController title="Item Set" id="Rbk-sh-M5b" sceneMemberID="viewController">
                     <label key="view" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item set" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="d1R-KG-DpA" customClass="TTTAttributedLabel">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -469,7 +466,7 @@ Kill eater score</string>
                         <size key="shadowOffset" width="0.0" height="1"/>
                     </label>
                     <navigationItem key="navigationItem" id="Qdi-Gf-Vp0"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qoq-V6-2So" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -480,7 +477,7 @@ Kill eater score</string>
             <objects>
                 <viewController id="lNQ-t2-rFd" customClass="SCWikiViewController" sceneMemberID="viewController">
                     <webView key="view" contentMode="scaleToFill" id="N6N-xL-zR8">
-                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
@@ -500,7 +497,7 @@ Kill eater score</string>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="o3N-Lw-4Iv"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackOpaque"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
                     <connections>
                         <outlet property="backButton" destination="SjO-0w-XlB" id="Zc5-pw-dOs"/>
                         <outlet property="forwardButton" destination="aQh-Fy-uon" id="nTe-Ex-phl"/>
@@ -514,9 +511,9 @@ Kill eater score</string>
         <scene sceneID="tpM-Sl-7CZ">
             <objects>
                 <navigationController id="09V-IM-Zg9" sceneMemberID="viewController">
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="7O0-zP-NMb">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" id="7O0-zP-NMb">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -532,98 +529,12 @@ Kill eater score</string>
     <resources>
         <image name="game_placeholder.png" width="92" height="35"/>
     </resources>
-    <classes>
-        <class className="IASKAppSettingsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/IASKAppSettingsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-        <class className="SCClassImageView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCClassImageView.h"/>
-        </class>
-        <class className="SCGameCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCGameCell.h"/>
-        </class>
-        <class className="SCGamesViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCGamesViewController.h"/>
-        </class>
-        <class className="SCInventoryViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCInventoryViewController.h"/>
-        </class>
-        <class className="SCItemCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemCell.h"/>
-        </class>
-        <class className="SCItemImageView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemImageView.h"/>
-        </class>
-        <class className="SCItemViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="showItemSet:"/>
-                <relationship kind="action" name="showWikiPage:"/>
-                <relationship kind="outlet" name="classDemomanImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classEngineerImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classHeavyImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classMedicImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classPyroImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classScoutImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classSniperImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classSoldierImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="classSpyImage" candidateClass="SCClassImageView"/>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemImage" candidateClass="SCItemImageView"/>
-                <relationship kind="outlet" name="itemSetButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="killEaterIcon" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="killEaterLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="levelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="originIcon" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="originLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="qualityIcon" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="qualityLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="wikiButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outletCollection" name="classImages" candidateClass="SCClassImageView"/>
-                <relationship kind="outletCollection" name="icons" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="SCNavigationControllerDelegate" superclassName="UIResponder">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCNavigationControllerDelegate.h"/>
-        </class>
-        <class className="SCSettingsViewController" superclassName="IASKAppSettingsViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissSettings:"/>
-            </relationships>
-        </class>
-        <class className="SCSteamIdFormController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSteamIdFormController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissForm:"/>
-                <relationship kind="action" name="submitForm:"/>
-                <relationship kind="outlet" name="helpLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="steamIdField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="SCWikiViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCWikiViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goBack:"/>
-                <relationship kind="action" name="goForward:"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="forwardButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="TTTAttributedLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
+        <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="srZ-Mq-OVS"/>
+        <segue reference="JIn-1w-RO4"/>
     </inferredMetricsTieBreakers>
 </document>
