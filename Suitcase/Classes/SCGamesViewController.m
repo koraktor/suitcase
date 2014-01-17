@@ -218,11 +218,18 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
     } else {
         skipEmptyInventories = [rawSkipEmptyInventories boolValue];
     }
+    BOOL skipFailedInventories;
+    NSNumber *rawSkipFailedInventories = [[NSUserDefaults standardUserDefaults] valueForKey:@"skip_failed_inventories"];
+    if (rawSkipFailedInventories == nil) {
+        skipFailedInventories = YES;
+    } else {
+        skipFailedInventories = [rawSkipFailedInventories boolValue];
+    }
 
     _inventories = [NSMutableArray array];
     NSArray *inventories = [[[SCInventory inventories] valueForKeyPath:steamId64] allValues];
     [inventories enumerateObjectsUsingBlock:^(SCInventory *inventory, NSUInteger idx, BOOL *stop) {
-        if (![inventory isSuccessful] && ![inventory temporaryFailed]) {
+        if (![inventory isSuccessful] && (skipFailedInventories || ![inventory temporaryFailed])) {
             return;
         }
         if (skipEmptyInventories && [inventory isEmpty]) {
@@ -317,7 +324,8 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 }
 
 - (void)settingsChanged:(NSNotification *)notification {
-    if ([notification.object isEqual:@"skip_empty_inventories"]) {
+    if ([notification.object isEqual:@"skip_empty_inventories"] ||
+        [notification.object isEqual:@"skip_failed_inventories"]) {
         [self populateInventories];
     }
 }

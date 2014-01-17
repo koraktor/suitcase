@@ -29,6 +29,16 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>skip_failed_inventories</string>
+			<key>Title</key>
+			<string>Ignore failed inventories</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>Item listing</string>
 			<key>Type</key>

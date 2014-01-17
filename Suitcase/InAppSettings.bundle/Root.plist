@@ -20,6 +20,16 @@
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
+        <dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Ignore failed inventories</string>
+			<key>Key</key>
+			<string>skip_failed_inventories</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
 		<dict>
 			<key>FooterText</key>
 			<string>
