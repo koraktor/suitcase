@@ -288,13 +288,12 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
     [inventoriesCondition lock];
     while ([SCInventory inventoriesToLoad] > 0) {
         [inventoriesCondition wait];
+        [self populateInventories];
     }
 
 #ifdef DEBUG
     NSLog(@"All inventories loaded");
 #endif
-
-    [self populateInventories];
 
     [inventoriesCondition unlock];
 }
