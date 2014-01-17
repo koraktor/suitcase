@@ -186,6 +186,16 @@ NSString *const kSCHours = @"kSCHours";
             }
         }
     }];
+
+    [descriptionLabelText replaceOccurrencesOfString:@"<br>"
+                                          withString:@"\n"
+                                             options:NSCaseInsensitiveSearch
+                                               range:NSMakeRange(0, [descriptionLabelText length])];
+    [descriptionLabelText replaceOccurrencesOfString:@"</?font( .*)?>"
+                                          withString:@""
+                                             options:NSRegularExpressionSearch
+                                               range:NSMakeRange(0, [descriptionLabelText length])];
+
     self.descriptionLabel.text = descriptionLabelText;
 
     if (self.detailItem.itemSet != nil) {
