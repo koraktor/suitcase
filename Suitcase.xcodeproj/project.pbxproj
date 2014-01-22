@@ -180,7 +180,6 @@
 		0209E14E157954C20073385D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		0209E150157954C70073385D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0209E152157954D00073385D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		0209E154157954DF0073385D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		020EB42D15852A2A00654D2A /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = InAppSettings.bundle; sourceTree = "<group>"; };
 		020EB42F15852C2800654D2A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		0213CC311769087F0010908D /* cell_selection_gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cell_selection_gradient.png; path = Images/cell_selection_gradient.png; sourceTree = "<group>"; };
@@ -569,7 +568,6 @@
 				028B642E15265D690040D2FF /* SenTestingKit.framework */,
 				0209E150157954C70073385D /* SystemConfiguration.framework */,
 				028B640A15265D690040D2FF /* UIKit.framework */,
-				0209E154157954DF0073385D /* libz.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
