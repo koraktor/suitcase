@@ -84,11 +84,6 @@ static SCWebApiHTTPClient *_webApiClient;
         }
     }
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(resolveSteamId)
-                                                 name:@"resolveSteamId"
-                                               object:nil];
-
     return YES;
 }
 
