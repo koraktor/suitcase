@@ -221,7 +221,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
     BOOL skipFailedInventories;
     NSNumber *rawSkipFailedInventories = [[NSUserDefaults standardUserDefaults] valueForKey:@"skip_failed_inventories"];
     if (rawSkipFailedInventories == nil) {
-        skipFailedInventories = YES;
+        skipFailedInventories = NO;
     } else {
         skipFailedInventories = [rawSkipFailedInventories boolValue];
     }
