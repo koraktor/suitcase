@@ -7,7 +7,7 @@
 		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
-			<key>Title</key>
+			<key>FooterText</key>
 			<string>The MIT License (MIT)
 
 Copyright (c) 2013 Cory Imdieke
