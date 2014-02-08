@@ -45,10 +45,15 @@ static NSMutableDictionary *__schemas;
     }
     __block NSMutableDictionary *gameSchemas = [__schemas objectForKey:appId];
 
+    int version = 1;
+    if ([appId isEqualToNumber:@730]) {
+        version = 2;
+    }
+
     NSDictionary *params = [NSDictionary dictionaryWithObject:language forKey:@"language"];
     AFJSONRequestOperation *schemaOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:[NSString stringWithFormat:@"IEconItems_%@", appId]
                                                                                           andMethod:@"GetSchema"
-                                                                                         andVersion:1
+                                                                                         andVersion:version
                                                                                      withParameters:params
                                                                                             encoded:NO];
     [schemaOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
