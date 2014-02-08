@@ -2,7 +2,7 @@
 //  SCItem.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import "SCItem.h"
@@ -12,6 +12,7 @@
 @synthesize attributes = _attributes;
 @synthesize equippableClasses = _equippableClasses;
 @synthesize equippedClasses = _equippedClasses;
+@synthesize name = _name;
 @synthesize position = _position;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary
@@ -214,7 +215,19 @@
 }
 
 - (NSString *)name {
-    return [self valueForKey:@"item_name"];
+    if (_name == nil) {
+        NSMutableString *name = [[self valueForKey:@"item_name"] mutableCopy];
+        if ([name rangeOfString:@"%s1"].location != NSNotFound) {
+            [name replaceOccurrencesOfString:@"%s1"
+                                  withString:self.level.stringValue
+                                     options:NSLiteralSearch
+                                       range:NSMakeRange(0, [name length])];
+        }
+
+        _name = [name copy];
+    }
+
+    return _name;
 }
 
 - (NSString *)origin {

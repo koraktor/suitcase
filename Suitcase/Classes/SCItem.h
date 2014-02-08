@@ -2,7 +2,7 @@
 //  SCItem.h
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
@@ -16,6 +16,7 @@
 @property (readonly) int equippableClasses;
 @property (readonly) int equippedClasses;
 @property SCInventory *inventory;
+@property (readonly) NSString *name;
 @property (readonly) NSNumber *position;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary
@@ -28,7 +29,6 @@
 - (NSDictionary *)itemSet;
 - (NSString *)itemType;
 - (NSNumber *)level;
-- (NSString *)name;
 - (NSString *)origin;
 - (NSString *)quality;
 - (NSNumber *)quantity;
