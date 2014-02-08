@@ -417,7 +417,6 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
     }
 
     [self populateInventories];
-    [self.tableView reloadData];
 }
 
 - (void)showInventory
