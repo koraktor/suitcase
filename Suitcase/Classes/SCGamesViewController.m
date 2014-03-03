@@ -321,7 +321,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
-    [sender.parentViewController dismissModalViewControllerAnimated:YES];
+    [sender.parentViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)settingsChanged:(NSNotification *)notification {
