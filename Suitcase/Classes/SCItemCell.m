@@ -88,7 +88,11 @@ static CGRect kTextLabelFrame;
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                        cell.imageView.image = image;
                                    }
-                                   failure:nil];
+                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+#ifdef DEBUG
+                                       NSLog(@"Loading item icon failed with error: %@", error.description);
+#endif
+                                   }];
 
     [self changeColor];
 }
