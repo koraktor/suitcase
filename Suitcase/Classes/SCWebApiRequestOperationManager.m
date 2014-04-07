@@ -51,6 +51,9 @@
 
     [params setObject:__API_KEY__ forKey:@"key"];
     NSString *path = [NSString stringWithFormat:@"%@/%@/v%04d", interface, method, version];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        self.operationQueue = [[NSOperationQueue alloc] init];
+    }
     AFHTTPRequestOperation *request = [self GET:path parameters:params success:^(AFHTTPRequestOperation *operation, id response) {
 #ifdef DEBUG
         NSLog(@"Web API request @ %@ succeeded with status code %d", path, operation.response.statusCode);
