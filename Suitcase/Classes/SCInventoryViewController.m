@@ -5,28 +5,19 @@
 //  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
-#import <QuartzCore/QuartzCore.h>
-
 #import "BPBarButtonItem.h"
 #import "FAKFontAwesome.h"
 #import "IASKSettingsReader.h"
 
 #import "SCAppDelegate.h"
-#import "SCInventory.h"
-#import "SCItemViewController.h"
+#import "SCWebApiInventory.h"
 #import "SCItem.h"
+#import "SCItemViewController.h"
 #import "SCItemCell.h"
-#import "SCSchema.h"
 #import "SCSettingsViewController.h"
 #import "SCSteamIdFormController.h"
 
 #import "SCInventoryViewController.h"
-
-@interface SCInventoryViewController () {
-    SCInventory *_inventory;
-	SCSchema *_itemSchema;
-}
-@end
 
 @implementation SCInventoryViewController
 
@@ -76,7 +67,7 @@
     }
 }
 
-- (void)setInventory:(SCInventory *)inventory
+- (void)setInventory:(id <SCInventory>)inventory
 {
     _inventory = inventory;
 
@@ -144,7 +135,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        SCItem *item = [[_inventory.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        id <SCItem> item = [[_inventory.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         self.detailViewController.detailItem = item;
     }
 }
@@ -153,7 +144,7 @@
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        SCItem *item = [[_inventory.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        id <SCItem> item = [[_inventory.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         [segue.destinationViewController setDetailItem:item];
     } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
         UINavigationController *navigationController = segue.destinationViewController;

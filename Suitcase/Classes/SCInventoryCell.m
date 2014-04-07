@@ -72,7 +72,7 @@ static CGRect kTextLabelFrame;
                                    failure:nil];
 }
 
-- (void)setInventory:(SCInventory *)inventory
+- (void)setInventory:(id <SCInventory>)inventory
 {
     _inventory = inventory;
 

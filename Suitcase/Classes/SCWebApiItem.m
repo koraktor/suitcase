@@ -5,9 +5,9 @@
 //  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
-#import "SCItem.h"
+#import "SCWebApiItem.h"
 
-@implementation SCItem
+@implementation SCWebApiItem
 
 @synthesize attributes = _attributes;
 @synthesize equippableClasses = _equippableClasses;
@@ -16,7 +16,7 @@
 @synthesize position = _position;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary
-            andInventory:(SCInventory *)anInventory {
+            andInventory:(SCWebApiInventory *)anInventory {
     self.dictionary = aDictionary;
     self.inventory  = anInventory;
 
@@ -214,6 +214,10 @@
     return [self.dictionary objectForKey:@"level"];
 }
 
+- (NSString *)levelText {
+    return [NSString stringWithFormat:@"Level %@ %@", self.level, self.itemType];
+}
+
 - (NSString *)name {
     if (_name == nil) {
         NSMutableString *name = [[self valueForKey:@"item_name"] mutableCopy];
@@ -244,9 +248,29 @@
     return _position;
 }
 
-- (NSString *)quality {
-    NSNumber *qualityIndex = [self.dictionary objectForKey:@"quality"];
-    return [self.inventory.schema qualityNameForIndex:[qualityIndex unsignedIntValue]];
+- (NSNumber *)quality {
+    return [self.dictionary objectForKey:@"quality"];
+}
+
+- (UIColor *)qualityColor {
+    NSInteger itemQuality = [self.quality integerValue];
+    if (itemQuality == 1) {
+        return [UIColor colorWithRed:0.0 green:0.39 blue:0.0 alpha:1.0];
+    } else if (itemQuality == 3) {
+        return [UIColor colorWithRed:0.11 green:0.39 blue:0.82 alpha:1.0];
+    } else if (itemQuality == 5) {
+        return [UIColor colorWithRed:0.53 green:0.33 blue:0.82 alpha:1.0];
+    } else if (itemQuality == 7) {
+        return [UIColor colorWithRed:0.11 green:0.52 blue:0.17 alpha:1.0];
+    } else if (itemQuality == 11) {
+        return [UIColor colorWithRed:0.76 green:0.52 blue:0.17 alpha:1.0];
+    }
+
+    return [UIColor colorWithWhite:0.2 alpha:1.0];
+}
+
+- (NSString *)qualityName {
+    return [self.inventory.schema qualityNameForIndex:self.quality];
 }
 
 - (NSNumber *)quantity {

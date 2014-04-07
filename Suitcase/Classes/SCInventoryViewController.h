@@ -2,12 +2,10 @@
 //  SCMasterViewController.h
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import <UIKit/UIKit.h>
-
-#import "IASKAppSettingsViewController.h"
 
 #import "SCInventory.h"
 
@@ -16,6 +14,6 @@
 @interface SCInventoryViewController : UITableViewController <UITableViewDelegate>
 
 @property (strong, nonatomic) SCItemViewController *detailViewController;
-@property (strong, nonatomic) SCInventory *inventory;
+@property (strong, nonatomic) id <SCInventory> inventory;
 
 @end

@@ -7,12 +7,14 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SCCommunityRequestOperationManager.h"
 #import "SCWebApiRequestOperationManager.h"
 
 @interface SCAppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
++ (SCCommunityRequestOperationManager *)communityClient;
 + (SCWebApiRequestOperationManager *)webApiClient;
 + (void)errorWithMessage:(NSString *)errorMessage;
 

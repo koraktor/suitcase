@@ -6,16 +6,16 @@
 //
 
 #import "SCAppDelegate.h"
-#import "SCInventory.h"
-#import "SCSchema.h"
+#import "SCWebApiInventory.h"
+#import "SCWebApiSchema.h"
 
-@implementation SCSchema
+@implementation SCWebApiSchema
 
 static NSMutableDictionary *__schemas;
 
-+ (SCSchema *)brokenSchema
++ (SCWebApiSchema *)brokenSchema
 {
-    SCSchema *schema = [[SCSchema alloc] init];
+    SCWebApiSchema *schema = [[SCWebApiSchema alloc] init];
 
     return schema;
 }
@@ -25,7 +25,7 @@ static NSMutableDictionary *__schemas;
     return [__schemas copy];
 }
 
-+ (AFHTTPRequestOperation *)schemaOperationForInventory:(SCInventory *)inventory
++ (AFHTTPRequestOperation *)schemaOperationForInventory:(SCWebApiInventory *)inventory
                                             andLanguage:(NSString *)language
 {
     if (__schemas == nil) {
@@ -37,7 +37,7 @@ static NSMutableDictionary *__schemas;
     if ([__schemas objectForKey:appId] == nil) {
         [__schemas setObject:[NSMutableDictionary dictionary] forKey:appId];
     } else {
-        SCSchema *schema = [[__schemas objectForKey:appId] objectForKey:language];
+        SCWebApiSchema *schema = [[__schemas objectForKey:appId] objectForKey:language];
         if (schema != nil) {
             inventory.schema = schema;
             return nil;
@@ -57,22 +57,25 @@ static NSMutableDictionary *__schemas;
                                                                                      withParameters:params
                                                                                             encoded:NO];
     [schemaOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+#ifdef DEBUG
+        NSLog(@"Finished loading item schema for %@", appId);
+#endif
         NSDictionary *schemaResponse = [responseObject objectForKey:@"result"];
 
         if ([[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-            SCSchema *schema = [[SCSchema alloc] initWithDictionary:schemaResponse];
+            SCWebApiSchema *schema = [[SCWebApiSchema alloc] initWithDictionary:schemaResponse];
             [gameSchemas setObject:schema forKey:language];
             inventory.schema = schema;
         } else {
             NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [schemaResponse objectForKey:@"statusDetail"]];
-            inventory.schema = [SCSchema brokenSchema];
+            inventory.schema = [SCWebApiSchema brokenSchema];
             [SCAppDelegate errorWithMessage:errorMessage];
         }
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *errorMessage = [NSString stringWithFormat:@"Error loading item schema: %@", [error localizedDescription]];
-        inventory.schema = [SCSchema brokenSchema];
+        inventory.schema = [SCWebApiSchema brokenSchema];
         [SCAppDelegate errorWithMessage:errorMessage];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
@@ -90,7 +93,7 @@ static NSMutableDictionary *__schemas;
         [self.attributes setValue:obj forKey:[obj objectForKey:@"name"]];
     }];
     _attributes = [_attributes copy];
-    
+
     NSArray *effectsArray = [dictionary objectForKey:@"attribute_controlled_attached_particles"];
     _effects = [NSMutableDictionary dictionaryWithCapacity:[effectsArray count]];
     [effectsArray enumerateObjectsUsingBlock:^(NSDictionary *effect, NSUInteger idx, BOOL *stop) {
@@ -157,6 +160,10 @@ static NSMutableDictionary *__schemas;
     }];
     _qualities = [_qualities copy];
 
+#ifdef DEBUG
+    NSLog(@"Finished initializing item schema.");
+#endif
+
     return self;
 }
 
@@ -214,8 +221,8 @@ static NSMutableDictionary *__schemas;
     return [self.origins objectAtIndex:originIndex];
 }
 
-- (NSString *)qualityNameForIndex:(NSUInteger)qualityIndex {
-    return [self.qualities objectAtIndex:qualityIndex];
+- (NSString *)qualityNameForIndex:(NSNumber *)qualityIndex {
+    return [self.qualities objectAtIndex:[qualityIndex integerValue]];
 }
 
 @end

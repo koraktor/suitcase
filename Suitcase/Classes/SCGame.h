@@ -10,7 +10,9 @@
 @property (readonly) NSNumber *appId;
 @property (readonly) NSURL *logoUrl;
 @property (readonly) NSString *name;
+@property (readonly) NSArray *itemCategories;
 
++ (instancetype)steamGame;
 - (id)initWithJSONObject:(NSDictionary *)jsonObject;
 - (BOOL)isTF2;
 

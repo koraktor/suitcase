@@ -9,9 +9,9 @@
 
 #import "AFHTTPRequestOperation.h"
 
-#import "SCInventory.h"
+#import "SCWebApiInventory.h"
 
-@interface SCSchema : NSObject
+@interface SCWebApiSchema : NSObject
 
 @property (strong, readonly) NSDictionary *attributes;
 @property (strong, readonly) NSDictionary *effects;
@@ -23,9 +23,9 @@
 @property (strong, readonly) NSArray *origins;
 @property (strong, readonly) NSArray *qualities;
 
-+ (SCSchema *)brokenSchema;
++ (SCWebApiSchema *)brokenSchema;
 + (NSDictionary *)schemas;
-+ (AFHTTPRequestOperation *)schemaOperationForInventory:(SCInventory *)inventory
++ (AFHTTPRequestOperation *)schemaOperationForInventory:(SCWebApiInventory *)inventory
                                             andLanguage:(NSString *)language;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
@@ -40,6 +40,6 @@
 - (NSDictionary *)itemSetForKey:(NSString *)itemSetKey;
 - (NSDictionary *)killEaterTypeForIndex:(NSNumber *)typeIndex;
 - (NSString *)originNameForIndex:(NSUInteger)originIndex;
-- (NSString *)qualityNameForIndex:(NSUInteger)qualityIndex;
+- (NSString *)qualityNameForIndex:(NSNumber *)qualityIndex;
 
 @end

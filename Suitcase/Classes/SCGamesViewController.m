@@ -10,9 +10,12 @@
 #import "IASKSettingsReader.h"
 #import "TSMessage.h"
 
+#import "SCAbstractInventory.h"
 #import "SCAppDelegate.h"
+#import "SCCommunityInventory.h"
 #import "SCGame.h"
 #import "SCInventory.h"
+#import "SCWebApiInventory.h"
 #import "SCInventoryCell.h"
 #import "SCSteamIdFormController.h"
 
@@ -21,11 +24,13 @@
 @interface SCGamesViewController () {
     NSArray *_availableGames;
     NSLock *_availableGamesLock;
-    SCInventory *_currentInventory;
+    id <SCInventory> _currentInventory;
     NSArray *_games;
     NSLock *_gamesLock;
     NSArray *_inventories;
-    SCInventory *_lastInventory;
+    id <SCInventory> _lastInventory;
+    NSBlockOperation *_populateOperation;
+    BOOL _waitingForInventoryReload;
 }
 @end
 
@@ -70,6 +75,10 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
                                                  name:kIASKAppSettingChanged
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(inventoryLoaded)
+                                                 name:@"inventoryLoaded"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadAvailableGames)
                                                  name:@"loadAvailableGames"
                                                object:nil];
@@ -88,6 +97,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
     _availableGamesLock = [[NSLock alloc] init];
     _gamesLock = [[NSLock alloc] init];
+    _waitingForInventoryReload = NO;
 
     FAKIcon *userIcon = [FAKFontAwesome userIconWithSize:0.0];
     self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:@" %@ ", [userIcon characterCode]];
@@ -125,6 +135,9 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
                 [(NSMutableArray *)_availableGames addObject:appId];
             }
         }];
+        if (![_availableGames containsObject:@753]) {
+            [(NSMutableArray *)_availableGames addObject:@753];
+        }
         _availableGames = [_availableGames copy];
         [_availableGamesLock unlock];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -140,7 +153,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
         alertView.tag = kSCAvailableGamesErrorView;
         [alertView show];
     }];
-    [_availableGamesLock lock];
+    [_availableGamesLock tryLock];
     [apiListOperation start];
 }
 
@@ -184,6 +197,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
         for (NSDictionary *game in games) {
             [gameObjects addObject:[[SCGame alloc] initWithJSONObject:game]];
         }
+        [gameObjects addObject:[SCGame steamGame]];
 
         [_gamesLock unlock];
 
@@ -205,57 +219,106 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
     }];
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_gamesLock lock];
+        [_gamesLock tryLock];
         [gamesOperation start];
     });
 }
 
+- (void)inventoryLoaded
+{
+    if (_waitingForInventoryReload) {
+        [TSMessage dismissActiveNotification];
+        while ([TSMessage isNotificationActive]) {
+            [NSThread sleepForTimeInterval:0.01];
+        }
+
+        _waitingForInventoryReload = NO;
+
+        if ([_currentInventory isSuccessful]) {
+            if ([_currentInventory isMemberOfClass:[SCWebApiInventory class]]) {
+                [(SCWebApiInventory *)_currentInventory loadSchema];
+            } else {
+                [self.view setUserInteractionEnabled:YES];
+                [self showInventory];
+            }
+        } else {
+            [self.view setUserInteractionEnabled:YES];
+            [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+            [TSMessage showNotificationInViewController:self.navigationController
+                                                  title:NSLocalizedString(kSCInventoryLoadingFailed, kSCInventoryLoadingFailed)
+                                               subtitle:[NSString stringWithFormat:NSLocalizedString(kSCInventoryLoadingFailedDetail, kSCInventoryLoadingFailedDetail), _currentInventory.game.name]
+                                                  image:nil
+                                                   type:TSMessageNotificationTypeError
+                                               duration:TSMessageNotificationDurationAutomatic
+                                               callback:nil
+                                            buttonTitle:nil
+                                         buttonCallback:nil
+                                             atPosition:TSMessageNotificationPositionTop
+                                    canBeDismisedByUser:YES];
+        }
+    }
+
+    [self populateInventories];
+}
+
 - (void)populateInventories
 {
-    NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
-
-    BOOL skipEmptyInventories;
-    NSNumber *rawSkipEmptyInventories = [[NSUserDefaults standardUserDefaults] valueForKey:@"skip_empty_inventories"];
-    if (rawSkipEmptyInventories == nil) {
-        skipEmptyInventories = YES;
-    } else {
-        skipEmptyInventories = [rawSkipEmptyInventories boolValue];
-    }
-    BOOL skipFailedInventories;
-    NSNumber *rawSkipFailedInventories = [[NSUserDefaults standardUserDefaults] valueForKey:@"skip_failed_inventories"];
-    if (rawSkipFailedInventories == nil) {
-        skipFailedInventories = NO;
-    } else {
-        skipFailedInventories = [rawSkipFailedInventories boolValue];
-    }
-
-    _inventories = [NSMutableArray array];
-    NSArray *inventories = [[[SCInventory inventories] valueForKeyPath:steamId64] allValues];
-    [inventories enumerateObjectsUsingBlock:^(SCInventory *inventory, NSUInteger idx, BOOL *stop) {
-        if (![inventory isSuccessful] && (skipFailedInventories || ![inventory temporaryFailed])) {
-            return;
-        }
-        if (skipEmptyInventories && [inventory isEmpty]) {
-            return;
-        }
-        [(NSMutableArray *)_inventories addObject:inventory];
-    }];
-    _inventories = [_inventories sortedArrayUsingComparator:^NSComparisonResult(SCInventory* inv1, SCInventory *inv2) {
-        return [inv1.game.name compare:inv2.game.name];
-    }];
-
 #ifdef DEBUG
-    NSLog(@"Loaded %d inventories for user %@.", [_inventories count], steamId64);
+    NSLog(@"Populating inventories…");
 #endif
 
-    dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.tableView reloadData];
+    if ([_populateOperation isExecuting]) {
+        [_populateOperation cancel];
+    }
 
-        if ([_inventories count] > 0) {
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    _populateOperation = [NSBlockOperation blockOperationWithBlock:^{
+        NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] valueForKey:@"SteamID64"];
+
+        BOOL skipEmptyInventories;
+        NSNumber *rawSkipEmptyInventories = [[NSUserDefaults standardUserDefaults] valueForKey:@"skip_empty_inventories"];
+        if (rawSkipEmptyInventories == nil) {
+            skipEmptyInventories = YES;
+        } else {
+            skipEmptyInventories = [rawSkipEmptyInventories boolValue];
         }
-    });
+        BOOL skipFailedInventories;
+        NSNumber *rawSkipFailedInventories = [[NSUserDefaults standardUserDefaults] valueForKey:@"skip_failed_inventories"];
+        if (rawSkipFailedInventories == nil) {
+            skipFailedInventories = NO;
+        } else {
+            skipFailedInventories = [rawSkipFailedInventories boolValue];
+        }
+
+        _inventories = [NSMutableArray array];
+        NSArray *inventories = [[SCAbstractInventory inventoriesForUser:steamId64] allValues];
+        [inventories enumerateObjectsUsingBlock:^(id <SCInventory> inventory, NSUInteger idx, BOOL *stop) {
+            if (![inventory isSuccessful] && (skipFailedInventories || ![inventory temporaryFailed])) {
+                return;
+            }
+            if (skipEmptyInventories && [inventory isEmpty]) {
+                return;
+            }
+            [(NSMutableArray *)_inventories addObject:inventory];
+        }];
+        _inventories = [_inventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
+            return [inv1.game.name compare:inv2.game.name];
+        }];
+
+#ifdef DEBUG
+        NSLog(@"Loaded %lu inventories for user %@.", (unsigned long) [_inventories count], steamId64);
+#endif
+
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            [self.tableView reloadData];
+
+            if ([_inventories count] > 0) {
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                      atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            }
+        });
+    }];
+
+    [_populateOperation start];
 }
 
 - (void)populateGames:(NSArray *)games
@@ -273,32 +336,24 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
 
 #ifdef DEBUG
-    NSLog(@"Loaded %d games for user %@.", [_games count], steamId64);
+    NSLog(@"Loaded %lu games for user %@.", (unsigned long) [_games count], steamId64);
 #endif
 
-    [SCInventory setInventoriesToLoad:[_games count]];
-    NSCondition *inventoriesCondition = [[NSCondition alloc] init];
-
     for (SCGame *game in _games) {
-        NSOperation *inventoryOperation = [SCInventory inventoryForSteamId64:steamId64
-                                                                     andGame:game
-                                                                andCondition:inventoriesCondition];
-        if (inventoryOperation != nil) {
-            [inventoryOperation start];
-        }
-    }
+        Class inventoryClass;
 
-    [inventoriesCondition lock];
-    while ([SCInventory inventoriesToLoad] > 0) {
-        [inventoriesCondition wait];
-        [self populateInventories];
+        if ([@[@620, @730, @753] containsObject:game.appId]) {
+            inventoryClass = [SCCommunityInventory class];
+        } else {
+            inventoryClass = [SCWebApiInventory class];
+        }
+
+        [inventoryClass inventoryForSteamId64:steamId64 andGame:game];
     }
 
 #ifdef DEBUG
     NSLog(@"All inventories loaded");
 #endif
-
-    [inventoriesCondition unlock];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -342,45 +397,26 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
 - (void)loadSchemaStarted
 {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [TSMessage showNotificationInViewController:self.navigationController
-                                              title:NSLocalizedString(kSCSchemaIsLoading, kSCSchemaIsLoading)
-                                           subtitle:[NSString stringWithFormat:NSLocalizedString(kSCSchemaIsLoadingDetail, kSCSchemaIsLoadingDetail), _currentInventory.game.name]
-                                              image:nil
-                                               type:TSMessageNotificationTypeMessage
-                                           duration:TSMessageNotificationDurationEndless
-                                           callback:nil
-                                        buttonTitle:nil
-                                     buttonCallback:nil
-                                         atPosition:TSMessageNotificationPositionTop
-                                canBeDismisedByUser:NO];
-    });
+    [TSMessage showNotificationInViewController:self.navigationController
+                                          title:NSLocalizedString(kSCSchemaIsLoading, kSCSchemaIsLoading)
+                                       subtitle:[NSString stringWithFormat:NSLocalizedString(kSCSchemaIsLoadingDetail, kSCSchemaIsLoadingDetail), _currentInventory.game.name]
+                                          image:nil
+                                           type:TSMessageNotificationTypeMessage
+                                       duration:TSMessageNotificationDurationEndless
+                                       callback:nil
+                                    buttonTitle:nil
+                                 buttonCallback:nil
+                                     atPosition:TSMessageNotificationPositionTop
+                            canBeDismisedByUser:NO];
 }
 
 - (void)prepareInventory
 {
-    [self.view setUserInteractionEnabled:NO];
-
     if ([_currentInventory temporaryFailed] || [_currentInventory outdated]) {
+        [self.view setUserInteractionEnabled:NO];
         [self reloadInventory];
-    }
-
-    if ([_currentInventory isSuccessful]) {
-        [_currentInventory loadSchema];
     } else {
-        [self.view setUserInteractionEnabled:YES];
-        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-        [TSMessage showNotificationInViewController:self.navigationController
-                                              title:NSLocalizedString(kSCInventoryLoadingFailed, kSCInventoryLoadingFailed)
-                                           subtitle:[NSString stringWithFormat:NSLocalizedString(kSCInventoryLoadingFailedDetail, kSCInventoryLoadingFailedDetail), _currentInventory.game.name]
-                                              image:nil
-                                               type:TSMessageNotificationTypeError
-                                           duration:TSMessageNotificationDurationAutomatic
-                                           callback:nil
-                                        buttonTitle:nil
-                                     buttonCallback:nil
-                                         atPosition:TSMessageNotificationPositionTop
-                                canBeDismisedByUser:YES];
+        [self showInventory];
     }
 }
 
@@ -396,29 +432,21 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
         messageTitleDetail = NSLocalizedString(kSCReloadingOutdatedInventoryDetail, kSCReloadingOutdatedInventoryDetail);
     }
 
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [TSMessage showNotificationInViewController:self.navigationController
-                                              title:messageTitle
-                                           subtitle:[NSString stringWithFormat:messageTitleDetail, _currentInventory.game.name]
-                                              image:nil
-                                               type:TSMessageNotificationTypeMessage
-                                           duration:TSMessageNotificationDurationEndless
-                                           callback:nil
-                                        buttonTitle:nil
-                                     buttonCallback:nil
-                                         atPosition:TSMessageNotificationPositionTop
-                                canBeDismisedByUser:NO];
-    });
+    [TSMessage showNotificationInViewController:self.navigationController
+                                          title:messageTitle
+                                       subtitle:[NSString stringWithFormat:messageTitleDetail, _currentInventory.game.name]
+                                          image:nil
+                                           type:TSMessageNotificationTypeMessage
+                                       duration:TSMessageNotificationDurationEndless
+                                       callback:nil
+                                    buttonTitle:nil
+                                 buttonCallback:nil
+                                     atPosition:TSMessageNotificationPositionTop
+                            canBeDismisedByUser:NO];
 
-    [SCInventory setInventoriesToLoad:1];
-    [_currentInventory reload];
+    _waitingForInventoryReload = YES;
 
-    while ([TSMessage isNotificationActive]) {
-        [NSThread sleepForTimeInterval:0.01];
-        [TSMessage dismissActiveNotification];
-    }
-
-    [self populateInventories];
+    [NSThread detachNewThreadSelector:@selector(reload) toTarget:_currentInventory withObject:nil];
 }
 
 - (void)showInventory
@@ -428,10 +456,9 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SCInventory *inventory = [_inventories objectAtIndex:indexPath.row];
     SCInventoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InventoryCell"];
     cell.backgroundColor = [UIColor clearColor];
-    cell.inventory = inventory;
+    cell.inventory = [_inventories objectAtIndex:indexPath.row];
     [cell loadImage];
 
     return cell;

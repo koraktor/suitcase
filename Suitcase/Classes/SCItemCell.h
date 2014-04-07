@@ -11,7 +11,7 @@
 
 @interface SCItemCell : UITableViewCell
 
-@property (strong, nonatomic) SCItem *item;
+@property (strong, nonatomic) id <SCItem> item;
 @property (nonatomic) BOOL showColors;
 
 - (void)changeColor;

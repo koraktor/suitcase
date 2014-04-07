@@ -2,42 +2,31 @@
 //  SCInventory.h
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2014, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
 
-#import "AFHTTPRequestOperation.h"
-
 #import "SCGame.h"
 
-@class SCInventory;
+@protocol SCInventory <UITableViewDataSource>
 
-#import "SCSchema.h"
+@property NSArray *itemSections;
+@property BOOL showColors;
 
-@interface SCInventory : NSObject <UITableViewDataSource>
++ (instancetype)inventoryForSteamId64:(NSNumber *)steamId64
+                              andGame:(SCGame *)game;
 
-@property (strong, nonatomic) NSArray *itemSections;
-@property (strong, nonatomic) NSArray *items;
-@property (strong, nonatomic) SCGame *game;
-@property (strong, nonatomic) SCSchema *schema;
-@property (strong, nonatomic) NSNumber *slots;
-@property (nonatomic) BOOL showColors;
-
-+ (void)decreaseInventoriesToLoad;
-+ (NSDictionary *)inventories;
-+ (NSUInteger)inventoriesToLoad;
-+ (AFHTTPRequestOperation *)inventoryForSteamId64:(NSNumber *)steamId64
-                                          andGame:(SCGame *)game
-                                     andCondition:(NSCondition *)condition;
-+ (void)setInventoriesToLoad:(NSUInteger)count;
-
+- (SCGame *)game;
 - (BOOL)isEmpty;
 - (BOOL)isSuccessful;
-- (void)loadSchema;
+- (NSArray *)items;
+- (void)load;
 - (BOOL)outdated;
 - (void)reload;
+- (NSNumber *)slots;
 - (void)sortItems;
+- (NSNumber *)steamId64;
 - (BOOL)temporaryFailed;
 
 @end

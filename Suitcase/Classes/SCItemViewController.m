@@ -11,7 +11,9 @@
 #import "BPBarButtonItem.h"
 #import "FAKFontAwesome.h"
 
+#import "SCCommunityItem.h"
 #import "SCItemViewController.h"
+#import "SCWebApiItem.h"
 
 @interface SCItemViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -52,7 +54,7 @@ NSString *const kSCHours = @"kSCHours";
 
 #pragma mark - Managing the detail item
 
-- (void)setDetailItem:(SCItem *)newDetailItem
+- (void)setDetailItem:(id <SCItem>)newDetailItem
 {
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
@@ -93,102 +95,103 @@ NSString *const kSCHours = @"kSCHours";
     self.title = self.detailItem.name;
     self.killEaterLabel.hidden = YES;
     self.killEaterIcon.alpha = 0.4;
-    self.levelLabel.text = [NSString stringWithFormat:@"Level %@ %@",
-                            self.detailItem.level, self.detailItem.itemType];
+    self.levelLabel.text = self.detailItem.levelText;
     self.originLabel.text = NSLocalizedString(self.detailItem.origin, @"Item oigin");
-    self.qualityLabel.text = self.detailItem.quality;
+    self.qualityLabel.text = self.detailItem.qualityName;
 
     NSMutableString *descriptionLabelText = [self.detailItem.description mutableCopy];
     if (descriptionLabelText == nil) {
         descriptionLabelText = [NSMutableString string];
     }
 
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    [numberFormatter setMaximumFractionDigits:0];
-    __block BOOL firstAttribute = YES;
-    [self.detailItem.attributes enumerateObjectsUsingBlock:^(NSDictionary *attribute, NSUInteger idx, BOOL *stop) {
-        NSMutableString *attributeDescription = [[attribute objectForKey:@"description"] mutableCopy];
-        if (attributeDescription != nil) {
-            NSString *valueFormat = [attribute objectForKey:@"valueFormat"];
-            NSString *value;
-            if ([valueFormat isEqual:@"kill_eater"]) {
-                value = [(NSNumber *)[attribute objectForKey:@"value"] stringValue];
-            } else if ([valueFormat isEqual:@"value_is_account_id"]) {
-                value = [[attribute objectForKey:@"accountInfo"] objectForKey:@"personaname"];
-            } else if ([valueFormat isEqual:@"value_is_additive"]) {
-                value = [(NSNumber *)attribute[@"floatValue"] stringValue];
-                if (value == nil) {
-                    value = [(NSNumber *)attribute[@"value"] stringValue];
+    if ([self.detailItem class] == [SCWebApiItem class]) {
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [numberFormatter setMaximumFractionDigits:0];
+        __block BOOL firstAttribute = YES;
+        [((SCWebApiItem *)self.detailItem).attributes enumerateObjectsUsingBlock:^(NSDictionary *attribute, NSUInteger idx, BOOL *stop) {
+            NSMutableString *attributeDescription = [[attribute objectForKey:@"description"] mutableCopy];
+            if (attributeDescription != nil) {
+                NSString *valueFormat = [attribute objectForKey:@"valueFormat"];
+                NSString *value;
+                if ([valueFormat isEqual:@"kill_eater"]) {
+                    value = [(NSNumber *)[attribute objectForKey:@"value"] stringValue];
+                } else if ([valueFormat isEqual:@"value_is_account_id"]) {
+                    value = [[attribute objectForKey:@"accountInfo"] objectForKey:@"personaname"];
+                } else if ([valueFormat isEqual:@"value_is_additive"]) {
+                    value = [(NSNumber *)attribute[@"floatValue"] stringValue];
+                    if (value == nil) {
+                        value = [(NSNumber *)attribute[@"value"] stringValue];
+                    }
+                } else if ([valueFormat isEqual:@"value_is_additive_percentage"]) {
+                    value = [[NSNumber numberWithDouble:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue] * 100] stringValue];
+                } else if ([valueFormat isEqual:@"value_is_date"]) {
+                    double timestamp = [(NSNumber *)[attribute objectForKey:@"value"] doubleValue];
+                    if (timestamp == 0) {
+                        attributeDescription = nil;
+                    } else {
+                        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue]];
+                        value = [NSDateFormatter localizedStringFromDate:date
+                                                               dateStyle:NSDateFormatterMediumStyle
+                                                               timeStyle:NSDateFormatterShortStyle];
+                    }
+                } else if ([valueFormat isEqual:@"value_is_inverted_percentage"]) {
+                    NSNumber *numberValue = attribute[@"floatValue"];
+                    if (numberValue == nil) {
+                        numberValue = attribute[@"value"];
+                    }
+                    numberValue = [NSNumber numberWithDouble:(1 - [numberValue doubleValue]) * 100];
+                    value = [numberFormatter stringFromNumber:numberValue];
+                } else if ([valueFormat isEqualToString:@"value_is_mins_as_hours"]) {
+                    int hours = [(NSNumber *)attribute[@"floatValue"] floatValue] / 60;
+                    NSString *formatString = (hours == 1) ? NSLocalizedString(kSCHour, kSCHour) : NSLocalizedString(kSCHours, kSCHours);
+                    value = [NSString stringWithFormat:formatString, hours];
+                } else if ([valueFormat isEqual:@"value_is_particle_index"]) {
+                    value = [((SCWebApiInventory *)self.detailItem.inventory).schema effectNameForIndex:[attribute objectForKey:@"value"]];
+                    if (value == nil) {
+                        value = [((SCWebApiInventory *)self.detailItem.inventory).schema effectNameForIndex:[attribute objectForKey:@"floatValue"]];
+                    }
+                } else if ([valueFormat isEqual:@"value_is_percentage"]) {
+                    NSNumber *numberValue = attribute[@"floatValue"];
+                    if (numberValue == nil) {
+                        numberValue = attribute[@"value"];
+                    }
+                    numberValue = [NSNumber numberWithDouble:([numberValue doubleValue] - 1) * 100];
+                    value = [numberFormatter stringFromNumber:numberValue];
                 }
-            } else if ([valueFormat isEqual:@"value_is_additive_percentage"]) {
-                value = [[NSNumber numberWithDouble:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue] * 100] stringValue];
-            } else if ([valueFormat isEqual:@"value_is_date"]) {
-                double timestamp = [(NSNumber *)[attribute objectForKey:@"value"] doubleValue];
-                if (timestamp == 0) {
-                    attributeDescription = nil;
+
+                if (value != nil) {
+                    [attributeDescription replaceOccurrencesOfString:@"%s1"
+                                                          withString:value
+                                                             options:NSLiteralSearch
+                                                               range:NSMakeRange(0, [attributeDescription length])];
+                }
+
+                if ([valueFormat isEqual:@"kill_eater"]) {
+                    self.killEaterLabel.text = attributeDescription;
+                    CGRect currentFrame = self.killEaterLabel.frame;
+                    CGSize maxFrame = CGSizeMake(currentFrame.size.width, 500);
+                    CGSize expectedFrame = [attributeDescription sizeWithFont:self.killEaterLabel.font
+                                                            constrainedToSize:maxFrame
+                                                                lineBreakMode:self.killEaterLabel.lineBreakMode];
+                    currentFrame.size.height = expectedFrame.height;
+                    self.killEaterLabel.frame = currentFrame;
+                    self.killEaterLabel.hidden = NO;
+                    self.killEaterIcon.alpha = 1.0;
                 } else {
-                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue]];
-                    value = [NSDateFormatter localizedStringFromDate:date
-                                                           dateStyle:NSDateFormatterMediumStyle
-                                                           timeStyle:NSDateFormatterShortStyle];
-                }
-            } else if ([valueFormat isEqual:@"value_is_inverted_percentage"]) {
-                NSNumber *numberValue = attribute[@"floatValue"];
-                if (numberValue == nil) {
-                    numberValue = attribute[@"value"];
-                }
-                numberValue = [NSNumber numberWithDouble:(1 - [numberValue doubleValue]) * 100];
-                value = [numberFormatter stringFromNumber:numberValue];
-            } else if ([valueFormat isEqualToString:@"value_is_mins_as_hours"]) {
-                int hours = [(NSNumber *)attribute[@"floatValue"] floatValue] / 60;
-                NSString *formatString = (hours == 1) ? NSLocalizedString(kSCHour, kSCHour) : NSLocalizedString(kSCHours, kSCHours);
-                value = [NSString stringWithFormat:formatString, hours];
-            } else if ([valueFormat isEqual:@"value_is_particle_index"]) {
-                value = [self.detailItem.inventory.schema effectNameForIndex:[attribute objectForKey:@"value"]];
-                if (value == nil) {
-                    value = [self.detailItem.inventory.schema effectNameForIndex:[attribute objectForKey:@"floatValue"]];
-                }
-            } else if ([valueFormat isEqual:@"value_is_percentage"]) {
-                NSNumber *numberValue = attribute[@"floatValue"];
-                if (numberValue == nil) {
-                    numberValue = attribute[@"value"];
-                }
-                numberValue = [NSNumber numberWithDouble:([numberValue doubleValue] - 1) * 100];
-                value = [numberFormatter stringFromNumber:numberValue];
-            }
-
-            if (value != nil) {
-                [attributeDescription replaceOccurrencesOfString:@"%s1"
-                                                      withString:value
-                                                         options:NSLiteralSearch
-                                                           range:NSMakeRange(0, [attributeDescription length])];
-            }
-
-            if ([valueFormat isEqual:@"kill_eater"]) {
-                self.killEaterLabel.text = attributeDescription;
-                CGRect currentFrame = self.killEaterLabel.frame;
-                CGSize maxFrame = CGSizeMake(currentFrame.size.width, 500);
-                CGSize expectedFrame = [attributeDescription sizeWithFont:self.killEaterLabel.font
-                                                        constrainedToSize:maxFrame
-                                                            lineBreakMode:self.killEaterLabel.lineBreakMode];
-                currentFrame.size.height = expectedFrame.height;
-                self.killEaterLabel.frame = currentFrame;
-                self.killEaterLabel.hidden = NO;
-                self.killEaterIcon.alpha = 1.0;
-            } else {
-                if ([descriptionLabelText length] > 0) {
-                    if (firstAttribute) {
+                    if ([descriptionLabelText length] > 0) {
+                        if (firstAttribute) {
+                            [descriptionLabelText appendString:@"\n"];
+                        }
                         [descriptionLabelText appendString:@"\n"];
                     }
-                    [descriptionLabelText appendString:@"\n"];
-                }
 
-                [descriptionLabelText appendString:attributeDescription];
-                firstAttribute = NO;
+                    [descriptionLabelText appendString:attributeDescription];
+                    firstAttribute = NO;
+                }
             }
-        }
-    }];
+        }];
+    }
 
     [descriptionLabelText replaceOccurrencesOfString:@"<br>"
                                           withString:@"\n"
@@ -201,8 +204,8 @@ NSString *const kSCHours = @"kSCHours";
 
     self.descriptionLabel.text = descriptionLabelText;
 
-    if (self.detailItem.itemSet != nil) {
-        [self.itemSetButton setTitle:[self.detailItem.itemSet objectForKey:@"name"] forState:UIControlStateNormal];
+    if ([self.detailItem class] == [SCWebApiItem class] && ((SCWebApiItem *)self.detailItem).itemSet != nil) {
+        [self.itemSetButton setTitle:[((SCWebApiItem *)self.detailItem).itemSet objectForKey:@"name"] forState:UIControlStateNormal];
         self.itemSetButton.enabled = YES;
     } else {
         [self.itemSetButton setTitle:nil forState:UIControlStateNormal];
@@ -218,7 +221,7 @@ NSString *const kSCHours = @"kSCHours";
     self.descriptionLabel.frame = currentFrame;
 
     if ([self.detailItem.inventory.game isTF2]) {
-        int equippedClasses = self.detailItem.equippedClasses;
+        int equippedClasses = ((SCWebApiItem *)self.detailItem).equippedClasses;
         self.classScoutImage.equipped = equippedClasses & 1;
         self.classSoldierImage.equipped = equippedClasses & 4;
         self.classPyroImage.equipped = equippedClasses & 64;
@@ -229,7 +232,7 @@ NSString *const kSCHours = @"kSCHours";
         self.classSniperImage.equipped = equippedClasses & 2;
         self.classSpyImage.equipped = equippedClasses & 128;
 
-        int equippableClasses = self.detailItem.equippableClasses;
+        int equippableClasses = ((SCWebApiItem *)self.detailItem).equippableClasses;
         self.classScoutImage.equippable = equippableClasses & 1;
         self.classSoldierImage.equippable = equippableClasses & 4;
         self.classPyroImage.equippable = equippableClasses & 64;
@@ -242,10 +245,19 @@ NSString *const kSCHours = @"kSCHours";
     }
 
     [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-        if ([self.classImages containsObject:view]) {
-            view.hidden = ![self.detailItem.inventory.game isTF2];
-        } else if (view != self.killEaterLabel) {
-            view.hidden = NO;
+        view.hidden = YES;
+        if ([self.detailItem isMemberOfClass:[SCCommunityItem class]]) {
+            NSArray *hiddenViews = @[self.itemSetButton, self.qualityIcon, self.qualityLabel, self.originIcon,
+                                     self.originLabel, self.killEaterIcon, self.killEaterLabel];
+            if (!([hiddenViews containsObject:view] || [self.classImages containsObject:view])) {
+                view.hidden = NO;
+            }
+        } else {
+            if ([self.classImages containsObject:view]) {
+                view.hidden = ![self.detailItem.inventory.game isTF2];
+            } else if (view != self.killEaterLabel) {
+                view.hidden = NO;
+            }
         }
     }];
 
@@ -355,20 +367,20 @@ NSString *const kSCHours = @"kSCHours";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showItemSet"]) {
+    if ([[segue identifier] isEqualToString:@"showItemSet"] && [self.detailItem class] == [SCWebApiItem class]) {
         TTTAttributedLabel *itemSetLabel = (TTTAttributedLabel *)[[segue destinationViewController] view];
-        NSString *itemSetName = [self.detailItem.itemSet objectForKey:@"name"];
+        NSString *itemSetName = [((SCWebApiItem *)self.detailItem).itemSet objectForKey:@"name"];
         NSMutableAttributedString *itemSetText = [[NSMutableAttributedString alloc] init];
         [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:itemSetName]];
 
         [itemSetText appendAttributedString:[[NSAttributedString alloc] init]];
-        NSArray *items = [self.detailItem.itemSet objectForKey:@"items"];
+        NSArray *items = [((SCWebApiItem *)self.detailItem).itemSet objectForKey:@"items"];
         [items enumerateObjectsUsingBlock:^(NSString *itemName, NSUInteger idx, BOOL *stop) {
             if ([itemSetText length] > 0) {
                 [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
             }
-            NSNumber *defindex = [self.detailItem.inventory.schema itemDefIndexForName:itemName];
-            [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:[self.detailItem.inventory.schema itemValueForDefIndex:defindex andKey:@"item_name"]]];
+            NSNumber *defindex = [((SCWebApiInventory *)self.detailItem.inventory).schema itemDefIndexForName:itemName];
+            [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:[((SCWebApiInventory *)self.detailItem.inventory).schema itemValueForDefIndex:defindex andKey:@"item_name"]]];
         }];
         [itemSetLabel setText:itemSetText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
             UIFont *nameFont;
@@ -385,7 +397,7 @@ NSString *const kSCHours = @"kSCHours";
 
         [itemSetLabel sizeToFit];
     } else if ([[segue identifier] isEqualToString:@"showWikiPage"]) {
-        NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", self.detailItem.defindex, [[NSLocale preferredLanguages] objectAtIndex:0]]];
+        NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", ((SCWebApiItem *)self.detailItem).defindex, [[NSLocale preferredLanguages] objectAtIndex:0]]];
 
         UIWebView *webView = (UIWebView *)[[segue destinationViewController] view];
         if (![webView.request.URL.absoluteURL isEqual:wikiUrl]) {

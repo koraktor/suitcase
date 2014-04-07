@@ -22,7 +22,17 @@
 
 @implementation SCAppDelegate
 
+static SCCommunityRequestOperationManager *_communityClient;
 static SCWebApiRequestOperationManager *_webApiClient;
+
++ (SCCommunityRequestOperationManager *)communityClient
+{
+    if (_communityClient == nil) {
+        _communityClient = [[SCCommunityRequestOperationManager alloc] init];
+    }
+
+    return _communityClient;
+}
 
 + (void)errorWithMessage:(NSString *)errorMessage
 {

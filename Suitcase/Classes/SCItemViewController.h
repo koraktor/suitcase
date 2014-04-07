@@ -14,7 +14,7 @@
 
 @interface SCItemViewController : UIViewController <UISplitViewControllerDelegate>
 
-@property (strong, nonatomic) SCItem *detailItem;
+@property (strong, nonatomic) id <SCItem> detailItem;
 
 @property (strong, nonatomic) IBOutlet SCClassImageView *classScoutImage;
 @property (strong, nonatomic) IBOutlet SCClassImageView *classSoldierImage;

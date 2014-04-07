@@ -11,7 +11,7 @@
 
 @interface SCInventoryCell : UITableViewCell
 
-@property (strong, nonatomic) SCInventory *inventory;
+@property (strong, nonatomic) id<SCInventory> inventory;
 @property (strong, nonatomic) UILabel *itemCountLabel;
 
 - (void)loadImage;
