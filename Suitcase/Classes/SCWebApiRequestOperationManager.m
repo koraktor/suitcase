@@ -50,17 +50,17 @@
     }
 
     [params setObject:__API_KEY__ forKey:@"key"];
-    NSString *path = [NSString stringWithFormat:@"%@/%@/v%04d", interface, method, version];
+    NSString *path = [NSString stringWithFormat:@"%@/%@/v%04lu", interface, method, (unsigned long) version];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         self.operationQueue = [[NSOperationQueue alloc] init];
     }
     AFHTTPRequestOperation *request = [self GET:path parameters:params success:^(AFHTTPRequestOperation *operation, id response) {
 #ifdef DEBUG
-        NSLog(@"Web API request @ %@ succeeded with status code %d", path, operation.response.statusCode);
+        NSLog(@"Web API request @ %@ succeeded with status code %ld", path, (long) operation.response.statusCode);
 #endif
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 #ifdef DEBUG
-        NSLog(@"Web API request @ %@ failed with status code %d", path, operation.response.statusCode);
+        NSLog(@"Web API request @ %@ failed with status code %ld", path, (long) operation.response.statusCode);
 #endif
     }];
 

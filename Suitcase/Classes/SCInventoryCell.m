@@ -77,10 +77,10 @@ static CGRect kTextLabelFrame;
     self.textLabel.text = inventory.game.name;
     if (![inventory isSuccessful]) {
         self.itemCountLabel.text = NSLocalizedString(kSCInventoryCellLoadingFailed, kSCInventoryCellLoadingFailed);
-    } else if (inventory.slots == nil) {
-        self.itemCountLabel.text = [NSString stringWithFormat:@"%d %@", [inventory.items count], NSLocalizedString(@"items", @"items")];
+    } else if ([inventory.slots isEqualToNumber:@0]) {
+        self.itemCountLabel.text = [NSString stringWithFormat:@"%lu %@", (unsigned long) [inventory.items count], NSLocalizedString(@"items", @"items")];
     } else {
-        self.itemCountLabel.text = [NSString stringWithFormat:@"%d/%@ %@", [inventory.items count], inventory.slots, NSLocalizedString(@"items", @"items")];
+        self.itemCountLabel.text = [NSString stringWithFormat:@"%lu/%@ %@", (unsigned long) [inventory.items count], inventory.slots, NSLocalizedString(@"items", @"items")];
     }
 
     self.contentView.alpha = ([inventory isSuccessful]) ? 1.0 : 0.6;
