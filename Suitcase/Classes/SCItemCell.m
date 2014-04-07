@@ -59,9 +59,7 @@ static CGRect kTextLabelFrame;
 
 - (void)layoutSubviews
 {
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-        [super layoutSubviews];
-    }
+    [super layoutSubviews];
 
     self.imageView.frame = kImageViewFrame;
     self.textLabel.frame = kTextLabelFrame;
