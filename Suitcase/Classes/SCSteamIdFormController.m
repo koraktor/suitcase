@@ -83,14 +83,9 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
                 [TSMessage showNotificationInViewController:self
                                                       title:NSLocalizedString(kSCResolveSteamIdErrorTitle, kSCResolveSteamIdErrorTitle)
                                                    subtitle:errorMessage
-                                                      image:nil
                                                        type:TSMessageNotificationTypeError
                                                    duration:TSMessageNotificationDurationAutomatic
-                                                   callback:nil
-                                                buttonTitle:nil
-                                             buttonCallback:nil
-                                                 atPosition:TSMessageNotificationPositionTop
-                                        canBeDismisedByUser:NO];
+                                       canBeDismissedByUser:NO];
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [SCAppDelegate errorWithMessage:[error localizedDescription]];

@@ -235,14 +235,9 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
             [TSMessage showNotificationInViewController:self.navigationController
                                                   title:NSLocalizedString(kSCInventoryLoadingFailed, kSCInventoryLoadingFailed)
                                                subtitle:[NSString stringWithFormat:NSLocalizedString(kSCInventoryLoadingFailedDetail, kSCInventoryLoadingFailedDetail), _currentInventory.game.name]
-                                                  image:nil
                                                    type:TSMessageNotificationTypeError
                                                duration:TSMessageNotificationDurationAutomatic
-                                               callback:nil
-                                            buttonTitle:nil
-                                         buttonCallback:nil
-                                             atPosition:TSMessageNotificationPositionTop
-                                    canBeDismisedByUser:YES];
+                                   canBeDismissedByUser:YES];
         }
     }
 
@@ -376,17 +371,14 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
 - (void)loadSchemaStarted
 {
-    [TSMessage showNotificationInViewController:self.navigationController
-                                          title:NSLocalizedString(kSCSchemaIsLoading, kSCSchemaIsLoading)
-                                       subtitle:[NSString stringWithFormat:NSLocalizedString(kSCSchemaIsLoadingDetail, kSCSchemaIsLoadingDetail), _currentInventory.game.name]
-                                          image:nil
-                                           type:TSMessageNotificationTypeMessage
-                                       duration:TSMessageNotificationDurationEndless
-                                       callback:nil
-                                    buttonTitle:nil
-                                 buttonCallback:nil
-                                     atPosition:TSMessageNotificationPositionTop
-                            canBeDismisedByUser:NO];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [TSMessage showNotificationInViewController:self.navigationController
+                                              title:NSLocalizedString(kSCSchemaIsLoading, kSCSchemaIsLoading)
+                                           subtitle:[NSString stringWithFormat:NSLocalizedString(kSCSchemaIsLoadingDetail, kSCSchemaIsLoadingDetail), _currentInventory.game.name]
+                                               type:TSMessageNotificationTypeMessage
+                                           duration:TSMessageNotificationDurationEndless
+                               canBeDismissedByUser:NO];
+    });
 }
 
 - (void)prepareInventory
@@ -414,14 +406,9 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
     [TSMessage showNotificationInViewController:self.navigationController
                                           title:messageTitle
                                        subtitle:[NSString stringWithFormat:messageTitleDetail, _currentInventory.game.name]
-                                          image:nil
                                            type:TSMessageNotificationTypeMessage
                                        duration:TSMessageNotificationDurationEndless
-                                       callback:nil
-                                    buttonTitle:nil
-                                 buttonCallback:nil
-                                     atPosition:TSMessageNotificationPositionTop
-                            canBeDismisedByUser:NO];
+                           canBeDismissedByUser:NO];
 
     _waitingForInventoryReload = YES;
 
