@@ -19,7 +19,7 @@
 "kSCOpenInSafari"                     = "In Safari öffnen";
 "kSCOpenLinkInBrowser"                = "Diesen Link im Browser öffnen?";
 "kSCReloadingFailedInventory"         = "Erneut laden…";
-"kSCReloadingFailedInventoryDetail"   = "Inventar für %@ wird erneut laden.";
+"kSCReloadingFailedInventoryDetail"   = "Inventar für %@ wird erneut geladen.";
 "kSCReloadingOutdatedInventory"       = "Aktualisiere…";
 "kSCReloadingOutdatedInventoryDetail" = "Inventar für %@ wird aktualisiert.";
 "kSCResolveSteamIdErrorMessage"       = "Beim Auflösen der Steam ID ist ein Fehler aufgetreten: %@";
