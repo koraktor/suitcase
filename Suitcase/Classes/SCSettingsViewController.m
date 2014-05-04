@@ -50,7 +50,7 @@
 
     headerLabel.backgroundColor = [UIColor clearColor];
     headerLabel.text = [self.settingsReader titleForSection:section];
-    headerLabel.textColor = UIColor.whiteColor;
+    headerLabel.textColor = [UIColor colorWithRed:0.3686 green:0.4196 blue:0.4745 alpha:1.0];
     headerLabel.font = [UIFont boldSystemFontOfSize:18.0];
 
     [headerView addSubview:headerLabel];
@@ -67,6 +67,7 @@
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     IASKSpecifier *specifier = [self.settingsReader specifierForIndexPath:indexPath];
 
+    cell.backgroundColor = [UIColor whiteColor];
     if ([specifier.type isEqualToString:kIASKPSGroupSpecifier]) {
         cell.detailTextLabel.textColor = [UIColor whiteColor];
     } else if ([specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier]) {
@@ -96,7 +97,7 @@
     footer.backgroundColor = [UIColor clearColor];
     footer.text = footerText;
     footer.textAlignment = NSTextAlignmentCenter;
-    footer.textColor = [UIColor whiteColor];
+    footer.textColor = [UIColor colorWithRed:0.3686 green:0.4196 blue:0.4745 alpha:1.0];
 
     return footer;
 }
