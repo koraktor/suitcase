@@ -34,7 +34,7 @@
     [SCAbstractInventory addInventory:inventory forUser:steamId64 andGame:game];
 
 #ifdef DEBUG
-    NSLog(@"Inventory for %@ loaded.", game.name);
+    NSLog(@"Inventory for %@ created.", game.name);
 #endif
 
     return inventory;
@@ -126,12 +126,20 @@ withDescriptions:(NSDictionary *)descriptions
 
     self.timestamp = [NSDate date];
 
-    [self finish];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [self finish];
+    });
+}
+
+- (void)loadSchema {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
 }
 
 - (void)reload
 {
     self.items = [NSArray array];
+    _descriptions = [NSArray array];
+    _itemTypes = nil;
     [self load];
 }
 

@@ -42,7 +42,9 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
         if (![currentSteamId64 isEqual:steamId64]) {
             [[NSUserDefaults standardUserDefaults] setObject:steamId forKey:@"SteamID"];
             [[NSUserDefaults standardUserDefaults] setObject:steamId64 forKey:@"SteamID64"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadGames" object:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"loadGames" object:nil];
+            });
         } else {
             [self dismissViewControllerAnimated:YES completion:nil];
         }

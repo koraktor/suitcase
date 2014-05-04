@@ -14,7 +14,6 @@
 @property (strong, nonatomic) id <SCItem> item;
 @property (nonatomic) BOOL showColors;
 
-- (void)changeColor;
 - (void)loadImage;
 
 @end

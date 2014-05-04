@@ -1,11 +1,21 @@
 //
-//  SCItem.m
+//  SCWebApiItem.m
 //  Suitcase
 //
 //  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import "SCWebApiItem.h"
+
+@interface SCWebApiItem () {
+    NSString *_killEaterDescription;
+    NSNumber *_killEaterScore;
+    NSNumber *_killEaterTypeIndex;
+}
+@end
+
+NSString *const kSCHour = @"kSCHour";
+NSString *const kSCHours = @"kSCHours";
 
 @implementation SCWebApiItem
 
@@ -78,14 +88,11 @@
         NSArray *mergedAttributes = [attributesDictionary allValues];
         NSMutableArray *attributes = [NSMutableArray arrayWithCapacity:[mergedAttributes count]];
 
-        __block NSInteger killEaterScore = -1;
-        __block NSUInteger killEaterTypeIndex = 0;
-
         [mergedAttributes enumerateObjectsUsingBlock:^(NSDictionary *itemAttribute, NSUInteger idx, BOOL *stop) {
-            if ([itemAttribute[@"defindex"] isEqual:[NSNumber numberWithInt:214]]) {
-                killEaterScore = [itemAttribute[@"value"] integerValue];
-            } else if ([itemAttribute[@"name"] isEqual:@"kill eater score type"]) {
-                killEaterTypeIndex = [itemAttribute[@"value"] integerValue];
+            if ([itemAttribute[@"defindex"] isEqualToNumber:@214]) {
+                _killEaterScore = itemAttribute[@"value"];
+            } else if ([itemAttribute[@"name"] isEqualToString:@"kill eater score type"]) {
+                _killEaterTypeIndex = itemAttribute[@"float_value"];
             } else {
                 if (itemAttribute[@"defindex"] != nil) {
                     NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
@@ -101,21 +108,6 @@
             }
         }];
 
-        if (killEaterScore != -1) {
-            NSDictionary *killEaterType = [self.inventory.schema killEaterTypeForIndex:[NSNumber numberWithUnsignedInteger:killEaterTypeIndex]];
-            NSString *itemLevel = [self.inventory.schema itemLevelForScore:killEaterScore
-                                                              andLevelType:killEaterType[@"level_data"]
-                                                               andItemType:self.itemType];
-
-            NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
-            attribute[@"defindex"]    = @0;
-            attribute[@"description"] = [NSString stringWithFormat:@"%@\n%%s1 %@", itemLevel, killEaterType[@"type_name"]];
-            attribute[@"value"]       = [NSNumber numberWithInteger:killEaterScore];
-            attribute[@"valueFormat"] = @"kill_eater";
-
-            [attributes addObject:attribute];
-        }
-
         _attributes = [attributes sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *attribute1, NSDictionary *attribute2) {
             return [attribute1[@"defindex"] compare:attribute2[@"defindex"]];
         }];
@@ -124,12 +116,104 @@
     return _attributes;
 }
 
+- (BOOL)belongsToItemSet {
+    return self.itemSet != nil;
+}
+
 - (NSNumber *)defindex {
     return [self.dictionary objectForKey:@"defindex"];
 }
 
-- (NSString *)description {
-    return [[self valueForKey:@"item_description"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+- (NSString *)descriptionText {
+    NSMutableString *description = [NSMutableString string];
+    if ([self valueForKey:@"item_description"] != nil) {
+        [description appendString:[[self valueForKey:@"item_description"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    }
+
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [numberFormatter setMaximumFractionDigits:0];
+    __block BOOL firstAttribute = YES;
+    [self.attributes enumerateObjectsUsingBlock:^(NSDictionary *attribute, NSUInteger idx, BOOL *stop) {
+        NSMutableString *attributeDescription = [[attribute objectForKey:@"description"] mutableCopy];
+        if (attributeDescription != nil) {
+            NSString *valueFormat = [attribute objectForKey:@"valueFormat"];
+            NSString *value;
+            if ([valueFormat isEqual:@"kill_eater"]) {
+                value = [(NSNumber *)[attribute objectForKey:@"value"] stringValue];
+            } else if ([valueFormat isEqual:@"value_is_account_id"]) {
+                value = [[attribute objectForKey:@"accountInfo"] objectForKey:@"personaname"];
+            } else if ([valueFormat isEqual:@"value_is_additive"]) {
+                value = [(NSNumber *)attribute[@"floatValue"] stringValue];
+                if (value == nil) {
+                    value = [(NSNumber *)attribute[@"value"] stringValue];
+                }
+            } else if ([valueFormat isEqual:@"value_is_additive_percentage"]) {
+                value = [[NSNumber numberWithDouble:[(NSNumber *)[attribute objectForKey:@"floatValue"] doubleValue] * 100] stringValue];
+            } else if ([valueFormat isEqual:@"value_is_date"]) {
+                double timestamp = [(NSNumber *)[attribute objectForKey:@"value"] doubleValue];
+                if (timestamp == 0) {
+                    attributeDescription = nil;
+                } else {
+                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue]];
+                    value = [NSDateFormatter localizedStringFromDate:date
+                                                           dateStyle:NSDateFormatterMediumStyle
+                                                           timeStyle:NSDateFormatterShortStyle];
+                }
+            } else if ([valueFormat isEqual:@"value_is_inverted_percentage"]) {
+                NSNumber *numberValue = attribute[@"floatValue"];
+                if (numberValue == nil) {
+                    numberValue = attribute[@"value"];
+                }
+                numberValue = [NSNumber numberWithDouble:(1 - [numberValue doubleValue]) * 100];
+                value = [numberFormatter stringFromNumber:numberValue];
+            } else if ([valueFormat isEqualToString:@"value_is_mins_as_hours"]) {
+                int hours = [(NSNumber *)attribute[@"floatValue"] floatValue] / 60;
+                NSString *formatString = (hours == 1) ? NSLocalizedString(kSCHour, kSCHour) : NSLocalizedString(kSCHours, kSCHours);
+                value = [NSString stringWithFormat:formatString, hours];
+            } else if ([valueFormat isEqual:@"value_is_particle_index"]) {
+                value = [self.inventory.schema effectNameForIndex:[attribute objectForKey:@"value"]];
+                if (value == nil) {
+                    value = [self.inventory.schema effectNameForIndex:[attribute objectForKey:@"floatValue"]];
+                }
+            } else if ([valueFormat isEqual:@"value_is_percentage"]) {
+                NSNumber *numberValue = attribute[@"floatValue"];
+                if (numberValue == nil) {
+                    numberValue = attribute[@"value"];
+                }
+                numberValue = [NSNumber numberWithDouble:([numberValue doubleValue] - 1) * 100];
+                value = [numberFormatter stringFromNumber:numberValue];
+            }
+
+            if (value != nil) {
+                [attributeDescription replaceOccurrencesOfString:@"%s1"
+                                                      withString:value
+                                                         options:NSLiteralSearch
+                                                           range:NSMakeRange(0, [attributeDescription length])];
+            }
+
+            if ([description length] > 0) {
+                if (firstAttribute) {
+                    [description appendString:@"\n"];
+                }
+                [description appendString:@"\n"];
+            }
+
+            [description appendString:attributeDescription];
+            firstAttribute = NO;
+        };
+    }];
+
+    [description replaceOccurrencesOfString:@"<br>"
+                                 withString:@"\n"
+                                    options:NSCaseInsensitiveSearch
+                                      range:NSMakeRange(0, [description length])];
+    [description replaceOccurrencesOfString:@"</?font( .*)?>"
+                                 withString:@""
+                                    options:NSRegularExpressionSearch
+                                      range:NSMakeRange(0, [description length])];
+
+    return [NSString stringWithString:description];
 }
 
 - (int)equippableClasses {
@@ -188,6 +272,14 @@
     return _equippedClasses;
 }
 
+- (BOOL)hasOrigin {
+    return YES;
+}
+
+- (BOOL)hasQuality {
+    return YES;
+}
+
 - (NSURL *)iconUrl {
     return [NSURL URLWithString:[self valueForKey:@"image_url"]];
 }
@@ -201,6 +293,10 @@
     return [NSURL URLWithString:url];
 }
 
+- (BOOL)isKillEater {
+    return _killEaterScore != nil;
+}
+
 - (NSDictionary *)itemSet {
     NSString *itemSetKey = [self valueForKey:@"item_set"];
     return [self.inventory.schema itemSetForKey:itemSetKey];
@@ -208,6 +304,19 @@
 
 - (NSString *)itemType {
     return [self valueForKey:@"item_type_name"];
+}
+
+- (NSString *)killEaterDescription {
+    if (_killEaterDescription == nil) {
+        NSDictionary *killEaterType = [self.inventory.schema killEaterTypeForIndex:_killEaterTypeIndex];
+        NSString *itemLevel = [self.inventory.schema itemLevelForScore:_killEaterScore
+                                                          andLevelType:killEaterType[@"level_data"]
+                                                           andItemType:self.itemType];
+
+        _killEaterDescription = [NSString stringWithFormat:@"%@ %@\n%@", _killEaterScore, killEaterType[@"type_name"], itemLevel];
+    }
+
+    return _killEaterDescription;
 }
 
 - (NSNumber *)level {

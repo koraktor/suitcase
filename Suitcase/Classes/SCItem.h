@@ -11,13 +11,18 @@
 
 @protocol SCItem <NSObject>
 
+- (BOOL)belongsToItemSet;
+- (NSString *)descriptionText;
+- (BOOL)hasOrigin;
+- (BOOL)hasQuality;
 - (NSURL *)iconUrl;
 - (NSURL *)imageUrl;
 - (id<SCInventory>)inventory;
+- (BOOL)isKillEater;
+- (NSString *)killEaterDescription;
 - (NSString *)levelText;
 - (NSString *)name;
 - (NSString *)origin;
-- (NSNumber *)quality;
 - (UIColor *)qualityColor;
 - (NSString *)qualityName;
 - (NSNumber *)quantity;

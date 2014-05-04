@@ -22,6 +22,7 @@
 - (BOOL)isSuccessful;
 - (NSArray *)items;
 - (void)load;
+- (void)loadSchema;
 - (BOOL)outdated;
 - (void)reload;
 - (NSNumber *)slots;

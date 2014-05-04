@@ -1,5 +1,5 @@
 //
-//  SCItem.h
+//  SCWebApiItem.h
 //  Suitcase
 //
 //  Copyright (c) 2012-2014, Sebastian Staudt
@@ -24,7 +24,6 @@
             andInventory:(SCWebApiInventory *)anInventory;
 
 - (NSNumber *)defindex;
-- (NSString *)description;
 - (NSURL *)imageUrl;
 - (NSDictionary *)itemSet;
 - (NSString *)itemType;

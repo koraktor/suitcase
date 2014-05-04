@@ -17,6 +17,37 @@
 
 @implementation SCCommunityItem
 
+static NSDateFormatter *kDateFormatter;
+static NSRegularExpression *kDateRegex;
+static NSRegularExpression *kHtmlRegex;
+static NSString *kIconSize;
+static NSString *kImageSize;
+
++ (void)initialize {
+    kDateFormatter = [[NSDateFormatter alloc] init];
+    kDateFormatter.dateStyle = NSDateFormatterLongStyle;
+    kDateFormatter.locale = [NSLocale currentLocale];
+    kDateFormatter.timeStyle = NSDateFormatterNoStyle;
+
+    NSError *regexError;
+    kDateRegex = [[NSRegularExpression alloc] initWithPattern:@"\\[date\\](\\d+)\\[/date\\]"
+                                                      options:NSRegularExpressionCaseInsensitive
+                                                        error:&regexError];
+
+    NSUInteger cellHeight = 44;
+    NSUInteger iconHeight = [[UIScreen mainScreen] scale] * cellHeight;
+    kIconSize = [NSString stringWithFormat:@"%1$lux%1$lu", (unsigned long)iconHeight];
+
+    NSUInteger imageHeight;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        imageHeight = 256;
+    } else {
+        imageHeight = 128;
+    }
+    imageHeight = [[UIScreen mainScreen] scale] * imageHeight;
+    kImageSize = [NSString stringWithFormat:@"%1$lux%1$lu", (unsigned long)imageHeight];
+}
+
 - (id)initWithDictionary:(NSDictionary *)aDictionary
             andInventory:(SCCommunityInventory *)anInventory
          andItemCategory:(NSNumber *)itemCategory
@@ -31,36 +62,55 @@
     return self;
 }
 
-- (NSString *)description {
-    if (_description == nil) {
-        _description = [NSMutableString string];
+- (BOOL)belongsToItemSet {
+    return NO;
+}
 
-        for (NSDictionary *description in [self valueForKey:@"descriptions"]) {
-            NSString *descriptionText = [description[@"value"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+- (NSString *)descriptionText {
+    if (_description == nil) {
+        NSMutableString *description = [[NSMutableString alloc] init];
+
+        for (NSDictionary *descriptionData in [self valueForKey:@"descriptions"]) {
+            __block NSString *descriptionText = [descriptionData[@"value"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
             if ([descriptionText length] == 0) {
                 continue;
             }
 
-            if ([_description length] > 0) {
-                [((NSMutableString *)_description) appendString:@"\n\n"];
+            [kDateRegex enumerateMatchesInString:descriptionText
+                                        options:0
+                                          range:NSMakeRange(0, [descriptionText length])
+                                     usingBlock:^(NSTextCheckingResult *result, __unused NSMatchingFlags flags, __unused BOOL *stop) {
+                                         NSTimeInterval timestamp = [[descriptionText substringWithRange:[result rangeAtIndex:1]] integerValue];
+                                         NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
+                                         NSString *dateString = [kDateFormatter stringFromDate:date];
+                                         descriptionText = [descriptionText stringByReplacingCharactersInRange:result.range
+                                                                                                    withString:dateString];
+            }];
+
+            if ([description length] > 0) {
+                [description appendString:@"\n\n"];
             }
 
-            if ([self.tags[@"item_class"][@"raw_value"] isEqualToString:@"item_class_4"]) {
-#warning TODO
-            }
-
-            [((NSMutableString *)_description) appendString:descriptionText];
+            [description appendString:descriptionText];
         }
 
-        _description = [_description copy];
+        _description = [NSString stringWithString:description];
     }
 
     return _description;
 }
 
+- (BOOL)hasOrigin {
+    return NO;
+}
+
+- (BOOL)hasQuality {
+    return self.qualityName != nil;
+}
+
 - (NSURL *)iconUrl {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.steamcommunity.com/economy/image/%@/96fx96f", [self valueForKey:@"icon_url"]]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.steamcommunity.com/economy/image/%@/%@", [self valueForKey:@"icon_url"], kIconSize]];
 }
 
 - (NSURL *)imageUrl {
@@ -69,7 +119,11 @@
         url = [self valueForKey:@"icon_url"];
     }
 
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.steamcommunity.com/economy/image/%@/330x192", url]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.steamcommunity.com/economy/image/%@/%@", url, kImageSize]];
+}
+
+- (BOOL)isKillEater {
+    return NO;
 }
 
 - (NSDictionary *)itemSet {
@@ -78,6 +132,14 @@
 
 - (NSString *)itemType {
     return [self valueForKey:@"type"];
+}
+
+- (NSString *)killEaterDescription {
+    return nil;
+}
+
+- (NSNumber *)killEaterScore {
+    return nil;
 }
 
 - (NSString *)levelText {
@@ -98,16 +160,12 @@
     return [NSNumber numberWithInteger:category * 100000 + position];
 }
 
-- (NSNumber *)quality {
-    return @0;
-}
-
 - (UIColor *)qualityColor {
-    return self.tags[@"Rarity"][@"color"];
+    return self.tags[@"Quality"][@"color"];
 }
 
 - (NSString *)qualityName {
-    return nil;
+    return self.tags[@"Quality"][@"value"];
 }
 
 - (NSNumber *)quantity {

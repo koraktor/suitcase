@@ -77,9 +77,6 @@ static SCWebApiRequestOperationManager *_webApiClient;
     [NSURLCache setSharedURLCache:cache];
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadAvailableGames" object:nil];
-
     [TSMessage addCustomDesignFromFileWithName:@"TSMessagesDesign.json"];
 
     UIViewController *masterViewController;
@@ -94,6 +91,21 @@ static SCWebApiRequestOperationManager *_webApiClient;
         masterViewController = navigationController.topViewController;
     }
 
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadAvailableGames" object:nil];
+    });
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
+        if (steamId64 != nil) {
+            if ([masterViewController class] == NSClassFromString(@"SCGamesViewController")) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"loadGames" object:nil];
+            } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
+            }
+        }
+    });
+
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 
@@ -101,19 +113,7 @@ static SCWebApiRequestOperationManager *_webApiClient;
         [[UINavigationBar appearance] setBackgroundImage:barGradientImage forBarMetrics:UIBarMetricsDefault];
         [[UIToolbar appearance] setBackgroundImage:barGradientImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     } else {
-        //[[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.4 alpha:0.5]];
-
-        //[[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.3 alpha:0.5]];
-        //[[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.4 alpha:0.5]];
-    }
-
-    NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
-    if (steamId64 != nil) {
-        if ([masterViewController class] == NSClassFromString(@"SCGamesViewController")) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadGames" object:nil];
-        } else {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadInventory" object:nil];
-        }
+        [[UITableViewCell appearance] setBackgroundColor:[UIColor clearColor]];
     }
 
     return YES;
@@ -122,7 +122,9 @@ static SCWebApiRequestOperationManager *_webApiClient;
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([((UINavigationController *) window.rootViewController).topViewController class] == NSClassFromString(@"SCWikiViewController")) {
+        UIViewController *rootViewController = window.rootViewController;
+        if ([rootViewController class] == NSClassFromString(@"UINavigationController") &&
+            [((UINavigationController *)rootViewController).topViewController class] == NSClassFromString(@"SCWikiViewController")) {
             return UIInterfaceOrientationMaskAllButUpsideDown;
         } else {
             return UIInterfaceOrientationMaskPortrait;
@@ -152,19 +154,9 @@ static SCWebApiRequestOperationManager *_webApiClient;
     NSUserDefaults *defaults = notification.object;
 
     if (![[defaults objectForKey:@"show_colors"] isEqual:[_storedDefaults objectForKey:@"show_colors"]]) {
-        [defaultCenter postNotificationName:@"refreshInventory" object:nil];
+        [defaultCenter postNotificationName:@"showColorsChanged" object:nil];
     } else if (![[defaults objectForKey:@"sorting"] isEqual:[_storedDefaults objectForKey:@"sorting"]]) {
         [defaultCenter postNotificationName:@"sortInventory" object:nil];
-    }
-}
-
-- (void)navigationController:(UINavigationController *)navigationController
-      willShowViewController:(UIViewController *)viewController
-                    animated:(BOOL)animated
-{
-    if ([viewController isKindOfClass:[IASKSpecifierValuesViewController class]]) {
-        UITableView *tableView = (UITableView *)viewController.view;
-        tableView.backgroundColor = [UIColor colorWithRed:0.3647 green:0.4235 blue:0.4706 alpha:1.0];
     }
 }
 

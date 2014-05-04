@@ -45,7 +45,7 @@ static NSArray *alphabetWithNumbers;
     }
 
     inventory = [[SCWebApiInventory alloc] initWithSteamId64:steamId64 andGame:game];
-    [NSThread detachNewThreadSelector:@selector(load) toTarget:inventory withObject:nil];
+    [inventory load];
     [SCAbstractInventory addInventory:inventory forUser:steamId64 andGame:game];
 
     return inventory;
@@ -81,9 +81,7 @@ static NSArray *alphabetWithNumbers;
             self.temporaryFailed = NO;
         }
 
-#ifdef DEBUG
-        NSLog(@"Loading inventory for game \"%@\" finished.", self.game.name);
-#endif
+        [self finish];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 #ifdef DEBUG
         NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
@@ -92,12 +90,11 @@ static NSArray *alphabetWithNumbers;
 
         self.successful = NO;
         self.temporaryFailed = YES;
+
+        [self finish];
     }];
 
     [inventoryOperation start];
-    [inventoryOperation waitUntilFinished];
-
-    [self finish];
 }
 
 - (void)loadSchema

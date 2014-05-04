@@ -63,6 +63,7 @@
         NSLog(@"Web API request @ %@ failed with status code %ld", path, (long) operation.response.statusCode);
 #endif
     }];
+    request.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
 
 #ifdef DEBUG
     NSLog(@"Querying Steam Web API: %@", [[[[request request] URL] absoluteString] stringByReplacingOccurrencesOfString:__API_KEY__ withString:@"SECRET"]);

@@ -88,9 +88,7 @@ static NSMutableDictionary *__inventories;
     NSNumber *showColors = [[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"];
     self.showColors = (showColors == nil) ? YES : [showColors boolValue];
 
-    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"inventoryLoaded" object:self];
-    //});
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"inventoryLoaded" object:self];
 
 #ifdef DEBUG
     NSLog(@"Loading inventory for game \"%@\" finished.", self.game.name);
@@ -99,13 +97,12 @@ static NSMutableDictionary *__inventories;
 
 - (BOOL)isEmpty
 {
-    return self.successful && self.items.count == 0;
+    return self.successful && _items.count == 0;
 }
 
 - (BOOL)outdated
 {
-    //return [_timestamp timeIntervalSinceNow] < -600;
-    return YES;
+    return [_timestamp timeIntervalSinceNow] < -600;
 }
 
 #pragma mark Table View

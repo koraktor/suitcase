@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02010B291696E22B00007456 /* SCItemImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B281696E22A00007456 /* SCItemImageView.m */; };
 		02010B2F169842FB00007456 /* SCNavigationControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B2E169842FA00007456 /* SCNavigationControllerDelegate.m */; };
 		02010B32169858E500007456 /* SCWebApiRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B31169858E400007456 /* SCWebApiRequestOperationManager.m */; };
 		02010B6C169E9CA000007456 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B4E169E9CA000007456 /* IASKAppSettingsViewController.m */; };
@@ -43,6 +42,7 @@
 		0213CC331769087F0010908D /* cell_selection_gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 0213CC311769087F0010908D /* cell_selection_gradient.png */; };
 		0213CC341769087F0010908D /* cell_selection_gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0213CC321769087F0010908D /* cell_selection_gradient@2x.png */; };
 		0220FFC815D7A84700AB8AA3 /* SCInventoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */; };
+		02238C671914E88B0050CDCF /* SCItemViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 02238C661914E88B0050CDCF /* SCItemViewLayout.m */; };
 		022D0CCF158349B80071F665 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 022D0CCD158349B80071F665 /* Localizable.strings */; };
 		022D0D0E1584E5770071F665 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */; };
 		022D0D0F1584E5770071F665 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */; };
@@ -50,6 +50,10 @@
 		0238B35A1756AD5600284204 /* SCWebApiInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0238B3591756AD5600284204 /* SCWebApiInventory.m */; };
 		023DECE0187963A4007FE4AA /* FAKFontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DECDF187963A4007FE4AA /* FAKFontAwesome.m */; };
 		023DECE618796C99007FE4AA /* FAKIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DECE518796C99007FE4AA /* FAKIcon.m */; };
+		023FDB7E18F66506002D6FC0 /* SCItemValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023FDB7D18F66506002D6FC0 /* SCItemValueCell.m */; };
+		023FDB8118F84C49002D6FC0 /* SCItemImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023FDB8018F84C49002D6FC0 /* SCItemImageCell.m */; };
+		023FDB8418FAD353002D6FC0 /* SCItemDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023FDB8318FAD353002D6FC0 /* SCItemDescriptionCell.m */; };
+		0241CF8F190BEF32005EC030 /* UIImageView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 0241CF8E190BEF32005EC030 /* UIImageView+Border.m */; };
 		0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */; };
 		0253605218334AF50019D250 /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0253603918334AF50019D250 /* TSMessage.m */; };
 		0253605318334AF50019D250 /* NotificationBackgroundError.png in Resources */ = {isa = PBXBuildFile; fileRef = 0253603C18334AF50019D250 /* NotificationBackgroundError.png */; };
@@ -117,7 +121,10 @@
 		029F6945182E3EEC00851826 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F693D182E3EEC00851826 /* UIProgressView+AFNetworking.m */; };
 		029F6946182E3EEC00851826 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F693F182E3EEC00851826 /* UIWebView+AFNetworking.m */; };
 		02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BAAB5F17BFAE1E004E635F /* Security.framework */; };
+		02BB279119026DA4002D151A /* SCReplaceDetailSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */; };
 		02DDB4861582A9E0004DB9D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DDB4851582A9E0004DB9D8 /* QuartzCore.framework */; };
+		02E98C60191274210039E1E7 /* SCItemClassesTF2Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E98C5F191274210039E1E7 /* SCItemClassesTF2Cell.m */; };
+		02E98C6319128C840039E1E7 /* SCItemTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E98C6219128C840039E1E7 /* SCItemTitleCell.m */; };
 		02EC921E1889FEAA00CC268C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02EC921D1889FEAA00CC268C /* Images.xcassets */; };
 		02F36DF81826AC3C0036D1C6 /* SCSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F36DF71826AC3C0036D1C6 /* SCSplitViewController.m */; };
 		02F37EC41580152300BFB1B5 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F37EC31580152300BFB1B5 /* CoreText.framework */; };
@@ -134,8 +141,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		02010B271696E22A00007456 /* SCItemImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemImageView.h; path = Classes/SCItemImageView.h; sourceTree = "<group>"; };
-		02010B281696E22A00007456 /* SCItemImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemImageView.m; path = Classes/SCItemImageView.m; sourceTree = "<group>"; };
 		02010B2D169842FA00007456 /* SCNavigationControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCNavigationControllerDelegate.h; path = Classes/SCNavigationControllerDelegate.h; sourceTree = "<group>"; };
 		02010B2E169842FA00007456 /* SCNavigationControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCNavigationControllerDelegate.m; path = Classes/SCNavigationControllerDelegate.m; sourceTree = "<group>"; };
 		02010B30169858E400007456 /* SCWebApiRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWebApiRequestOperationManager.h; path = Classes/SCWebApiRequestOperationManager.h; sourceTree = "<group>"; };
@@ -195,6 +200,8 @@
 		0213CC321769087F0010908D /* cell_selection_gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cell_selection_gradient@2x.png"; path = "Images/cell_selection_gradient@2x.png"; sourceTree = "<group>"; };
 		0220FFC615D7A84700AB8AA3 /* SCInventoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCInventoryCell.h; path = Classes/SCInventoryCell.h; sourceTree = "<group>"; };
 		0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCInventoryCell.m; path = Classes/SCInventoryCell.m; sourceTree = "<group>"; };
+		02238C651914E88B0050CDCF /* SCItemViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemViewLayout.h; path = Classes/SCItemViewLayout.h; sourceTree = "<group>"; };
+		02238C661914E88B0050CDCF /* SCItemViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemViewLayout.m; path = Classes/SCItemViewLayout.m; sourceTree = "<group>"; };
 		022D0CCE158349B80071F665 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
@@ -206,6 +213,14 @@
 		023DECDF187963A4007FE4AA /* FAKFontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FAKFontAwesome.m; path = External/FontAwesomeKit/FontAwesomeKit/FAKFontAwesome.m; sourceTree = "<group>"; };
 		023DECE418796C99007FE4AA /* FAKIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FAKIcon.h; path = External/FontAwesomeKit/FontAwesomeKit/FAKIcon.h; sourceTree = "<group>"; };
 		023DECE518796C99007FE4AA /* FAKIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FAKIcon.m; path = External/FontAwesomeKit/FontAwesomeKit/FAKIcon.m; sourceTree = "<group>"; };
+		023FDB7C18F66506002D6FC0 /* SCItemValueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemValueCell.h; path = Classes/SCItemValueCell.h; sourceTree = "<group>"; };
+		023FDB7D18F66506002D6FC0 /* SCItemValueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemValueCell.m; path = Classes/SCItemValueCell.m; sourceTree = "<group>"; };
+		023FDB7F18F84C49002D6FC0 /* SCItemImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemImageCell.h; path = Classes/SCItemImageCell.h; sourceTree = "<group>"; };
+		023FDB8018F84C49002D6FC0 /* SCItemImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemImageCell.m; path = Classes/SCItemImageCell.m; sourceTree = "<group>"; };
+		023FDB8218FAD353002D6FC0 /* SCItemDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemDescriptionCell.h; path = Classes/SCItemDescriptionCell.h; sourceTree = "<group>"; };
+		023FDB8318FAD353002D6FC0 /* SCItemDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemDescriptionCell.m; path = Classes/SCItemDescriptionCell.m; sourceTree = "<group>"; };
+		0241CF8D190BEF32005EC030 /* UIImageView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Border.h"; path = "Classes/UIImageView+Border.h"; sourceTree = "<group>"; };
+		0241CF8E190BEF32005EC030 /* UIImageView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+Border.m"; path = "Classes/UIImageView+Border.m"; sourceTree = "<group>"; };
 		0250CBD91693C8D100B20A6F /* SCWikiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWikiViewController.h; path = Classes/SCWikiViewController.h; sourceTree = "<group>"; };
 		0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWikiViewController.m; path = Classes/SCWikiViewController.m; sourceTree = "<group>"; };
 		0253603818334AF50019D250 /* TSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMessage.h; sourceTree = "<group>"; };
@@ -313,9 +328,15 @@
 		029F693E182E3EEC00851826 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		029F693F182E3EEC00851826 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		02BAAB5F17BFAE1E004E635F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		02BB278F19026DA4002D151A /* SCReplaceDetailSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCReplaceDetailSegue.h; path = Classes/SCReplaceDetailSegue.h; sourceTree = "<group>"; };
+		02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCReplaceDetailSegue.m; path = Classes/SCReplaceDetailSegue.m; sourceTree = "<group>"; };
 		02CD62D018D8F64A00EFA973 /* SCInventory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SCInventory.h; path = Classes/SCInventory.h; sourceTree = "<group>"; };
 		02CD62D118D8F97700EFA973 /* SCItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SCItem.h; path = Classes/SCItem.h; sourceTree = "<group>"; };
 		02DDB4851582A9E0004DB9D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		02E98C5E191274210039E1E7 /* SCItemClassesTF2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemClassesTF2Cell.h; path = Classes/SCItemClassesTF2Cell.h; sourceTree = "<group>"; };
+		02E98C5F191274210039E1E7 /* SCItemClassesTF2Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemClassesTF2Cell.m; path = Classes/SCItemClassesTF2Cell.m; sourceTree = "<group>"; };
+		02E98C6119128C840039E1E7 /* SCItemTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemTitleCell.h; path = Classes/SCItemTitleCell.h; sourceTree = "<group>"; };
+		02E98C6219128C840039E1E7 /* SCItemTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemTitleCell.m; path = Classes/SCItemTitleCell.m; sourceTree = "<group>"; };
 		02EC921D1889FEAA00CC268C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		02F36DF61826AC3C0036D1C6 /* SCSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSplitViewController.h; path = Classes/SCSplitViewController.h; sourceTree = "<group>"; };
 		02F36DF71826AC3C0036D1C6 /* SCSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSplitViewController.m; path = Classes/SCSplitViewController.m; sourceTree = "<group>"; };
@@ -511,8 +532,18 @@
 				0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */,
 				0275E20B158E6B5B008EA0AD /* SCItemCell.h */,
 				0275E20C158E6B5B008EA0AD /* SCItemCell.m */,
-				02010B271696E22A00007456 /* SCItemImageView.h */,
-				02010B281696E22A00007456 /* SCItemImageView.m */,
+				02E98C5E191274210039E1E7 /* SCItemClassesTF2Cell.h */,
+				02E98C5F191274210039E1E7 /* SCItemClassesTF2Cell.m */,
+				023FDB8218FAD353002D6FC0 /* SCItemDescriptionCell.h */,
+				023FDB8318FAD353002D6FC0 /* SCItemDescriptionCell.m */,
+				023FDB7F18F84C49002D6FC0 /* SCItemImageCell.h */,
+				023FDB8018F84C49002D6FC0 /* SCItemImageCell.m */,
+				02E98C6119128C840039E1E7 /* SCItemTitleCell.h */,
+				02E98C6219128C840039E1E7 /* SCItemTitleCell.m */,
+				023FDB7C18F66506002D6FC0 /* SCItemValueCell.h */,
+				023FDB7D18F66506002D6FC0 /* SCItemValueCell.m */,
+				0241CF8D190BEF32005EC030 /* UIImageView+Border.h */,
+				0241CF8E190BEF32005EC030 /* UIImageView+Border.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -678,10 +709,14 @@
 				023FDB7B18F65B66002D6FC0 /* Views */,
 				028B648D1526761C0040D2FF /* SCAppDelegate.h */,
 				028B648E1526761C0040D2FF /* SCAppDelegate.m */,
+				02238C651914E88B0050CDCF /* SCItemViewLayout.h */,
+				02238C661914E88B0050CDCF /* SCItemViewLayout.m */,
 				0203A67018C531C500EF5E25 /* SCCommunityRequestOperationManager.h */,
 				0203A67118C531C500EF5E25 /* SCCommunityRequestOperationManager.m */,
 				02010B2D169842FA00007456 /* SCNavigationControllerDelegate.h */,
 				02010B2E169842FA00007456 /* SCNavigationControllerDelegate.m */,
+				02BB278F19026DA4002D151A /* SCReplaceDetailSegue.h */,
+				02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */,
 				02010B30169858E400007456 /* SCWebApiRequestOperationManager.h */,
 				02010B31169858E400007456 /* SCWebApiRequestOperationManager.m */,
 				022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */,
@@ -963,10 +998,12 @@
 				0203A67818C6F60A00EF5E25 /* SCAbstractInventory.m in Sources */,
 				028B641715265D690040D2FF /* main.m in Sources */,
 				029F6940182E3EEC00851826 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				02E98C6319128C840039E1E7 /* SCItemTitleCell.m in Sources */,
 				029F6927182E3E5D00851826 /* AFHTTPRequestOperation.m in Sources */,
 				0203A66818C4B4B300EF5E25 /* AFHTTPRequestOperationManager.m in Sources */,
 				029F6929182E3E5D00851826 /* AFHTTPSessionManager.m in Sources */,
 				029F692A182E3E5D00851826 /* AFNetworkReachabilityManager.m in Sources */,
+				023FDB8418FAD353002D6FC0 /* SCItemDescriptionCell.m in Sources */,
 				029F692B182E3E5D00851826 /* AFSecurityPolicy.m in Sources */,
 				0203A66A18C4B51000EF5E25 /* AFURLConnectionOperation.m in Sources */,
 				029F692D182E3E5D00851826 /* AFURLRequestSerialization.m in Sources */,
@@ -989,22 +1026,25 @@
 				02010B76169E9CA000007456 /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
 				02010B77169E9CA000007456 /* IASKSlider.m in Sources */,
 				02010B78169E9CA000007456 /* IASKSwitch.m in Sources */,
+				02E98C60191274210039E1E7 /* SCItemClassesTF2Cell.m in Sources */,
 				02010B79169E9CA000007456 /* IASKTextField.m in Sources */,
 				028B64931526761C0040D2FF /* SCAppDelegate.m in Sources */,
 				026F215C156ADA1F00C7BD54 /* SCClassImageView.m in Sources */,
+				023FDB7E18F66506002D6FC0 /* SCItemValueCell.m in Sources */,
 				0203A66F18C52CC200EF5E25 /* SCCommunityInventory.m in Sources */,
 				0203A67418C5350200EF5E25 /* SCCommunityItem.m in Sources */,
 				0266E0A416933ACF009C6CE8 /* SCGame.m in Sources */,
+				023FDB8118F84C49002D6FC0 /* SCItemImageCell.m in Sources */,
 				0269A4A915CC3AEB008A287A /* SCGamesViewController.m in Sources */,
 				0238B35A1756AD5600284204 /* SCWebApiInventory.m in Sources */,
 				0220FFC815D7A84700AB8AA3 /* SCInventoryCell.m in Sources */,
 				028B64971526761C0040D2FF /* SCInventoryViewController.m in Sources */,
 				0255A148155D9BE20092741E /* SCWebApiItem.m in Sources */,
 				0275E20D158E6B5B008EA0AD /* SCItemCell.m in Sources */,
-				02010B291696E22B00007456 /* SCItemImageView.m in Sources */,
 				028B64951526761C0040D2FF /* SCItemViewController.m in Sources */,
 				02010B2F169842FB00007456 /* SCNavigationControllerDelegate.m in Sources */,
 				0255A14C155D9BF80092741E /* SCWebApiSchema.m in Sources */,
+				0241CF8F190BEF32005EC030 /* UIImageView+Border.m in Sources */,
 				020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */,
 				02F36DF81826AC3C0036D1C6 /* SCSplitViewController.m in Sources */,
 				0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */,
@@ -1017,9 +1057,11 @@
 				02010B8A169E9CDA00007456 /* TTTAttributedLabel.m in Sources */,
 				029F6941182E3EEC00851826 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				029F6942182E3EEC00851826 /* UIAlertView+AFNetworking.m in Sources */,
+				02238C671914E88B0050CDCF /* SCItemViewLayout.m in Sources */,
 				029F6944182E3EEC00851826 /* UIImageView+AFNetworking.m in Sources */,
 				029F6945182E3EEC00851826 /* UIProgressView+AFNetworking.m in Sources */,
 				029F6946182E3EEC00851826 /* UIWebView+AFNetworking.m in Sources */,
+				02BB279119026DA4002D151A /* SCReplaceDetailSegue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

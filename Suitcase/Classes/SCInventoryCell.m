@@ -38,6 +38,7 @@ static CGRect kTextLabelFrame;
     _itemCountLabel.textColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
     _itemCountLabel.font = [UIFont systemFontOfSize:13.0];
     _itemCountLabel.shadowColor = [UIColor blackColor];
+    _itemCountLabel.shadowOffset = CGSizeMake(0.0, 1.0);
     [self.contentView addSubview:_itemCountLabel];
 
     UIView *selectionView = [[UIView alloc] initWithFrame:self.frame];

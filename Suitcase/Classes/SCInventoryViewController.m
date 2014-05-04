@@ -33,12 +33,8 @@
                                                  name:kIASKAppSettingChanged
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadInventory)
-                                                 name:@"reloadInventory"
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshInventory)
-                                                 name:@"refreshInventory"
+                                                 name:@"showColorsChanged"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sortInventory)
@@ -55,6 +51,8 @@
         [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
     }
 
+    self.tableView.delegate = self;
+
     [super awakeFromNib];
 }
 
@@ -69,83 +67,31 @@
 
 - (void)setInventory:(id <SCInventory>)inventory
 {
-    _inventory = inventory;
+    if (inventory != _inventory) {
+        _inventory = inventory;
 
-    if ([_inventory.items count] > 0) {
-        [_inventory sortItems];
-        [self reloadInventory];
-    }
-}
+        self.navigationItem.title = self.inventory.game.name;
 
-- (void)reloadInventory
-{
-    [self.tableView setDataSource:_inventory];
-    [self.tableView setDelegate:self];
+        if ([inventory.items count] > 0) {
+            [_inventory sortItems];
+            self.tableView.dataSource = _inventory;
 
-    dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.tableView reloadData];
-
-        if ([_inventory.itemSections count] > 0 && [[_inventory.itemSections objectAtIndex:0] count] > 0) {
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            if ([_inventory.itemSections count] > 0 && [[_inventory.itemSections objectAtIndex:0] count] > 0) {
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                      atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            }
         }
-    });
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.detailViewController = (SCItemViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-    }
-
-    if (_inventory == nil) {
-        [self.navigationController popViewControllerAnimated:NO];
-    } else {
-        if (_inventory != self.detailViewController.detailItem.inventory) {
-            self.detailViewController.detailItem = nil;
-        }
-
-        UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
-        if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
-            [(SCSteamIdFormController *)modal dismissForm:self];
-        }
-
-        [super viewDidAppear:animated];
-    }
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-    self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"Inventory title");
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    if (_inventory == nil) {
-        [super viewWillAppear:NO];
-    } else {
-        [super viewWillAppear:animated];
     }
 }
 
 #pragma mark - Table View
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        id <SCItem> item = [[_inventory.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        self.detailViewController.detailItem = item;
-    }
-}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         id <SCItem> item = [[_inventory.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        [segue.destinationViewController setDetailItem:item];
+        ((SCItemViewController *)segue.destinationViewController).detailItem = item;
     } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
         UINavigationController *navigationController = segue.destinationViewController;
         SCSettingsViewController *settingsController = (SCSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];
@@ -159,7 +105,6 @@
 {
     for (SCItemCell *cell in [self.tableView visibleCells]) {
         cell.showColors = _inventory.showColors;
-        [cell changeColor];
     }
 }
 
@@ -211,14 +156,14 @@
     headerView.alpha = 0.8f;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header_gradient"]];
+        headerView.layer.shadowColor = [[UIColor blackColor] CGColor];
+        headerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+        headerView.layer.shadowOpacity = 0.5f;
+        headerView.layer.shadowRadius = 3.25f;
+        headerView.layer.masksToBounds = NO;
     } else {
         headerView.backgroundColor = [UIColor colorWithRed:0.5372 green:0.6196 blue:0.7294 alpha:0.63];
     }
-    headerView.layer.shadowColor = [[UIColor blackColor] CGColor];
-    headerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-    headerView.layer.shadowOpacity = 0.5f;
-    headerView.layer.shadowRadius = 3.25f;
-    headerView.layer.masksToBounds = NO;
 
     [headerView addSubview:headerLabel];
 

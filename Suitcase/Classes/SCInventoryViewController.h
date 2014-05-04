@@ -13,7 +13,6 @@
 
 @interface SCInventoryViewController : UITableViewController <UITableViewDelegate>
 
-@property (strong, nonatomic) SCItemViewController *detailViewController;
 @property (strong, nonatomic) id <SCInventory> inventory;
 
 @end

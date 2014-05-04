@@ -10,20 +10,44 @@
 
 #import "BPBarButtonItem.h"
 #import "FAKFontAwesome.h"
+#import "IASKSettingsReader.h"
+#import "UIImageView+AFNetworking.h"
 
 #import "SCCommunityItem.h"
+#import "SCItemClassesTF2Cell.h"
+#import "SCItemDescriptionCell.h"
+#import "SCItemImageCell.h"
+#import "SCItemTitleCell.h"
+#import "SCItemValueCell.h"
 #import "SCItemViewController.h"
 #import "SCWebApiItem.h"
 
-@interface SCItemViewController ()
-@property (strong, nonatomic) UIPopoverController *masterPopoverController;
-- (void)configureView;
+@interface SCItemViewController () {
+    NSAttributedString *_itemDescription;
+    NSURL *_linkUrl;
+    Byte _values;
+}
 @end
 
 @implementation SCItemViewController
 
-NSString *const kSCHour = @"kSCHour";
-NSString *const kSCHours = @"kSCHours";
+static NSRegularExpression *kHTMLRegex;
+
+typedef enum {
+    kOrigin    = 1,
+    kQuality   = 2,
+    kItemSet   = 4,
+    kKillEater = 8
+} ItemValue;
+
++ (void)initialize {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        NSError *regexError;
+        kHTMLRegex = [[NSRegularExpression alloc] initWithPattern:@"<.+?>"
+                                                          options:NSRegularExpressionCaseInsensitive
+                                                            error:&regexError];
+    }
+}
 
 - (void)awakeFromNib
 {
@@ -41,31 +65,99 @@ NSString *const kSCHours = @"kSCHours";
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(clearItem)
-                                                     name:@"loadGames"
+                                                     name:@"clearItem"
                                                    object:nil];
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(settingsChanged:)
+                                                 name:kIASKAppSettingChanged
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadItemImageCell)
+                                                 name:@"itemImageLoaded"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadItemImageCell)
+                                                 name:@"showColorsChanged"
+                                               object:nil];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Managing the detail item
+
+- (Byte)activeValues {
+    Byte values = 0;
+
+    if ([self.detailItem hasOrigin]) {
+        values |= kOrigin;
+    }
+
+    if ([self.detailItem hasQuality]) {
+        values |= kQuality;
+    }
+
+    if ([self.detailItem belongsToItemSet]) {
+        values |= kItemSet;
+    }
+
+    if ([self.detailItem isKillEater]) {
+        values |= kKillEater;
+    }
+
+    return values;
 }
 
 - (void)clearItem
 {
     _detailItem = nil;
-    [self configureView];
-}
 
-#pragma mark - Managing the detail item
+    [self performSegueWithIdentifier:@"clearItem" sender:self];
+}
 
 - (void)setDetailItem:(id <SCItem>)newDetailItem
 {
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
 
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            [self configureView];
-        }
-    }
+        NSMutableAttributedString *itemDescription;
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+            NSString *nonHTMLItemDescription = [kHTMLRegex stringByReplacingMatchesInString:_detailItem.descriptionText
+                                                                                    options:0
+                                                                                      range:NSMakeRange(0, [_detailItem.descriptionText length])
+                                                                               withTemplate:@""];
 
-    if (self.masterPopoverController != nil) {
-        [self.masterPopoverController dismissPopoverAnimated:YES];
+            itemDescription = [[NSMutableAttributedString alloc] initWithString:nonHTMLItemDescription];
+        } else {
+            NSError *htmlError;
+            NSDictionary *options = @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: [NSNumber numberWithInt:NSUTF8StringEncoding] };
+            NSString *lineBrokenItemDescription = [_detailItem.descriptionText stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
+            itemDescription = [[NSMutableAttributedString alloc] initWithData:[lineBrokenItemDescription dataUsingEncoding:NSUTF8StringEncoding]
+                                                                            options:options
+                                                                 documentAttributes:nil
+                                                                              error:&htmlError];
+
+            if (htmlError) {
+                NSLog(@"Error while parsing the HTML description:\n%@", _detailItem.descriptionText);
+            }
+        }
+
+        NSRange descriptionRange = NSMakeRange(0, [itemDescription length]);
+
+        [itemDescription beginEditing];
+        [itemDescription addAttribute:NSFontAttributeName
+                                value:[UIFont systemFontOfSize:16.0]
+                                range:descriptionRange];
+        [itemDescription addAttribute:NSForegroundColorAttributeName
+                                value:[UIColor whiteColor]
+                                range:descriptionRange];
+        [itemDescription endEditing];
+
+        _itemDescription = [[NSAttributedString alloc] initWithAttributedString:itemDescription];
     }
 }
 
@@ -80,281 +172,32 @@ NSString *const kSCHours = @"kSCHours";
         return;
     }
 
+    if ([_detailItem class] == [SCWebApiItem class]) {
+        [(SCWebApiItem *)_detailItem attributes];
+    }
+    _values = [self activeValues];
+
     if ([_detailItem.inventory.game isTF2]) {
         if (self.navigationItem.rightBarButtonItem == nil) {
-            [self.navigationItem setRightBarButtonItem:_wikiButton animated:YES];
+            self.navigationItem.rightBarButtonItem = _wikiButton;
         }
     } else {
         if (self.navigationItem.rightBarButtonItem == _wikiButton) {
-            [self.navigationItem setRightBarButtonItem:nil animated:YES];
+            self.navigationItem.rightBarButtonItem = nil;
         }
     }
-
-    [self.itemImage setImageWithURL:self.detailItem.imageUrl];
-
-    self.title = self.detailItem.name;
-    self.killEaterLabel.hidden = YES;
-    self.killEaterIcon.alpha = 0.4;
-    self.levelLabel.text = self.detailItem.levelText;
-    self.originLabel.text = NSLocalizedString(self.detailItem.origin, @"Item oigin");
-    self.qualityLabel.text = self.detailItem.qualityName;
-
-    NSMutableString *descriptionLabelText = [self.detailItem.description mutableCopy];
-    if (descriptionLabelText == nil) {
-        descriptionLabelText = [NSMutableString string];
-    }
-
-    if ([self.detailItem class] == [SCWebApiItem class]) {
-        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-        [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        [numberFormatter setMaximumFractionDigits:0];
-        __block BOOL firstAttribute = YES;
-        [((SCWebApiItem *)self.detailItem).attributes enumerateObjectsUsingBlock:^(NSDictionary *attribute, NSUInteger idx, BOOL *stop) {
-            NSMutableString *attributeDescription = [[attribute objectForKey:@"description"] mutableCopy];
-            if (attributeDescription != nil) {
-                NSString *valueFormat = [attribute objectForKey:@"valueFormat"];
-                NSString *value;
-                if ([valueFormat isEqual:@"kill_eater"]) {
-                    value = [(NSNumber *)[attribute objectForKey:@"value"] stringValue];
-                } else if ([valueFormat isEqual:@"value_is_account_id"]) {
-                    value = [[attribute objectForKey:@"accountInfo"] objectForKey:@"personaname"];
-                } else if ([valueFormat isEqual:@"value_is_additive"]) {
-                    value = [(NSNumber *)attribute[@"floatValue"] stringValue];
-                    if (value == nil) {
-                        value = [(NSNumber *)attribute[@"value"] stringValue];
-                    }
-                } else if ([valueFormat isEqual:@"value_is_additive_percentage"]) {
-                    value = [[NSNumber numberWithDouble:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue] * 100] stringValue];
-                } else if ([valueFormat isEqual:@"value_is_date"]) {
-                    double timestamp = [(NSNumber *)[attribute objectForKey:@"value"] doubleValue];
-                    if (timestamp == 0) {
-                        attributeDescription = nil;
-                    } else {
-                        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue]];
-                        value = [NSDateFormatter localizedStringFromDate:date
-                                                               dateStyle:NSDateFormatterMediumStyle
-                                                               timeStyle:NSDateFormatterShortStyle];
-                    }
-                } else if ([valueFormat isEqual:@"value_is_inverted_percentage"]) {
-                    NSNumber *numberValue = attribute[@"floatValue"];
-                    if (numberValue == nil) {
-                        numberValue = attribute[@"value"];
-                    }
-                    numberValue = [NSNumber numberWithDouble:(1 - [numberValue doubleValue]) * 100];
-                    value = [numberFormatter stringFromNumber:numberValue];
-                } else if ([valueFormat isEqualToString:@"value_is_mins_as_hours"]) {
-                    int hours = [(NSNumber *)attribute[@"floatValue"] floatValue] / 60;
-                    NSString *formatString = (hours == 1) ? NSLocalizedString(kSCHour, kSCHour) : NSLocalizedString(kSCHours, kSCHours);
-                    value = [NSString stringWithFormat:formatString, hours];
-                } else if ([valueFormat isEqual:@"value_is_particle_index"]) {
-                    value = [((SCWebApiInventory *)self.detailItem.inventory).schema effectNameForIndex:[attribute objectForKey:@"value"]];
-                    if (value == nil) {
-                        value = [((SCWebApiInventory *)self.detailItem.inventory).schema effectNameForIndex:[attribute objectForKey:@"floatValue"]];
-                    }
-                } else if ([valueFormat isEqual:@"value_is_percentage"]) {
-                    NSNumber *numberValue = attribute[@"floatValue"];
-                    if (numberValue == nil) {
-                        numberValue = attribute[@"value"];
-                    }
-                    numberValue = [NSNumber numberWithDouble:([numberValue doubleValue] - 1) * 100];
-                    value = [numberFormatter stringFromNumber:numberValue];
-                }
-
-                if (value != nil) {
-                    [attributeDescription replaceOccurrencesOfString:@"%s1"
-                                                          withString:value
-                                                             options:NSLiteralSearch
-                                                               range:NSMakeRange(0, [attributeDescription length])];
-                }
-
-                if ([valueFormat isEqual:@"kill_eater"]) {
-                    self.killEaterLabel.text = attributeDescription;
-                    CGRect currentFrame = self.killEaterLabel.frame;
-                    CGSize maxFrame = CGSizeMake(currentFrame.size.width, 500);
-                    CGSize expectedFrame = [attributeDescription sizeWithFont:self.killEaterLabel.font
-                                                            constrainedToSize:maxFrame
-                                                                lineBreakMode:self.killEaterLabel.lineBreakMode];
-                    currentFrame.size.height = expectedFrame.height;
-                    self.killEaterLabel.frame = currentFrame;
-                    self.killEaterLabel.hidden = NO;
-                    self.killEaterIcon.alpha = 1.0;
-                } else {
-                    if ([descriptionLabelText length] > 0) {
-                        if (firstAttribute) {
-                            [descriptionLabelText appendString:@"\n"];
-                        }
-                        [descriptionLabelText appendString:@"\n"];
-                    }
-
-                    [descriptionLabelText appendString:attributeDescription];
-                    firstAttribute = NO;
-                }
-            }
-        }];
-    }
-
-    [descriptionLabelText replaceOccurrencesOfString:@"<br>"
-                                          withString:@"\n"
-                                             options:NSCaseInsensitiveSearch
-                                               range:NSMakeRange(0, [descriptionLabelText length])];
-    [descriptionLabelText replaceOccurrencesOfString:@"</?font( .*)?>"
-                                          withString:@""
-                                             options:NSRegularExpressionSearch
-                                               range:NSMakeRange(0, [descriptionLabelText length])];
-
-    self.descriptionLabel.text = descriptionLabelText;
-
-    if ([self.detailItem class] == [SCWebApiItem class] && ((SCWebApiItem *)self.detailItem).itemSet != nil) {
-        [self.itemSetButton setTitle:[((SCWebApiItem *)self.detailItem).itemSet objectForKey:@"name"] forState:UIControlStateNormal];
-        self.itemSetButton.enabled = YES;
-    } else {
-        [self.itemSetButton setTitle:nil forState:UIControlStateNormal];
-        self.itemSetButton.enabled = NO;
-    }
-
-    CGRect currentFrame = self.descriptionLabel.frame;
-    CGSize maxFrame = CGSizeMake(currentFrame.size.width, 500);
-    CGSize expectedFrame = [descriptionLabelText sizeWithFont:self.descriptionLabel.font
-                                            constrainedToSize:maxFrame
-                                                lineBreakMode:self.descriptionLabel.lineBreakMode];
-    currentFrame.size.height = expectedFrame.height;
-    self.descriptionLabel.frame = currentFrame;
-
-    if ([self.detailItem.inventory.game isTF2]) {
-        int equippedClasses = ((SCWebApiItem *)self.detailItem).equippedClasses;
-        self.classScoutImage.equipped = equippedClasses & 1;
-        self.classSoldierImage.equipped = equippedClasses & 4;
-        self.classPyroImage.equipped = equippedClasses & 64;
-        self.classDemomanImage.equipped = equippedClasses & 8;
-        self.classHeavyImage.equipped = equippedClasses & 32;
-        self.classEngineerImage.equipped = (equippedClasses & 256) != 0;
-        self.classMedicImage.equipped = equippedClasses & 16;
-        self.classSniperImage.equipped = equippedClasses & 2;
-        self.classSpyImage.equipped = equippedClasses & 128;
-
-        int equippableClasses = ((SCWebApiItem *)self.detailItem).equippableClasses;
-        self.classScoutImage.equippable = equippableClasses & 1;
-        self.classSoldierImage.equippable = equippableClasses & 4;
-        self.classPyroImage.equippable = equippableClasses & 64;
-        self.classDemomanImage.equippable = equippableClasses & 8;
-        self.classHeavyImage.equippable = equippableClasses & 32;
-        self.classEngineerImage.equippable = (equippableClasses & 256) != 0;
-        self.classMedicImage.equippable = equippableClasses & 16;
-        self.classSniperImage.equippable = equippableClasses & 2;
-        self.classSpyImage.equippable = equippableClasses & 128;
-    }
-
-    [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-        view.hidden = YES;
-        if ([self.detailItem isMemberOfClass:[SCCommunityItem class]]) {
-            NSArray *hiddenViews = @[self.itemSetButton, self.qualityIcon, self.qualityLabel, self.originIcon,
-                                     self.originLabel, self.killEaterIcon, self.killEaterLabel];
-            if (!([hiddenViews containsObject:view] || [self.classImages containsObject:view])) {
-                view.hidden = NO;
-            }
-        } else {
-            if ([self.classImages containsObject:view]) {
-                view.hidden = ![self.detailItem.inventory.game isTF2];
-            } else if (view != self.killEaterLabel) {
-                view.hidden = NO;
-            }
-        }
-    }];
-
-    if ([self.detailItem.quantity intValue] > 1) {
-        self.quantityLabel.text = [NSString stringWithFormat:@"%@ x", self.detailItem.quantity];
-        self.quantityLabel.hidden = NO;
-    } else {
-        self.quantityLabel.hidden = YES;
-    }
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-    [self.classScoutImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/scout.jpg"]];
-    [self.classSoldierImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/soldier.jpg"]];
-    [self.classPyroImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/pyro.jpg"]];
-    [self.classDemomanImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/demoman.jpg"]];
-    [self.classHeavyImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/heavy.jpg"]];
-    [self.classEngineerImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/engineer.jpg"]];
-    [self.classMedicImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/medic.jpg"]];
-    [self.classSniperImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/sniper.jpg"]];
-    [self.classSpyImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/spy.jpg"]];
-
-    NSShadow *iconShadow = [NSShadow new];
-    [iconShadow setShadowBlurRadius:1.0];
-    [iconShadow setShadowColor:UIColor.blackColor];
-    [iconShadow setShadowOffset:CGSizeMake(1.0, 1.0)];
-    NSDictionary *iconAttributes = @{
-        NSForegroundColorAttributeName: UIColor.whiteColor,
-        NSShadowAttributeName: iconShadow
-    };
-    CGSize iconSize = CGSizeMake(22.0, 22.0);
-
-    FAKIcon *starIcon = [FAKFontAwesome starIconWithSize:20.0];
-    [starIcon addAttributes:iconAttributes];
-    FAKIcon *linkIcon = [FAKFontAwesome linkIconWithSize:20.0];
-    [linkIcon addAttributes:iconAttributes];
-    FAKIcon *downloadIcon = [FAKFontAwesome downloadIconWithSize:20.0];
-    [downloadIcon addAttributes:iconAttributes];
-    FAKIcon *flagIcon = [FAKFontAwesome flagIconWithSize:20.0];
-    [flagIcon addAttributes:iconAttributes];
-
-    self.killEaterIcon.image = [starIcon imageWithSize:iconSize];
-    [self.itemSetButton setImage:[linkIcon imageWithSize:iconSize] forState:UIControlStateNormal];
-    self.originIcon.image = [downloadIcon imageWithSize:iconSize];
-    self.qualityIcon.image = [flagIcon imageWithSize:iconSize];
-
-    self.quantityLabel.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.quantityLabel.layer.borderWidth = [[UIScreen mainScreen] scale];
-}
-
-- (void)viewDidUnload
-{
-    [self setClassScoutImage:nil];
-    [self setClassSoldierImage:nil];
-    [self setClassPyroImage:nil];
-    [self setClassDemomanImage:nil];
-    [self setClassHeavyImage:nil];
-    [self setClassEngineerImage:nil];
-    [self setClassMedicImage:nil];
-    [self setClassSniperImage:nil];
-    [self setClassSpyImage:nil];
-    [self setDescriptionLabel:nil];
-    [self setIcons:nil];
-    [self setItemImage:nil];
-    [self setLevelLabel:nil];
-    [self setOriginIcon:nil];
-    [self setOriginLabel:nil];
-    [self setQuantityLabel:nil];
-    [self setQualityIcon:nil];
-    [self setQualityLabel:nil];
-    [self setKillEaterLabel:nil];
-    [self setKillEaterIcon:nil];
-
-    [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self configureView];
+
+    [super viewWillAppear:animated];
 }
 
-#pragma mark - Split view
-
-- (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
-{
-    barButtonItem.title = NSLocalizedString(@"Inventory", @"Inventory");
-    [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
-    self.masterPopoverController = popoverController;
-}
-
-- (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    // Called when the view is shown again in the split view, invalidating the button and popover controller.
-    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
-    self.masterPopoverController = nil;
+- (void)settingsChanged:(NSNotification *)notification {
+    if ([notification.object isEqual:@"show_colors"]) {
+        [self reloadItemImageCell];
+    }
 }
 
 - (IBAction)showItemSet:(id)sender {
@@ -407,9 +250,188 @@ NSString *const kSCHours = @"kSCHours";
     }
 }
 
--(void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+#pragma mark - Collection View Data Source
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell;
+
+    if (indexPath.section == 0) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemTitleCell" forIndexPath:indexPath];
+        ((SCItemTitleCell *)cell).item = self.detailItem;
+    } else if (indexPath.section == 1) {
+        SCItemImageCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemImageCell" forIndexPath:indexPath];
+        cell = imageCell;
+        imageCell.item = self.detailItem;
+        [imageCell refresh];
+    } else if (indexPath.section == 2) {
+        SCItemValueCell *valueCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemValueCell" forIndexPath:indexPath];
+        cell = valueCell;
+        valueCell.value = [self itemValueForIndexPath:indexPath];
+
+        switch ([self itemValueTypeForIndexPath:indexPath]) {
+            case kOrigin:
+                valueCell.name = @"Origin";
+                valueCell.value = [self.detailItem origin];
+                break;
+
+            case kQuality:
+                valueCell.name = @"Quality";
+                valueCell.value = [self.detailItem qualityName];
+                break;
+
+            case kItemSet:
+                valueCell.name = @"Item set";
+                valueCell.value = ((SCWebApiItem *)self.detailItem).itemSet[@"name"];
+                break;
+
+            case kKillEater:
+                valueCell.name = @"Kill eater";
+                break;
+
+            default:
+                [valueCell empty];
+        }
+    } else if (indexPath.section == 3) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemDescriptionCell" forIndexPath:indexPath];
+        ((SCItemDescriptionCell *)cell).descriptionText = _itemDescription;
+    } else {
+        SCItemClassesTF2Cell *classesTF2Cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemClassesTF2Cell" forIndexPath:indexPath];
+        cell = classesTF2Cell;
+
+        int equippedClasses = ((SCWebApiItem *)self.detailItem).equippedClasses;
+        classesTF2Cell.classScoutImage.equipped = equippedClasses & 1;
+        classesTF2Cell.classSoldierImage.equipped = equippedClasses & 4;
+        classesTF2Cell.classPyroImage.equipped = equippedClasses & 64;
+        classesTF2Cell.classDemomanImage.equipped = equippedClasses & 8;
+        classesTF2Cell.classHeavyImage.equipped = equippedClasses & 32;
+        classesTF2Cell.classEngineerImage.equipped = (equippedClasses & 256) != 0;
+        classesTF2Cell.classMedicImage.equipped = equippedClasses & 16;
+        classesTF2Cell.classSniperImage.equipped = equippedClasses & 2;
+        classesTF2Cell.classSpyImage.equipped = equippedClasses & 128;
+
+        int equippableClasses = ((SCWebApiItem *)self.detailItem).equippableClasses;
+        classesTF2Cell.classScoutImage.equippable = equippableClasses & 1;
+        classesTF2Cell.classSoldierImage.equippable = equippableClasses & 4;
+        classesTF2Cell.classPyroImage.equippable = equippableClasses & 64;
+        classesTF2Cell.classDemomanImage.equippable = equippableClasses & 8;
+        classesTF2Cell.classHeavyImage.equippable = equippableClasses & 32;
+        classesTF2Cell.classEngineerImage.equippable = (equippableClasses & 256) != 0;
+        classesTF2Cell.classMedicImage.equippable = equippableClasses & 16;
+        classesTF2Cell.classSniperImage.equippable = equippableClasses & 2;
+        classesTF2Cell.classSpyImage.equippable = equippableClasses & 128;
+    }
+
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UIEdgeInsets insets = ((UICollectionViewFlowLayout *)collectionViewLayout).sectionInset;
+    CGFloat cellWidth = collectionView.frame.size.width - insets.left - insets.right;
+
+    if (indexPath.section == 0) {
+        CGSize itemTitleSize = [self.detailItem.name sizeWithFont:[UIFont boldSystemFontOfSize:22.0]
+                                                constrainedToSize:CGSizeMake(cellWidth - 20.0, CGFLOAT_MAX)
+                                                    lineBreakMode:NSLineBreakByWordWrapping];
+
+        return CGSizeMake(cellWidth, itemTitleSize.height + 28.0);
+    } else if (indexPath.section == 1) {
+        CGFloat height;
+
+        NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[self.detailItem imageUrl]];
+        UIImage *cachedImage = [[UIImageView sharedImageCache] cachedImageForRequest:imageRequest];
+        if (cachedImage != nil) {
+            height = [SCItemImageCell heightOfCellForImage:cachedImage];
+        } else {
+            height = 75.0;
+        }
+
+        return CGSizeMake(cellWidth, height);
+    } else if (indexPath.section == 2) {
+        NSString *itemValue = [self itemValueForIndexPath:indexPath];
+        CGSize itemValueLabelSize = [itemValue sizeWithFont:[UIFont systemFontOfSize:16.0]
+                                          constrainedToSize:CGSizeMake(170.0, CGFLOAT_MAX)
+                                              lineBreakMode:NSLineBreakByWordWrapping];
+        CGFloat cellHeight = itemValueLabelSize.height;
+
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            cellHeight = cellHeight + 10.0;
+            cellWidth = floorf(cellWidth / 2) - 5.0;
+        }
+
+        return CGSizeMake(cellWidth, cellHeight);
+    } else if (indexPath.section == 3) {
+        CGRect itemDescriptionLabelRect = [_itemDescription boundingRectWithSize:CGSizeMake(cellWidth - 20.0, CGFLOAT_MAX)
+                                                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                                                         context:nil];
+
+        return CGSizeMake(cellWidth, itemDescriptionLabelRect.size.height + 20.0);
+    } else {
+        return CGSizeMake(cellWidth, [SCItemClassesTF2Cell cellHeight]);
+    }
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section {
+    if (section == 2) {
+        return [self numberOfItemAttributes];
+    }
+
+    return 1;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    if ([self.detailItem.inventory.game isTF2]) {
+        return 5;
+    }
+
+    return 4;
+}
+
+- (NSUInteger)numberOfItemAttributes {
+    NSUInteger count = 0 ;
+    Byte n = _values;
+    while (n) {
+        count ++;
+        n &= (n - 1);
+    }
+
+    return count;
+}
+
+- (NSString *)itemValueForIndexPath:(NSIndexPath *)indexPath {
+    switch ([self itemValueTypeForIndexPath:indexPath]) {
+        case kOrigin:
+            return [self.detailItem origin];
+
+        case kQuality:
+            return [self.detailItem qualityName];
+
+        case kItemSet:
+            return ((SCWebApiItem *)self.detailItem).itemSet[@"name"];
+
+        case kKillEater:
+            return [self.detailItem killEaterDescription];
+
+        default:
+            return nil;
+    }
+}
+
+- (ItemValue)itemValueTypeForIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger valueType = _values;
+    for (int i = 0; i < indexPath.item; i ++) {
+        valueType &= valueType - 1;
+    }
+    valueType &= ~(valueType - 1);
+
+    return (ItemValue)valueType;
+}
+
+- (void)reloadItemImageCell {
+    [self.collectionView setCollectionViewLayout:[[[self.collectionViewLayout class] alloc] init] animated:YES];
 }
 
 @end

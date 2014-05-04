@@ -80,7 +80,6 @@ static NSMutableDictionary *__schemas;
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
     }];
-    schemaOperation.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
     return schemaOperation;
 }
@@ -183,17 +182,17 @@ static NSMutableDictionary *__schemas;
     return [[self.items objectForKey:defindex] objectForKey:key];
 }
 
-- (NSString *)itemLevelForScore:(NSUInteger)score
+- (NSString *)itemLevelForScore:(NSNumber *)score
                    andLevelType:(NSString *)levelType
                     andItemType:(NSString *)itemType {
     __block NSString *itemLevel;
 
     NSArray *itemLevels = [self.itemLevels objectForKey:levelType];
     [[itemLevels sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *level1, NSDictionary *level2) {
-        return [[level1 objectForKey:@"required_score"] compare:[level2 objectForKey:@"required_score"]];
+        return [level1[@"required_score"] compare:level2[@"required_score"]];
     }] enumerateObjectsUsingBlock:^(NSDictionary *level, NSUInteger idx, BOOL *stop) {
-        if (score < [[level objectForKey:@"required_score"] integerValue]) {
-            itemLevel = [level objectForKey:@"name"];
+        if ([score intValue] < [level[@"required_score"] intValue]) {
+            itemLevel = level[@"name"];
             *stop = YES;
         }
     }];
@@ -214,6 +213,10 @@ static NSMutableDictionary *__schemas;
 }
 
 - (NSDictionary *)killEaterTypeForIndex:(NSNumber *)typeIndex {
+    if (typeIndex == nil) {
+        typeIndex = @0;
+    }
+
     return [_killEaterTypes objectForKey:typeIndex];
 }
 

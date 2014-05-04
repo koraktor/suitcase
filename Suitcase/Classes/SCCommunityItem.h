@@ -24,7 +24,6 @@
             andInventory:(SCCommunityInventory *)anInventory
          andItemCategory:(NSNumber *)itemCategory;
 
-- (NSString *)description;
 - (NSURL *)iconUrl;
 - (NSURL *)imageUrl;
 - (NSDictionary *)itemSet;
@@ -32,7 +31,6 @@
 - (NSString *)levelText;
 - (NSString *)origin;
 - (NSNumber *)position;
-- (NSString *)quality;
 - (NSNumber *)quantity;
 
 - (id)valueForKey:(NSString *)key;

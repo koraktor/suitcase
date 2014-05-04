@@ -18,6 +18,4 @@
 
 @property (strong, nonatomic) SCWebApiSchema *schema;
 
-- (void)loadSchema;
-
 @end
