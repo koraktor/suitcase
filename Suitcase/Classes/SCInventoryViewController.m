@@ -92,6 +92,9 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         id <SCItem> item = [[_inventory.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         ((SCItemViewController *)segue.destinationViewController).detailItem = item;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
     } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
         UINavigationController *navigationController = segue.destinationViewController;
         SCSettingsViewController *settingsController = (SCSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];

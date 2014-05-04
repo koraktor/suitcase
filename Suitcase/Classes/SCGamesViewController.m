@@ -341,6 +341,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showInventory"]) {
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
         SCInventoryViewController *inventoryController = segue.destinationViewController;
         inventoryController.inventory = _currentInventory;
     } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
