@@ -56,6 +56,7 @@ static NSMutableDictionary *__schemas;
                                                                                          andVersion:version
                                                                                      withParameters:params
                                                                                             encoded:NO];
+    ((NSMutableURLRequest *)schemaOperation.request).timeoutInterval = 60;
     [schemaOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
 #ifdef DEBUG
         NSLog(@"Finished loading item schema for %@", appId);

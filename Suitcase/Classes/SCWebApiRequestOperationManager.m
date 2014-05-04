@@ -64,6 +64,7 @@
 #endif
     }];
     request.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+    ((NSMutableURLRequest *)request.request).timeoutInterval = 30;
 
 #ifdef DEBUG
     NSLog(@"Querying Steam Web API: %@", [[[[request request] URL] absoluteString] stringByReplacingOccurrencesOfString:__API_KEY__ withString:@"SECRET"]);

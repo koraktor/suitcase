@@ -48,6 +48,7 @@
 #endif
     }];
     request.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+    ((NSMutableURLRequest *)request.request).timeoutInterval = 30;
 
 #ifdef DEBUG
     NSLog(@"Querying Steam Community: %@", request.request.URL.absoluteString);
