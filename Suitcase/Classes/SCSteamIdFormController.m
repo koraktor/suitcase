@@ -88,6 +88,8 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
                                        canBeDismissedByUser:NO];
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [_steamIdField becomeFirstResponder];
+
             [SCAppDelegate errorWithMessage:[error localizedDescription]];
         }];
         [operation start];
