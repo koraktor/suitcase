@@ -30,6 +30,7 @@
 }
 
 @property NSArray *inventories;
+@property SCCommunityInventory *steamInventory;
 
 @end
 
@@ -163,6 +164,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 - (void)loadGames
 {
     self.inventories = [NSArray array];
+    self.steamInventory = nil;
     if (self.tableView != nil) {
         [self.tableView reloadData];
     }
@@ -269,8 +271,8 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
             skipFailedInventories = [rawSkipFailedInventories boolValue];
         }
 
-        _inventories = [NSMutableArray array];
         NSArray *inventories = [[SCAbstractInventory inventoriesForUser:steamId64] allValues];
+        NSMutableArray *newInventories = [NSMutableArray arrayWithCapacity:inventories.count];
         [inventories enumerateObjectsUsingBlock:^(id <SCInventory> inventory, NSUInteger idx, BOOL *stop) {
             if (![inventory isSuccessful] && (skipFailedInventories || ![inventory temporaryFailed])) {
                 return;
@@ -278,9 +280,15 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
             if (skipEmptyInventories && [inventory isEmpty]) {
                 return;
             }
-            [(NSMutableArray *)_inventories addObject:inventory];
+
+            if ([inventory.game.appId isEqualToNumber:@753]) {
+                weakSelf.steamInventory = inventory;
+            } else {
+                 [newInventories addObject:inventory];
+            }
         }];
-        _inventories = [_inventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
+
+        weakSelf.inventories = [newInventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
             return [inv1.game.name compare:inv2.game.name];
         }];
 
@@ -420,11 +428,58 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
     [self performSegueWithIdentifier:@"showInventory" sender:self];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0 || [self.inventories count] == 0) {
+        return 0.0;
+    }
+
+    return 20.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section == 0 || [self.inventories count] == 0) {
+        return nil;
+    }
+
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, 20.0)];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, headerView.frame.size.width, 20.0)];
+
+    headerLabel.backgroundColor = UIColor.clearColor;
+    headerLabel.text = NSLocalizedString(@"Games", @"Games");;
+    headerLabel.textColor = UIColor.whiteColor;
+    headerLabel.font = [UIFont boldSystemFontOfSize:18.0];
+
+    headerView.alpha = 0.8f;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header_gradient"]];
+        headerView.layer.shadowColor = [[UIColor blackColor] CGColor];
+        headerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+        headerView.layer.shadowOpacity = 0.5f;
+        headerView.layer.shadowRadius = 3.25f;
+        headerView.layer.masksToBounds = NO;
+    } else {
+        headerView.backgroundColor = [UIColor colorWithRed:0.5372 green:0.6196 blue:0.7294 alpha:0.63];
+    }
+
+    [headerView addSubview:headerLabel];
+
+    return headerView;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCInventoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InventoryCell"];
     cell.backgroundColor = [UIColor clearColor];
-    cell.inventory = [_inventories objectAtIndex:indexPath.row];
+    if (indexPath.section == 0) {
+        cell.inventory = self.steamInventory;
+    } else {
+        cell.inventory = [self.inventories objectAtIndex:indexPath.row];
+    }
     [cell loadImage];
 
     return cell;
@@ -432,14 +487,22 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _currentInventory = [_inventories objectAtIndex:indexPath.row];
+    if (indexPath.section == 0) {
+        _currentInventory = self.steamInventory;
+    } else {
+        _currentInventory = [self.inventories objectAtIndex:indexPath.row];
+    }
 
     [self prepareInventory];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_inventories count];
+    if (section == 0) {
+        return (self.steamInventory == nil) ? 0 : 1;
+    } else {
+        return [self.inventories count];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
