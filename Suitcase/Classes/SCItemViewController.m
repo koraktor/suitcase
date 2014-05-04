@@ -22,6 +22,10 @@
 #import "SCItemViewController.h"
 #import "SCWebApiItem.h"
 
+NSString *const kSCOpenInChrome = @"kSCOpenInChrome";
+NSString *const kSCOpenInSafari = @"kSCOpenInSafari";
+NSString *const kSCOpenLinkInBrowser = @"kSCOpenLinkInBrowser";
+
 @interface SCItemViewController () {
     NSAttributedString *_itemDescription;
     NSURL *_linkUrl;
@@ -31,6 +35,7 @@
 
 @implementation SCItemViewController
 
+static BOOL kChromeIsAvailable;
 static NSRegularExpression *kHTMLRegex;
 
 typedef enum {
@@ -47,6 +52,8 @@ typedef enum {
                                                           options:NSRegularExpressionCaseInsensitive
                                                             error:&regexError];
     }
+
+    kChromeIsAvailable = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://"]];
 }
 
 - (void)awakeFromNib
@@ -432,6 +439,49 @@ typedef enum {
 
 - (void)reloadItemImageCell {
     [self.collectionView setCollectionViewLayout:[[[self.collectionViewLayout class] alloc] init] animated:YES];
+}
+
+#pragma mark Link handling
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+
+    if (buttonIndex == actionSheet.firstOtherButtonIndex) {
+        [[UIApplication sharedApplication] openURL:_linkUrl];
+    } else {
+        NSString *chromeUrlString = [_linkUrl absoluteString];
+        chromeUrlString = [chromeUrlString substringFromIndex:[_linkUrl scheme].length];
+        if ([_linkUrl.scheme isEqualToString:@"https"]) {
+            chromeUrlString = [@"googlechromes" stringByAppendingString:chromeUrlString];
+        } else {
+            chromeUrlString = [@"googlechrome" stringByAppendingString:chromeUrlString];
+        }
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:chromeUrlString]];
+    }
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    _linkUrl = url;
+
+    NSString *title = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(kSCOpenLinkInBrowser, kSCOpenLinkInBrowser), url];
+    UIActionSheet *browserSheet = [[UIActionSheet alloc] initWithTitle:title
+                                                              delegate:self
+                                                     cancelButtonTitle:nil
+                                                destructiveButtonTitle:nil
+                                                     otherButtonTitles:nil];
+
+    [browserSheet addButtonWithTitle:NSLocalizedString(kSCOpenInSafari, kSCOpenInSafari)];
+    if (kChromeIsAvailable) {
+        [browserSheet addButtonWithTitle:NSLocalizedString(kSCOpenInChrome, kSCOpenInChrome)];
+        browserSheet.cancelButtonIndex = 2;
+    } else {
+        browserSheet.cancelButtonIndex = 1;
+    }
+    [browserSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel")];
+
+    [browserSheet showInView:self.view];
 }
 
 @end

@@ -15,6 +15,9 @@
 "kSCInventoryError"                   = "Error loading the inventory: %@";
 "kSCInventoryLoadingFailed"           = "Failed to load";
 "kSCInventoryLoadingFailedDetail"     = "The inventory for %@ could not be loaded.";
+"kSCOpenInChrome"                     = "Open in Chrome";
+"kSCOpenInSafari"                     = "Open in Safari";
+"kSCOpenLinkInBrowser"                = "Open this link in the browser?";
 "kSCReloadingFailedInventory"         = "Retrying…";
 "kSCReloadingFailedInventoryDetail"   = "Retrying to load inventory for %@.";
 "kSCReloadingOutdatedInventory"       = "Refreshing…";

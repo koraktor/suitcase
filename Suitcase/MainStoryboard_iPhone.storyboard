@@ -404,6 +404,9 @@ http://steamcommunity.com/profile/{Profile ID}
                                             <nil key="highlightedColor"/>
                                             <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <size key="shadowOffset" width="0.0" height="1"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="21" id="3Op-wd-1QA"/>
+                                            </connections>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

@@ -12,7 +12,7 @@
 #import "SCItem.h"
 #import "SCItemImageCell.h"
 
-@interface SCItemViewController : UICollectionViewController <UISplitViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface SCItemViewController : UICollectionViewController <UIActionSheetDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISplitViewControllerDelegate, TTTAttributedLabelDelegate>
 
 @property (strong, nonatomic) id <SCItem> detailItem;
 
