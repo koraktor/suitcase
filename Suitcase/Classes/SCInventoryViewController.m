@@ -149,15 +149,16 @@
     }
 
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, 20.0)];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, headerView.frame.size.width, 20.0)];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerView.frame];
 
     headerLabel.backgroundColor = UIColor.clearColor;
     headerLabel.text = title;
+    headerLabel.textAlignment = NSTextAlignmentCenter;
     headerLabel.textColor = UIColor.whiteColor;
-    headerLabel.font = [UIFont boldSystemFontOfSize:18.0];
 
     headerView.alpha = 0.8f;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        headerLabel.font = [UIFont boldSystemFontOfSize:16.0];
         headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header_gradient"]];
         headerView.layer.shadowColor = [[UIColor blackColor] CGColor];
         headerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
@@ -165,6 +166,7 @@
         headerView.layer.shadowRadius = 3.25f;
         headerView.layer.masksToBounds = NO;
     } else {
+        headerLabel.font = [UIFont systemFontOfSize:16.0];
         headerView.backgroundColor = [UIColor colorWithRed:0.5372 green:0.6196 blue:0.7294 alpha:0.63];
     }
 
