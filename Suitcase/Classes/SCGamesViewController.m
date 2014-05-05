@@ -272,6 +272,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
         }
 
         NSArray *inventories = [[SCAbstractInventory inventoriesForUser:steamId64] allValues];
+        __block SCCommunityInventory *newSteamInventory;
         NSMutableArray *newInventories = [NSMutableArray arrayWithCapacity:inventories.count];
         [inventories enumerateObjectsUsingBlock:^(id <SCInventory> inventory, NSUInteger idx, BOOL *stop) {
             if (![inventory isSuccessful] && (skipFailedInventories || ![inventory temporaryFailed])) {
@@ -282,9 +283,9 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
             }
 
             if ([inventory.game.appId isEqualToNumber:@753]) {
-                weakSelf.steamInventory = inventory;
+                newSteamInventory = inventory;
             } else {
-                 [newInventories addObject:inventory];
+                [newInventories addObject:inventory];
             }
         }];
 
@@ -292,14 +293,24 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
             return [inv1.game.name compare:inv2.game.name];
         }];
 
-#ifdef DEBUG
-        NSLog(@"Loaded %lu inventories for user %@.", (unsigned long) [weakSelf.inventories count], steamId64);
-#endif
-
         dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.inventories = [newInventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
+                return [inv1.game.name compare:inv2.game.name];
+            }];
+
+            weakSelf.steamInventory = newSteamInventory;
+
             [weakSelf.tableView reloadData];
             [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:NSNotFound inSection:0]
                                   atScrollPosition:UITableViewScrollPositionTop animated:YES];
+
+#ifdef DEBUG
+            NSUInteger inventoryCount = weakSelf.inventories.count;
+            if (_steamInventory != nil) {
+                inventoryCount ++;
+            }
+            NSLog(@"Loaded %lu inventories for user %@.", (unsigned long) inventoryCount, steamId64);
+#endif
         });
     }];
 
