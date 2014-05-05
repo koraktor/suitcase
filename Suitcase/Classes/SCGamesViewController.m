@@ -476,7 +476,6 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCInventoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InventoryCell"];
-    cell.backgroundColor = [UIColor clearColor];
     if (indexPath.section == 0) {
         cell.inventory = self.steamInventory;
     } else {
