@@ -178,6 +178,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <size key="shadowOffset" width="0.0" height="1"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" image="game_placeholder.png" id="wmH-N0-ekf">
                                             <rect key="frame" x="15" y="4" width="92" height="35"/>
@@ -241,6 +242,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <size key="shadowOffset" width="0.0" height="1"/>
                                         </label>
                                         <imageView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" id="8qV-vI-9XP">
                                             <rect key="frame" x="10" y="13" width="16" height="16"/>
