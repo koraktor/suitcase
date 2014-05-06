@@ -123,13 +123,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (tableView.dataSource == self) {
-        return 0.0;
-    }
-
     NSString *title = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
 
-    if (title == nil) {
+    if (title == nil || [title isEqualToString:@""]) {
         return 0.0;
     }
 
@@ -138,13 +134,9 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (tableView.dataSource == self) {
-        return nil;
-    }
-
     NSString *title = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
 
-    if (title == nil) {
+    if (title == nil || [title isEqualToString:@""]) {
         return nil;
     }
 
