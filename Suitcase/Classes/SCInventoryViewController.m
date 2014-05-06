@@ -156,18 +156,26 @@
     headerLabel.textAlignment = NSTextAlignmentCenter;
     headerLabel.textColor = UIColor.whiteColor;
 
+    UIColor *backgroundColor = [UIColor colorWithRed:0.5372 green:0.6196 blue:0.7294 alpha:0.63];
+    CGFloat fontSize = 16.0;
+
     headerView.alpha = 0.8f;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-        headerLabel.font = [UIFont boldSystemFontOfSize:16.0];
-        headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header_gradient"]];
+        headerLabel.font = [UIFont boldSystemFontOfSize:fontSize];
+
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = headerView.bounds;
+        gradient.colors = @[ (id)[backgroundColor CGColor], (id)[[UIColor colorWithRed:0.2118 green:0.2392 blue:0.2706 alpha:1.0] CGColor] ];
+        [headerView.layer addSublayer:gradient];
+
         headerView.layer.shadowColor = [[UIColor blackColor] CGColor];
         headerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
         headerView.layer.shadowOpacity = 0.5f;
         headerView.layer.shadowRadius = 3.25f;
         headerView.layer.masksToBounds = NO;
     } else {
-        headerLabel.font = [UIFont systemFontOfSize:16.0];
-        headerView.backgroundColor = [UIColor colorWithRed:0.5372 green:0.6196 blue:0.7294 alpha:0.63];
+        headerLabel.font = [UIFont systemFontOfSize:fontSize];
+        headerView.backgroundColor = backgroundColor;
     }
 
     [headerView addSubview:headerLabel];
