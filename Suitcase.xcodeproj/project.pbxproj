@@ -50,7 +50,7 @@
 		0238B35A1756AD5600284204 /* SCWebApiInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0238B3591756AD5600284204 /* SCWebApiInventory.m */; };
 		023DECE0187963A4007FE4AA /* FAKFontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DECDF187963A4007FE4AA /* FAKFontAwesome.m */; };
 		023DECE618796C99007FE4AA /* FAKIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DECE518796C99007FE4AA /* FAKIcon.m */; };
-		023FDB7E18F66506002D6FC0 /* SCItemValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023FDB7D18F66506002D6FC0 /* SCItemValueCell.m */; };
+		023FDB7E18F66506002D6FC0 /* SCItemAttributeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023FDB7D18F66506002D6FC0 /* SCItemAttributeCell.m */; };
 		023FDB8118F84C49002D6FC0 /* SCItemImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023FDB8018F84C49002D6FC0 /* SCItemImageCell.m */; };
 		023FDB8418FAD353002D6FC0 /* SCItemDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023FDB8318FAD353002D6FC0 /* SCItemDescriptionCell.m */; };
 		0241CF8F190BEF32005EC030 /* UIImageView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 0241CF8E190BEF32005EC030 /* UIImageView+Border.m */; };
@@ -211,8 +211,8 @@
 		023DECDF187963A4007FE4AA /* FAKFontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FAKFontAwesome.m; path = External/FontAwesomeKit/FontAwesomeKit/FAKFontAwesome.m; sourceTree = "<group>"; };
 		023DECE418796C99007FE4AA /* FAKIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FAKIcon.h; path = External/FontAwesomeKit/FontAwesomeKit/FAKIcon.h; sourceTree = "<group>"; };
 		023DECE518796C99007FE4AA /* FAKIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FAKIcon.m; path = External/FontAwesomeKit/FontAwesomeKit/FAKIcon.m; sourceTree = "<group>"; };
-		023FDB7C18F66506002D6FC0 /* SCItemValueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemValueCell.h; path = Classes/SCItemValueCell.h; sourceTree = "<group>"; };
-		023FDB7D18F66506002D6FC0 /* SCItemValueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemValueCell.m; path = Classes/SCItemValueCell.m; sourceTree = "<group>"; };
+		023FDB7C18F66506002D6FC0 /* SCItemAttributeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemAttributeCell.h; path = Classes/SCItemAttributeCell.h; sourceTree = "<group>"; };
+		023FDB7D18F66506002D6FC0 /* SCItemAttributeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemAttributeCell.m; path = Classes/SCItemAttributeCell.m; sourceTree = "<group>"; };
 		023FDB7F18F84C49002D6FC0 /* SCItemImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemImageCell.h; path = Classes/SCItemImageCell.h; sourceTree = "<group>"; };
 		023FDB8018F84C49002D6FC0 /* SCItemImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemImageCell.m; path = Classes/SCItemImageCell.m; sourceTree = "<group>"; };
 		023FDB8218FAD353002D6FC0 /* SCItemDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemDescriptionCell.h; path = Classes/SCItemDescriptionCell.h; sourceTree = "<group>"; };
@@ -526,6 +526,8 @@
 				026F215B156ADA1F00C7BD54 /* SCClassImageView.m */,
 				0220FFC615D7A84700AB8AA3 /* SCInventoryCell.h */,
 				0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */,
+				023FDB7C18F66506002D6FC0 /* SCItemAttributeCell.h */,
+				023FDB7D18F66506002D6FC0 /* SCItemAttributeCell.m */,
 				0275E20B158E6B5B008EA0AD /* SCItemCell.h */,
 				0275E20C158E6B5B008EA0AD /* SCItemCell.m */,
 				02E98C5E191274210039E1E7 /* SCItemClassesTF2Cell.h */,
@@ -536,8 +538,6 @@
 				023FDB8018F84C49002D6FC0 /* SCItemImageCell.m */,
 				02E98C6119128C840039E1E7 /* SCItemTitleCell.h */,
 				02E98C6219128C840039E1E7 /* SCItemTitleCell.m */,
-				023FDB7C18F66506002D6FC0 /* SCItemValueCell.h */,
-				023FDB7D18F66506002D6FC0 /* SCItemValueCell.m */,
 				0241CF8D190BEF32005EC030 /* UIImageView+Border.h */,
 				0241CF8E190BEF32005EC030 /* UIImageView+Border.m */,
 			);
@@ -1022,7 +1022,7 @@
 				02010B79169E9CA000007456 /* IASKTextField.m in Sources */,
 				028B64931526761C0040D2FF /* SCAppDelegate.m in Sources */,
 				026F215C156ADA1F00C7BD54 /* SCClassImageView.m in Sources */,
-				023FDB7E18F66506002D6FC0 /* SCItemValueCell.m in Sources */,
+				023FDB7E18F66506002D6FC0 /* SCItemAttributeCell.m in Sources */,
 				0203A66F18C52CC200EF5E25 /* SCCommunityInventory.m in Sources */,
 				0203A67418C5350200EF5E25 /* SCCommunityItem.m in Sources */,
 				0266E0A416933ACF009C6CE8 /* SCGame.m in Sources */,

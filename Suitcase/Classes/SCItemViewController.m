@@ -18,7 +18,7 @@
 #import "SCItemDescriptionCell.h"
 #import "SCItemImageCell.h"
 #import "SCItemTitleCell.h"
-#import "SCItemValueCell.h"
+#import "SCItemAttributeCell.h"
 #import "SCItemViewController.h"
 #import "SCWebApiItem.h"
 
@@ -29,7 +29,7 @@ NSString *const kSCOpenLinkInBrowser = @"kSCOpenLinkInBrowser";
 @interface SCItemViewController () {
     NSAttributedString *_itemDescription;
     NSURL *_linkUrl;
-    Byte _values;
+    Byte _attributes;
 }
 @end
 
@@ -43,7 +43,7 @@ typedef enum {
     kQuality   = 2,
     kItemSet   = 4,
     kKillEater = 8
-} ItemValue;
+} ItemAttribute;
 
 + (void)initialize {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
@@ -97,26 +97,26 @@ typedef enum {
 
 #pragma mark - Managing the detail item
 
-- (Byte)activeValues {
-    Byte values = 0;
+- (Byte)activeAttributes {
+    Byte attributes = 0;
 
     if ([self.detailItem hasOrigin]) {
-        values |= kOrigin;
+        attributes |= kOrigin;
     }
 
     if ([self.detailItem hasQuality]) {
-        values |= kQuality;
+        attributes |= kQuality;
     }
 
     if ([self.detailItem belongsToItemSet]) {
-        values |= kItemSet;
+        attributes |= kItemSet;
     }
 
     if ([self.detailItem isKillEater]) {
-        values |= kKillEater;
+        attributes |= kKillEater;
     }
 
-    return values;
+    return attributes;
 }
 
 - (void)clearItem
@@ -182,7 +182,7 @@ typedef enum {
     if ([_detailItem class] == [SCWebApiItem class]) {
         [(SCWebApiItem *)_detailItem attributes];
     }
-    _values = [self activeValues];
+    _attributes = [self activeAttributes];
 
     if ([_detailItem.inventory.game isTF2]) {
         if (self.navigationItem.rightBarButtonItem == nil) {
@@ -272,32 +272,33 @@ typedef enum {
         imageCell.item = self.detailItem;
         [imageCell refresh];
     } else if (indexPath.section == 2) {
-        SCItemValueCell *valueCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemValueCell" forIndexPath:indexPath];
-        cell = valueCell;
-        valueCell.value = [self itemValueForIndexPath:indexPath];
+        SCItemAttributeCell *attributeCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemAttributeCell"
+                                                                                       forIndexPath:indexPath];
+        cell = attributeCell;
+        attributeCell.value = [self itemAttributeValueForIndexPath:indexPath];
 
-        switch ([self itemValueTypeForIndexPath:indexPath]) {
+        switch ([self itemAttributeTypeForIndex:indexPath.item]) {
             case kOrigin:
-                valueCell.name = @"Origin";
-                valueCell.value = [self.detailItem origin];
+                attributeCell.name = @"Origin";
+                attributeCell.value = [self.detailItem origin];
                 break;
 
             case kQuality:
-                valueCell.name = @"Quality";
-                valueCell.value = [self.detailItem qualityName];
+                attributeCell.name = @"Quality";
+                attributeCell.value = [self.detailItem qualityName];
                 break;
 
             case kItemSet:
-                valueCell.name = @"Item set";
-                valueCell.value = ((SCWebApiItem *)self.detailItem).itemSet[@"name"];
+                attributeCell.name = @"Item set";
+                attributeCell.value = ((SCWebApiItem *)self.detailItem).itemSet[@"name"];
                 break;
 
             case kKillEater:
-                valueCell.name = @"Kill eater";
+                attributeCell.name = @"Kill eater";
                 break;
 
             default:
-                [valueCell empty];
+                [attributeCell empty];
         }
     } else if (indexPath.section == 3) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemDescriptionCell" forIndexPath:indexPath];
@@ -357,11 +358,11 @@ typedef enum {
 
         return CGSizeMake(cellWidth, height);
     } else if (indexPath.section == 2) {
-        NSString *itemValue = [self itemValueForIndexPath:indexPath];
-        CGSize itemValueLabelSize = [itemValue sizeWithFont:[UIFont systemFontOfSize:16.0]
-                                          constrainedToSize:CGSizeMake(170.0, CGFLOAT_MAX)
-                                              lineBreakMode:NSLineBreakByWordWrapping];
-        CGFloat cellHeight = itemValueLabelSize.height;
+        NSString *attributeValue = [self itemAttributeValueForIndexPath:indexPath];
+        CGSize attributeValueLabelSize = [attributeValue sizeWithFont:[UIFont systemFontOfSize:16.0]
+                                                    constrainedToSize:CGSizeMake(170.0, CGFLOAT_MAX)
+                                                        lineBreakMode:NSLineBreakByWordWrapping];
+        CGFloat cellHeight = attributeValueLabelSize.height;
 
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
             cellHeight = cellHeight + 10.0;
@@ -399,7 +400,7 @@ typedef enum {
 
 - (NSUInteger)numberOfItemAttributes {
     NSUInteger count = 0 ;
-    Byte n = _values;
+    Byte n = _attributes;
     while (n) {
         count ++;
         n &= (n - 1);
@@ -408,8 +409,8 @@ typedef enum {
     return count;
 }
 
-- (NSString *)itemValueForIndexPath:(NSIndexPath *)indexPath {
-    switch ([self itemValueTypeForIndexPath:indexPath]) {
+- (NSString *)itemAttributeValueForIndexPath:(NSIndexPath *)indexPath {
+    switch ([self itemAttributeTypeForIndex:indexPath.item]) {
         case kOrigin:
             return [self.detailItem origin];
 
@@ -427,14 +428,14 @@ typedef enum {
     }
 }
 
-- (ItemValue)itemValueTypeForIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger valueType = _values;
-    for (int i = 0; i < indexPath.item; i ++) {
-        valueType &= valueType - 1;
+- (ItemAttribute)itemAttributeTypeForIndex:(NSUInteger)attributeIndex {
+    NSUInteger attributeType = _attributes;
+    for (int i = 0; i < attributeType; i ++) {
+        attributeType &= attributeType - 1;
     }
-    valueType &= ~(valueType - 1);
+    attributeType &= ~(attributeType - 1);
 
-    return (ItemValue)valueType;
+    return (ItemAttribute)attributeType;
 }
 
 - (void)reloadItemImageCell {

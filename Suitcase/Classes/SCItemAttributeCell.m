@@ -1,19 +1,13 @@
 //
-//  SCItemValueCell.m
+//  SCItemAttributeCell.m
 //  Suitcase
 //
 //  Copyright (c) 2014, Sebastian Staudt
 //
 
-#import "SCItemValueCell.h"
+#import "SCItemAttributeCell.h"
 
-@implementation SCItemValueCell
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-
-    return self;
-}
+@implementation SCItemAttributeCell
 
 - (void)empty {
     self.nameLabel = nil;

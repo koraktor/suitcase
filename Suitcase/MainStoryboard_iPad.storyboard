@@ -180,7 +180,7 @@
                                     <outlet property="imageView" destination="iNq-Ak-dkO" id="nMY-rN-q4j"/>
                                 </connections>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ItemValueCell" id="cSa-CS-IQB" customClass="SCItemValueCell">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ItemAttributeCell" id="cSa-CS-IQB" customClass="SCItemAttributeCell">
                                 <rect key="frame" x="0.0" y="170" width="320" height="26"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

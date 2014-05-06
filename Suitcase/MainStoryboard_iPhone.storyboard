@@ -350,7 +350,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                     <outlet property="imageView" destination="TGX-pz-5O5" id="Rwf-0T-BPc"/>
                                 </connections>
                             </collectionViewCell>
-                            <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" reuseIdentifier="ItemValueCell" id="8jd-bX-QQA" customClass="SCItemValueCell">
+                            <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" reuseIdentifier="ItemAttributeCell" id="8jd-bX-QQA" customClass="SCItemAttributeCell">
                                 <rect key="frame" x="0.0" y="157" width="320" height="16"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
