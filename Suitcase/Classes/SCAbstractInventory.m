@@ -45,7 +45,7 @@ static NSMutableDictionary *__inventories;
 
 + (NSDictionary *)inventories
 {
-    return [__inventories copy];
+    return __inventories;
 }
 
 + (NSDictionary *)inventoriesForUser:(NSNumber *)steamId64
@@ -58,7 +58,7 @@ static NSMutableDictionary *__inventories;
         __inventories[steamId64] = [NSMutableDictionary dictionary];
     }
 
-    return [__inventories[steamId64] copy];
+    return __inventories[steamId64];
 }
 
 #pragma mark Constructor
