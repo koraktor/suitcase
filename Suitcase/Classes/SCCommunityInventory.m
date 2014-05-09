@@ -10,10 +10,10 @@
 #import "SCCommunityInventory.h"
 #import "SCCommunityItem.h"
 #import "SCItemCell.h"
+#import "SCItemQuality.h"
 
 @interface SCCommunityInventory() {
     NSArray *_descriptions;
-    NSArray *_itemQualities;
     NSArray *_itemTypes;
 }
 @end
@@ -148,63 +148,73 @@ withDescriptions:(NSDictionary *)descriptions
 {
     NSString *sortOption = [[NSUserDefaults standardUserDefaults] valueForKey:@"sorting"];
 
-    if ([sortOption isEqualToString:@"name"]) {
-        self.itemSections = [NSMutableArray arrayWithCapacity:[SCAbstractInventory alphabet].count + 1];
-        for (NSUInteger i = 0; i <= [SCAbstractInventory alphabet].count; i ++) {
-            [(NSMutableArray *)self.itemSections addObject:[NSMutableArray array]];
-        }
-        [self.items enumerateObjectsUsingBlock:^(SCCommunityItem *item, NSUInteger idx, BOOL *stop) {
-            NSString *start = [[item.name substringToIndex:1] uppercaseString];
-            NSUInteger nameIndex = [[SCAbstractInventory alphabet] indexOfObject:start];
-            if (nameIndex == NSNotFound) {
-                nameIndex = -1;
+    if (sortOption == nil || [sortOption isEqualToString:@"origin"] || [sortOption isEqualToString:@"position"]) {
+        [self sortItemsByPosition];
+    } else {
+        NSMutableArray *newItemSections;
+        if ([sortOption isEqualToString:@"name"]) {
+            newItemSections = [NSMutableArray arrayWithCapacity:[SCAbstractInventory alphabet].count + 1];
+            for (NSUInteger i = 0; i <= [SCAbstractInventory alphabet].count; i ++) {
+                [newItemSections addObject:[NSMutableArray array]];
             }
-            [[self.itemSections objectAtIndex:nameIndex + 1] addObject:item];
-        }];
-    } else if ([sortOption isEqualToString:@"quality"]) {
-        if (_itemQualities == nil) {
-            _itemQualities = [NSMutableArray array];
+            [self.items enumerateObjectsUsingBlock:^(SCCommunityItem *item, NSUInteger idx, BOOL *stop) {
+                NSString *start = [[item.name substringToIndex:1] uppercaseString];
+                NSUInteger nameIndex = [[SCAbstractInventory alphabet] indexOfObject:start];
+                if (nameIndex == NSNotFound) {
+                    nameIndex = -1;
+                }
+                [newItemSections[nameIndex + 1] addObject:item];
+            }];
+        } else if ([sortOption isEqualToString:@"quality"]) {
+            if (self.itemQualities == nil) {
+                NSMutableDictionary *itemQualities = [NSMutableDictionary dictionary];
+                [self.items enumerateObjectsUsingBlock:^(SCCommunityItem *item, NSUInteger idx, BOOL *stop) {
+                    NSString *qualityName = (item.qualityName == nil) ? @"" : item.qualityName;
+                    if ([itemQualities objectForKey:qualityName] == nil) {
+                        SCItemQuality *itemQuality = [SCItemQuality itemQualityFromItem:item];
+                        itemQualities[itemQuality.name] = itemQuality;
+                    }
+                }];
+                self.itemQualities = [NSDictionary dictionaryWithDictionary:itemQualities];
+            }
+
+            newItemSections = [NSMutableArray arrayWithCapacity:self.itemQualities.count];
+            for (NSUInteger i = 0; i < self.itemQualities.count; i ++) {
+                [newItemSections addObject:[NSMutableArray array]];
+            }
             [self.items enumerateObjectsUsingBlock:^(SCCommunityItem *item, NSUInteger idx, BOOL *stop) {
                 NSString *qualityName = (item.qualityName == nil) ? @"" : item.qualityName;
-                if (![_itemQualities containsObject:qualityName]) {
-                    [(NSMutableArray *)_itemQualities addObject:qualityName];
-                }
+                NSUInteger qualityIndex = [[[self.itemQualities allKeys] sortedArrayUsingSelector:@selector(compare:)] indexOfObject:qualityName];
+                [newItemSections[qualityIndex] addObject:item];
             }];
-            _itemQualities = [_itemQualities sortedArrayUsingSelector:@selector(compare:)];
-        }
+        } else if ([sortOption isEqualToString:@"type"]) {
+            if (_itemTypes == nil) {
+                NSMutableArray *itemTypes = [NSMutableArray array];
+                [self.items enumerateObjectsUsingBlock:^(SCCommunityItem *item, NSUInteger idx, BOOL *stop) {
+                    if (![itemTypes containsObject:item.itemType]) {
+                        [itemTypes addObject:item.itemType];
+                    }
+                }];
+                _itemTypes = [itemTypes sortedArrayUsingSelector:@selector(compare:)];
+            }
 
-        self.itemSections = [NSMutableArray arrayWithCapacity:_itemQualities.count];
-        for (NSUInteger i = 0; i < _itemQualities.count; i ++) {
-            [(NSMutableArray *)self.itemSections addObject:[NSMutableArray array]];
-        }
-        [self.items enumerateObjectsUsingBlock:^(SCCommunityItem *item, NSUInteger idx, BOOL *stop) {
-            NSString *qualityName = (item.qualityName == nil) ? @"" : item.qualityName;
-            NSUInteger qualityIndex = [_itemQualities indexOfObject:qualityName];
-            [self.itemSections[qualityIndex] addObject:item];
-        }];
-    } else if ([sortOption isEqualToString:@"type"]) {
-        if (_itemTypes == nil) {
-            _itemTypes = [NSMutableArray array];
+            newItemSections = [NSMutableArray arrayWithCapacity:_itemTypes.count];
+            for (NSUInteger i = 0; i < _itemTypes.count; i ++) {
+                [newItemSections addObject:[NSMutableArray array]];
+            }
             [self.items enumerateObjectsUsingBlock:^(SCCommunityItem *item, NSUInteger idx, BOOL *stop) {
-                if (![_itemTypes containsObject:item.itemType]) {
-                    [(NSMutableArray *)_itemTypes addObject:item.itemType];
-                }
+                NSUInteger typeIndex = [_itemTypes indexOfObject:item.itemType];
+                [newItemSections[typeIndex] addObject:item];
             }];
-            _itemTypes = [_itemTypes sortedArrayUsingSelector:@selector(compare:)];
         }
 
-        self.itemSections = [NSMutableArray arrayWithCapacity:_itemTypes.count];
-        for (NSUInteger i = 0; i < _itemTypes.count; i ++) {
-            [(NSMutableArray *)self.itemSections addObject:[NSMutableArray array]];
-        }
-        [self.items enumerateObjectsUsingBlock:^(SCCommunityItem *item, NSUInteger idx, BOOL *stop) {
-            NSUInteger typeIndex = [_itemTypes indexOfObject:item.itemType];
-            [[self.itemSections objectAtIndex:typeIndex] addObject:item];
+        NSMutableArray *sortedItemSections = [NSMutableArray arrayWithCapacity:newItemSections.count];
+        [newItemSections enumerateObjectsUsingBlock:^(NSArray *section, NSUInteger idx, BOOL *stop) {
+            [sortedItemSections addObject:[section sortedArrayUsingComparator:^NSComparisonResult(SCCommunityItem *item1, SCCommunityItem *item2) {
+                return [item1.name compare:item2.name];
+            }]];
         }];
-    } else {
-        self.itemSections = [NSArray arrayWithObject:[self.items sortedArrayUsingComparator:^NSComparisonResult(SCCommunityItem *item1, SCCommunityItem *item2) {
-            return [item1.position compare:item2.position];
-        }]];
+        self.itemSections = [NSArray arrayWithArray:sortedItemSections];
     }
 }
 
@@ -221,7 +231,7 @@ withDescriptions:(NSDictionary *)descriptions
     if ([sortOption isEqual:@"name"]) {
         return [SCAbstractInventory alphabetWithNumbers][section];
     } else if ([sortOption isEqual:@"quality"]) {
-        return _itemQualities[section];
+        return [[self.itemQualities allKeys] sortedArrayUsingSelector:@selector(compare:)][section];
     } else if ([sortOption isEqual:@"type"]) {
         return _itemTypes[section];
     } else {

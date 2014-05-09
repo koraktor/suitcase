@@ -120,6 +120,7 @@
 		029F6946182E3EEC00851826 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F693F182E3EEC00851826 /* UIWebView+AFNetworking.m */; };
 		02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BAAB5F17BFAE1E004E635F /* Security.framework */; };
 		02BB279119026DA4002D151A /* SCReplaceDetailSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */; };
+		02D5BC5B191982B2000D8206 /* SCItemQuality.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D5BC5A191982B2000D8206 /* SCItemQuality.m */; };
 		02DDB4861582A9E0004DB9D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DDB4851582A9E0004DB9D8 /* QuartzCore.framework */; };
 		02E98C60191274210039E1E7 /* SCItemClassesTF2Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E98C5F191274210039E1E7 /* SCItemClassesTF2Cell.m */; };
 		02E98C6319128C840039E1E7 /* SCItemTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E98C6219128C840039E1E7 /* SCItemTitleCell.m */; };
@@ -328,6 +329,8 @@
 		02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCReplaceDetailSegue.m; path = Classes/SCReplaceDetailSegue.m; sourceTree = "<group>"; };
 		02CD62D018D8F64A00EFA973 /* SCInventory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SCInventory.h; path = Classes/SCInventory.h; sourceTree = "<group>"; };
 		02CD62D118D8F97700EFA973 /* SCItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SCItem.h; path = Classes/SCItem.h; sourceTree = "<group>"; };
+		02D5BC59191982B2000D8206 /* SCItemQuality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemQuality.h; path = Classes/SCItemQuality.h; sourceTree = "<group>"; };
+		02D5BC5A191982B2000D8206 /* SCItemQuality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemQuality.m; path = Classes/SCItemQuality.m; sourceTree = "<group>"; };
 		02DDB4851582A9E0004DB9D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		02E98C5E191274210039E1E7 /* SCItemClassesTF2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemClassesTF2Cell.h; path = Classes/SCItemClassesTF2Cell.h; sourceTree = "<group>"; };
 		02E98C5F191274210039E1E7 /* SCItemClassesTF2Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemClassesTF2Cell.m; path = Classes/SCItemClassesTF2Cell.m; sourceTree = "<group>"; };
@@ -447,6 +450,8 @@
 				0266E0A316933ACE009C6CE8 /* SCGame.m */,
 				02CD62D018D8F64A00EFA973 /* SCInventory.h */,
 				02CD62D118D8F97700EFA973 /* SCItem.h */,
+				02D5BC59191982B2000D8206 /* SCItemQuality.h */,
+				02D5BC5A191982B2000D8206 /* SCItemQuality.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -991,6 +996,7 @@
 				028B641715265D690040D2FF /* main.m in Sources */,
 				029F6940182E3EEC00851826 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				02E98C6319128C840039E1E7 /* SCItemTitleCell.m in Sources */,
+				02D5BC5B191982B2000D8206 /* SCItemQuality.m in Sources */,
 				029F6927182E3E5D00851826 /* AFHTTPRequestOperation.m in Sources */,
 				0203A66818C4B4B300EF5E25 /* AFHTTPRequestOperationManager.m in Sources */,
 				029F6929182E3E5D00851826 /* AFHTTPSessionManager.m in Sources */,

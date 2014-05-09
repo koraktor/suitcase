@@ -17,6 +17,7 @@
 + (instancetype)inventoryForSteamId64:(NSNumber *)steamId64
                               andGame:(SCGame *)game;
 
+- (UIColor *)colorForQualityIndex:(NSInteger)index;
 - (SCGame *)game;
 - (BOOL)isEmpty;
 - (BOOL)isSuccessful;

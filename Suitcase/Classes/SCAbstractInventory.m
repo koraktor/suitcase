@@ -8,6 +8,7 @@
 #import "SCAbstractInventory.h"
 
 #import "SCItemCell.h"
+#import "SCItemQuality.h"
 
 NSString *const kSCInventoryError = @"kSCInventoryError";
 
@@ -76,9 +77,11 @@ static NSMutableDictionary *__inventories;
 
 #pragma mark Instance methods
 
-- (NSArray *)items
+- (UIColor *)colorForQualityIndex:(NSInteger)index
 {
-    return [_items copy];
+    NSString *qualityName = [[[self.itemQualities allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:index];
+
+    return ((SCItemQuality *)self.itemQualities[qualityName]).color;
 }
 
 - (void)finish
@@ -93,6 +96,13 @@ static NSMutableDictionary *__inventories;
 #ifdef DEBUG
     NSLog(@"Loading inventory for game \"%@\" finished.", self.game.name);
 #endif
+}
+
+- (void)sortItemsByPosition
+{
+    self.itemSections = [NSArray arrayWithObject:[self.items sortedArrayUsingComparator:^NSComparisonResult(id <SCItem> item1, id <SCItem> item2) {
+        return [item1.position compare:item2.position];
+    }]];
 }
 
 - (BOOL)isEmpty

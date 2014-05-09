@@ -20,6 +20,7 @@ extern NSString *const kSCInventoryError;
 
 @property (strong, nonatomic) SCGame *game;
 @property (strong, nonatomic) NSArray *items;
+@property (strong, nonatomic) NSDictionary *itemQualities;
 @property (strong, nonatomic) NSArray *itemSections;
 @property (nonatomic) BOOL showColors;
 @property (strong, nonatomic) NSNumber *slots;
@@ -43,9 +44,11 @@ extern NSString *const kSCInventoryError;
 
 #pragma mark Instance methods
 
+- (UIColor *)colorForQualityIndex:(NSInteger)index;
 - (BOOL)isEmpty;
 - (void)finish;
 - (BOOL)outdated;
+- (void)sortItemsByPosition;
 
 #pragma mark Table View
 

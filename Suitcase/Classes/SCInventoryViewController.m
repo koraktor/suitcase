@@ -109,6 +109,8 @@
     for (SCItemCell *cell in [self.tableView visibleCells]) {
         cell.showColors = _inventory.showColors;
     }
+
+    [self.tableView reloadData];
 }
 
 - (void)sortInventory
@@ -146,18 +148,50 @@
     headerLabel.backgroundColor = UIColor.clearColor;
     headerLabel.text = title;
     headerLabel.textAlignment = NSTextAlignmentCenter;
-    headerLabel.textColor = UIColor.whiteColor;
 
-    UIColor *backgroundColor = [UIColor colorWithRed:0.5372 green:0.6196 blue:0.7294 alpha:0.63];
+    UIColor *backgroundColor;
+    if (self.inventory.showColors) {
+        backgroundColor = [self.inventory colorForQualityIndex:section];
+    } else {
+        backgroundColor = [UIColor colorWithRed:0.5372 green:0.6196 blue:0.7294 alpha:0.63];
+    }
+
+    CGFloat white;
+    if (![backgroundColor getWhite:&white alpha:nil]) {
+        const CGFloat *colorComponents = CGColorGetComponents(backgroundColor.CGColor);
+        white = ((colorComponents[0] * 299) + (colorComponents[1] * 587) + (colorComponents[2] * 114)) / 1000;
+    }
+    white = (white < 0.5) ? 0.9 : 0.1;
+    headerLabel.textColor = [UIColor colorWithWhite:white alpha:1.0];
+
     CGFloat fontSize = 16.0;
 
     headerView.alpha = 0.8f;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         headerLabel.font = [UIFont boldSystemFontOfSize:fontSize];
 
+        UIColor *gradientColor;
+        if (self.inventory.showColors) {
+            struct CGColorSpace *colorSpace = CGColorGetColorSpace(backgroundColor.CGColor);
+            if (CGColorSpaceGetModel(colorSpace) == kCGColorSpaceModelMonochrome) {
+                [backgroundColor getWhite:&white alpha:nil];
+                gradientColor = [UIColor colorWithWhite:white - 0.3 alpha:1.0];
+            } else {
+                CGFloat alpha;
+                CGFloat brightness;
+                CGFloat hue;
+                CGFloat saturation;
+                [backgroundColor getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
+                brightness -= 0.3;
+                gradientColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
+            }
+        } else {
+            gradientColor = [UIColor colorWithRed:0.2118 green:0.2392 blue:0.2706 alpha:1.0];
+        }
+
         CAGradientLayer *gradient = [CAGradientLayer layer];
         gradient.frame = headerView.bounds;
-        gradient.colors = @[ (id)[backgroundColor CGColor], (id)[[UIColor colorWithRed:0.2118 green:0.2392 blue:0.2706 alpha:1.0] CGColor] ];
+        gradient.colors = @[ (id)backgroundColor.CGColor, (id)gradientColor.CGColor ];
         [headerView.layer addSublayer:gradient];
 
         headerView.layer.shadowColor = [[UIColor blackColor] CGColor];

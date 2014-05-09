@@ -11,6 +11,8 @@
 
 @protocol SCItem <NSObject>
 
+@property (readonly) NSNumber *position;
+
 - (BOOL)belongsToItemSet;
 - (NSString *)descriptionText;
 - (BOOL)hasOrigin;
@@ -23,6 +25,7 @@
 - (NSString *)levelText;
 - (NSString *)name;
 - (NSString *)origin;
+- (NSNumber *)position;
 - (UIColor *)qualityColor;
 - (NSString *)qualityName;
 - (NSNumber *)quantity;

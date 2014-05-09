@@ -30,7 +30,6 @@
 - (NSString *)itemType;
 - (NSString *)levelText;
 - (NSString *)origin;
-- (NSNumber *)position;
 - (NSNumber *)quantity;
 
 - (id)valueForKey:(NSString *)key;
