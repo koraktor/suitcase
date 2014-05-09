@@ -289,10 +289,6 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
             }
         }];
 
-        weakSelf.inventories = [newInventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
-            return [inv1.game.name compare:inv2.game.name];
-        }];
-
         dispatch_async(dispatch_get_main_queue(), ^{
             weakSelf.inventories = [newInventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
                 return [inv1.game.name compare:inv2.game.name];
