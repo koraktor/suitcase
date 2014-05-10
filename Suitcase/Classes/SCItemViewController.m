@@ -430,7 +430,7 @@ typedef enum {
 
 - (ItemAttribute)itemAttributeTypeForIndex:(NSUInteger)attributeIndex {
     NSUInteger attributeType = _attributes;
-    for (int i = 0; i < attributeType; i ++) {
+    for (int i = 0; i < attributeIndex; i ++) {
         attributeType &= attributeType - 1;
     }
     attributeType &= ~(attributeType - 1);
