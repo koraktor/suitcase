@@ -15,6 +15,9 @@
 "kSCInventoryError"                   = "Fehler beim Laden des Inventars: %@";
 "kSCInventoryLoadingFailed"           = "Fehler beim Laden";
 "kSCInventoryLoadingFailedDetail"     = "Das Inventar für %@ konnte nicht geladen werden";
+"kSCItemItemSet"                      = "Gegenstandsset";
+"kSCItemOrigin"                       = "Herkunft";
+"kSCItemQuality"                      = "Qualität";
 "kSCOpenInChrome"                     = "In Chrome öffnen";
 "kSCOpenInSafari"                     = "In Safari öffnen";
 "kSCOpenLinkInBrowser"                = "Diesen Link im Browser öffnen?";

@@ -22,6 +22,9 @@
 #import "SCItemViewController.h"
 #import "SCWebApiItem.h"
 
+NSString *const kSCItemItemSet = @"kSCItemItemSet";
+NSString *const kSCItemOrigin = @"kSCItemOrigin";
+NSString *const kSCItemQuality = @"kSCItemQuality";
 NSString *const kSCOpenInChrome = @"kSCOpenInChrome";
 NSString *const kSCOpenInSafari = @"kSCOpenInSafari";
 NSString *const kSCOpenLinkInBrowser = @"kSCOpenLinkInBrowser";
@@ -274,17 +277,17 @@ typedef enum {
 
         switch ([self itemAttributeTypeForIndex:indexPath.item]) {
             case kOrigin:
-                attributeCell.name = @"Origin";
+                attributeCell.name = kSCItemOrigin;
                 attributeCell.value = [self.detailItem origin];
                 break;
 
             case kQuality:
-                attributeCell.name = @"Quality";
+                attributeCell.name = kSCItemQuality;
                 attributeCell.value = [self.detailItem qualityName];
                 break;
 
             case kItemSet:
-                attributeCell.name = @"Item set";
+                attributeCell.name = kSCItemItemSet;
                 attributeCell.value = ((SCWebApiItem *)self.detailItem).itemSet[@"name"];
                 break;
 

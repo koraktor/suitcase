@@ -16,13 +16,13 @@
 
 - (void)setName:(NSString *)name {
     _name = name;
-    self.nameLabel.text = name;
+    self.nameLabel.text = NSLocalizedString(name, name);
     [self.nameLabel sizeToFit];
 }
 
 - (void)setValue:(NSString *)value {
     _value = value;
-    self.valueLabel.text = value;
+    self.valueLabel.text = NSLocalizedString(value, value);
     [self.valueLabel sizeToFit];
 }
 
