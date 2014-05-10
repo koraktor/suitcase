@@ -440,12 +440,9 @@ typedef enum {
 
 - (void)reloadItemImageCell {
     [self.collectionView setCollectionViewLayout:[[[self.collectionView.collectionViewLayout class] alloc] init] animated:YES];
-
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
                                     atScrollPosition:UICollectionViewScrollPositionTop
                                             animated:YES];
-    }
 }
 
 #pragma mark Link handling
