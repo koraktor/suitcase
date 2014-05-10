@@ -21,7 +21,6 @@
 - (NSURL *)imageUrl;
 - (id<SCInventory>)inventory;
 - (BOOL)isKillEater;
-- (NSString *)killEaterDescription;
 - (NSString *)levelText;
 - (NSString *)name;
 - (NSString *)origin;

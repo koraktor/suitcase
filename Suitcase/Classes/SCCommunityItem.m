@@ -134,14 +134,6 @@ static NSString *kImageSize;
     return [self valueForKey:@"type"];
 }
 
-- (NSString *)killEaterDescription {
-    return nil;
-}
-
-- (NSNumber *)killEaterScore {
-    return nil;
-}
-
 - (NSString *)levelText {
     return [self valueForKey:@"type"];
 }

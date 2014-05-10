@@ -35,8 +35,7 @@
 - (NSNumber *)itemDefIndexForName:(NSString *)itemName;
 - (id)itemValueForDefIndex:(NSNumber *)defindex andKey:(NSString *)key;
 - (NSString *)itemLevelForScore:(NSNumber *)score
-                   andLevelType:(NSString *)levelType
-                    andItemType:(NSString *)itemType;
+                   andLevelType:(NSString *)levelType;
 - (NSDictionary *)itemSetForKey:(NSString *)itemSetKey;
 - (NSDictionary *)killEaterTypeForIndex:(NSNumber *)typeIndex;
 - (NSString *)originNameForIndex:(NSUInteger)originIndex;

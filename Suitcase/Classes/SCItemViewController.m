@@ -41,8 +41,7 @@ static NSRegularExpression *kHTMLRegex;
 typedef enum {
     kOrigin    = 1,
     kQuality   = 2,
-    kItemSet   = 4,
-    kKillEater = 8
+    kItemSet   = 4
 } ItemAttribute;
 
 + (void)initialize {
@@ -110,10 +109,6 @@ typedef enum {
 
     if ([self.detailItem belongsToItemSet]) {
         attributes |= kItemSet;
-    }
-
-    if ([self.detailItem isKillEater]) {
-        attributes |= kKillEater;
     }
 
     return attributes;
@@ -293,10 +288,6 @@ typedef enum {
                 attributeCell.value = ((SCWebApiItem *)self.detailItem).itemSet[@"name"];
                 break;
 
-            case kKillEater:
-                attributeCell.name = @"Kill eater";
-                break;
-
             default:
                 [attributeCell empty];
         }
@@ -419,9 +410,6 @@ typedef enum {
 
         case kItemSet:
             return ((SCWebApiItem *)self.detailItem).itemSet[@"name"];
-
-        case kKillEater:
-            return [self.detailItem killEaterDescription];
 
         default:
             return nil;

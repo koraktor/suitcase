@@ -306,29 +306,46 @@ NSString *const kSCHours = @"kSCHours";
     return [self valueForKey:@"item_type_name"];
 }
 
-- (NSString *)killEaterDescription {
-    if (_killEaterDescription == nil) {
-        NSDictionary *killEaterType = [self.inventory.schema killEaterTypeForIndex:_killEaterTypeIndex];
-        NSString *itemLevel = [self.inventory.schema itemLevelForScore:_killEaterScore
-                                                          andLevelType:killEaterType[@"level_data"]
-                                                           andItemType:self.itemType];
-
-        _killEaterDescription = [NSString stringWithFormat:@"%@ %@\n%@", _killEaterScore, killEaterType[@"type_name"], itemLevel];
-    }
-
-    return _killEaterDescription;
-}
-
 - (NSNumber *)level {
     return [self.dictionary objectForKey:@"level"];
 }
 
+- (NSString *)levelFormat {
+    if ([[[NSLocale preferredLanguages] objectAtIndex:0] isEqualToString:@"de"]) {
+        return @"%2$@ (%1$@)";
+    } else {
+        return @"%@ %@";
+    }
+}
+
 - (NSString *)levelText {
+    if (_killEaterDescription != nil) {
+        return _killEaterDescription;
+    }
+
+    if ([self isKillEater]) {
+        NSDictionary *killEaterType = [self.inventory.schema killEaterTypeForIndex:_killEaterTypeIndex];
+        NSString *itemLevel = [self.inventory.schema itemLevelForScore:_killEaterScore
+                                                          andLevelType:killEaterType[@"level_data"]];
+        NSString *killEaterLevel;
+        if (itemLevel == nil) {
+            killEaterLevel = self.itemType;
+        } else {
+            killEaterLevel = [NSString stringWithFormat:[self levelFormat], itemLevel, self.itemType];
+        }
+
+        _killEaterDescription = [NSString stringWithFormat:@"%@ %@ – %@", _killEaterScore, killEaterType[@"type_name"], killEaterLevel];
+
+        return _killEaterDescription;
+    }
+
     return [NSString stringWithFormat:@"Level %@ %@", self.level, self.itemType];
 }
 
 - (NSString *)name {
     if (_name == nil) {
+        [self attributes];
+
         NSMutableString *name = [[self valueForKey:@"item_name"] mutableCopy];
         if ([name rangeOfString:@"%s1"].location != NSNotFound) {
             [name replaceOccurrencesOfString:@"%s1"
@@ -337,7 +354,14 @@ NSString *const kSCHours = @"kSCHours";
                                        range:NSMakeRange(0, [name length])];
         }
 
-        _name = [name copy];
+        if ([self isKillEater]) {
+            NSDictionary *killEaterType = [self.inventory.schema killEaterTypeForIndex:_killEaterTypeIndex];
+            NSString *itemLevel = [self.inventory.schema itemLevelForScore:_killEaterScore
+                                                              andLevelType:killEaterType[@"level_data"]];
+            _name = [NSString stringWithFormat:[self levelFormat], itemLevel, name];
+        } else {
+            _name = [NSString stringWithString:name];
+        }
     }
 
     return _name;
