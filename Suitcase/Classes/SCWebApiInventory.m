@@ -73,7 +73,6 @@ static NSArray *alphabetWithNumbers;
             self.items = [NSArray arrayWithArray:items];
             self.successful = YES;
             self.temporaryFailed = NO;
-            self.timestamp = [NSDate date];
         } else {
 #ifdef DEBUG
             NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [inventoryResponse objectForKey:@"statusDetail"]];

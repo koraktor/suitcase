@@ -275,15 +275,22 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
         __block SCCommunityInventory *newSteamInventory;
         NSMutableArray *newInventories = [NSMutableArray arrayWithCapacity:inventories.count];
         [inventories enumerateObjectsUsingBlock:^(id <SCInventory> inventory, NSUInteger idx, BOOL *stop) {
-            if (![inventory isSuccessful] && (skipFailedInventories || ![inventory temporaryFailed])) {
-                return;
-            }
-            if (skipEmptyInventories && [inventory isEmpty]) {
+            if (![inventory isLoaded]) {
                 return;
             }
 
+            if ([inventory isSuccessful]) {
+                if (skipEmptyInventories && [inventory isEmpty]) {
+                    return;
+                }
+            } else {
+                if (skipFailedInventories && [inventory temporaryFailed]) {
+                    return;
+                }
+            }
+
             if ([inventory.game.appId isEqualToNumber:@753]) {
-                newSteamInventory = inventory;
+                newSteamInventory = (id)inventory;
             } else {
                 [newInventories addObject:inventory];
             }

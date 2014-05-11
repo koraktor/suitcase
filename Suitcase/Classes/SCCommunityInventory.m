@@ -85,6 +85,7 @@ withDescriptions:(NSDictionary *)descriptions
             forItemType:(NSNumber *)itemType
        withErrorMessage:(NSString *)errorMessage
 {
+    self.successful = NO;
     self.temporaryFailed = temporaryFailed;
 
 #ifdef DEBUG
@@ -124,8 +125,6 @@ withDescriptions:(NSDictionary *)descriptions
     }
 
     dispatch_group_wait(dispatchGroup, DISPATCH_TIME_FOREVER);
-
-    self.timestamp = [NSDate date];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [self finish];

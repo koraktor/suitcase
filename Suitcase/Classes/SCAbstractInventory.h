@@ -45,8 +45,9 @@ extern NSString *const kSCInventoryError;
 #pragma mark Instance methods
 
 - (UIColor *)colorForQualityIndex:(NSInteger)index;
-- (BOOL)isEmpty;
 - (void)finish;
+- (BOOL)isEmpty;
+- (BOOL)isLoaded;
 - (BOOL)outdated;
 - (void)sortItemsByPosition;
 

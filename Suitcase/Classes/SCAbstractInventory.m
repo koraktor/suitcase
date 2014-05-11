@@ -86,7 +86,10 @@ static NSMutableDictionary *__inventories;
 
 - (void)finish
 {
-    self.successful = YES;
+    if (!self.temporaryFailed) {
+        self.successful = YES;
+    }
+    self.timestamp = [NSDate date];
 
     NSNumber *showColors = [[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"];
     self.showColors = (showColors == nil) ? YES : [showColors boolValue];
@@ -96,6 +99,11 @@ static NSMutableDictionary *__inventories;
 #ifdef DEBUG
     NSLog(@"Loading inventory for game \"%@\" finished.", self.game.name);
 #endif
+}
+
+- (BOOL)isLoaded
+{
+    return self.timestamp != nil;
 }
 
 - (void)sortItemsByPosition

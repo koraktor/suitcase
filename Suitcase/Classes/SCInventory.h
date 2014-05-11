@@ -20,6 +20,7 @@
 - (UIColor *)colorForQualityIndex:(NSInteger)index;
 - (SCGame *)game;
 - (BOOL)isEmpty;
+- (BOOL)isLoaded;
 - (BOOL)isSuccessful;
 - (NSArray *)items;
 - (void)load;
