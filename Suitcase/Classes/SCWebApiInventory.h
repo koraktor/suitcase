@@ -14,7 +14,7 @@
 
 #import "SCWebApiSchema.h"
 
-@interface SCWebApiInventory : SCAbstractInventory <SCInventory, UITableViewDataSource>
+@interface SCWebApiInventory : SCAbstractInventory <SCInventory>
 
 @property (strong, nonatomic) SCWebApiSchema *schema;
 

@@ -11,5 +11,5 @@
 #import "SCAbstractInventory.h"
 #import "SCInventory.h"
 
-@interface SCCommunityInventory : SCAbstractInventory <SCInventory, UITableViewDataSource>
+@interface SCCommunityInventory : SCAbstractInventory <SCInventory>
 @end

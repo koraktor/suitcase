@@ -27,7 +27,6 @@
 - (NSURL *)iconUrl;
 - (NSURL *)imageUrl;
 - (NSDictionary *)itemSet;
-- (NSString *)itemType;
 - (NSString *)levelText;
 - (NSString *)origin;
 - (NSNumber *)quantity;

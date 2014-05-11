@@ -21,9 +21,11 @@
 - (NSURL *)imageUrl;
 - (id<SCInventory>)inventory;
 - (BOOL)isKillEater;
+- (NSString *)itemType;
 - (NSString *)levelText;
 - (NSString *)name;
 - (NSString *)origin;
+- (NSNumber *)originIndex;
 - (NSNumber *)position;
 - (UIColor *)qualityColor;
 - (NSString *)qualityName;

@@ -6,6 +6,7 @@
 //
 
 #import "AFNetworkActivityIndicatorManager.h"
+#import "FAKFontAwesome.h"
 #import "TSMessage.h"
 #import "IASKSpecifierValuesViewController.h"
 
@@ -111,9 +112,31 @@ static SCWebApiRequestOperationManager *_webApiClient;
 
         UIImage *barGradientImage = [UIImage imageNamed:@"bar_gradient"];
         [[UINavigationBar appearance] setBackgroundImage:barGradientImage forBarMetrics:UIBarMetricsDefault];
+        [[UISearchBar appearance] setBackgroundImage:barGradientImage];
         [[UIToolbar appearance] setBackgroundImage:barGradientImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     } else {
+        [[UISearchBar appearance] setBackgroundColor:[UIColor colorWithRed:0.56 green:0.64 blue:0.73 alpha:1.0]];
+        [[UISearchBar appearance] setBarTintColor:[UIColor colorWithRed:0.45 green:0.52 blue:0.60 alpha:1.0]];
+
+        CGSize iconSize = CGSizeMake(32.0, 32.0);
+        FAKIcon *clearIcon = [FAKFontAwesome timesCircleIconWithSize:16.0];
+        [clearIcon setAttributes:@{ NSForegroundColorAttributeName: UIColor.whiteColor }];
+        [[UISearchBar appearance] setImage:[clearIcon imageWithSize:iconSize]
+                          forSearchBarIcon:UISearchBarIconClear
+                                     state:UIControlStateNormal];
+        [clearIcon setAttributes:@{ NSForegroundColorAttributeName: UIColor.lightGrayColor }];
+        [[UISearchBar appearance] setImage:[clearIcon imageWithSize:iconSize]
+                          forSearchBarIcon:UISearchBarIconClear
+                                     state:UIControlStateHighlighted];
+
+        FAKIcon *searchIcon = [FAKFontAwesome searchIconWithSize:32.0];
+        [searchIcon setAttributes:@{ NSForegroundColorAttributeName: UIColor.whiteColor }];
+        [[UISearchBar appearance] setImage:[searchIcon imageWithSize:iconSize]
+                          forSearchBarIcon:UISearchBarIconSearch
+                                     state:UIControlStateNormal];
+
         [[UITableViewCell appearance] setBackgroundColor:[UIColor clearColor]];
+        [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
     }
 
     return YES;

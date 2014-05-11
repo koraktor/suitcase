@@ -9,7 +9,7 @@
 
 #import "SCGame.h"
 
-@protocol SCInventory <UITableViewDataSource>
+@protocol SCInventory <NSObject>
 
 @property NSArray *itemSections;
 @property BOOL showColors;
@@ -24,10 +24,11 @@
 - (NSArray *)items;
 - (void)load;
 - (void)loadSchema;
+- (NSArray *)origins;
+- (NSString *)originNameForIndex:(NSUInteger)index;
 - (BOOL)outdated;
 - (void)reload;
 - (NSNumber *)slots;
-- (void)sortItems;
 - (NSNumber *)steamId64;
 - (BOOL)temporaryFailed;
 

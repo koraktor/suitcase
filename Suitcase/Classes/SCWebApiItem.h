@@ -26,7 +26,6 @@
 - (NSNumber *)defindex;
 - (NSURL *)imageUrl;
 - (NSDictionary *)itemSet;
-- (NSString *)itemType;
 - (NSNumber *)level;
 - (NSString *)levelText;
 - (NSString *)origin;

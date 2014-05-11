@@ -115,30 +115,4 @@ static NSMutableDictionary *__inventories;
     return [_timestamp timeIntervalSinceNow] < -600;
 }
 
-#pragma mark Table View
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return _itemSections.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    id <SCItem> item = self.itemSections[indexPath.section][indexPath.row];
-
-    SCItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ItemCell"];
-    cell.item = item;
-    cell.showColors = self.showColors;
-    [cell loadImage];
-
-    return cell;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return ((NSArray *)_itemSections[section]).count;
-}
-
-
-
 @end

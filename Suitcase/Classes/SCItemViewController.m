@@ -13,7 +13,6 @@
 #import "IASKSettingsReader.h"
 #import "UIImageView+AFNetworking.h"
 
-#import "SCCommunityItem.h"
 #import "SCItemClassesTF2Cell.h"
 #import "SCItemDescriptionCell.h"
 #import "SCItemImageCell.h"

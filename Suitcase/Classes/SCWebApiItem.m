@@ -368,8 +368,11 @@ NSString *const kSCHours = @"kSCHours";
 }
 
 - (NSString *)origin {
-    NSNumber *originIndex = [self.dictionary objectForKey:@"origin"];
-    return [self.inventory.schema originNameForIndex:[originIndex unsignedIntValue]];
+    return [self.inventory originNameForIndex:[self.originIndex unsignedIntValue]];
+}
+
+- (NSNumber *)originIndex {
+    return [self.dictionary objectForKey:@"origin"];
 }
 
 - (NSNumber *)position {

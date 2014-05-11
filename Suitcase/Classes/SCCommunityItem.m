@@ -143,7 +143,11 @@ static NSString *kImageSize;
 }
 
 - (NSString *)origin {
-    return @"unknown";
+    return nil;
+}
+
+- (NSNumber *)originIndex {
+    return nil;
 }
 
 - (NSNumber *)position {

@@ -136,6 +136,14 @@ withDescriptions:(NSDictionary *)descriptions
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
 }
 
+- (NSArray *)origins {
+    return nil;
+}
+
+- (NSString *)originNameForIndex:(NSUInteger)index {
+    return nil;
+}
+
 - (void)reload
 {
     self.items = [NSArray array];
@@ -215,27 +223,6 @@ withDescriptions:(NSDictionary *)descriptions
             }]];
         }];
         self.itemSections = [NSArray arrayWithArray:sortedItemSections];
-    }
-}
-
-#pragma mark Table View
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    if ([[self.itemSections objectAtIndex:section] count] == 0) {
-        return nil;
-    }
-
-    NSString *sortOption = [[NSUserDefaults standardUserDefaults] valueForKey:@"sorting"];
-
-    if ([sortOption isEqual:@"name"]) {
-        return [SCAbstractInventory alphabetWithNumbers][section];
-    } else if ([sortOption isEqual:@"quality"]) {
-        return [[self.itemQualities allKeys] sortedArrayUsingSelector:@selector(compare:)][section];
-    } else if ([sortOption isEqual:@"type"]) {
-        return _itemTypes[section];
-    } else {
-        return nil;
     }
 }
 

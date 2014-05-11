@@ -50,9 +50,4 @@ extern NSString *const kSCInventoryError;
 - (BOOL)outdated;
 - (void)sortItemsByPosition;
 
-#pragma mark Table View
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
-
 @end
