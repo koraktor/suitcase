@@ -225,22 +225,22 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 - (void)inventoryLoaded
 {
     if (_waitingForInventoryReload) {
-        [TSMessage dismissActiveNotification];
+        [TSMessage dismissActiveNotificationWithCompletion:^{
+            _waitingForInventoryReload = NO;
 
-        _waitingForInventoryReload = NO;
-
-        if ([_currentInventory isSuccessful]) {
-            [_currentInventory loadSchema];
-        } else {
-            [self.view setUserInteractionEnabled:YES];
-            [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-            [TSMessage showNotificationInViewController:self.navigationController
-                                                  title:NSLocalizedString(kSCInventoryLoadingFailed, kSCInventoryLoadingFailed)
-                                               subtitle:[NSString stringWithFormat:NSLocalizedString(kSCInventoryLoadingFailedDetail, kSCInventoryLoadingFailedDetail), _currentInventory.game.name]
-                                                   type:TSMessageNotificationTypeError
-                                               duration:TSMessageNotificationDurationAutomatic
-                                   canBeDismissedByUser:YES];
-        }
+            if ([_currentInventory isSuccessful]) {
+                [_currentInventory loadSchema];
+            } else {
+                [self.view setUserInteractionEnabled:YES];
+                [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+                [TSMessage showNotificationInViewController:self.navigationController
+                                                      title:NSLocalizedString(kSCInventoryLoadingFailed, kSCInventoryLoadingFailed)
+                                                   subtitle:[NSString stringWithFormat:NSLocalizedString(kSCInventoryLoadingFailedDetail, kSCInventoryLoadingFailedDetail), _currentInventory.game.name]
+                                                       type:TSMessageNotificationTypeError
+                                                   duration:TSMessageNotificationDurationAutomatic
+                                       canBeDismissedByUser:YES];
+            }
+        }];
     }
 
     [NSThread detachNewThreadSelector:@selector(populateInventories) toTarget:self withObject:nil];
@@ -379,9 +379,17 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
 - (void)loadSchemaFinished
 {
-    [self showInventory];
-    [TSMessage dismissActiveNotification];
-    [self.view setUserInteractionEnabled:YES];
+    void (^showInventory)() = ^() {
+        [self showInventory];
+        [self.view setUserInteractionEnabled:YES];
+
+    };
+
+    if (![TSMessage isNotificationActive]) {
+        showInventory();
+    } else {
+        [TSMessage dismissActiveNotificationWithCompletion:showInventory];
+    }
 }
 
 - (void)loadSchemaStarted
