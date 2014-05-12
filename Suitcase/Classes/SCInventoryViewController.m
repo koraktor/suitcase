@@ -187,8 +187,18 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
 
 - (void)sortInventory
 {
-    [self sortItems];
-    [self.tableView reloadData];
+    if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        NSIndexSet *oldSections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfSections)];
+        [self sortItems];
+        NSIndexSet *newSections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.itemSections.count)];
+        [self.tableView beginUpdates];
+        [self.tableView deleteSections:oldSections withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView insertSections:newSections withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    } else {
+        [self sortItems];
+        [self.tableView reloadData];
+    }
 
     if ([self.itemSections count] > 0 && [[self.itemSections objectAtIndex:0] count] > 0) {
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
