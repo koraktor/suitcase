@@ -333,8 +333,6 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
 
     SCItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ItemCell"];
     cell.item = item;
-    cell.showColors = self.inventory.showColors;
-    [cell loadImage];
 
     return cell;
 }
@@ -395,8 +393,6 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
 
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, 20.0)];
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerView.frame];
-
-    headerLabel.backgroundColor = UIColor.clearColor;
     headerLabel.text = title;
     headerLabel.textAlignment = NSTextAlignmentCenter;
 
@@ -412,13 +408,15 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
         const CGFloat *colorComponents = CGColorGetComponents(backgroundColor.CGColor);
         white = ((colorComponents[0] * 299) + (colorComponents[1] * 587) + (colorComponents[2] * 114)) / 1000;
     }
-    white = (white < 0.5) ? 0.9 : 0.1;
+    white = (white < 0.7) ? 0.9 : 0.1;
     headerLabel.textColor = [UIColor colorWithWhite:white alpha:1.0];
 
     CGFloat fontSize = 16.0;
 
-    headerView.alpha = 0.8f;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        headerView.alpha = 0.8f;
+        headerLabel.backgroundColor = UIColor.clearColor;
+
         headerLabel.font = [UIFont boldSystemFontOfSize:fontSize];
 
         UIColor *gradientColor;
@@ -452,6 +450,7 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
         headerView.layer.masksToBounds = NO;
     } else {
         headerLabel.font = [UIFont systemFontOfSize:fontSize];
+        headerView.alpha = 1.0f;
         headerView.backgroundColor = backgroundColor;
     }
 

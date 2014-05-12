@@ -22,7 +22,7 @@ static CGRect kTextLabelFrame;
 {
     CGSize iconSize = CGSizeMake(42.0, 42.0);
 
-    kImageViewFrame = CGRectMake(1.0, 1.0, 42.0, 42.0);
+    kImageViewFrame = CGRectMake(6.0, 1.0, 42.0, 42.0);
     FAKIcon *placeHolderIcon = [FAKFontAwesome squareOIconWithSize:30.0];
     [placeHolderIcon addAttribute:NSForegroundColorAttributeName value:UIColor.lightGrayColor];
     kPlaceHolderImage = [placeHolderIcon imageWithSize:iconSize];
@@ -35,8 +35,6 @@ static CGRect kTextLabelFrame;
         self.imageView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
         self.imageView.layer.shadowOpacity = 1.0;
         self.imageView.layer.shadowRadius = 4.0;
-    } else {
-        self.imageView.layer.borderWidth = 1.0;
     }
 
     UIView *selectionView = [[UIView alloc] initWithFrame:self.frame];
@@ -46,6 +44,10 @@ static CGRect kTextLabelFrame;
         self.textLabel.shadowColor = [UIColor blackColor];
     } else {
         selectionView.backgroundColor = [UIColor colorWithRed:0.6 green:0.64 blue:0.7 alpha:1.0];
+
+        self.indicatorLayer = [CALayer layer];
+        self.indicatorLayer.frame = CGRectMake(1.0, 0.0, 4.0, 44.0);
+        [self.layer addSublayer:self.indicatorLayer];
     }
 
     [super awakeFromNib];
@@ -60,16 +62,16 @@ static CGRect kTextLabelFrame;
             self.imageView.layer.shadowColor = [_item.qualityColor CGColor];
         } else {
             if (_item.qualityColor == nil) {
-                self.imageView.layer.borderWidth = 0.0;
+                self.indicatorLayer.backgroundColor = UIColor.clearColor.CGColor;
             } else {
-                self.imageView.layer.borderColor = [_item.qualityColor CGColor];
-                self.imageView.layer.borderWidth = 1.0;
+                self.indicatorLayer.backgroundColor = _item.qualityColor.CGColor;;
             }
         }
     } else {
         if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
             self.imageView.layer.shadowColor = [[UIColor colorWithWhite:0.2 alpha:1.0] CGColor];
         } else {
+            self.indicatorLayer.backgroundColor = UIColor.clearColor.CGColor;
             self.imageView.layer.borderWidth = 0.0;
         }
     }
@@ -97,9 +99,11 @@ static CGRect kTextLabelFrame;
 
 - (void)setItem:(id <SCItem>)item
 {
-    _item = item;
-
-    self.textLabel.text = item.name;
+    if (![item isEqual:_item]) {
+        _item = item;
+        self.textLabel.text = item.name;
+        [self loadImage];
+    }
 }
 
 @end
