@@ -2,12 +2,13 @@
 //  SCGamesViewController.h
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import <UIKit/UIKit.h>
-#import "IASKAppSettingsViewController.h"
 
-@interface SCGamesViewController : UITableViewController <UIAlertViewDelegate>
+#import "SCTableViewController.h"
+
+@interface SCGamesViewController : SCTableViewController <UIAlertViewDelegate>
 
 @end

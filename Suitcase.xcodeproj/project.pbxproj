@@ -121,6 +121,7 @@
 		02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BAAB5F17BFAE1E004E635F /* Security.framework */; };
 		02BB279119026DA4002D151A /* SCReplaceDetailSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */; };
 		02D5BC5B191982B2000D8206 /* SCItemQuality.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D5BC5A191982B2000D8206 /* SCItemQuality.m */; };
+		02D5BC5E19210274000D8206 /* SCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D5BC5D19210274000D8206 /* SCTableViewController.m */; };
 		02DDB4861582A9E0004DB9D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DDB4851582A9E0004DB9D8 /* QuartzCore.framework */; };
 		02E98C60191274210039E1E7 /* SCItemClassesTF2Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E98C5F191274210039E1E7 /* SCItemClassesTF2Cell.m */; };
 		02E98C6319128C840039E1E7 /* SCItemTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E98C6219128C840039E1E7 /* SCItemTitleCell.m */; };
@@ -331,6 +332,8 @@
 		02CD62D118D8F97700EFA973 /* SCItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SCItem.h; path = Classes/SCItem.h; sourceTree = "<group>"; };
 		02D5BC59191982B2000D8206 /* SCItemQuality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemQuality.h; path = Classes/SCItemQuality.h; sourceTree = "<group>"; };
 		02D5BC5A191982B2000D8206 /* SCItemQuality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemQuality.m; path = Classes/SCItemQuality.m; sourceTree = "<group>"; };
+		02D5BC5C19210274000D8206 /* SCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCTableViewController.h; path = Classes/SCTableViewController.h; sourceTree = "<group>"; };
+		02D5BC5D19210274000D8206 /* SCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCTableViewController.m; path = Classes/SCTableViewController.m; sourceTree = "<group>"; };
 		02DDB4851582A9E0004DB9D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		02E98C5E191274210039E1E7 /* SCItemClassesTF2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemClassesTF2Cell.h; path = Classes/SCItemClassesTF2Cell.h; sourceTree = "<group>"; };
 		02E98C5F191274210039E1E7 /* SCItemClassesTF2Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemClassesTF2Cell.m; path = Classes/SCItemClassesTF2Cell.m; sourceTree = "<group>"; };
@@ -508,6 +511,8 @@
 				0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */,
 				02F36DF61826AC3C0036D1C6 /* SCSplitViewController.h */,
 				02F36DF71826AC3C0036D1C6 /* SCSplitViewController.m */,
+				02D5BC5C19210274000D8206 /* SCTableViewController.h */,
+				02D5BC5D19210274000D8206 /* SCTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1017,6 +1022,7 @@
 				02010B6F169E9CA000007456 /* IASKSettingsReader.m in Sources */,
 				02010B70169E9CA000007456 /* IASKSettingsStore.m in Sources */,
 				02010B71169E9CA000007456 /* IASKSettingsStoreFile.m in Sources */,
+				02D5BC5E19210274000D8206 /* SCTableViewController.m in Sources */,
 				02010B72169E9CA000007456 /* IASKSettingsStoreUserDefaults.m in Sources */,
 				02010B73169E9CA000007456 /* IASKSpecifier.m in Sources */,
 				02010B74169E9CA000007456 /* IASKPSSliderSpecifierViewCell.m in Sources */,

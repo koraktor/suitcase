@@ -8,6 +8,7 @@
 #import "BPBarButtonItem.h"
 #import "FAKFontAwesome.h"
 #import "IASKSettingsReader.h"
+#import "IASKAppSettingsViewController.h"
 #import "TSMessage.h"
 
 #import "SCAbstractInventory.h"

@@ -8,10 +8,11 @@
 #import <UIKit/UIKit.h>
 
 #import "SCInventory.h"
+#import "SCTableViewController.h"
 
 @class SCItemViewController;
 
-@interface SCInventoryViewController : UITableViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SCInventoryViewController : SCTableViewController <UISearchBarDelegate>
 
 @property (strong, nonatomic) id <SCInventory> inventory;
 @property (strong, nonatomic) NSArray *items;
