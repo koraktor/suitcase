@@ -473,11 +473,11 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
     headerLabel.textAlignment = NSTextAlignmentCenter;
     headerLabel.textColor = UIColor.whiteColor;
 
-    UIColor *backgroundColor = [UIColor colorWithRed:0.5372 green:0.6196 blue:0.7294 alpha:0.63];
+    UIColor *backgroundColor = [UIColor colorWithRed:0.5372 green:0.6196 blue:0.7294 alpha:1.0];
     CGFloat fontSize = 16.0;
 
-    headerView.alpha = 0.8f;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        headerView.alpha = 0.8f;
         headerLabel.font = [UIFont boldSystemFontOfSize:fontSize];
 
         CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -491,6 +491,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
         headerView.layer.shadowRadius = 3.25f;
         headerView.layer.masksToBounds = NO;
     } else {
+        headerView.alpha = 1.0f;
         headerLabel.font = [UIFont systemFontOfSize:fontSize];
         headerView.backgroundColor = backgroundColor;
     }
