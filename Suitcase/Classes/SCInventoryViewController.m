@@ -472,7 +472,9 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     [super tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 
-    ((SCItemCell *)cell).showColors = self.inventory.showColors;
+    if ([cell isKindOfClass:[SCItemCell class]]) {
+        ((SCItemCell *)cell).showColors = self.inventory.showColors;
+    }
 }
 
 @end
