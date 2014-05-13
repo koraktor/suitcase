@@ -48,4 +48,8 @@
     return [_appId intValue] == 440 || [_appId intValue] == 520;
 }
 
+- (NSString *)logoIdentifier {
+    return [self.appId stringValue];
+}
+
 @end

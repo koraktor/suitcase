@@ -8,6 +8,7 @@
 #import "UIImageView+AFNetworking.h"
 
 #import "UIImageView+Border.h"
+#import "SCImageCache.h"
 
 #import "SCItemImageCell.h"
 
@@ -56,10 +57,27 @@ static NSUInteger kMaxImageSize;
 }
 
 - (void)setItem:(id<SCItem>)item {
+    _item = item;
+
+    UIImage *cachedImage = [SCImageCache cachedImageForItem:item];
+    if (cachedImage != nil) {
+        self.imageView.image = cachedImage;
+
+        CGSize imageViewSize = [SCItemImageCell sizeOfImageViewForImage:cachedImage];
+        CGFloat originX = self.frame.size.width / 2 - imageViewSize.width / 2;
+        self.imageView.frame = CGRectMake(originX, kImageMargin,
+                                          imageViewSize.width, imageViewSize.height);
+
+        if (self.imageView.hidden) {
+            [self.activityIndicator stopAnimating];
+            self.imageView.hidden = NO;
+        }
+
+        return;
+    }
+
     self.imageView.hidden = YES;
     [self.activityIndicator startAnimating];
-
-    _item = item;
 
     __block UIActivityIndicatorView *activityIndicator = self.activityIndicator;
     __block UIImageView *imageView = self.imageView;
@@ -70,13 +88,13 @@ static NSUInteger kMaxImageSize;
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                        CGSize imageSize = [SCItemImageCell sizeOfImageForImage:image];
 
-
                                        UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0.0);
                                        [image drawInRect:CGRectMake(0.0, 0.0, imageSize.width, imageSize.height)];
                                        UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
                                        UIGraphicsEndImageContext();
 
                                        imageView.image = resizedImage;
+                                       [SCImageCache cacheImage:resizedImage forItem:item];
 
                                        CGSize imageViewSize = [SCItemImageCell sizeOfImageViewForImage:image];
                                        CGFloat originX = weakSelf.frame.size.width / 2 - imageViewSize.width / 2;

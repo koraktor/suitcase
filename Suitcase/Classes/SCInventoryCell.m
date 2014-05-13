@@ -5,9 +5,9 @@
 //  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
-#import <QuartzCore/QuartzCore.h>
-
 #import "UIImageView+AFNetworking.h"
+
+#import "SCImageCache.h"
 
 #import "SCInventoryCell.h"
 
@@ -62,11 +62,19 @@ static CGRect kTextLabelFrame;
 
 - (void)loadImage
 {
+    UIImage *cachedLogo = [SCImageCache cachedLogoForGame:self.inventory.game];
+    if (cachedLogo != nil) {
+        self.imageView.image = cachedLogo;
+        return;
+    }
+
     __block SCInventoryCell *cell = self;
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:_inventory.game.logoUrl]
                           placeholderImage:kPlaceHolderImage
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                        cell.imageView.image = image;
+
+                                       [SCImageCache cacheLogo:image forGame:cell.inventory.game];
                                    }
                                    failure:nil];
 }

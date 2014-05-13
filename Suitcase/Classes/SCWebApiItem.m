@@ -280,8 +280,16 @@ NSString *const kSCHours = @"kSCHours";
     return YES;
 }
 
+- (NSString *)iconIdentifier {
+    return [[[self valueForKey:@"image_url"] lastPathComponent] stringByDeletingPathExtension];
+}
+
 - (NSURL *)iconUrl {
     return [NSURL URLWithString:[self valueForKey:@"image_url"]];
+}
+
+- (NSString *)imageIdentifier {
+    return [[[self valueForKey:@"image_url_large"] lastPathComponent] stringByDeletingPathExtension];
 }
 
 - (NSURL *)imageUrl {

@@ -13,6 +13,7 @@
 #import "IASKSettingsReader.h"
 #import "UIImageView+AFNetworking.h"
 
+#import "SCImageCache.h"
 #import "SCItemClassesTF2Cell.h"
 #import "SCItemDescriptionCell.h"
 #import "SCItemImageCell.h"
@@ -341,8 +342,7 @@ typedef enum {
     } else if (indexPath.section == 1) {
         CGFloat height;
 
-        NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[self.detailItem imageUrl]];
-        UIImage *cachedImage = [[UIImageView sharedImageCache] cachedImageForRequest:imageRequest];
+        UIImage *cachedImage = [SCImageCache cachedImageForItem:self.detailItem];
         if (cachedImage != nil) {
             height = [SCItemImageCell heightOfCellForImage:cachedImage];
         } else {

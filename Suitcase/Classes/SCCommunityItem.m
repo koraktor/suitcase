@@ -109,17 +109,27 @@ static NSString *kImageSize;
     return self.qualityName != nil;
 }
 
+- (NSString *)iconIdentifier {
+    return [[self valueForKey:@"icon_url"] stringByAppendingPathComponent:kIconSize];
+}
+
 - (NSURL *)iconUrl {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.steamcommunity.com/economy/image/%@/%@", [self valueForKey:@"icon_url"], kIconSize]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.steamcommunity.com/economy/image/%@", self.iconIdentifier]];
+}
+
+- (NSString *)imageIdentifier {
+    NSString *identifier = [self valueForKey:@"icon_url_large"];
+    if (identifier == nil || [identifier isEqualToString:@""]) {
+        identifier = [self valueForKey:@"icon_url"];
+    } else {
+        identifier = [identifier stringByAppendingPathComponent:kImageSize];
+    }
+
+    return identifier;
 }
 
 - (NSURL *)imageUrl {
-    NSString *url = [self valueForKey:@"icon_url_large"];
-    if (url == nil || [url isEqualToString:@""]) {
-        url = [self valueForKey:@"icon_url"];
-    }
-
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.steamcommunity.com/economy/image/%@/%@", url, kImageSize]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.steamcommunity.com/economy/image/%@/", self.imageIdentifier]];
 }
 
 - (BOOL)isKillEater {

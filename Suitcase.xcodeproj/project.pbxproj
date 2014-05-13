@@ -54,6 +54,7 @@
 		023FDB8118F84C49002D6FC0 /* SCItemImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023FDB8018F84C49002D6FC0 /* SCItemImageCell.m */; };
 		023FDB8418FAD353002D6FC0 /* SCItemDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023FDB8318FAD353002D6FC0 /* SCItemDescriptionCell.m */; };
 		0241CF8F190BEF32005EC030 /* UIImageView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 0241CF8E190BEF32005EC030 /* UIImageView+Border.m */; };
+		02435A9F1921F24600D1F779 /* SCImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 02435A9E1921F24600D1F779 /* SCImageCache.m */; };
 		0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */; };
 		0253605218334AF50019D250 /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0253603918334AF50019D250 /* TSMessage.m */; };
 		0253605318334AF50019D250 /* NotificationBackgroundError.png in Resources */ = {isa = PBXBuildFile; fileRef = 0253603C18334AF50019D250 /* NotificationBackgroundError.png */; };
@@ -221,6 +222,8 @@
 		023FDB8318FAD353002D6FC0 /* SCItemDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemDescriptionCell.m; path = Classes/SCItemDescriptionCell.m; sourceTree = "<group>"; };
 		0241CF8D190BEF32005EC030 /* UIImageView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+Border.h"; path = "Classes/UIImageView+Border.h"; sourceTree = "<group>"; };
 		0241CF8E190BEF32005EC030 /* UIImageView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+Border.m"; path = "Classes/UIImageView+Border.m"; sourceTree = "<group>"; };
+		02435A9D1921F24600D1F779 /* SCImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCImageCache.h; path = Classes/SCImageCache.h; sourceTree = "<group>"; };
+		02435A9E1921F24600D1F779 /* SCImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCImageCache.m; path = Classes/SCImageCache.m; sourceTree = "<group>"; };
 		0250CBD91693C8D100B20A6F /* SCWikiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWikiViewController.h; path = Classes/SCWikiViewController.h; sourceTree = "<group>"; };
 		0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWikiViewController.m; path = Classes/SCWikiViewController.m; sourceTree = "<group>"; };
 		0253603818334AF50019D250 /* TSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMessage.h; sourceTree = "<group>"; };
@@ -715,6 +718,8 @@
 				023FDB7B18F65B66002D6FC0 /* Views */,
 				028B648D1526761C0040D2FF /* SCAppDelegate.h */,
 				028B648E1526761C0040D2FF /* SCAppDelegate.m */,
+				02435A9D1921F24600D1F779 /* SCImageCache.h */,
+				02435A9E1921F24600D1F779 /* SCImageCache.m */,
 				02238C651914E88B0050CDCF /* SCItemViewLayout.h */,
 				02238C661914E88B0050CDCF /* SCItemViewLayout.m */,
 				0203A67018C531C500EF5E25 /* SCCommunityRequestOperationManager.h */,
@@ -1017,6 +1022,7 @@
 				023DECE618796C99007FE4AA /* FAKIcon.m in Sources */,
 				0253608018334BDE0019D250 /* HexColor.m in Sources */,
 				02010B6C169E9CA000007456 /* IASKAppSettingsViewController.m in Sources */,
+				02435A9F1921F24600D1F779 /* SCImageCache.m in Sources */,
 				02010B6D169E9CA000007456 /* IASKAppSettingsWebViewController.m in Sources */,
 				02010B6E169E9CA000007456 /* IASKSpecifierValuesViewController.m in Sources */,
 				02010B6F169E9CA000007456 /* IASKSettingsReader.m in Sources */,

@@ -10,6 +10,8 @@
 #import "FAKFontAwesome.h"
 #import "UIImageView+AFNetworking.h"
 
+#import "SCImageCache.h"
+
 #import "SCItemCell.h"
 
 static CGRect kImageViewFrame;
@@ -87,9 +89,21 @@ static CGRect kTextLabelFrame;
 
 - (void)loadImage
 {
+    UIImage *itemIcon = [SCImageCache cachedIconForItem:self.item];
+
+    if (itemIcon != nil) {
+        self.imageView.image = itemIcon;
+        return;
+    }
+
+    __weak SCItemCell *weakSelf = self;
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:_item.iconUrl]
                           placeholderImage:kPlaceHolderImage
-                                   success:nil
+                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                       weakSelf.imageView.image = image;
+
+                                       [SCImageCache cacheIcon:image forItem:weakSelf.item];
+                                   }
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
 #ifdef DEBUG
                                        NSLog(@"Loading item icon failed with error: %@", error.description);

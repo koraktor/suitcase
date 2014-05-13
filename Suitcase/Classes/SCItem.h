@@ -17,7 +17,9 @@
 - (NSString *)descriptionText;
 - (BOOL)hasOrigin;
 - (BOOL)hasQuality;
+- (NSString *)iconIdentifier;
 - (NSURL *)iconUrl;
+- (NSString *)imageIdentifier;
 - (NSURL *)imageUrl;
 - (id<SCInventory>)inventory;
 - (BOOL)isKillEater;

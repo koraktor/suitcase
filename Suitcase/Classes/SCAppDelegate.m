@@ -2,13 +2,15 @@
 //  SCAppDelegate.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 #import "AFNetworkActivityIndicatorManager.h"
 #import "FAKFontAwesome.h"
 #import "TSMessage.h"
 #import "IASKSpecifierValuesViewController.h"
+
+#import "SCImageCache.h"
 
 #import "SCAppDelegate.h"
 
@@ -74,11 +76,13 @@ static SCWebApiRequestOperationManager *_webApiClient;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:5000000 diskCapacity:50000000 diskPath:nil];
+    NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:5000000 diskCapacity:0 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [TSMessage addCustomDesignFromFileWithName:@"TSMessagesDesign.json"];
+
+    [SCImageCache setupImageCacheDirectory];
 
     UIViewController *masterViewController;
     UINavigationController *navigationController;
