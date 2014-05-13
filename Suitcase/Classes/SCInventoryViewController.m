@@ -402,7 +402,9 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
     }
 
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, 20.0)];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerView.frame];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 0.0, tableView.frame.size.width - 10.0, 20.0)];
+    headerLabel.adjustsFontSizeToFitWidth = YES;
+    headerLabel.minimumScaleFactor = 0.8;
     headerLabel.text = title;
     headerLabel.textAlignment = NSTextAlignmentCenter;
 
