@@ -178,7 +178,7 @@
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ItemAttributeCell" id="cSa-CS-IQB" customClass="SCItemAttributeCell">
-                                <rect key="frame" x="0.0" y="170" width="320" height="26"/>
+                                <rect key="frame" x="192" y="157" width="320" height="26"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="26"/>
@@ -194,7 +194,7 @@
                                             <size key="shadowOffset" width="0.0" height="1"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YBU-gC-nwm">
-                                            <rect key="frame" x="140" y="5" width="170" height="16"/>
+                                            <rect key="frame" x="138" y="5" width="170" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -212,14 +212,14 @@
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ItemDescriptionCell" id="TVY-0r-79u" customClass="SCItemDescriptionCell">
-                                <rect key="frame" x="383" y="157" width="320" height="52"/>
+                                <rect key="frame" x="12" y="193" width="679" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="679" height="52"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ep4-vM-E2W" customClass="TTTAttributedLabel">
-                                            <rect key="frame" x="10" y="10" width="300" height="32"/>
+                                            <rect key="frame" x="10" y="10" width="659" height="32"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Label">
@@ -240,14 +240,14 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <size key="customSize" width="320" height="52"/>
+                                <size key="customSize" width="679" height="52"/>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="ep4-vM-E2W" id="uv0-bf-KWo"/>
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" reuseIdentifier="ItemClassesTF2Cell" id="a6T-5p-ihf" customClass="SCItemClassesTF2Cell">
-                                <rect key="frame" x="0.0" y="219" width="679" height="94"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="12" y="255" width="679" height="94"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="679" height="94"/>
                                     <autoresizingMask key="autoresizingMask"/>

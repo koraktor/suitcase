@@ -9,6 +9,14 @@
 
 @implementation SCItemViewLayout
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+
+    self.sectionInset = UIEdgeInsetsMake(10.0, 10.0, 0.0, 10.0);
+
+    return self;
+}
+
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSArray* attributesToReturn = [super layoutAttributesForElementsInRect:rect];
     for (UICollectionViewLayoutAttributes* attributes in attributesToReturn) {
