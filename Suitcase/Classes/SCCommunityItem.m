@@ -149,7 +149,12 @@ static NSString *kImageSize;
 }
 
 - (NSString *)name {
-    return [self valueForKey:@"name"];
+    NSString *name = [self valueForKey:@"market_name"];
+    if ([name isEqualToString:@""]) {
+        name = [self valueForKey:@"name"];
+    }
+
+    return name;
 }
 
 - (NSString *)origin {
