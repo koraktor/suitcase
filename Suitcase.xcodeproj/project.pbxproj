@@ -55,6 +55,7 @@
 		023FDB8418FAD353002D6FC0 /* SCItemDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023FDB8318FAD353002D6FC0 /* SCItemDescriptionCell.m */; };
 		0241CF8F190BEF32005EC030 /* UIImageView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 0241CF8E190BEF32005EC030 /* UIImageView+Border.m */; };
 		02435A9F1921F24600D1F779 /* SCImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 02435A9E1921F24600D1F779 /* SCImageCache.m */; };
+		02435AA319228F9500D1F779 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02435AA219228F9500D1F779 /* Crashlytics.framework */; };
 		0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */; };
 		0253605218334AF50019D250 /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0253603918334AF50019D250 /* TSMessage.m */; };
 		0253605318334AF50019D250 /* NotificationBackgroundError.png in Resources */ = {isa = PBXBuildFile; fileRef = 0253603C18334AF50019D250 /* NotificationBackgroundError.png */; };
@@ -224,6 +225,7 @@
 		0241CF8E190BEF32005EC030 /* UIImageView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+Border.m"; path = "Classes/UIImageView+Border.m"; sourceTree = "<group>"; };
 		02435A9D1921F24600D1F779 /* SCImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCImageCache.h; path = Classes/SCImageCache.h; sourceTree = "<group>"; };
 		02435A9E1921F24600D1F779 /* SCImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCImageCache.m; path = Classes/SCImageCache.m; sourceTree = "<group>"; };
+		02435AA219228F9500D1F779 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0250CBD91693C8D100B20A6F /* SCWikiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWikiViewController.h; path = Classes/SCWikiViewController.h; sourceTree = "<group>"; };
 		0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWikiViewController.m; path = Classes/SCWikiViewController.m; sourceTree = "<group>"; };
 		0253603818334AF50019D250 /* TSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMessage.h; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				0209E14F157954C20073385D /* CFNetwork.framework in Frameworks */,
 				028B640F15265D690040D2FF /* CoreGraphics.framework in Frameworks */,
 				02F37EC41580152300BFB1B5 /* CoreText.framework in Frameworks */,
+				02435AA319228F9500D1F779 /* Crashlytics.framework in Frameworks */,
 				028B640D15265D690040D2FF /* Foundation.framework in Frameworks */,
 				020EB43015852C2800654D2A /* MessageUI.framework in Frameworks */,
 				0209E153157954D00073385D /* MobileCoreServices.framework in Frameworks */,
@@ -696,6 +699,7 @@
 				0209E14E157954C20073385D /* CFNetwork.framework */,
 				028B640E15265D690040D2FF /* CoreGraphics.framework */,
 				02F37EC31580152300BFB1B5 /* CoreText.framework */,
+				02435AA219228F9500D1F779 /* Crashlytics.framework */,
 				028B640C15265D690040D2FF /* Foundation.framework */,
 				020EB42F15852C2800654D2A /* MessageUI.framework */,
 				0209E152157954D00073385D /* MobileCoreServices.framework */,
@@ -833,6 +837,7 @@
 				028B640415265D680040D2FF /* Resources */,
 				029B08F5159262FF00BD6271 /* ShellScript */,
 				020E221B175DA8B300C002EE /* ShellScript */,
+				02435AA019228F5F00D1F779 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -955,6 +960,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cfBundleIdentifier=$(/usr/libexec/PlistBuddy -c \"Print CFBundleIdentifier\" Suitcase/Suitcase-Info.plist | sed 's/\\.dev$//')\ncfBundleDisplayName=\"\\${PRODUCT_NAME}\"\n\nif test $CONFIGURATION = \"Debug\"; then\n    cfBundleIdentifier=\"$cfBundleIdentifier.dev\"\n    cfBundleDisplayName=\"$cfBundleDisplayName Dev\"\nfi\n\n/usr/libexec/PlistBuddy -c \"Delete CFBundleIdentifier\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Add CFBundleIdentifier string $cfBundleIdentifier\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Delete CFBundleDisplayName\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Add CFBundleDisplayName string '$cfBundleDisplayName'\" Suitcase/Suitcase-Info.plist";
+		};
+		02435AA019228F5F00D1F779 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run $CRASHLYTICS_API_KEY";
 		};
 		0252CC4F15C055AE0040C949 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1189,6 +1207,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Suitcase/Suitcase-Prefix.pch";
 				INFOPLIST_FILE = "Suitcase/Suitcase-Info.plist";
@@ -1205,6 +1227,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Suitcase/Suitcase-Prefix.pch";
 				INFOPLIST_FILE = "Suitcase/Suitcase-Info.plist";

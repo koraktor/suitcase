@@ -5,6 +5,8 @@
 //  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
+#import <Crashlytics/Crashlytics.h>
+
 #import "AFNetworkActivityIndicatorManager.h"
 #import "FAKFontAwesome.h"
 #import "TSMessage.h"
@@ -16,6 +18,10 @@
 
 #ifndef __API_KEY__
 #define __API_KEY__ nil
+#endif
+
+#ifndef __CRASHLYTICS_API_KEY__
+#define __CRASHLYTICS_API_KEY__ nil
 #endif
 
 @interface SCAppDelegate () {
@@ -76,6 +82,10 @@ static SCWebApiRequestOperationManager *_webApiClient;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    if (__CRASHLYTICS_API_KEY__ != nil) {
+        [Crashlytics startWithAPIKey:__CRASHLYTICS_API_KEY__];
+    }
+
     NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:5000000 diskCapacity:0 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
 
