@@ -163,7 +163,7 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         id <SCItem> item = [[self.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        ((SCItemViewController *)segue.destinationViewController).detailItem = item;
+        ((SCItemViewController *)segue.destinationViewController).item = item;
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         }

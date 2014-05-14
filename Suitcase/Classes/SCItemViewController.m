@@ -102,15 +102,15 @@ typedef enum {
 - (Byte)activeAttributes {
     Byte attributes = 0;
 
-    if ([self.detailItem hasOrigin]) {
+    if ([self.item hasOrigin]) {
         attributes |= kOrigin;
     }
 
-    if ([self.detailItem hasQuality]) {
+    if ([self.item hasQuality]) {
         attributes |= kQuality;
     }
 
-    if ([self.detailItem belongsToItemSet]) {
+    if ([self.item belongsToItemSet]) {
         attributes |= kItemSet;
     }
 
@@ -119,35 +119,35 @@ typedef enum {
 
 - (void)clearItem
 {
-    _detailItem = nil;
+    self.item = nil;
 
     [self performSegueWithIdentifier:@"clearItem" sender:self];
 }
 
-- (void)setDetailItem:(id <SCItem>)newDetailItem
+- (void)setItem:(id <SCItem>)item
 {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
+    if (_item != item) {
+        _item = item;
 
         NSMutableAttributedString *itemDescription;
         if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-            NSString *nonHTMLItemDescription = [kHTMLRegex stringByReplacingMatchesInString:_detailItem.descriptionText
+            NSString *nonHTMLItemDescription = [kHTMLRegex stringByReplacingMatchesInString:self.item.descriptionText
                                                                                     options:0
-                                                                                      range:NSMakeRange(0, [_detailItem.descriptionText length])
+                                                                                      range:NSMakeRange(0, [self.item.descriptionText length])
                                                                                withTemplate:@""];
 
             itemDescription = [[NSMutableAttributedString alloc] initWithString:nonHTMLItemDescription];
         } else {
             NSError *htmlError;
             NSDictionary *options = @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: [NSNumber numberWithInt:NSUTF8StringEncoding] };
-            NSString *lineBrokenItemDescription = [_detailItem.descriptionText stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
+            NSString *lineBrokenItemDescription = [self.item.descriptionText stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
             itemDescription = [[NSMutableAttributedString alloc] initWithData:[lineBrokenItemDescription dataUsingEncoding:NSUTF8StringEncoding]
                                                                             options:options
                                                                  documentAttributes:nil
                                                                               error:&htmlError];
 
             if (htmlError) {
-                NSLog(@"Error while parsing the HTML description:\n%@", _detailItem.descriptionText);
+                NSLog(@"Error while parsing the HTML description:\n%@", self.item.descriptionText);
             }
         }
 
@@ -168,7 +168,7 @@ typedef enum {
 
 - (void)configureView
 {
-    if (_detailItem == nil) {
+    if (self.item == nil) {
         [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
             view.hidden = YES;
         }];
@@ -177,12 +177,12 @@ typedef enum {
         return;
     }
 
-    if ([_detailItem class] == [SCWebApiItem class]) {
-        [(SCWebApiItem *)_detailItem attributes];
+    if ([self.item isKindOfClass:[SCWebApiItem class]]) {
+        [(SCWebApiItem *)self.item attributes];
     }
     _attributes = [self activeAttributes];
 
-    if ([_detailItem.inventory.game isTF2]) {
+    if ([self.item.inventory.game isTF2]) {
         if (self.navigationItem.rightBarButtonItem == nil) {
             self.navigationItem.rightBarButtonItem = _wikiButton;
         }
@@ -215,20 +215,20 @@ typedef enum {
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showItemSet"] && [self.detailItem class] == [SCWebApiItem class]) {
+    if ([[segue identifier] isEqualToString:@"showItemSet"] && [self.item isKindOfClass:[SCWebApiItem class] ]) {
         TTTAttributedLabel *itemSetLabel = (TTTAttributedLabel *)[[segue destinationViewController] view];
-        NSString *itemSetName = [((SCWebApiItem *)self.detailItem).itemSet objectForKey:@"name"];
+        NSString *itemSetName = [((SCWebApiItem *)self.item).itemSet objectForKey:@"name"];
         NSMutableAttributedString *itemSetText = [[NSMutableAttributedString alloc] init];
         [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:itemSetName]];
 
         [itemSetText appendAttributedString:[[NSAttributedString alloc] init]];
-        NSArray *items = [((SCWebApiItem *)self.detailItem).itemSet objectForKey:@"items"];
+        NSArray *items = [((SCWebApiItem *)self.item).itemSet objectForKey:@"items"];
         [items enumerateObjectsUsingBlock:^(NSString *itemName, NSUInteger idx, BOOL *stop) {
             if ([itemSetText length] > 0) {
                 [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
             }
-            NSNumber *defindex = [((SCWebApiInventory *)self.detailItem.inventory).schema itemDefIndexForName:itemName];
-            [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:[((SCWebApiInventory *)self.detailItem.inventory).schema itemValueForDefIndex:defindex andKey:@"item_name"]]];
+            NSNumber *defindex = [((SCWebApiInventory *)self.item.inventory).schema itemDefIndexForName:itemName];
+            [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:[((SCWebApiInventory *)self.item.inventory).schema itemValueForDefIndex:defindex andKey:@"item_name"]]];
         }];
         [itemSetLabel setText:itemSetText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
             UIFont *nameFont;
@@ -245,7 +245,7 @@ typedef enum {
 
         [itemSetLabel sizeToFit];
     } else if ([[segue identifier] isEqualToString:@"showWikiPage"]) {
-        NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", ((SCWebApiItem *)self.detailItem).defindex, [[NSLocale preferredLanguages] objectAtIndex:0]]];
+        NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", ((SCWebApiItem *)self.item).defindex, [[NSLocale preferredLanguages] objectAtIndex:0]]];
 
         UIWebView *webView = (UIWebView *)[[segue destinationViewController] view];
         if (![webView.request.URL.absoluteURL isEqual:wikiUrl]) {
@@ -263,11 +263,11 @@ typedef enum {
 
     if (indexPath.section == 0) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemTitleCell" forIndexPath:indexPath];
-        ((SCItemTitleCell *)cell).item = self.detailItem;
+        ((SCItemTitleCell *)cell).item = self.item;
     } else if (indexPath.section == 1) {
         SCItemImageCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemImageCell" forIndexPath:indexPath];
         cell = imageCell;
-        imageCell.item = self.detailItem;
+        imageCell.item = self.item;
         [imageCell refresh];
     } else if (indexPath.section == 2) {
         SCItemAttributeCell *attributeCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemAttributeCell"
@@ -278,17 +278,17 @@ typedef enum {
         switch ([self itemAttributeTypeForIndex:indexPath.item]) {
             case kOrigin:
                 attributeCell.name = kSCItemOrigin;
-                attributeCell.value = [self.detailItem origin];
+                attributeCell.value = self.item.origin;
                 break;
 
             case kQuality:
                 attributeCell.name = kSCItemQuality;
-                attributeCell.value = [self.detailItem qualityName];
+                attributeCell.value = self.item.qualityName;
                 break;
 
             case kItemSet:
                 attributeCell.name = kSCItemItemSet;
-                attributeCell.value = ((SCWebApiItem *)self.detailItem).itemSet[@"name"];
+                attributeCell.value = ((SCWebApiItem *)self.item).itemSet[@"name"];
                 break;
 
             default:
@@ -301,7 +301,7 @@ typedef enum {
         SCItemClassesTF2Cell *classesTF2Cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemClassesTF2Cell" forIndexPath:indexPath];
         cell = classesTF2Cell;
 
-        int equippedClasses = ((SCWebApiItem *)self.detailItem).equippedClasses;
+        int equippedClasses = ((SCWebApiItem *)self.item).equippedClasses;
         classesTF2Cell.classScoutImage.equipped = equippedClasses & 1;
         classesTF2Cell.classSoldierImage.equipped = equippedClasses & 4;
         classesTF2Cell.classPyroImage.equipped = equippedClasses & 64;
@@ -312,7 +312,7 @@ typedef enum {
         classesTF2Cell.classSniperImage.equipped = equippedClasses & 2;
         classesTF2Cell.classSpyImage.equipped = equippedClasses & 128;
 
-        int equippableClasses = ((SCWebApiItem *)self.detailItem).equippableClasses;
+        int equippableClasses = ((SCWebApiItem *)self.item).equippableClasses;
         classesTF2Cell.classScoutImage.equippable = equippableClasses & 1;
         classesTF2Cell.classSoldierImage.equippable = equippableClasses & 4;
         classesTF2Cell.classPyroImage.equippable = equippableClasses & 64;
@@ -334,15 +334,15 @@ typedef enum {
     CGFloat cellWidth = collectionView.frame.size.width - insets.left - insets.right;
 
     if (indexPath.section == 0) {
-        CGSize itemTitleSize = [self.detailItem.name sizeWithFont:[UIFont boldSystemFontOfSize:22.0]
-                                                constrainedToSize:CGSizeMake(cellWidth - 20.0, CGFLOAT_MAX)
-                                                    lineBreakMode:NSLineBreakByWordWrapping];
+        CGSize itemTitleSize = [self.item.name sizeWithFont:[UIFont boldSystemFontOfSize:22.0]
+                                          constrainedToSize:CGSizeMake(cellWidth - 20.0, CGFLOAT_MAX)
+                                              lineBreakMode:NSLineBreakByWordWrapping];
 
         return CGSizeMake(cellWidth, itemTitleSize.height + 28.0);
     } else if (indexPath.section == 1) {
         CGFloat height;
 
-        UIImage *cachedImage = [SCImageCache cachedImageForItem:self.detailItem];
+        UIImage *cachedImage = [SCImageCache cachedImageForItem:self.item];
         if (cachedImage != nil) {
             height = [SCItemImageCell heightOfCellForImage:cachedImage];
         } else {
@@ -384,7 +384,7 @@ typedef enum {
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    if ([self.detailItem.inventory.game isTF2]) {
+    if ([self.item.inventory.game isTF2]) {
         return 5;
     }
 
@@ -405,13 +405,13 @@ typedef enum {
 - (NSString *)itemAttributeValueForIndexPath:(NSIndexPath *)indexPath {
     switch ([self itemAttributeTypeForIndex:indexPath.item]) {
         case kOrigin:
-            return [self.detailItem origin];
+            return self.item.origin;
 
         case kQuality:
-            return [self.detailItem qualityName];
+            return self.item.qualityName;
 
         case kItemSet:
-            return ((SCWebApiItem *)self.detailItem).itemSet[@"name"];
+            return ((SCWebApiItem *)self.item).itemSet[@"name"];
 
         default:
             return nil;

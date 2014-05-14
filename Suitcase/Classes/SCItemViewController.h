@@ -14,7 +14,7 @@
 
 @interface SCItemViewController : UICollectionViewController <UIActionSheetDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISplitViewControllerDelegate, TTTAttributedLabelDelegate>
 
-@property (strong, nonatomic) id <SCItem> detailItem;
+@property (strong, nonatomic) id <SCItem> item;
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *wikiButton;
 
