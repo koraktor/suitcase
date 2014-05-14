@@ -2,7 +2,7 @@
 //  SCWikiViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2013, Sebastian Staudt
+//  Copyright (c) 2013-2014, Sebastian Staudt
 //
 
 #import "BPBarButtonItem.h"
@@ -19,6 +19,8 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+
     UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
     activityView.hidden = NO;
     [activityView sizeToFit];
@@ -34,8 +36,6 @@
         [BPBarButtonItem customizeBarButtonItem:self.backButton withStyle:BPBarButtonItemStyleStandardDark];
         [BPBarButtonItem customizeBarButtonItem:self.forwardButton withStyle:BPBarButtonItemStyleStandardDark];
     }
-
-    [super awakeFromNib];
 }
 
 - (IBAction)goBack:(id)sender
@@ -55,11 +55,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     [self.navigationController setToolbarHidden:NO animated:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+
     [self.navigationController setToolbarHidden:YES animated:animated];
 }
 

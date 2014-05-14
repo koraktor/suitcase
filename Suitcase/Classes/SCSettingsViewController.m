@@ -2,7 +2,7 @@
 //  SCSettingsViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2013, Sebastian Staudt
+//  Copyright (c) 2013-2014, Sebastian Staudt
 //
 
 #import "BPBarButtonItem.h"
@@ -15,13 +15,13 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         [BPBarButtonItem customizeBarButtonItem:self.navigationItem.leftBarButtonItem withStyle:BPBarButtonItemStyleAction];
     }
 
     self.delegate = self;
-
-    [super awakeFromNib];
 }
 
 - (IBAction)dismissSettings:(id)sender

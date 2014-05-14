@@ -60,6 +60,8 @@ typedef enum {
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+
     self.navigationItem.rightBarButtonItem = nil;
 
     FAKIcon *bookIcon = [FAKFontAwesome bookIconWithSize:0.0];

@@ -20,12 +20,12 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withTintColor:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:1.0]];
     }
-
-    [super awakeFromNib];
 }
 
 - (void)resolveSteamId
