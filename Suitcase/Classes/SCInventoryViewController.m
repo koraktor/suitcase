@@ -88,10 +88,7 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
             self.items = self.inventory.items;
             [self sortItems];
 
-            if (self.itemSections.count > 0 && [self.itemSections[0] count] > 0) {
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                                      atScrollPosition:UITableViewScrollPositionTop animated:YES];
-            }
+            [self.tableView setContentOffset:CGPointMake(0, self.searchBar.frame.size.height)];
         }
     }
 }
@@ -115,13 +112,6 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
             }
         }
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-
-    [self.tableView setContentOffset:CGPointMake(0, self.searchBar.frame.size.height)];
 }
 
 #pragma mark - Search Bar
