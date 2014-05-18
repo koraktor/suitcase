@@ -57,6 +57,8 @@
 		02435A9F1921F24600D1F779 /* SCImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 02435A9E1921F24600D1F779 /* SCImageCache.m */; };
 		02435AA319228F9500D1F779 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02435AA219228F9500D1F779 /* Crashlytics.framework */; };
 		0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */; };
+		02520FEF1923F0D7000F83AF /* SCItemSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 02520FEE1923F0D7000F83AF /* SCItemSet.m */; };
+		02520FF21923FFAE000F83AF /* SCItemSetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02520FF11923FFAE000F83AF /* SCItemSetCell.m */; };
 		0253605218334AF50019D250 /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0253603918334AF50019D250 /* TSMessage.m */; };
 		0253605318334AF50019D250 /* NotificationBackgroundError.png in Resources */ = {isa = PBXBuildFile; fileRef = 0253603C18334AF50019D250 /* NotificationBackgroundError.png */; };
 		0253605418334AF50019D250 /* NotificationBackgroundError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0253603D18334AF50019D250 /* NotificationBackgroundError@2x.png */; };
@@ -228,6 +230,10 @@
 		02435AA219228F9500D1F779 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0250CBD91693C8D100B20A6F /* SCWikiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWikiViewController.h; path = Classes/SCWikiViewController.h; sourceTree = "<group>"; };
 		0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWikiViewController.m; path = Classes/SCWikiViewController.m; sourceTree = "<group>"; };
+		02520FED1923F0D7000F83AF /* SCItemSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemSet.h; path = Classes/SCItemSet.h; sourceTree = "<group>"; };
+		02520FEE1923F0D7000F83AF /* SCItemSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemSet.m; path = Classes/SCItemSet.m; sourceTree = "<group>"; };
+		02520FF01923FFAE000F83AF /* SCItemSetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemSetCell.h; path = Classes/SCItemSetCell.h; sourceTree = "<group>"; };
+		02520FF11923FFAE000F83AF /* SCItemSetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemSetCell.m; path = Classes/SCItemSetCell.m; sourceTree = "<group>"; };
 		0253603818334AF50019D250 /* TSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMessage.h; sourceTree = "<group>"; };
 		0253603918334AF50019D250 /* TSMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMessage.m; sourceTree = "<group>"; };
 		0253603C18334AF50019D250 /* NotificationBackgroundError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationBackgroundError.png; sourceTree = "<group>"; };
@@ -461,6 +467,8 @@
 				02CD62D118D8F97700EFA973 /* SCItem.h */,
 				02D5BC59191982B2000D8206 /* SCItemQuality.h */,
 				02D5BC5A191982B2000D8206 /* SCItemQuality.m */,
+				02520FED1923F0D7000F83AF /* SCItemSet.h */,
+				02520FEE1923F0D7000F83AF /* SCItemSet.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -552,6 +560,8 @@
 				023FDB8318FAD353002D6FC0 /* SCItemDescriptionCell.m */,
 				023FDB7F18F84C49002D6FC0 /* SCItemImageCell.h */,
 				023FDB8018F84C49002D6FC0 /* SCItemImageCell.m */,
+				02520FF01923FFAE000F83AF /* SCItemSetCell.h */,
+				02520FF11923FFAE000F83AF /* SCItemSetCell.m */,
 				02E98C6119128C840039E1E7 /* SCItemTitleCell.h */,
 				02E98C6219128C840039E1E7 /* SCItemTitleCell.m */,
 				0241CF8D190BEF32005EC030 /* UIImageView+Border.h */,
@@ -1023,6 +1033,7 @@
 				0203A67818C6F60A00EF5E25 /* SCAbstractInventory.m in Sources */,
 				028B641715265D690040D2FF /* main.m in Sources */,
 				029F6940182E3EEC00851826 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				02520FF21923FFAE000F83AF /* SCItemSetCell.m in Sources */,
 				02E98C6319128C840039E1E7 /* SCItemTitleCell.m in Sources */,
 				02D5BC5B191982B2000D8206 /* SCItemQuality.m in Sources */,
 				029F6927182E3E5D00851826 /* AFHTTPRequestOperation.m in Sources */,
@@ -1052,6 +1063,7 @@
 				02010B74169E9CA000007456 /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				02010B75169E9CA000007456 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
 				02010B76169E9CA000007456 /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
+				02520FEF1923F0D7000F83AF /* SCItemSet.m in Sources */,
 				02010B77169E9CA000007456 /* IASKSlider.m in Sources */,
 				02010B78169E9CA000007456 /* IASKSwitch.m in Sources */,
 				02E98C60191274210039E1E7 /* SCItemClassesTF2Cell.m in Sources */,

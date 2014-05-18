@@ -5,12 +5,15 @@
 //  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
+#import "SCItemSet.h"
+
 #import "SCWebApiItem.h"
 
 @interface SCWebApiItem () {
     NSString *_killEaterDescription;
     NSNumber *_killEaterScore;
     NSNumber *_killEaterTypeIndex;
+    SCItemSet *_itemSet;
 }
 @end
 
@@ -305,9 +308,28 @@ NSString *const kSCHours = @"kSCHours";
     return _killEaterScore != nil;
 }
 
-- (NSDictionary *)itemSet {
-    NSString *itemSetKey = [self valueForKey:@"item_set"];
-    return [self.inventory.schema itemSetForKey:itemSetKey];
+- (SCItemSet *)itemSet {
+    if (_itemSet == nil) {
+        NSString *itemSetKey = [self valueForKey:@"item_set"];
+        if (itemSetKey == nil) {
+            return nil;
+        }
+
+        NSDictionary *itemSetData = self.inventory.schema.itemSets[itemSetKey];
+        NSMutableArray *itemSetItems = [NSMutableArray arrayWithCapacity:[itemSetData[@"items"] count]];
+        [itemSetData[@"items"] enumerateObjectsUsingBlock:^(NSString *itemName, NSUInteger idx, BOOL *stop) {
+            NSNumber *defindex = [self.inventory.schema itemDefIndexForName:itemName];
+            NSURL *imageUrl = [NSURL URLWithString:[self.inventory.schema itemValueForDefIndex:defindex
+                                                                                        andKey:@"image_url"]];
+            [itemSetItems addObject:@{ @"name": itemName, @"imageUrl": imageUrl }];
+        }];
+
+        _itemSet = [SCItemSet itemSetWithId:itemSetData[@"item_set"]
+                                    andName:itemSetData[@"name"]
+                                   andItems:itemSetItems];
+    }
+
+    return _itemSet;
 }
 
 - (NSString *)itemType {

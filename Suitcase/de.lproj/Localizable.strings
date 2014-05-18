@@ -20,6 +20,7 @@
 "kSCItemItemSet"                      = "Gegenstandsset";
 "kSCItemOrigin"                       = "Herkunft";
 "kSCItemQuality"                      = "Qualität";
+"kSCItemSetCellHeader"                = "Ist Teil des Sets:";
 "kSCOpenInChrome"                     = "In Chrome öffnen";
 "kSCOpenInSafari"                     = "In Safari öffnen";
 "kSCOpenLinkInBrowser"                = "Diesen Link im Browser öffnen?";

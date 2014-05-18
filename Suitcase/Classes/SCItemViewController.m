@@ -17,6 +17,7 @@
 #import "SCItemClassesTF2Cell.h"
 #import "SCItemDescriptionCell.h"
 #import "SCItemImageCell.h"
+#import "SCItemSetCell.h"
 #import "SCItemTitleCell.h"
 #import "SCItemAttributeCell.h"
 #import "SCItemViewController.h"
@@ -43,6 +44,7 @@ typedef enum {
     kSCCellTypeImage,
     kSCCellTypeAttribute,
     kSCCellTypeDescription,
+    kSCCellTypeItemSet,
     kSCCellTypeClassesTF2
 } SCCellType;
 
@@ -257,6 +259,14 @@ typedef enum {
 - (SCCellType)cellTypeForIndexPath:(NSIndexPath *)indexPath {
     NSUInteger section = indexPath.section;
 
+    if (section <= kSCCellTypeDescription) {
+        return section;
+    }
+
+    if (section == kSCCellTypeItemSet && ![self.item belongsToItemSet]) {
+        section ++;
+    }
+
     return section;
 }
 
@@ -316,6 +326,11 @@ typedef enum {
             break;
         }
 
+        case kSCCellTypeItemSet:
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemSetCell" forIndexPath:indexPath];
+            ((SCItemSetCell *)cell).item = self.item;
+            break;
+
         case kSCCellTypeTitle:
             cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemTitleCell" forIndexPath:indexPath];
             ((SCItemTitleCell *)cell).item = self.item;
@@ -374,6 +389,13 @@ typedef enum {
             return CGSizeMake(cellWidth, height);
         }
 
+        case kSCCellTypeItemSet: {
+            CGSize nameLabelSize = [self.item.itemSet.name sizeWithFont:[UIFont systemFontOfSize:16.0]
+                                                      constrainedToSize:CGSizeMake(290.0, CGFLOAT_MAX)
+                                                          lineBreakMode:NSLineBreakByWordWrapping];
+            return CGSizeMake(cellWidth, nameLabelSize.height + 25.0);
+        }
+
         case kSCCellTypeTitle: {
             CGSize itemTitleSize = [self.item.name sizeWithFont:[UIFont boldSystemFontOfSize:22.0]
                                               constrainedToSize:CGSizeMake(cellWidth - 20.0, CGFLOAT_MAX)
@@ -387,8 +409,7 @@ typedef enum {
     }
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView
-     numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (section == kSCCellTypeAttribute) {
         return [self numberOfItemAttributes];
     }
@@ -398,6 +419,10 @@ typedef enum {
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     NSUInteger numberOfSections = kSCCellTypeDescription + 1;
+
+    if ([self.item belongsToItemSet]) {
+        numberOfSections ++;
+    }
 
     if ([self.item.inventory.game isTF2]) {
         numberOfSections ++;

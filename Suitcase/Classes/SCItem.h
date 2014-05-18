@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "SCItemSet.h"
+
 #import "SCInventory.h"
 
 @protocol SCItem <NSObject>
@@ -23,6 +25,7 @@
 - (NSURL *)imageUrl;
 - (id<SCInventory>)inventory;
 - (BOOL)isKillEater;
+- (SCItemSet *)itemSet;
 - (NSString *)itemType;
 - (NSString *)levelText;
 - (NSString *)name;

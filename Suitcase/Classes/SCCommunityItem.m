@@ -136,7 +136,7 @@ static NSString *kImageSize;
     return NO;
 }
 
-- (NSDictionary *)itemSet {
+- (SCItemSet *)itemSet {
     return nil;
 }
 
