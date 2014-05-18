@@ -22,9 +22,6 @@
 #import "SCItemViewController.h"
 #import "SCWebApiItem.h"
 
-NSString *const kSCItemItemSet = @"kSCItemItemSet";
-NSString *const kSCItemOrigin = @"kSCItemOrigin";
-NSString *const kSCItemQuality = @"kSCItemQuality";
 NSString *const kSCOpenInChrome = @"kSCOpenInChrome";
 NSString *const kSCOpenInSafari = @"kSCOpenInSafari";
 NSString *const kSCOpenLinkInBrowser = @"kSCOpenLinkInBrowser";
@@ -42,10 +39,12 @@ static BOOL kChromeIsAvailable;
 static NSRegularExpression *kHTMLRegex;
 
 typedef enum {
-    kOrigin    = 1,
-    kQuality   = 2,
-    kItemSet   = 4
-} ItemAttribute;
+    kSCCellTypeTitle,
+    kSCCellTypeImage,
+    kSCCellTypeAttribute,
+    kSCCellTypeDescription,
+    kSCCellTypeClassesTF2
+} SCCellType;
 
 + (void)initialize {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
@@ -105,15 +104,11 @@ typedef enum {
     Byte attributes = 0;
 
     if ([self.item hasOrigin]) {
-        attributes |= kOrigin;
+        attributes |= SCItemAttributeTypeOrigin;
     }
 
     if ([self.item hasQuality]) {
-        attributes |= kQuality;
-    }
-
-    if ([self.item belongsToItemSet]) {
-        attributes |= kItemSet;
+        attributes |= SCItemAttributeTypeQuality;
     }
 
     return attributes;
@@ -259,71 +254,75 @@ typedef enum {
 
 #pragma mark - Collection View Data Source
 
+- (SCCellType)cellTypeForIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger section = indexPath.section;
+
+    return section;
+}
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SCCellType cellType = [self cellTypeForIndexPath:indexPath];
     UICollectionViewCell *cell;
 
-    if (indexPath.section == 0) {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemTitleCell" forIndexPath:indexPath];
-        ((SCItemTitleCell *)cell).item = self.item;
-    } else if (indexPath.section == 1) {
-        SCItemImageCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemImageCell" forIndexPath:indexPath];
-        cell = imageCell;
-        imageCell.item = self.item;
-        [imageCell refresh];
-    } else if (indexPath.section == 2) {
-        SCItemAttributeCell *attributeCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemAttributeCell"
-                                                                                       forIndexPath:indexPath];
-        cell = attributeCell;
-        attributeCell.value = [self itemAttributeValueForIndexPath:indexPath];
-
-        switch ([self itemAttributeTypeForIndex:indexPath.item]) {
-            case kOrigin:
-                attributeCell.name = kSCItemOrigin;
-                attributeCell.value = self.item.origin;
-                break;
-
-            case kQuality:
-                attributeCell.name = kSCItemQuality;
-                attributeCell.value = self.item.qualityName;
-                break;
-
-            case kItemSet:
-                attributeCell.name = kSCItemItemSet;
-                attributeCell.value = ((SCWebApiItem *)self.item).itemSet[@"name"];
-                break;
-
-            default:
-                [attributeCell empty];
+    switch (cellType) {
+        case kSCCellTypeAttribute: {
+            SCItemAttributeCell *attributeCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemAttributeCell"                                                                                           forIndexPath:indexPath];
+            cell = attributeCell;
+            attributeCell.item = self.item;
+            attributeCell.type = [self itemAttributeTypeForIndex:indexPath.item];
+            break;
         }
-    } else if (indexPath.section == 3) {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemDescriptionCell" forIndexPath:indexPath];
-        ((SCItemDescriptionCell *)cell).descriptionText = _itemDescription;
-    } else {
-        SCItemClassesTF2Cell *classesTF2Cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemClassesTF2Cell" forIndexPath:indexPath];
-        cell = classesTF2Cell;
 
-        int equippedClasses = ((SCWebApiItem *)self.item).equippedClasses;
-        classesTF2Cell.classScoutImage.equipped = equippedClasses & 1;
-        classesTF2Cell.classSoldierImage.equipped = equippedClasses & 4;
-        classesTF2Cell.classPyroImage.equipped = equippedClasses & 64;
-        classesTF2Cell.classDemomanImage.equipped = equippedClasses & 8;
-        classesTF2Cell.classHeavyImage.equipped = equippedClasses & 32;
-        classesTF2Cell.classEngineerImage.equipped = (equippedClasses & 256) != 0;
-        classesTF2Cell.classMedicImage.equipped = equippedClasses & 16;
-        classesTF2Cell.classSniperImage.equipped = equippedClasses & 2;
-        classesTF2Cell.classSpyImage.equipped = equippedClasses & 128;
+        case kSCCellTypeClassesTF2: {
+            SCItemClassesTF2Cell *classesTF2Cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemClassesTF2Cell" forIndexPath:indexPath];
+            cell = classesTF2Cell;
 
-        int equippableClasses = ((SCWebApiItem *)self.item).equippableClasses;
-        classesTF2Cell.classScoutImage.equippable = equippableClasses & 1;
-        classesTF2Cell.classSoldierImage.equippable = equippableClasses & 4;
-        classesTF2Cell.classPyroImage.equippable = equippableClasses & 64;
-        classesTF2Cell.classDemomanImage.equippable = equippableClasses & 8;
-        classesTF2Cell.classHeavyImage.equippable = equippableClasses & 32;
-        classesTF2Cell.classEngineerImage.equippable = (equippableClasses & 256) != 0;
-        classesTF2Cell.classMedicImage.equippable = equippableClasses & 16;
-        classesTF2Cell.classSniperImage.equippable = equippableClasses & 2;
-        classesTF2Cell.classSpyImage.equippable = equippableClasses & 128;
+            int equippedClasses = ((SCWebApiItem *)self.item).equippedClasses;
+            classesTF2Cell.classScoutImage.equipped = equippedClasses & 1;
+            classesTF2Cell.classSoldierImage.equipped = equippedClasses & 4;
+            classesTF2Cell.classPyroImage.equipped = equippedClasses & 64;
+            classesTF2Cell.classDemomanImage.equipped = equippedClasses & 8;
+            classesTF2Cell.classHeavyImage.equipped = equippedClasses & 32;
+            classesTF2Cell.classEngineerImage.equipped = (equippedClasses & 256) != 0;
+            classesTF2Cell.classMedicImage.equipped = equippedClasses & 16;
+            classesTF2Cell.classSniperImage.equipped = equippedClasses & 2;
+            classesTF2Cell.classSpyImage.equipped = equippedClasses & 128;
+
+            int equippableClasses = ((SCWebApiItem *)self.item).equippableClasses;
+            classesTF2Cell.classScoutImage.equippable = equippableClasses & 1;
+            classesTF2Cell.classSoldierImage.equippable = equippableClasses & 4;
+            classesTF2Cell.classPyroImage.equippable = equippableClasses & 64;
+            classesTF2Cell.classDemomanImage.equippable = equippableClasses & 8;
+            classesTF2Cell.classHeavyImage.equippable = equippableClasses & 32;
+            classesTF2Cell.classEngineerImage.equippable = (equippableClasses & 256) != 0;
+            classesTF2Cell.classMedicImage.equippable = equippableClasses & 16;
+            classesTF2Cell.classSniperImage.equippable = equippableClasses & 2;
+            classesTF2Cell.classSpyImage.equippable = equippableClasses & 128;
+
+            break;
+        }
+
+        case kSCCellTypeDescription:
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemDescriptionCell" forIndexPath:indexPath];
+            ((SCItemDescriptionCell *)cell).descriptionText = _itemDescription;
+            break;
+
+        case kSCCellTypeImage: {
+            SCItemImageCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemImageCell" forIndexPath:indexPath];
+            cell = imageCell;
+            imageCell.item = self.item;
+            [imageCell refresh];
+            break;
+        }
+
+        case kSCCellTypeTitle:
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemTitleCell" forIndexPath:indexPath];
+            ((SCItemTitleCell *)cell).item = self.item;
+            break;
+
+        default:
+            cell = [[UICollectionViewCell alloc] init];
     }
 
     return cell;
@@ -332,53 +331,65 @@ typedef enum {
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SCCellType cellType = [self cellTypeForIndexPath:indexPath];
     UIEdgeInsets insets = ((UICollectionViewFlowLayout *)collectionViewLayout).sectionInset;
     CGFloat cellWidth = collectionView.frame.size.width - insets.left - insets.right;
 
-    if (indexPath.section == 0) {
-        CGSize itemTitleSize = [self.item.name sizeWithFont:[UIFont boldSystemFontOfSize:22.0]
-                                          constrainedToSize:CGSizeMake(cellWidth - 20.0, CGFLOAT_MAX)
-                                              lineBreakMode:NSLineBreakByWordWrapping];
+    switch (cellType) {
+        case kSCCellTypeAttribute: {
+            NSString *attributeValue = [SCItemAttributeCell attributeValueForType:[self itemAttributeTypeForIndex:indexPath.item]
+                                                                          andItem:self.item];
+            CGSize attributeValueLabelSize = [attributeValue sizeWithFont:[UIFont systemFontOfSize:16.0]
+                                                        constrainedToSize:CGSizeMake(170.0, CGFLOAT_MAX)
+                                                            lineBreakMode:NSLineBreakByWordWrapping];
+            CGFloat cellHeight = attributeValueLabelSize.height + 10.0;
 
-        return CGSizeMake(cellWidth, itemTitleSize.height + 28.0);
-    } else if (indexPath.section == 1) {
-        CGFloat height;
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+                cellWidth = floorf(cellWidth / 2) - 5.0;
+            }
 
-        UIImage *cachedImage = [SCImageCache cachedImageForItem:self.item];
-        if (cachedImage != nil) {
-            height = [SCItemImageCell heightOfCellForImage:cachedImage];
-        } else {
-            height = 75.0;
+            return CGSizeMake(cellWidth, cellHeight);
         }
 
-        return CGSizeMake(cellWidth, height);
-    } else if (indexPath.section == 2) {
-        NSString *attributeValue = [self itemAttributeValueForIndexPath:indexPath];
-        CGSize attributeValueLabelSize = [attributeValue sizeWithFont:[UIFont systemFontOfSize:16.0]
-                                                    constrainedToSize:CGSizeMake(170.0, CGFLOAT_MAX)
-                                                        lineBreakMode:NSLineBreakByWordWrapping];
-        CGFloat cellHeight = attributeValueLabelSize.height;
+        case kSCCellTypeClassesTF2:
+            return CGSizeMake(cellWidth, [SCItemClassesTF2Cell cellHeight]);
 
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            cellHeight = cellHeight + 10.0;
-            cellWidth = floorf(cellWidth / 2) - 5.0;
+        case kSCCellTypeDescription: {
+            CGRect itemDescriptionLabelRect = [_itemDescription boundingRectWithSize:CGSizeMake(cellWidth - 20.0, CGFLOAT_MAX)
+                                                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                                                             context:nil];
+
+            return CGSizeMake(cellWidth, itemDescriptionLabelRect.size.height + 20.0);
         }
 
-        return CGSizeMake(cellWidth, cellHeight);
-    } else if (indexPath.section == 3) {
-        CGRect itemDescriptionLabelRect = [_itemDescription boundingRectWithSize:CGSizeMake(cellWidth - 20.0, CGFLOAT_MAX)
-                                                                         options:NSStringDrawingUsesLineFragmentOrigin
-                                                                         context:nil];
+        case kSCCellTypeImage: {
+            CGFloat height;
+            UIImage *cachedImage = [SCImageCache cachedImageForItem:self.item];
+            if (cachedImage != nil) {
+                height = [SCItemImageCell heightOfCellForImage:cachedImage];
+            } else {
+                height = 75.0;
+            }
 
-        return CGSizeMake(cellWidth, itemDescriptionLabelRect.size.height + 20.0);
-    } else {
-        return CGSizeMake(cellWidth, [SCItemClassesTF2Cell cellHeight]);
+            return CGSizeMake(cellWidth, height);
+        }
+
+        case kSCCellTypeTitle: {
+            CGSize itemTitleSize = [self.item.name sizeWithFont:[UIFont boldSystemFontOfSize:22.0]
+                                              constrainedToSize:CGSizeMake(cellWidth - 20.0, CGFLOAT_MAX)
+                                                  lineBreakMode:NSLineBreakByWordWrapping];
+
+            return CGSizeMake(cellWidth, itemTitleSize.height + 28.0);
+        }
+
+        default:
+            return CGSizeZero;
     }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section {
-    if (section == 2) {
+    if (section == kSCCellTypeAttribute) {
         return [self numberOfItemAttributes];
     }
 
@@ -386,11 +397,13 @@ typedef enum {
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    NSUInteger numberOfSections = kSCCellTypeDescription + 1;
+
     if ([self.item.inventory.game isTF2]) {
-        return 5;
+        numberOfSections ++;
     }
 
-    return 4;
+    return numberOfSections;
 }
 
 - (NSUInteger)numberOfItemAttributes {
@@ -404,35 +417,19 @@ typedef enum {
     return count;
 }
 
-- (NSString *)itemAttributeValueForIndexPath:(NSIndexPath *)indexPath {
-    switch ([self itemAttributeTypeForIndex:indexPath.item]) {
-        case kOrigin:
-            return self.item.origin;
-
-        case kQuality:
-            return self.item.qualityName;
-
-        case kItemSet:
-            return ((SCWebApiItem *)self.item).itemSet[@"name"];
-
-        default:
-            return nil;
-    }
-}
-
-- (ItemAttribute)itemAttributeTypeForIndex:(NSUInteger)attributeIndex {
+- (SCItemAttributeType)itemAttributeTypeForIndex:(NSUInteger)attributeIndex {
     NSUInteger attributeType = _attributes;
     for (int i = 0; i < attributeIndex; i ++) {
         attributeType &= attributeType - 1;
     }
     attributeType &= ~(attributeType - 1);
 
-    return (ItemAttribute)attributeType;
+    return (SCItemAttributeType)attributeType;
 }
 
 - (void)reloadItemImageCell {
     [self.collectionView setCollectionViewLayout:[[[self.collectionView.collectionViewLayout class] alloc] init] animated:YES];
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:kSCCellTypeTitle]
                                     atScrollPosition:UICollectionViewScrollPositionTop
                                             animated:YES];
 }

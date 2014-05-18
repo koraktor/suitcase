@@ -7,12 +7,21 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SCItem.h"
+
+typedef enum {
+    SCItemAttributeTypeOrigin  = 1,
+    SCItemAttributeTypeQuality = 2
+} SCItemAttributeType;
+
 @interface SCItemAttributeCell : UICollectionViewCell
 
-@property (nonatomic, retain) NSString *name;
+@property (strong, nonatomic) id <SCItem> item;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
-@property (nonatomic, retain) NSString *value;
+@property (nonatomic) SCItemAttributeType type;
 @property (strong, nonatomic) IBOutlet UILabel *valueLabel;
+
++ (NSString *)attributeValueForType:(SCItemAttributeType)type andItem:(id <SCItem>)item;
 
 - (void)empty;
 
