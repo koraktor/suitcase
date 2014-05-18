@@ -386,15 +386,15 @@ http://steamcommunity.com/profile/{Profile ID}
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" reuseIdentifier="ItemAttributeCell" id="8jd-bX-QQA" customClass="SCItemAttributeCell">
-                                <rect key="frame" x="0.0" y="157" width="320" height="16"/>
+                                <rect key="frame" x="0.0" y="157" width="320" height="25"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="16"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="25"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fdG-NA-1cD">
-                                            <rect key="frame" x="10" y="0.0" width="120" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                            <rect key="frame" x="12" y="5" width="120" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -402,7 +402,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                             <size key="shadowOffset" width="0.0" height="1"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PeZ-6N-e1F">
-                                            <rect key="frame" x="140" y="0.0" width="170" height="16"/>
+                                            <rect key="frame" x="140" y="5" width="170" height="16"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -413,14 +413,14 @@ http://steamcommunity.com/profile/{Profile ID}
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <size key="customSize" width="320" height="16"/>
+                                <size key="customSize" width="320" height="25"/>
                                 <connections>
                                     <outlet property="nameLabel" destination="fdG-NA-1cD" id="E2M-ds-WUp"/>
                                     <outlet property="valueLabel" destination="PeZ-6N-e1F" id="a7J-6D-SWZ"/>
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell clipsSubviews="YES" contentMode="center" reuseIdentifier="ItemDescriptionCell" id="2kR-q4-cyX" customClass="SCItemDescriptionCell">
-                                <rect key="frame" x="0.0" y="183" width="320" height="52"/>
+                                <rect key="frame" x="0.0" y="192" width="320" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
