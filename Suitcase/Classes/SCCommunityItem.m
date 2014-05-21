@@ -142,7 +142,16 @@ static NSString *kImageSize;
 }
 
 - (NSString *)itemType {
-    return [self valueForKey:@"type"];
+    NSString *itemType;
+
+    if ([self.inventory.game isSteam] && [[self.tags allKeys] containsObject:@"item_class"]) {
+        itemType = self.tags[@"item_class"][@"value"];
+    }
+    if (itemType == nil) {
+        itemType = [self valueForKey:@"type"];
+    }
+
+    return itemType;
 }
 
 - (NSString *)levelText {
