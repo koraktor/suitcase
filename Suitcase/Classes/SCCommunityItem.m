@@ -173,11 +173,22 @@ static NSString *kImageSize;
 }
 
 - (UIColor *)qualityColor {
+    if ([self.inventory.game isSteam]) {
+        return [UIColor colorWithRed:0.56 green:0.64 blue:0.73 alpha:1.0];
+    }
+
     return self.tags[@"Quality"][@"color"];
 }
 
 - (NSString *)qualityName {
-    return self.tags[@"Quality"][@"value"];
+    NSString *qualityName;
+    if ([self.inventory.game isSteam]) {
+        qualityName = self.tags[@"droprate"][@"value"];
+    } else {
+        qualityName = self.tags[@"Quality"][@"value"];
+    }
+
+    return [qualityName capitalizedStringWithLocale:NSLocale.currentLocale];
 }
 
 - (NSNumber *)quantity {
