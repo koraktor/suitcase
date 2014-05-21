@@ -290,7 +290,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
                 }
             }
 
-            if ([inventory.game.appId isEqualToNumber:@753]) {
+            if ([inventory.game isSteam]) {
                 newSteamInventory = (id)inventory;
             } else {
                 [newInventories addObject:inventory];

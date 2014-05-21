@@ -43,6 +43,10 @@
     return self;
 }
 
+- (BOOL)isSteam {
+    return [_appId intValue] == 753;
+}
+
 - (BOOL)isTF2
 {
     return [_appId intValue] == 440 || [_appId intValue] == 520;
