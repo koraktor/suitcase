@@ -123,12 +123,10 @@ static NSString *kImageSize;
 - (NSString *)imageIdentifier {
     NSString *identifier = [self valueForKey:@"icon_url_large"];
     if (identifier == nil || [identifier isEqualToString:@""]) {
-        identifier = [self valueForKey:@"icon_url"];
+        return self.iconIdentifier;
     } else {
-        identifier = [identifier stringByAppendingPathComponent:kImageSize];
+        return [identifier stringByAppendingPathComponent:kImageSize];
     }
-
-    return identifier;
 }
 
 - (NSURL *)imageUrl {
