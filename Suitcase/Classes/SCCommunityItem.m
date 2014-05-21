@@ -70,29 +70,32 @@ static NSString *kImageSize;
     if (_description == nil) {
         NSMutableString *description = [[NSMutableString alloc] init];
 
-        for (NSDictionary *descriptionData in [self valueForKey:@"descriptions"]) {
-            __block NSString *descriptionText = [descriptionData[@"value"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        id descriptions = [self valueForKey:@"descriptions"];
+        if ([descriptions isKindOfClass:[NSArray class]]) {
+            for (NSDictionary *descriptionData in descriptions) {
+                __block NSString *descriptionText = [descriptionData[@"value"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-            if ([descriptionText length] == 0) {
-                continue;
+                if ([descriptionText length] == 0) {
+                    continue;
+                }
+
+                [kDateRegex enumerateMatchesInString:descriptionText
+                                            options:0
+                                              range:NSMakeRange(0, [descriptionText length])
+                                         usingBlock:^(NSTextCheckingResult *result, __unused NSMatchingFlags flags, __unused BOOL *stop) {
+                                             NSTimeInterval timestamp = [[descriptionText substringWithRange:[result rangeAtIndex:1]] integerValue];
+                                             NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
+                                             NSString *dateString = [kDateFormatter stringFromDate:date];
+                                             descriptionText = [descriptionText stringByReplacingCharactersInRange:result.range
+                                                                                                        withString:dateString];
+                }];
+
+                if ([description length] > 0) {
+                    [description appendString:@"\n\n"];
+                }
+
+                [description appendString:descriptionText];
             }
-
-            [kDateRegex enumerateMatchesInString:descriptionText
-                                        options:0
-                                          range:NSMakeRange(0, [descriptionText length])
-                                     usingBlock:^(NSTextCheckingResult *result, __unused NSMatchingFlags flags, __unused BOOL *stop) {
-                                         NSTimeInterval timestamp = [[descriptionText substringWithRange:[result rangeAtIndex:1]] integerValue];
-                                         NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
-                                         NSString *dateString = [kDateFormatter stringFromDate:date];
-                                         descriptionText = [descriptionText stringByReplacingCharactersInRange:result.range
-                                                                                                    withString:dateString];
-            }];
-
-            if ([description length] > 0) {
-                [description appendString:@"\n\n"];
-            }
-
-            [description appendString:descriptionText];
         }
 
         _description = [NSString stringWithString:description];
