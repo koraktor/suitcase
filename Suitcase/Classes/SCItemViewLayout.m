@@ -9,9 +9,11 @@
 
 @implementation SCItemViewLayout
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
+- (instancetype)init {
+    self = [super init];
 
+    self.minimumInteritemSpacing = 0.0;
+    self.minimumLineSpacing = 0.0;
     self.sectionInset = UIEdgeInsetsMake(10.0, 10.0, 0.0, 10.0);
 
     return self;

@@ -79,7 +79,6 @@ static NSUInteger kMaxImageSize;
     self.imageView.hidden = YES;
     [self.activityIndicator startAnimating];
 
-    __block UIActivityIndicatorView *activityIndicator = self.activityIndicator;
     __block UIImageView *imageView = self.imageView;
     __weak typeof(self) weakSelf = self;
 
@@ -101,14 +100,9 @@ static NSUInteger kMaxImageSize;
                                        imageView.frame = CGRectMake(originX, kImageMargin,
                                                                     imageViewSize.width, imageViewSize.height);
 
-                                       if (imageView.hidden) {
-                                           [activityIndicator stopAnimating];
-                                           imageView.hidden = NO;
-                                       }
-
                                        if (request != nil) {
                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                               [[NSNotificationCenter defaultCenter] postNotificationName:@"itemImageLoaded" object:nil];
+                                               [[NSNotificationCenter defaultCenter] postNotificationName:@"itemImageLoaded" object:weakSelf];
                                            });
                                        }
                                    }

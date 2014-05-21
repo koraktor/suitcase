@@ -86,11 +86,11 @@ typedef enum {
                                                  name:kIASKAppSettingChanged
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadItemImageCell)
+                                             selector:@selector(reloadItemImageCell:)
                                                  name:@"itemImageLoaded"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadItemImageCell)
+                                             selector:@selector(reloadItemImageCell:)
                                                  name:@"showColorsChanged"
                                                object:nil];
 }
@@ -200,7 +200,7 @@ typedef enum {
 
 - (void)settingsChanged:(NSNotification *)notification {
     if ([notification.object isEqual:@"show_colors"]) {
-        [self reloadItemImageCell];
+        [self reloadItemImageCell:notification];
     }
 }
 
@@ -452,11 +452,22 @@ typedef enum {
     return (SCItemAttributeType)attributeType;
 }
 
-- (void)reloadItemImageCell {
-    [self.collectionView setCollectionViewLayout:[[[self.collectionView.collectionViewLayout class] alloc] init] animated:YES];
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:kSCCellTypeTitle]
+- (void)reloadItemImageCell:(NSNotification *)notification {
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:kSCCellTypeImage]];
+    } completion:^(BOOL finished) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:kSCCellTypeTitle]
                                     atScrollPosition:UICollectionViewScrollPositionTop
                                             animated:YES];
+
+        if ([notification.object isKindOfClass:[SCItemImageCell class]]) {
+            SCItemImageCell *imageCell = notification.object;
+            if (imageCell.imageView.hidden) {
+                [imageCell.activityIndicator stopAnimating];
+                imageCell.imageView.hidden = NO;
+            }
+        }
+    }];
 }
 
 #pragma mark Link handling
