@@ -79,6 +79,12 @@ static NSString *kImageSize;
                     continue;
                 }
 
+                if ([self.inventory.game isSteam] &&
+                    [self.tags[@"item_class"][@"raw_value"] isEqualToString:@"item_class_4"] &&
+                    [descriptionData[@"type"] isEqualToString:@"html"]) {
+                    continue;
+                }
+
                 [kDateRegex enumerateMatchesInString:descriptionText
                                             options:0
                                               range:NSMakeRange(0, [descriptionText length])
