@@ -321,6 +321,8 @@ NSString *const kSCHours = @"kSCHours";
             NSNumber *defindex = [self.inventory.schema itemDefIndexForName:itemName];
             NSURL *imageUrl = [NSURL URLWithString:[self.inventory.schema itemValueForDefIndex:defindex
                                                                                         andKey:@"image_url"]];
+            itemName = [self.inventory.schema itemValueForDefIndex:defindex andKey:@"item_name"];
+
             [itemSetItems addObject:@{ @"name": itemName, @"imageUrl": imageUrl }];
         }];
 
