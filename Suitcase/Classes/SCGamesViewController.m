@@ -305,8 +305,6 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
             weakSelf.steamInventory = newSteamInventory;
 
             [weakSelf.tableView reloadData];
-            [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:NSNotFound inSection:0]
-                                      atScrollPosition:UITableViewScrollPositionTop animated:YES];
 
 #ifdef DEBUG
             NSUInteger inventoryCount = weakSelf.inventories.count;
