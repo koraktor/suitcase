@@ -128,6 +128,11 @@ typedef enum {
     if (_item != item) {
         _item = item;
 
+        if (item == nil) {
+            _itemDescription = nil;
+            return;
+        }
+
         NSMutableAttributedString *itemDescription;
         if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
             NSString *nonHTMLItemDescription = [kHTMLRegex stringByReplacingMatchesInString:self.item.descriptionText
