@@ -104,7 +104,12 @@ static NSString *kImageSize;
             }
         }
 
-        _description = [NSString stringWithString:description];
+        NSString *strippedDescription = [description stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (strippedDescription.length == 0) {
+            _description = strippedDescription;
+        } else {
+            _description = [NSString stringWithString:description];
+        }
     }
 
     return _description;
