@@ -9,14 +9,10 @@
 
 @implementation SCItemViewLayout
 
-- (instancetype)init {
-    self = [super init];
+- (void)awakeFromNib {
+    [super awakeFromNib];
 
-    self.minimumInteritemSpacing = 0.0;
     self.minimumLineSpacing = 0.0;
-    self.sectionInset = UIEdgeInsetsMake(10.0, 10.0, 0.0, 10.0);
-
-    return self;
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {

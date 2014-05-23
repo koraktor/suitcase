@@ -256,26 +256,11 @@ typedef enum {
 
 #pragma mark - Collection View Data Source
 
-- (SCCellType)cellTypeForIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger section = indexPath.section;
-
-    if (section <= kSCCellTypeDescription) {
-        return section;
-    }
-
-    if (section == kSCCellTypeItemSet && ![self.item belongsToItemSet]) {
-        section ++;
-    }
-
-    return section;
-}
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    SCCellType cellType = [self cellTypeForIndexPath:indexPath];
     UICollectionViewCell *cell;
 
-    switch (cellType) {
+    switch (indexPath.section) {
         case kSCCellTypeAttribute: {
             SCItemAttributeCell *attributeCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemAttributeCell"                                                                                           forIndexPath:indexPath];
             cell = attributeCell;
@@ -346,11 +331,10 @@ typedef enum {
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    SCCellType cellType = [self cellTypeForIndexPath:indexPath];
     UIEdgeInsets insets = ((UICollectionViewFlowLayout *)collectionViewLayout).sectionInset;
     CGFloat cellWidth = collectionView.frame.size.width - insets.left - insets.right;
 
-    switch (cellType) {
+    switch (indexPath.section) {
         case kSCCellTypeAttribute: {
             NSString *attributeValue = [SCItemAttributeCell attributeValueForType:[self itemAttributeTypeForIndex:indexPath.item]
                                                                           andItem:self.item];
@@ -393,7 +377,7 @@ typedef enum {
             CGSize nameLabelSize = [self.item.itemSet.name sizeWithFont:[UIFont systemFontOfSize:16.0]
                                                       constrainedToSize:CGSizeMake(290.0, CGFLOAT_MAX)
                                                           lineBreakMode:NSLineBreakByWordWrapping];
-            return CGSizeMake(cellWidth, nameLabelSize.height + 25.0);
+            return CGSizeMake(cellWidth, nameLabelSize.height + 35.0);
         }
 
         case kSCCellTypeTitle: {
@@ -410,25 +394,26 @@ typedef enum {
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (section == kSCCellTypeAttribute) {
-        return [self numberOfItemAttributes];
-    }
+    switch (section) {
+        case kSCCellTypeAttribute:
+            return [self numberOfItemAttributes];
 
-    return 1;
+        case kSCCellTypeClassesTF2:
+            return ([self.item.inventory.game isTF2]) ? 1 : 0;
+
+        case kSCCellTypeDescription:
+            return (self.item.descriptionText.length == 0) ? 0 : 1;
+
+        case kSCCellTypeItemSet:
+            return ([self.item belongsToItemSet]) ? 1 : 0;
+
+        default:
+            return 1;
+    }
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    NSUInteger numberOfSections = kSCCellTypeDescription + 1;
-
-    if ([self.item belongsToItemSet]) {
-        numberOfSections ++;
-    }
-
-    if ([self.item.inventory.game isTF2]) {
-        numberOfSections ++;
-    }
-
-    return numberOfSections;
+    return kSCCellTypeClassesTF2 + 1;
 }
 
 - (NSUInteger)numberOfItemAttributes {
