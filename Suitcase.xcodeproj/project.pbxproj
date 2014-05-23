@@ -885,6 +885,12 @@
 			attributes = {
 				CLASSPREFIX = SC;
 				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = koraktor.de;
+				TargetAttributes = {
+					028B640515265D680040D2FF = {
+						DevelopmentTeam = J7C4VNR3HR;
+					};
+				};
 			};
 			buildConfigurationList = 028B640015265D680040D2FF /* Build configuration list for PBXProject "Suitcase" */;
 			compatibilityVersion = "Xcode 3.2";
