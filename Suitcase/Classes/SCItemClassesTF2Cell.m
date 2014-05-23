@@ -24,15 +24,15 @@ static CGFloat kCellHeight;
 }
 
 - (void)awakeFromNib {
-    [self.classScoutImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/scout.jpg"]];
-    [self.classSoldierImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/soldier.jpg"]];
-    [self.classPyroImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/pyro.jpg"]];
-    [self.classDemomanImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/demoman.jpg"]];
-    [self.classHeavyImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/heavy.jpg"]];
-    [self.classEngineerImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/engineer.jpg"]];
-    [self.classMedicImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/medic.jpg"]];
-    [self.classSniperImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/sniper.jpg"]];
-    [self.classSpyImage setClassImageWithURL:[NSURL URLWithString:@"http://cdn.steamcommunity.com/public/images/gamestats/440/spy.jpg"]];
+    [self.classScoutImage setClassImageForClass:@"scout"];
+    [self.classSoldierImage setClassImageForClass:@"soldier"];
+    [self.classPyroImage setClassImageForClass:@"pyro"];
+    [self.classDemomanImage setClassImageForClass:@"demoman"];
+    [self.classHeavyImage setClassImageForClass:@"heavy"];
+    [self.classEngineerImage setClassImageForClass:@"engineer"];
+    [self.classMedicImage setClassImageForClass:@"medic"];
+    [self.classSniperImage setClassImageForClass:@"sniper"];
+    [self.classSpyImage setClassImageForClass:@"spy"];
 }
 
 @end

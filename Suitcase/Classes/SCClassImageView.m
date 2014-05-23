@@ -9,6 +9,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+AFNetworking.h"
 
+#import "SCImageCache.h"
+
 #import "SCClassImageView.h"
 
 @implementation SCClassImageView
@@ -45,28 +47,23 @@
     return imageView;
 }
 
-- (void)setClassImageWithURL:(NSURL *)url
+- (void)setClassImageForClass:(NSString *)className
 {
-    __block UIImageView *imageView = self.imageView;
+    NSString *identifier = [NSString stringWithFormat:@"tf2_%@", className];
+    UIImage *image = [SCImageCache cachedImageForIdentifier:identifier];
 
+    if (image != nil) {
+        self.image = image;
+        return;
+    }
+
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.steamcommunity.com/public/images/gamestats/440/%@.jpg", className]];
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url]
                           placeholderImage:nil
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       CGFloat scale = [[UIScreen mainScreen] scale];
-                                       CGRect imageRect = CGRectMake(0, 0, image.size.width * scale, image.size.height * scale);
-                                       CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-                                       CGContextRef context = CGBitmapContextCreate(nil, image.size.width * scale, image.size.height * scale, 8, 0, colorSpace, (CGBitmapInfo) kCGImageAlphaNone);
-                                       CGContextDrawImage(context, imageRect, [image CGImage]);
-                                       CGImageRef imageRef = CGBitmapContextCreateImage(context);
+                                       self.image = image;
 
-                                       imageView.highlightedImage = image;
-                                       imageView.image = [UIImage imageWithCGImage:imageRef
-                                                                             scale:scale
-                                                                       orientation:UIImageOrientationUp];
-
-                                       CGColorSpaceRelease(colorSpace);
-                                       CGContextRelease(context);
-                                       CFRelease(imageRef);
+                                       [SCImageCache cacheImage:image forIdentifier:identifier];
                                    }
                                    failure:nil];
 }
@@ -90,10 +87,22 @@
     }
 }
 
-- (void)setHidden:(BOOL)hidden {
-    self.imageView.hidden = hidden;
+- (void)setImage:(UIImage *)image {
+    CGFloat scale = [[UIScreen mainScreen] scale];
+    CGRect imageRect = CGRectMake(0, 0, image.size.width * scale, image.size.height * scale);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    CGContextRef context = CGBitmapContextCreate(nil, image.size.width * scale, image.size.height * scale, 8, 0, colorSpace, (CGBitmapInfo) kCGImageAlphaNone);
+    CGContextDrawImage(context, imageRect, [image CGImage]);
+    CGImageRef imageRef = CGBitmapContextCreateImage(context);
 
-    [super setHidden:hidden];
+    self.imageView.highlightedImage = image;
+    self.imageView.image = [UIImage imageWithCGImage:imageRef
+                                               scale:scale
+                                         orientation:UIImageOrientationUp];
+
+    CGColorSpaceRelease(colorSpace);
+    CGContextRelease(context);
+    CFRelease(imageRef);
 }
 
 @end
