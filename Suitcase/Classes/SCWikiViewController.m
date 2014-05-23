@@ -30,7 +30,9 @@
 
     self.backButton.title = [[FAKFontAwesome arrowLeftIconWithSize:0.0] characterCode];
     [self.backButton setTitleTextAttributes:@{UITextAttributeFont:fontAwesome} forState:UIControlStateNormal];
-    [BPBarButtonItem customizeBarButtonItem:self.backButton withStyle:BPBarButtonItemStyleStandardDark];
+
+    self.forwardButton.title = [[FAKFontAwesome arrowRightIconWithSize:0.0] characterCode];
+    [self.forwardButton setTitleTextAttributes:@{UITextAttributeFont:fontAwesome} forState:UIControlStateNormal];
 
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         [BPBarButtonItem customizeBarButtonItem:self.backButton withStyle:BPBarButtonItemStyleStandardDark];
