@@ -43,6 +43,7 @@ NSString *const kSCAvailableGamesErrorTitle   = @"kSCAvailableGamesErrorTitle";
 const NSInteger kSCGamesErrorView = 1;
 NSString *const kSCGamesErrorMessage                = @"kSCGamesErrorMessage";
 NSString *const kSCGamesErrorTitle                  = @"kSCGamesErrorTitle";
+NSString *const kSCGamesNoInventories               = @"kSCGamesNoInventories";
 NSString *const kSCInventoryLoadingFailed           = @"kSCInventoryLoadingFailed";
 NSString *const kSCInventoryLoadingFailedDetail     = @"kSCInventoryLoadingFailedDetail";
 NSString *const kSCReloadingFailedInventory         = @"kSCReloadingFailedInventory";
@@ -51,6 +52,12 @@ NSString *const kSCReloadingOutdatedInventory       = @"kSCReloadingOutdatedInve
 NSString *const kSCReloadingOutdatedInventoryDetail = @"kSCReloadingOutdatedInventoryDetail";
 NSString *const kSCSchemaIsLoading                  = @"kSCSchemaIsLoading";
 NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail";
+
+typedef NS_ENUM(NSUInteger, SCInventorySection) {
+    SCInventorySectionNoInventories,
+    SCInventorySectionSteam,
+    SCInventorySectionGames
+};
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -78,7 +85,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
                                                  name:kIASKAppSettingChanged
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(inventoryLoaded)
+                                             selector:@selector(inventoryLoaded:)
                                                  name:@"inventoryLoaded"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -164,11 +171,28 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
 - (void)loadGames
 {
+    [self.tableView beginUpdates];
+
+    if (self.steamInventory != nil) {
+        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]]
+                              withRowAnimation:UITableViewRowAnimationLeft];
+    }
+
+    if (self.inventories.count > 0) {
+        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:self.inventories.count];
+        for (int i = 0; i < self.inventories.count; i ++) {
+            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:2]];
+        }
+        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationLeft];
+    }
+
     self.inventories = [NSArray array];
     self.steamInventory = nil;
-    if (self.tableView != nil) {
-        [self.tableView reloadData];
-    }
+
+    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]]
+                          withRowAnimation:UITableViewRowAnimationFade];
+
+    [self.tableView endUpdates];
 
     UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
     if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
@@ -223,8 +247,38 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
     [gamesOperation start];
 }
 
-- (void)inventoryLoaded
+- (void)inventoryLoaded:(NSNotification *)notification
 {
+    id <SCInventory> inventory = notification.object;
+
+    NSLog(@"Loaded inventory for game \"%@\"", inventory.game.name);
+
+    BOOL skipEmptyInventories;
+    NSNumber *rawSkipEmptyInventories = [[NSUserDefaults standardUserDefaults] valueForKey:@"skip_empty_inventories"];
+    if (rawSkipEmptyInventories == nil) {
+        skipEmptyInventories = YES;
+    } else {
+        skipEmptyInventories = [rawSkipEmptyInventories boolValue];
+    }
+    BOOL skipFailedInventories;
+    NSNumber *rawSkipFailedInventories = [[NSUserDefaults standardUserDefaults] valueForKey:@"skip_failed_inventories"];
+    if (rawSkipFailedInventories == nil) {
+        skipFailedInventories = NO;
+    } else {
+        skipFailedInventories = [rawSkipFailedInventories boolValue];
+    }
+
+    BOOL skipped = NO;
+    if ([inventory isSuccessful]) {
+        if (skipEmptyInventories && [inventory isEmpty]) {
+            skipped = YES;
+        }
+    } else {
+        if (skipFailedInventories && [inventory temporaryFailed]) {
+            skipped = YES;
+        }
+    }
+
     if (_waitingForInventoryReload) {
         [TSMessage dismissActiveNotificationWithCompletion:^{
             _waitingForInventoryReload = NO;
@@ -242,81 +296,59 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
                                        canBeDismissedByUser:YES];
             }
         }];
-    }
 
-    [NSThread detachNewThreadSelector:@selector(populateInventories) toTarget:self withObject:nil];
-}
-
-- (void)populateInventories
-{
-#ifdef DEBUG
-    NSLog(@"Populating inventories…");
-#endif
-
-    __weak SCGamesViewController *weakSelf = self;
-    NSBlockOperation *populateOperation = [NSBlockOperation blockOperationWithBlock:^{
-        NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] valueForKey:@"SteamID64"];
-
-        BOOL skipEmptyInventories;
-        NSNumber *rawSkipEmptyInventories = [[NSUserDefaults standardUserDefaults] valueForKey:@"skip_empty_inventories"];
-        if (rawSkipEmptyInventories == nil) {
-            skipEmptyInventories = YES;
+        NSIndexPath *indexPath;
+        if ([inventory.game isSteam]) {
+            indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
         } else {
-            skipEmptyInventories = [rawSkipEmptyInventories boolValue];
-        }
-        BOOL skipFailedInventories;
-        NSNumber *rawSkipFailedInventories = [[NSUserDefaults standardUserDefaults] valueForKey:@"skip_failed_inventories"];
-        if (rawSkipFailedInventories == nil) {
-            skipFailedInventories = NO;
-        } else {
-            skipFailedInventories = [rawSkipFailedInventories boolValue];
+            indexPath = [NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:2];
         }
 
-        NSArray *inventories = [[SCAbstractInventory inventoriesForUser:steamId64] allValues];
-        __block SCCommunityInventory *newSteamInventory;
-        NSMutableArray *newInventories = [NSMutableArray arrayWithCapacity:inventories.count];
-        [inventories enumerateObjectsUsingBlock:^(id <SCInventory> inventory, NSUInteger idx, BOOL *stop) {
-            if (![inventory isLoaded]) {
-                return;
-            }
+        [self.tableView beginUpdates];
+        if (skipped) {
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+        } else {
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationNone];
+        }
+        [self.tableView endUpdates];
+    } else {
+        if (skipped) {
+            return;
+        }
 
-            if ([inventory isSuccessful]) {
-                if (skipEmptyInventories && [inventory isEmpty]) {
-                    return;
-                }
-            } else {
-                if (skipFailedInventories && [inventory temporaryFailed]) {
-                    return;
-                }
-            }
+        [self.tableView beginUpdates];
 
-            if ([inventory.game isSteam]) {
-                newSteamInventory = (id)inventory;
-            } else {
-                [newInventories addObject:inventory];
-            }
-        }];
+        if (self.steamInventory == nil && self.inventories.count == 0) {
+            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+        }
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.inventories = [newInventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
+        if ([inventory.game isSteam]) {
+            self.steamInventory = inventory;
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]]
+                                                    withRowAnimation:UITableViewRowAnimationFade];
+        } else {
+            NSArray *newInventories = [self.inventories arrayByAddingObject:inventory];
+            self.inventories = [newInventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
                 return [inv1.game.name compare:inv2.game.name];
             }];
-
-            weakSelf.steamInventory = newSteamInventory;
-
-            [weakSelf.tableView reloadData];
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:2]]
+                                  withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2]
+                          withRowAnimation:UITableViewRowAnimationNone];
+        }
+        [self.tableView endUpdates];
 
 #ifdef DEBUG
-            NSUInteger inventoryCount = weakSelf.inventories.count;
-            if (_steamInventory != nil) {
-                inventoryCount ++;
-            }
-            NSLog(@"Loaded %lu inventories for user %@.", (unsigned long) inventoryCount, steamId64);
+        NSUInteger inventoryCount = self.inventories.count;
+        if (_steamInventory != nil) {
+            inventoryCount ++;
+        }
+        NSLog(@"Loaded %lu inventories.", (unsigned long) inventoryCount);
 #endif
-        });
-    }];
-
-    [populateOperation start];
+    }
 }
 
 - (void)populateGames:(NSArray *)games
@@ -375,11 +407,46 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 }
 
 - (void)settingsChanged:(NSNotification *)notification {
-    if ([notification.object isEqual:@"skip_empty_inventories"] ||
-        [notification.object isEqual:@"skip_failed_inventories"]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            [self populateInventories];
-        });
+    NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] valueForKey:@"SteamID64"];
+    NSArray *inventories = [[SCAbstractInventory inventoriesForUser:steamId64] allValues];
+    NSMutableArray *newInventories = [NSMutableArray arrayWithCapacity:inventories.count];
+
+    BOOL skipEmptyInventories = [[[NSUserDefaults standardUserDefaults] valueForKey:@"skip_empty_inventories"] boolValue];
+    BOOL skipFailedInventories = [[[NSUserDefaults standardUserDefaults] valueForKey:@"skip_failed_inventories"] boolValue];
+
+    [inventories enumerateObjectsUsingBlock:^(id <SCInventory> inventory, NSUInteger idx, BOOL *stop) {
+        if (![inventory isLoaded]) {
+            return;
+        }
+
+        if ([inventory isSuccessful]) {
+            if (skipEmptyInventories && [inventory isEmpty]) {
+                return;
+            }
+        } else {
+            if (skipFailedInventories && [inventory temporaryFailed]) {
+                return;
+            }
+        }
+
+        if ([inventory.game isSteam]) {
+            self.steamInventory = inventory;
+        } else {
+            [newInventories addObject:inventory];
+        }
+    }];
+
+    self.inventories = [newInventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
+        return [inv1.game.name compare:inv2.game.name];
+    }];
+
+    if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)];
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    } else {
+        [self.tableView reloadData];
     }
 }
 
@@ -450,7 +517,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0 || [self.inventories count] == 0) {
+    if (section != SCInventorySectionGames || [self.inventories count] == 0) {
         return 0.0;
     }
 
@@ -459,7 +526,7 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section == 0 || [self.inventories count] == 0) {
+    if (section != SCInventorySectionGames || [self.inventories count] == 0) {
         return nil;
     }
 
@@ -500,13 +567,19 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return SCInventorySectionGames + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == SCInventorySectionNoInventories) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoInventoriesCell"];
+        cell.textLabel.text = NSLocalizedString(kSCGamesNoInventories, kSCGamesNoInventories);
+        return cell;
+    }
+
     SCInventoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InventoryCell"];
-    if (indexPath.section == 0) {
+    if (indexPath.section == SCInventorySectionSteam) {
         cell.inventory = self.steamInventory;
     } else {
         cell.inventory = [self.inventories objectAtIndex:indexPath.row];
@@ -518,7 +591,11 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
+    if (indexPath.section == SCInventorySectionNoInventories) {
+        return;
+    }
+
+    if (indexPath.section == SCInventorySectionSteam) {
         _currentInventory = self.steamInventory;
     } else {
         _currentInventory = [self.inventories objectAtIndex:indexPath.row];
@@ -529,7 +606,9 @@ NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == SCInventorySectionNoInventories) {
+        return (self.steamInventory == nil && self.inventories.count == 0) ? 1 : 0;
+    } else if (section == SCInventorySectionSteam) {
         return (self.steamInventory == nil) ? 0 : 1;
     } else {
         return [self.inventories count];

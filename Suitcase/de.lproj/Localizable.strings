@@ -9,6 +9,7 @@
 "kSCAvailableGamesErrorTitle"         = "Fehler beim Laden der verfügbaren Spiele";
 "kSCGamesErrorMessage"                = "Spiele des Benutzers konnten nicht geladen werden:\n%@\n\nDu kannst es entweder erneut versuchen oder einen anderen Benutzer auswählen.";
 "kSCGamesErrorTitle"                  = "Fehler beim Laden der Spiele dieses Benutzers";
+"kSCGamesNoInventories"               = "Keine Inventare";
 "kSCHour"                             = "%d Stunde";
 "kSCHours"                            = "%d Stunden";
 "kSCInventoryCellLoadingFailed"       = "Fehler. Antippen zum Wiederholen.";

@@ -94,11 +94,9 @@ static NSMutableDictionary *__inventories;
     NSNumber *showColors = [[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"];
     self.showColors = (showColors == nil) ? YES : [showColors boolValue];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"inventoryLoaded" object:self];
-
-#ifdef DEBUG
-    NSLog(@"Loading inventory for game \"%@\" finished.", self.game.name);
-#endif
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"inventoryLoaded" object:self];
+    });
 }
 
 - (BOOL)isLoaded
