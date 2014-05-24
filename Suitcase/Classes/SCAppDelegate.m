@@ -56,6 +56,28 @@ static SCWebApiRequestOperationManager *_webApiClient;
     [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
 }
 
++ (void)errorWithTitle:(NSString *)title andMessage:(NSString *)message inController:(UIViewController *)controller {
+    NSShadow *iconShadow = [NSShadow new];
+    [iconShadow setShadowColor:[UIColor colorWithRed:0.2 green:0.1 blue:0.1 alpha:1.0]];
+    [iconShadow setShadowOffset:CGSizeMake(0.0, 1.0)];
+
+    FAKIcon *warningIcon = [FAKFontAwesome exclamationTriangleIconWithSize:32.0];
+    [warningIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    [warningIcon addAttribute:NSShadowAttributeName value:iconShadow];
+
+    [TSMessage showNotificationInViewController:controller
+                                          title:title
+                                       subtitle:message
+                                          image:[warningIcon imageWithSize:CGSizeMake(32.0, 32.0)]
+                                           type:TSMessageNotificationTypeError
+                                       duration:TSMessageNotificationDurationAutomatic
+                                       callback:nil
+                                    buttonTitle:nil
+                                 buttonCallback:nil
+                                     atPosition:TSMessageNotificationPositionTop
+                           canBeDismissedByUser:NO];
+}
+
 + (SCWebApiRequestOperationManager *)webApiClient
 {
     if (_webApiClient == nil) {

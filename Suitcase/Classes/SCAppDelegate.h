@@ -17,6 +17,7 @@
 + (SCCommunityRequestOperationManager *)communityClient;
 + (SCWebApiRequestOperationManager *)webApiClient;
 + (void)errorWithMessage:(NSString *)errorMessage;
++ (void)errorWithTitle:(NSString *)title andMessage:(NSString *)message inController:(UIViewController *)controller;
 
 - (void)defaultsChanged:(NSNotification *)notification;
 
