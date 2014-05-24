@@ -19,6 +19,7 @@
 
 NSString *const kSCHour = @"kSCHour";
 NSString *const kSCHours = @"kSCHours";
+const NSUInteger kSCKillEaterDefindex = 214;
 
 @implementation SCWebApiItem
 
@@ -92,7 +93,7 @@ NSString *const kSCHours = @"kSCHours";
         NSMutableArray *attributes = [NSMutableArray arrayWithCapacity:[mergedAttributes count]];
 
         [mergedAttributes enumerateObjectsUsingBlock:^(NSDictionary *itemAttribute, NSUInteger idx, BOOL *stop) {
-            if ([itemAttribute[@"defindex"] isEqualToNumber:@214]) {
+            if ([itemAttribute[@"defindex"] isEqualToNumber:[NSNumber numberWithInt:kSCKillEaterDefindex]]) {
                 _killEaterScore = itemAttribute[@"value"];
             } else if ([itemAttribute[@"name"] isEqualToString:@"kill eater score type"]) {
                 _killEaterTypeIndex = itemAttribute[@"float_value"];
