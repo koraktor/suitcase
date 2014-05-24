@@ -41,6 +41,7 @@
 		020EB43015852C2800654D2A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 020EB42F15852C2800654D2A /* MessageUI.framework */; };
 		0213CC331769087F0010908D /* cell_selection_gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 0213CC311769087F0010908D /* cell_selection_gradient.png */; };
 		0213CC341769087F0010908D /* cell_selection_gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0213CC321769087F0010908D /* cell_selection_gradient@2x.png */; };
+		021E72011928EF600056D784 /* SCItemSetItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E72001928EF600056D784 /* SCItemSetItemCell.m */; };
 		0220FFC815D7A84700AB8AA3 /* SCInventoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */; };
 		02238C671914E88B0050CDCF /* SCItemViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 02238C661914E88B0050CDCF /* SCItemViewLayout.m */; };
 		022D0CCF158349B80071F665 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 022D0CCD158349B80071F665 /* Localizable.strings */; };
@@ -202,6 +203,8 @@
 		020EB42F15852C2800654D2A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		0213CC311769087F0010908D /* cell_selection_gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cell_selection_gradient.png; path = Images/cell_selection_gradient.png; sourceTree = "<group>"; };
 		0213CC321769087F0010908D /* cell_selection_gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cell_selection_gradient@2x.png"; path = "Images/cell_selection_gradient@2x.png"; sourceTree = "<group>"; };
+		021E71FF1928EF600056D784 /* SCItemSetItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemSetItemCell.h; path = Classes/SCItemSetItemCell.h; sourceTree = "<group>"; };
+		021E72001928EF600056D784 /* SCItemSetItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemSetItemCell.m; path = Classes/SCItemSetItemCell.m; sourceTree = "<group>"; };
 		0220FFC615D7A84700AB8AA3 /* SCInventoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCInventoryCell.h; path = Classes/SCInventoryCell.h; sourceTree = "<group>"; };
 		0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCInventoryCell.m; path = Classes/SCInventoryCell.m; sourceTree = "<group>"; };
 		02238C651914E88B0050CDCF /* SCItemViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemViewLayout.h; path = Classes/SCItemViewLayout.h; sourceTree = "<group>"; };
@@ -562,6 +565,8 @@
 				023FDB8018F84C49002D6FC0 /* SCItemImageCell.m */,
 				02520FF01923FFAE000F83AF /* SCItemSetCell.h */,
 				02520FF11923FFAE000F83AF /* SCItemSetCell.m */,
+				021E71FF1928EF600056D784 /* SCItemSetItemCell.h */,
+				021E72001928EF600056D784 /* SCItemSetItemCell.m */,
 				02E98C6119128C840039E1E7 /* SCItemTitleCell.h */,
 				02E98C6219128C840039E1E7 /* SCItemTitleCell.m */,
 				0241CF8D190BEF32005EC030 /* UIImageView+Border.h */,
@@ -1080,6 +1085,7 @@
 				0203A66F18C52CC200EF5E25 /* SCCommunityInventory.m in Sources */,
 				0203A67418C5350200EF5E25 /* SCCommunityItem.m in Sources */,
 				0266E0A416933ACF009C6CE8 /* SCGame.m in Sources */,
+				021E72011928EF600056D784 /* SCItemSetItemCell.m in Sources */,
 				023FDB8118F84C49002D6FC0 /* SCItemImageCell.m in Sources */,
 				0269A4A915CC3AEB008A287A /* SCGamesViewController.m in Sources */,
 				0238B35A1756AD5600284204 /* SCWebApiInventory.m in Sources */,

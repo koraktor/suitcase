@@ -279,8 +279,37 @@
                                     <outlet property="nameLabel" destination="XPO-Cb-Bmu" id="Cri-4M-st7"/>
                                 </connections>
                             </collectionViewCell>
+                            <collectionViewCell clipsSubviews="YES" contentMode="center" reuseIdentifier="ItemSetItemCell" id="tgM-t4-0HH" customClass="SCItemSetItemCell">
+                                <rect key="frame" x="12" y="317" width="679" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="679" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Zte-3k-dE1">
+                                            <rect key="frame" x="20" y="1" width="42" height="42"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DX1-wb-jW5">
+                                            <rect key="frame" x="70" y="10" width="599" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                            <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <size key="shadowOffset" width="0.0" height="1"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <size key="customSize" width="679" height="44"/>
+                                <connections>
+                                    <outlet property="imageView" destination="Zte-3k-dE1" id="fcY-p9-tO7"/>
+                                    <outlet property="nameLabel" destination="DX1-wb-jW5" id="32j-Yg-5zd"/>
+                                </connections>
+                            </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" reuseIdentifier="ItemClassesTF2Cell" id="a6T-5p-ihf" customClass="SCItemClassesTF2Cell">
-                                <rect key="frame" x="12" y="317" width="679" height="94"/>
+                                <rect key="frame" x="12" y="371" width="679" height="94"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="679" height="94"/>

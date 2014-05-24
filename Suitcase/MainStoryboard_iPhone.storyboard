@@ -487,8 +487,37 @@ http://steamcommunity.com/profile/{Profile ID}
                                     <outlet property="nameLabel" destination="bF4-kD-FO7" id="Rjs-ae-zvD"/>
                                 </connections>
                             </collectionViewCell>
+                            <collectionViewCell clipsSubviews="YES" contentMode="center" reuseIdentifier="ItemSetItemCell" id="rE7-bt-2fD" customClass="SCItemSetItemCell">
+                                <rect key="frame" x="0.0" y="266" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="YeH-gZ-l0W">
+                                            <rect key="frame" x="20" y="1" width="42" height="42"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mc3-dN-dtM">
+                                            <rect key="frame" x="70" y="10" width="240" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                            <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <size key="shadowOffset" width="0.0" height="1"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <size key="customSize" width="320" height="44"/>
+                                <connections>
+                                    <outlet property="imageView" destination="YeH-gZ-l0W" id="qk6-JR-RLM"/>
+                                    <outlet property="nameLabel" destination="mc3-dN-dtM" id="UTp-Zk-M9z"/>
+                                </connections>
+                            </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" reuseIdentifier="ItemClassesTF2Cell" id="SoK-YO-aHI" customClass="SCItemClassesTF2Cell">
-                                <rect key="frame" x="0.0" y="316" width="320" height="120"/>
+                                <rect key="frame" x="0.0" y="310" width="320" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>

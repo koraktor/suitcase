@@ -18,6 +18,7 @@
 #import "SCItemDescriptionCell.h"
 #import "SCItemImageCell.h"
 #import "SCItemSetCell.h"
+#import "SCItemSetItemCell.h"
 #import "SCItemTitleCell.h"
 #import "SCItemAttributeCell.h"
 #import "SCItemViewController.h"
@@ -28,9 +29,10 @@ NSString *const kSCOpenInSafari = @"kSCOpenInSafari";
 NSString *const kSCOpenLinkInBrowser = @"kSCOpenLinkInBrowser";
 
 @interface SCItemViewController () {
+    Byte _attributes;
     NSAttributedString *_itemDescription;
     NSURL *_linkUrl;
-    Byte _attributes;
+    BOOL _showItemSetItems;
 }
 @end
 
@@ -45,6 +47,7 @@ typedef enum {
     kSCCellTypeAttribute,
     kSCCellTypeDescription,
     kSCCellTypeItemSet,
+    kSCCellTypeItemSetItem,
     kSCCellTypeClassesTF2
 } SCCellType;
 
@@ -62,6 +65,8 @@ typedef enum {
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+
+    _showItemSetItems = NO;
 
     self.navigationItem.rightBarButtonItem = nil;
 
@@ -219,36 +224,7 @@ typedef enum {
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showItemSet"] && [self.item isKindOfClass:[SCWebApiItem class] ]) {
-        TTTAttributedLabel *itemSetLabel = (TTTAttributedLabel *)[[segue destinationViewController] view];
-        NSString *itemSetName = [((SCWebApiItem *)self.item).itemSet objectForKey:@"name"];
-        NSMutableAttributedString *itemSetText = [[NSMutableAttributedString alloc] init];
-        [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:itemSetName]];
-
-        [itemSetText appendAttributedString:[[NSAttributedString alloc] init]];
-        NSArray *items = [((SCWebApiItem *)self.item).itemSet objectForKey:@"items"];
-        [items enumerateObjectsUsingBlock:^(NSString *itemName, NSUInteger idx, BOOL *stop) {
-            if ([itemSetText length] > 0) {
-                [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
-            }
-            NSNumber *defindex = [((SCWebApiInventory *)self.item.inventory).schema itemDefIndexForName:itemName];
-            [itemSetText appendAttributedString:[[NSAttributedString alloc] initWithString:[((SCWebApiInventory *)self.item.inventory).schema itemValueForDefIndex:defindex andKey:@"item_name"]]];
-        }];
-        [itemSetLabel setText:itemSetText afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-            UIFont *nameFont;
-            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-                nameFont = [UIFont boldSystemFontOfSize:22.0];
-            } else {
-                nameFont = [UIFont boldSystemFontOfSize:18.0];
-            }
-            NSRange nameRange = [[itemSetText string] rangeOfString:itemSetName];
-            [mutableAttributedString addAttributes:@{NSFontAttributeName: nameFont} range:nameRange];
-
-            return mutableAttributedString;
-        }];
-
-        [itemSetLabel sizeToFit];
-    } else if ([[segue identifier] isEqualToString:@"showWikiPage"]) {
+    if ([[segue identifier] isEqualToString:@"showWikiPage"]) {
         NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", ((SCWebApiItem *)self.item).defindex, [[NSLocale preferredLanguages] objectAtIndex:0]]];
 
         UIWebView *webView = (UIWebView *)[[segue destinationViewController] view];
@@ -321,6 +297,14 @@ typedef enum {
             ((SCItemSetCell *)cell).item = self.item;
             break;
 
+        case kSCCellTypeItemSetItem: {
+            SCItemSetItemCell *itemSetItemCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemSetItemCell" forIndexPath:indexPath];
+            cell = itemSetItemCell;
+            itemSetItemCell.item = self.item;
+            [itemSetItemCell setItemWithDictionary:self.item.itemSet.items[indexPath.item]];
+            break;
+        }
+
         case kSCCellTypeTitle:
             cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemTitleCell" forIndexPath:indexPath];
             ((SCItemTitleCell *)cell).item = self.item;
@@ -331,6 +315,22 @@ typedef enum {
     }
 
     return cell;
+}
+
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == kSCCellTypeItemSet) {
+        _showItemSetItems = !_showItemSetItems;
+        [self.collectionView performBatchUpdates:^{
+            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:kSCCellTypeItemSetItem]];
+        } completion:^(BOOL finished) {
+            if (_showItemSetItems) {
+                [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:kSCCellTypeItemSet]
+                                            atScrollPosition:UICollectionViewScrollPositionTop
+                                                    animated:YES];
+            }
+        }];
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -385,6 +385,9 @@ typedef enum {
             return CGSizeMake(cellWidth, nameLabelSize.height + 35.0);
         }
 
+        case kSCCellTypeItemSetItem:
+            return CGSizeMake(cellWidth, 44.0);
+
         case kSCCellTypeTitle: {
             CGSize itemTitleSize = [self.item.name sizeWithFont:[UIFont boldSystemFontOfSize:22.0]
                                               constrainedToSize:CGSizeMake(cellWidth - 20.0, CGFLOAT_MAX)
@@ -411,6 +414,9 @@ typedef enum {
 
         case kSCCellTypeItemSet:
             return ([self.item belongsToItemSet]) ? 1 : 0;
+
+        case kSCCellTypeItemSetItem:
+            return ([self.item belongsToItemSet] && _showItemSetItems) ? self.item.itemSet.items.count : 0;
 
         default:
             return 1;
