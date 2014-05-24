@@ -70,7 +70,7 @@
         "imageName": "NotificationBackgroundErrorIcon.png",
         "shadowColor": "#812929",
         "shadowOffsetX": 0,
-        "shadowOffsetY": -1,
+        "shadowOffsetY": 1,
         "textColor": "#FFFFFF",
         "titleFontSize": 16,
         "backgroundColor": "#DD3B41"
