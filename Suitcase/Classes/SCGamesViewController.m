@@ -427,6 +427,8 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     BOOL skipEmptyInventories = [[[NSUserDefaults standardUserDefaults] valueForKey:@"skip_empty_inventories"] boolValue];
     BOOL skipFailedInventories = [[[NSUserDefaults standardUserDefaults] valueForKey:@"skip_failed_inventories"] boolValue];
 
+    self.steamInventory = nil;
+
     [inventories enumerateObjectsUsingBlock:^(id <SCInventory> inventory, NSUInteger idx, BOOL *stop) {
         if (![inventory isLoaded]) {
             return;
