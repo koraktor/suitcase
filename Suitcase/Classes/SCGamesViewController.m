@@ -126,6 +126,40 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     }
 }
 
+- (void)clearInventories {
+    [self.tableView beginUpdates];
+
+    BOOL noInventories = YES;
+
+    if (self.steamInventory != nil) {
+        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]]
+                              withRowAnimation:UITableViewRowAnimationLeft];
+        noInventories = NO;
+    }
+
+    if (self.inventories.count > 0) {
+        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:self.inventories.count];
+        for (int i = 0; i < self.inventories.count; i ++) {
+            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:2]];
+        }
+        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationLeft];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:SCInventorySectionGames]
+                      withRowAnimation:UITableViewRowAnimationLeft];
+
+        noInventories = NO;
+    }
+
+    self.inventories = [NSArray array];
+    self.steamInventory = nil;
+
+    if (!noInventories) {
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]]
+                              withRowAnimation:UITableViewRowAnimationFade];
+    }
+
+    [self.tableView endUpdates];
+}
+
 - (void)loadAvailableGames
 {
     AFHTTPRequestOperation *apiListOperation = [[SCAppDelegate webApiClient] jsonRequestForInterface:@"ISteamWebAPIUtil"
@@ -171,28 +205,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
 - (void)loadGames
 {
-    [self.tableView beginUpdates];
-
-    if (self.steamInventory != nil) {
-        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]]
-                              withRowAnimation:UITableViewRowAnimationLeft];
-    }
-
-    if (self.inventories.count > 0) {
-        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:self.inventories.count];
-        for (int i = 0; i < self.inventories.count; i ++) {
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:2]];
-        }
-        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationLeft];
-    }
-
-    self.inventories = [NSArray array];
-    self.steamInventory = nil;
-
-    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]]
-                          withRowAnimation:UITableViewRowAnimationFade];
-
-    [self.tableView endUpdates];
+    [self clearInventories];
 
     UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
     if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
