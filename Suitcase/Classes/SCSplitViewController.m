@@ -9,6 +9,13 @@
 
 @implementation SCSplitViewController
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+
+    self.clearViewController = [self.viewControllers[1] topViewController];
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;

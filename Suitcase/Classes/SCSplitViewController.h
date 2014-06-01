@@ -9,4 +9,6 @@
 
 @interface SCSplitViewController : UISplitViewController
 
+@property (nonatomic, strong) UIViewController *clearViewController;
+
 @end
