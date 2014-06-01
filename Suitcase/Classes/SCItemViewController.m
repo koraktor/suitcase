@@ -227,7 +227,12 @@ typedef enum {
     if ([[segue identifier] isEqualToString:@"showWikiPage"]) {
         NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", ((SCWebApiItem *)self.item).defindex, [[NSLocale preferredLanguages] objectAtIndex:0]]];
 
-        UIWebView *webView = (UIWebView *)[[segue destinationViewController] view];
+        UIWebView *webView;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            webView = (UIWebView *)[[segue destinationViewController] view];
+        } else {
+            webView = (UIWebView *)((UINavigationController *)segue.destinationViewController).topViewController.view;
+        }
         if (![webView.request.URL.absoluteURL isEqual:wikiUrl]) {
             NSURLRequest *wikiRequest = [NSURLRequest requestWithURL:wikiUrl];
             [webView loadRequest:wikiRequest];

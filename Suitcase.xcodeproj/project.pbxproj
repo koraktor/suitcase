@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02010B2F169842FB00007456 /* SCNavigationControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B2E169842FA00007456 /* SCNavigationControllerDelegate.m */; };
 		02010B32169858E500007456 /* SCWebApiRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B31169858E400007456 /* SCWebApiRequestOperationManager.m */; };
 		02010B6C169E9CA000007456 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B4E169E9CA000007456 /* IASKAppSettingsViewController.m */; };
 		02010B6D169E9CA000007456 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B50169E9CA000007456 /* IASKAppSettingsWebViewController.m */; };
@@ -111,6 +110,7 @@
 		028B64981526761C0040D2FF /* SCInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCInventoryViewController.m */; };
 		0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */; };
 		029B08F4159261A600BD6271 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 029B08F3159261A600BD6271 /* Settings.bundle */; };
+		029D94711939EBA100D1DF43 /* SCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D94701939EBA100D1DF43 /* SCNavigationController.m */; };
 		029F6927182E3E5D00851826 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F6915182E3E5D00851826 /* AFHTTPRequestOperation.m */; };
 		029F6929182E3E5D00851826 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F6919182E3E5D00851826 /* AFHTTPSessionManager.m */; };
 		029F692A182E3E5D00851826 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F691C182E3E5D00851826 /* AFNetworkReachabilityManager.m */; };
@@ -146,8 +146,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		02010B2D169842FA00007456 /* SCNavigationControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCNavigationControllerDelegate.h; path = Classes/SCNavigationControllerDelegate.h; sourceTree = "<group>"; };
-		02010B2E169842FA00007456 /* SCNavigationControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCNavigationControllerDelegate.m; path = Classes/SCNavigationControllerDelegate.m; sourceTree = "<group>"; };
 		02010B30169858E400007456 /* SCWebApiRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWebApiRequestOperationManager.h; path = Classes/SCWebApiRequestOperationManager.h; sourceTree = "<group>"; };
 		02010B31169858E400007456 /* SCWebApiRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWebApiRequestOperationManager.m; path = Classes/SCWebApiRequestOperationManager.m; sourceTree = "<group>"; };
 		02010B38169E9C6F00007456 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperation.h; path = Suitcase/External/AFNetworking/AFNetworking/AFHTTPRequestOperation.h; sourceTree = SOURCE_ROOT; };
@@ -305,6 +303,8 @@
 		0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSteamIdFormController.h; path = Classes/SCSteamIdFormController.h; sourceTree = "<group>"; };
 		0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSteamIdFormController.m; path = Classes/SCSteamIdFormController.m; sourceTree = "<group>"; };
 		029B08F3159261A600BD6271 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		029D946F1939EBA100D1DF43 /* SCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCNavigationController.h; path = Classes/SCNavigationController.h; sourceTree = "<group>"; };
+		029D94701939EBA100D1DF43 /* SCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCNavigationController.m; path = Classes/SCNavigationController.m; sourceTree = "<group>"; };
 		029F6914182E3E5D00851826 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperation.h; path = Suitcase/External/AFNetworking/AFNetworking/AFHTTPRequestOperation.h; sourceTree = SOURCE_ROOT; };
 		029F6915182E3E5D00851826 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFHTTPRequestOperation.m; path = Suitcase/External/AFNetworking/AFNetworking/AFHTTPRequestOperation.m; sourceTree = SOURCE_ROOT; };
 		029F6916182E3E5D00851826 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperationManager.h; path = Suitcase/External/AFNetworking/AFNetworking/AFHTTPRequestOperationManager.h; sourceTree = SOURCE_ROOT; };
@@ -520,6 +520,8 @@
 				028B64901526761C0040D2FF /* SCItemViewController.m */,
 				028B64911526761C0040D2FF /* SCInventoryViewController.h */,
 				028B64921526761C0040D2FF /* SCInventoryViewController.m */,
+				029D946F1939EBA100D1DF43 /* SCNavigationController.h */,
+				029D94701939EBA100D1DF43 /* SCNavigationController.m */,
 				020958C3169386AF00A44851 /* SCSettingsViewController.h */,
 				020958C4169386B000A44851 /* SCSettingsViewController.m */,
 				0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */,
@@ -743,8 +745,6 @@
 				02238C661914E88B0050CDCF /* SCItemViewLayout.m */,
 				0203A67018C531C500EF5E25 /* SCCommunityRequestOperationManager.h */,
 				0203A67118C531C500EF5E25 /* SCCommunityRequestOperationManager.m */,
-				02010B2D169842FA00007456 /* SCNavigationControllerDelegate.h */,
-				02010B2E169842FA00007456 /* SCNavigationControllerDelegate.m */,
 				02BB278F19026DA4002D151A /* SCReplaceDetailSegue.h */,
 				02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */,
 				02010B30169858E400007456 /* SCWebApiRequestOperationManager.h */,
@@ -1094,7 +1094,6 @@
 				0255A148155D9BE20092741E /* SCWebApiItem.m in Sources */,
 				0275E20D158E6B5B008EA0AD /* SCItemCell.m in Sources */,
 				028B64951526761C0040D2FF /* SCItemViewController.m in Sources */,
-				02010B2F169842FB00007456 /* SCNavigationControllerDelegate.m in Sources */,
 				0255A14C155D9BF80092741E /* SCWebApiSchema.m in Sources */,
 				0241CF8F190BEF32005EC030 /* UIImageView+Border.m in Sources */,
 				020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */,
@@ -1108,6 +1107,7 @@
 				0253606518334AF50019D250 /* TSMessageView.m in Sources */,
 				02010B8A169E9CDA00007456 /* TTTAttributedLabel.m in Sources */,
 				029F6941182E3EEC00851826 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				029D94711939EBA100D1DF43 /* SCNavigationController.m in Sources */,
 				029F6942182E3EEC00851826 /* UIAlertView+AFNetworking.m in Sources */,
 				02238C671914E88B0050CDCF /* SCItemViewLayout.m in Sources */,
 				029F6944182E3EEC00851826 /* UIImageView+AFNetworking.m in Sources */,

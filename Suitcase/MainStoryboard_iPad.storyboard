@@ -115,7 +115,7 @@
             <objects>
                 <viewController id="Lfv-Gw-nI3" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="I31-bB-KaI">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="64" width="703" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.37647062539999998" green="0.43137258290000002" blue="0.48235297199999999" alpha="1" colorSpace="deviceRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -615,6 +615,7 @@ http://steamcommunity.com/profile/{Profile ID}
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="xL2-ZX-JkP">
                         <rect key="frame" x="0.0" y="724" width="703" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.53860629559999995" green="0.61986770069999997" blue="0.72747490879999999" alpha="1" colorSpace="calibratedRGB"/>
                     </toolbar>
                     <connections>
                         <segue destination="Lfv-Gw-nI3" kind="relationship" relationship="rootViewController" id="frd-Wt-Efv"/>
@@ -703,12 +704,12 @@ http://steamcommunity.com/profile/{Profile ID}
                     <toolbarItems>
                         <barButtonItem enabled="NO" title="…" id="TIm-1y-L9C">
                             <connections>
-                                <action selector="goBack:" destination="u2V-bm-OPg" id="7Dk-Ee-w1k"/>
+                                <action selector="goBack" destination="eja-tV-rBb" id="VTh-8o-XNa"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem enabled="NO" title="…" id="E5m-2Z-V3b">
                             <connections>
-                                <action selector="goForward:" destination="u2V-bm-OPg" id="dXP-G6-Lxf"/>
+                                <action selector="goForward" destination="eja-tV-rBb" id="jfF-ga-Wa6"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -734,7 +735,7 @@ http://steamcommunity.com/profile/{Profile ID}
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="frd-Wt-Efv"/>
         <segue reference="eS2-5p-lpL"/>
-        <segue reference="oUz-yf-NN8"/>
     </inferredMetricsTieBreakers>
 </document>

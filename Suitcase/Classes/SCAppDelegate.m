@@ -178,21 +178,6 @@ static SCWebApiRequestOperationManager *_webApiClient;
     return YES;
 }
 
-- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        UIViewController *rootViewController = window.rootViewController;
-        if ([rootViewController class] == NSClassFromString(@"UINavigationController") &&
-            [((UINavigationController *)rootViewController).topViewController class] == NSClassFromString(@"SCWikiViewController")) {
-            return UIInterfaceOrientationMaskAllButUpsideDown;
-        } else {
-            return UIInterfaceOrientationMaskPortrait;
-        }
-    } else {
-        return UIInterfaceOrientationMaskLandscape;
-    }
-}
-
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     _storedDefaults = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];

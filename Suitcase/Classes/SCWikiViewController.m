@@ -40,33 +40,27 @@
     }
 }
 
-- (IBAction)goBack:(id)sender
+- (IBAction)closeWikiPage:(id)sender
 {
-    [(UIWebView *)self.view goBack];
-}
-
-- (IBAction)goForward:(id)sender
-{
-    [(UIWebView *)self.view goForward];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [UIViewController attemptRotationToDeviceOrientation];
+    [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
-    [self.navigationController setToolbarHidden:NO animated:animated];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [self.navigationController setToolbarHidden:NO animated:animated];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
 
-    [self.navigationController setToolbarHidden:YES animated:animated];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [self.navigationController setToolbarHidden:YES animated:animated];
+    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView

@@ -8,7 +8,7 @@
         <!--Navigation Controller-->
         <scene sceneID="11">
             <objects>
-                <navigationController id="3" sceneMemberID="viewController">
+                <navigationController id="3" customClass="SCNavigationController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
@@ -30,12 +30,10 @@
                         <color key="barTintColor" red="0.53860629559999995" green="0.61986770069999997" blue="0.72747490879999999" alpha="0.63" colorSpace="calibratedRGB"/>
                     </toolbar>
                     <connections>
-                        <outlet property="delegate" destination="Me0-lk-KDq" id="aun-eZ-1CM"/>
                         <segue destination="OFf-mD-FT8" kind="relationship" relationship="rootViewController" id="hTJ-TF-nzW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
-                <customObject id="Me0-lk-KDq" customClass="SCNavigationControllerDelegate"/>
             </objects>
             <point key="canvasLocation" x="-41" y="64"/>
         </scene>
@@ -138,7 +136,7 @@ http://steamcommunity.com/profile/{Profile ID}
         <!--Navigation Controller-->
         <scene sceneID="Vnm-y4-M3p">
             <objects>
-                <navigationController id="sOd-p5-uza" sceneMemberID="viewController">
+                <navigationController id="sOd-p5-uza" customClass="SCNavigationController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="WUH-Da-ljW"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="X9i-6K-ARw">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
@@ -612,7 +610,7 @@ http://steamcommunity.com/profile/{Profile ID}
                     <connections>
                         <outlet property="wikiButton" destination="gK6-Cu-cfz" id="wRX-Y3-T7J"/>
                         <segue destination="Rbk-sh-M5b" kind="push" identifier="showItemSet" id="XHB-f3-kTS"/>
-                        <segue destination="lNQ-t2-rFd" kind="push" identifier="showWikiPage" id="B0L-jE-V1i"/>
+                        <segue destination="fAC-RK-h3U" kind="modal" identifier="showWikiPage" id="yua-j7-i8i"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="23" sceneMemberID="firstResponder"/>
@@ -639,33 +637,62 @@ http://steamcommunity.com/profile/{Profile ID}
             </objects>
             <point key="canvasLocation" x="2093" y="48"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="H7k-Jk-Io0">
+            <objects>
+                <navigationController definesPresentationContext="YES" toolbarHidden="NO" id="fAC-RK-h3U" customClass="SCNavigationController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="kUB-wX-lWN"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="f2P-cv-nNz">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.53860629559999995" green="0.61986770069999997" blue="0.72747490879999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="otI-fz-GrR">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.53860629559999995" green="0.61986770069999997" blue="0.72747490879999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.53860629559999995" green="0.61986770069999997" blue="0.72747490879999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="lNQ-t2-rFd" kind="relationship" relationship="rootViewController" id="n6f-X1-aXi"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WCd-7T-3Fg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1617" y="935"/>
+        </scene>
         <!--Wiki View Controller-->
         <scene sceneID="al6-ro-hMz">
             <objects>
                 <viewController id="lNQ-t2-rFd" customClass="SCWikiViewController" sceneMemberID="viewController">
                     <webView key="view" contentMode="scaleToFill" id="N6N-xL-zR8">
-                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <outlet property="delegate" destination="lNQ-t2-rFd" id="gLr-Nl-rRn"/>
                         </connections>
                     </webView>
-                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems>
                         <barButtonItem enabled="NO" title="…" id="SjO-0w-XlB">
                             <connections>
-                                <action selector="goBack:" destination="lNQ-t2-rFd" id="x2K-mc-PQK"/>
+                                <action selector="goBack" destination="N6N-xL-zR8" id="maJ-Lq-Cmn"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem enabled="NO" title="…" id="aQh-Fy-uon">
                             <connections>
-                                <action selector="goForward:" destination="lNQ-t2-rFd" id="84a-xC-KAA"/>
+                                <action selector="goForward" destination="N6N-xL-zR8" id="0FV-Ha-itU"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="o3N-Lw-4Iv"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationItem key="navigationItem" id="o3N-Lw-4Iv">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="06L-Z3-Jdg">
+                            <connections>
+                                <action selector="closeWikiPage:" destination="lNQ-t2-rFd" id="ISe-s9-IMj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="SjO-0w-XlB" id="Zc5-pw-dOs"/>
                         <outlet property="forwardButton" destination="aQh-Fy-uon" id="nTe-Ex-phl"/>
@@ -673,12 +700,12 @@ http://steamcommunity.com/profile/{Profile ID}
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z26-CP-UFJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1743" y="756"/>
+            <point key="canvasLocation" x="2151" y="908"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tpM-Sl-7CZ">
             <objects>
-                <navigationController id="09V-IM-Zg9" sceneMemberID="viewController">
+                <navigationController id="09V-IM-Zg9" customClass="SCNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="7O0-zP-NMb">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
