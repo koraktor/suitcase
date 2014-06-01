@@ -18,7 +18,6 @@
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *wikiButton;
 
-- (IBAction)showItemSet:(id)sender;
 - (IBAction)showWikiPage:(id)sender;
 
 @end

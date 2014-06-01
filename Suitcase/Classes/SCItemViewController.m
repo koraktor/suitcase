@@ -214,10 +214,6 @@ typedef enum {
     }
 }
 
-- (IBAction)showItemSet:(id)sender {
-    [self performSegueWithIdentifier:@"showItemSet" sender:self];
-}
-
 - (IBAction)showWikiPage:(id)sender {
     [self performSegueWithIdentifier:@"showWikiPage" sender:self];
 }
