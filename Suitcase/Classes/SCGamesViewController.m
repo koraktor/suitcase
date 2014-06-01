@@ -301,12 +301,10 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
             } else {
                 [self.view setUserInteractionEnabled:YES];
                 [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-                [TSMessage showNotificationInViewController:self.navigationController
-                                                      title:NSLocalizedString(kSCInventoryLoadingFailed, kSCInventoryLoadingFailed)
-                                                   subtitle:[NSString stringWithFormat:NSLocalizedString(kSCInventoryLoadingFailedDetail, kSCInventoryLoadingFailedDetail), _currentInventory.game.name]
-                                                       type:TSMessageNotificationTypeError
-                                                   duration:TSMessageNotificationDurationAutomatic
-                                       canBeDismissedByUser:YES];
+
+                [SCAppDelegate errorWithTitle:NSLocalizedString(kSCInventoryLoadingFailed, kSCInventoryLoadingFailed)
+                                   andMessage:[NSString stringWithFormat:NSLocalizedString(kSCInventoryLoadingFailedDetail, kSCInventoryLoadingFailedDetail), _currentInventory.game.name]
+                                 inController:self];
             }
         }];
 
