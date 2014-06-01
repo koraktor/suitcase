@@ -29,7 +29,7 @@ NSString *const kSCOpenInSafari = @"kSCOpenInSafari";
 NSString *const kSCOpenLinkInBrowser = @"kSCOpenLinkInBrowser";
 
 @interface SCItemViewController () {
-    Byte _attributes;
+    SCItemAttributeType _attributes;
     NSAttributedString *_itemDescription;
     NSURL *_linkUrl;
     BOOL _showItemSetItems;
@@ -430,7 +430,7 @@ typedef enum {
 
 - (NSUInteger)numberOfItemAttributes {
     NSUInteger count = 0 ;
-    Byte n = _attributes;
+    SCItemAttributeType n = _attributes;
     while (n) {
         count ++;
         n &= (n - 1);
@@ -440,7 +440,7 @@ typedef enum {
 }
 
 - (SCItemAttributeType)itemAttributeTypeForIndex:(NSUInteger)attributeIndex {
-    NSUInteger attributeType = _attributes;
+    SCItemAttributeType attributeType = _attributes;
     for (int i = 0; i < attributeIndex; i ++) {
         attributeType &= attributeType - 1;
     }

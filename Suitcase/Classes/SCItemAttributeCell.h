@@ -9,10 +9,10 @@
 
 #import "SCItem.h"
 
-typedef enum {
+typedef NS_OPTIONS(NSUInteger, SCItemAttributeType) {
     SCItemAttributeTypeOrigin  = 1,
     SCItemAttributeTypeQuality = 2
-} SCItemAttributeType;
+};
 
 @interface SCItemAttributeCell : UICollectionViewCell
 
