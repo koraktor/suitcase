@@ -12,7 +12,7 @@
 @implementation SCImageCache
 
 + (UIImage *)cachedImageForIdentifier:(NSString *)identifier {
-    NSString *path = [self imagePathForIdentifier:identifier];
+    NSString *path = [self imagePathForIdentifier:[self sha1Identifier:identifier]];
     NSData *data = [NSData dataWithContentsOfFile:path];
     UIScreen *firstScreen = UIScreen.screens[0];
     UIImage *image = [UIImage imageWithData:data scale:firstScreen.scale];
@@ -21,11 +21,11 @@
 }
 
 + (UIImage *)cachedIconForItem:(id <SCItem>)item {
-    return [self cachedImageForIdentifier:[self sha1Identifier:item.iconIdentifier]];
+    return [self cachedImageForIdentifier:item.iconIdentifier];
 }
 
 + (UIImage *)cachedImageForItem:(id <SCItem>)item {
-    return [self cachedImageForIdentifier:[self sha1Identifier:item.imageIdentifier]];
+    return [self cachedImageForIdentifier:item.imageIdentifier];
 }
 
 + (UIImage *)cachedLogoForGame:(SCGame *)game {
@@ -33,16 +33,16 @@
 }
 
 + (void)cacheIcon:(UIImage *)icon forItem:(id <SCItem>)item {
-    [self cacheImage:icon forIdentifier:[self sha1Identifier:item.iconIdentifier]];
+    [self cacheImage:icon forIdentifier:item.iconIdentifier];
 }
 
 + (void)cacheImage:(UIImage *)image forIdentifier:(NSString *)identifier {
-    NSString *path = [self imagePathForIdentifier:identifier];
+    NSString *path = [self imagePathForIdentifier:[self sha1Identifier:identifier]];
     [UIImagePNGRepresentation(image) writeToFile:path atomically:YES];
 }
 
 + (void)cacheImage:(UIImage *)image forItem:(id <SCItem>)item {
-    [self cacheImage:image forIdentifier:[self sha1Identifier:item.imageIdentifier]];
+    [self cacheImage:image forIdentifier:item.imageIdentifier];
 }
 
 + (void)cacheLogo:(UIImage *)logo forGame:(SCGame *)game {
