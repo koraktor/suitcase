@@ -40,7 +40,7 @@ static NSMutableDictionary *__itemSets;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ (%d items)", self.name, self.items.count];
+    return [NSString stringWithFormat:@"%@ (%lu items)", self.name, (unsigned long)self.items.count];
 }
 
 @end
