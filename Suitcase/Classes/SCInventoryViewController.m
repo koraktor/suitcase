@@ -151,6 +151,8 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
+        [self.searchBar resignFirstResponder];
+
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         id <SCItem> item = [[self.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         ((SCItemViewController *)segue.destinationViewController).item = item;
