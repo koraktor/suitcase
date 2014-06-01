@@ -86,15 +86,6 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
     }
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
-        return UIInterfaceOrientationIsLandscape(interfaceOrientation);
-    }
-}
-
 - (IBAction)submitForm:(id)sender {
     [self resolveSteamId];
 }
@@ -122,13 +113,6 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
     self.helpLabel.text = NSLocalizedString(self.helpLabel.text, @"SteamID help");
     self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"SteamID form title");
     self.navigationItem.rightBarButtonItem.enabled = ([[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID"] != nil);
-}
-
-- (void)viewDidUnload {
-    [self setHelpLabel:nil];
-    [self setSteamIdField:nil];
-
-    [super viewDidUnload];
 }
 
 - (IBAction)dismissForm:(id)sender {
