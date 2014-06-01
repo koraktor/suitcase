@@ -32,7 +32,8 @@ static UIImage *kPlaceHolderImage;
 
 - (void)loadImage
 {
-    UIImage *itemIcon;// = [SCImageCache cachedIconForItem:self.item];
+    NSString *iconIdentifier = [[[_imageUrl relativeString] lastPathComponent] stringByDeletingPathExtension];
+    UIImage *itemIcon = [SCImageCache cachedImageForIdentifier:iconIdentifier];
 
     if (itemIcon != nil) {
         self.imageView.image = itemIcon;
@@ -45,7 +46,7 @@ static UIImage *kPlaceHolderImage;
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                        weakSelf.imageView.image = image;
 
-                                       //[SCImageCache cacheIcon:image forItem:weakSelf.item];
+                                       [SCImageCache cacheImage:image forIdentifier:iconIdentifier];
                                    }
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
 #ifdef DEBUG
