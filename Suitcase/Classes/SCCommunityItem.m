@@ -193,11 +193,12 @@ static NSString *kImageSize;
 }
 
 - (UIColor *)qualityColor {
-    if ([self.inventory.game isSteam]) {
-        return [UIColor colorWithRed:0.56 green:0.64 blue:0.73 alpha:1.0];
+    UIColor *color = self.tags[@"Quality"][@"color"];
+    if (color == nil) {
+        color = [UIColor colorWithRed:0.56 green:0.64 blue:0.73 alpha:1.0];
     }
 
-    return self.tags[@"Quality"][@"color"];
+    return color;
 }
 
 - (NSString *)qualityName {
