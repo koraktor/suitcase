@@ -103,11 +103,15 @@ const NSUInteger kSCKillEaterDefindex = 214;
                     [attribute setValue:itemAttribute[@"defindex"] forKey:@"defindex"];
                     [attribute setValue:itemAttribute[@"account_info"] forKey:@"accountInfo"];
                     [attribute setValue:itemAttribute[@"description_string"] forKey:@"description"];
-                    [attribute setValue:itemAttribute[@"float_value"] forKey:@"floatValue"];
-                    [attribute setValue:itemAttribute[@"value"] forKey:@"value"];
                     [attribute setValue:itemAttribute[@"description_format"] forKey:@"valueFormat"];
 
-                    [attributes addObject:[attribute copy]];
+                    if ([itemAttribute[@"stored_as_integer"] isEqualToNumber:@1]) {
+                        [attribute setValue:itemAttribute[@"value"] forKey:@"value"];
+                    } else {
+                        [attribute setValue:itemAttribute[@"float_value"] forKey:@"value"];
+                    }
+
+                    [attributes addObject:attribute];
                 }
             }
         }];
@@ -148,12 +152,9 @@ const NSUInteger kSCKillEaterDefindex = 214;
             } else if ([valueFormat isEqual:@"value_is_account_id"]) {
                 value = [[attribute objectForKey:@"accountInfo"] objectForKey:@"personaname"];
             } else if ([valueFormat isEqual:@"value_is_additive"]) {
-                value = [(NSNumber *)attribute[@"floatValue"] stringValue];
-                if (value == nil) {
-                    value = [(NSNumber *)attribute[@"value"] stringValue];
-                }
+                value = [(NSNumber *)attribute[@"value"] stringValue];
             } else if ([valueFormat isEqual:@"value_is_additive_percentage"]) {
-                value = [[NSNumber numberWithDouble:[(NSNumber *)[attribute objectForKey:@"floatValue"] doubleValue] * 100] stringValue];
+                value = [[NSNumber numberWithDouble:[(NSNumber *)[attribute objectForKey:@"value"] doubleValue] * 100] stringValue];
             } else if ([valueFormat isEqual:@"value_is_date"]) {
                 double timestamp = [(NSNumber *)[attribute objectForKey:@"value"] doubleValue];
                 if (timestamp == 0) {
@@ -165,27 +166,16 @@ const NSUInteger kSCKillEaterDefindex = 214;
                                                            timeStyle:NSDateFormatterShortStyle];
                 }
             } else if ([valueFormat isEqual:@"value_is_inverted_percentage"]) {
-                NSNumber *numberValue = attribute[@"floatValue"];
-                if (numberValue == nil) {
-                    numberValue = attribute[@"value"];
-                }
-                numberValue = [NSNumber numberWithDouble:(1 - [numberValue doubleValue]) * 100];
+                NSNumber *numberValue = [NSNumber numberWithDouble:(1 - [attribute[@"value"] doubleValue]) * 100];
                 value = [numberFormatter stringFromNumber:numberValue];
             } else if ([valueFormat isEqualToString:@"value_is_mins_as_hours"]) {
-                int hours = [(NSNumber *)attribute[@"floatValue"] floatValue] / 60;
+                int hours = [(NSNumber *)attribute[@"value"] floatValue] / 60;
                 NSString *formatString = (hours == 1) ? NSLocalizedString(kSCHour, kSCHour) : NSLocalizedString(kSCHours, kSCHours);
                 value = [NSString stringWithFormat:formatString, hours];
             } else if ([valueFormat isEqual:@"value_is_particle_index"]) {
                 value = [self.inventory.schema effectNameForIndex:[attribute objectForKey:@"value"]];
-                if (value == nil) {
-                    value = [self.inventory.schema effectNameForIndex:[attribute objectForKey:@"floatValue"]];
-                }
             } else if ([valueFormat isEqual:@"value_is_percentage"]) {
-                NSNumber *numberValue = attribute[@"floatValue"];
-                if (numberValue == nil) {
-                    numberValue = attribute[@"value"];
-                }
-                numberValue = [NSNumber numberWithDouble:([numberValue doubleValue] - 1) * 100];
+                NSNumber *numberValue = [NSNumber numberWithDouble:([attribute[@"value"] doubleValue] - 1) * 100];
                 value = [numberFormatter stringFromNumber:numberValue];
             }
 
