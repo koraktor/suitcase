@@ -100,6 +100,11 @@ static SCWebApiRequestOperationManager *_webApiClient;
     if (steamId64 == nil) {
         [navigationController.topViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
     }
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"clear_cache"]) {
+        [SCImageCache clearImageCache];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"clear_cache"];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
