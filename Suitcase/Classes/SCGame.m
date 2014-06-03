@@ -43,6 +43,11 @@
     return self;
 }
 
+- (BOOL)isDota2
+{
+    return [_appId intValue] == 570 || [_appId intValue] == 205790;
+}
+
 - (BOOL)isSteam {
     return [_appId intValue] == 753;
 }

@@ -15,6 +15,7 @@
 + (instancetype)steamGame;
 - (id)initWithJSONObject:(NSDictionary *)jsonObject;
 - (NSString *)logoIdentifier;
+- (BOOL)isDota2;
 - (BOOL)isSteam;
 - (BOOL)isTF2;
 

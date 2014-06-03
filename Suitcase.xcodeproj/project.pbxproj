@@ -108,6 +108,8 @@
 		028B64961526761C0040D2FF /* SCItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64901526761C0040D2FF /* SCItemViewController.m */; };
 		028B64971526761C0040D2FF /* SCInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCInventoryViewController.m */; };
 		028B64981526761C0040D2FF /* SCInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCInventoryViewController.m */; };
+		02958187193CB20300115131 /* SCTF2Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 02958186193CB20300115131 /* SCTF2Item.m */; };
+		0295818A193CCAB000115131 /* SCDota2Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 02958189193CCAB000115131 /* SCDota2Item.m */; };
 		0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */; };
 		029B08F4159261A600BD6271 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 029B08F3159261A600BD6271 /* Settings.bundle */; };
 		029D94711939EBA100D1DF43 /* SCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D94701939EBA100D1DF43 /* SCNavigationController.m */; };
@@ -300,6 +302,10 @@
 		028B64901526761C0040D2FF /* SCItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemViewController.m; path = Classes/SCItemViewController.m; sourceTree = "<group>"; };
 		028B64911526761C0040D2FF /* SCInventoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCInventoryViewController.h; path = Classes/SCInventoryViewController.h; sourceTree = "<group>"; };
 		028B64921526761C0040D2FF /* SCInventoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCInventoryViewController.m; path = Classes/SCInventoryViewController.m; sourceTree = "<group>"; };
+		02958185193CB20300115131 /* SCTF2Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCTF2Item.h; path = Classes/SCTF2Item.h; sourceTree = "<group>"; };
+		02958186193CB20300115131 /* SCTF2Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCTF2Item.m; path = Classes/SCTF2Item.m; sourceTree = "<group>"; };
+		02958188193CCAB000115131 /* SCDota2Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDota2Item.h; sourceTree = "<group>"; };
+		02958189193CCAB000115131 /* SCDota2Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDota2Item.m; sourceTree = "<group>"; };
 		0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSteamIdFormController.h; path = Classes/SCSteamIdFormController.h; sourceTree = "<group>"; };
 		0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSteamIdFormController.m; path = Classes/SCSteamIdFormController.m; sourceTree = "<group>"; };
 		029B08F3159261A600BD6271 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -479,6 +485,10 @@
 		0203A66B18C52C8500EF5E25 /* Web API */ = {
 			isa = PBXGroup;
 			children = (
+				02958188193CCAB000115131 /* SCDota2Item.h */,
+				02958189193CCAB000115131 /* SCDota2Item.m */,
+				02958185193CB20300115131 /* SCTF2Item.h */,
+				02958186193CB20300115131 /* SCTF2Item.m */,
 				0238B3581756AD5500284204 /* SCWebApiInventory.h */,
 				0238B3591756AD5600284204 /* SCWebApiInventory.m */,
 				0255A146155D9BE20092741E /* SCWebApiItem.h */,
@@ -1050,12 +1060,14 @@
 				029F6927182E3E5D00851826 /* AFHTTPRequestOperation.m in Sources */,
 				0203A66818C4B4B300EF5E25 /* AFHTTPRequestOperationManager.m in Sources */,
 				029F6929182E3E5D00851826 /* AFHTTPSessionManager.m in Sources */,
+				02958187193CB20300115131 /* SCTF2Item.m in Sources */,
 				029F692A182E3E5D00851826 /* AFNetworkReachabilityManager.m in Sources */,
 				023FDB8418FAD353002D6FC0 /* SCItemDescriptionCell.m in Sources */,
 				029F692B182E3E5D00851826 /* AFSecurityPolicy.m in Sources */,
 				0203A66A18C4B51000EF5E25 /* AFURLConnectionOperation.m in Sources */,
 				029F692D182E3E5D00851826 /* AFURLRequestSerialization.m in Sources */,
 				029F692E182E3E5D00851826 /* AFURLResponseSerialization.m in Sources */,
+				0295818A193CCAB000115131 /* SCDota2Item.m in Sources */,
 				0203A66918C4B4C300EF5E25 /* AFURLSessionManager.m in Sources */,
 				026EE9F71748B45600FB8484 /* BPBarButtonItem.m in Sources */,
 				023DECE0187963A4007FE4AA /* FAKFontAwesome.m in Sources */,

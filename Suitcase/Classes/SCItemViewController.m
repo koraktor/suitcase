@@ -22,7 +22,7 @@
 #import "SCItemTitleCell.h"
 #import "SCItemAttributeCell.h"
 #import "SCItemViewController.h"
-#import "SCWebApiItem.h"
+#import "SCTF2Item.h"
 
 NSString *const kSCOpenInChrome = @"kSCOpenInChrome";
 NSString *const kSCOpenInSafari = @"kSCOpenInSafari";
@@ -255,7 +255,7 @@ typedef enum {
             SCItemClassesTF2Cell *classesTF2Cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemClassesTF2Cell" forIndexPath:indexPath];
             cell = classesTF2Cell;
 
-            int equippedClasses = ((SCWebApiItem *)self.item).equippedClasses;
+            int equippedClasses = ((SCTF2Item *)self.item).equippedClasses;
             classesTF2Cell.classScoutImage.equipped = equippedClasses & 1;
             classesTF2Cell.classSoldierImage.equipped = equippedClasses & 4;
             classesTF2Cell.classPyroImage.equipped = equippedClasses & 64;
@@ -266,7 +266,7 @@ typedef enum {
             classesTF2Cell.classSniperImage.equipped = equippedClasses & 2;
             classesTF2Cell.classSpyImage.equipped = equippedClasses & 128;
 
-            int equippableClasses = ((SCWebApiItem *)self.item).equippableClasses;
+            int equippableClasses = ((SCTF2Item *)self.item).equippableClasses;
             classesTF2Cell.classScoutImage.equippable = equippableClasses & 1;
             classesTF2Cell.classSoldierImage.equippable = equippableClasses & 4;
             classesTF2Cell.classPyroImage.equippable = equippableClasses & 64;

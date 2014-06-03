@@ -13,7 +13,7 @@
 
 @protocol SCItem <NSObject>
 
-@property (readonly) NSNumber *position;
+@property (nonatomic, readonly) NSNumber *position;
 
 - (BOOL)belongsToItemSet;
 - (NSString *)descriptionText;

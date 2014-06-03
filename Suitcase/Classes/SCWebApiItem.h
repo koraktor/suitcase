@@ -12,13 +12,10 @@
 
 @interface SCWebApiItem : NSObject <SCItem>
 
-@property (strong, readonly) NSArray *attributes;
-@property NSDictionary *dictionary;
-@property (readonly) int equippableClasses;
-@property (readonly) int equippedClasses;
-@property SCWebApiInventory *inventory;
-@property (readonly) NSString *name;
-@property (readonly) NSNumber *position;
+@property (nonatomic, strong) NSArray *attributes;
+@property (nonatomic, strong) NSDictionary *dictionary;
+@property (nonatomic, strong) SCWebApiInventory *inventory;
+@property (nonatomic, strong) NSString *name;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary
             andInventory:(SCWebApiInventory *)anInventory;
@@ -28,6 +25,7 @@
 - (NSNumber *)level;
 - (NSString *)levelText;
 - (NSString *)origin;
+- (NSNumber *)quality;
 - (NSNumber *)quantity;
 
 - (id)valueForKey:(NSString *)key;

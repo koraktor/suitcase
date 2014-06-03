@@ -23,19 +23,12 @@ const NSUInteger kSCKillEaterDefindex = 214;
 
 @implementation SCWebApiItem
 
-@synthesize attributes = _attributes;
-@synthesize equippableClasses = _equippableClasses;
-@synthesize equippedClasses = _equippedClasses;
-@synthesize name = _name;
 @synthesize position = _position;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary
             andInventory:(SCWebApiInventory *)anInventory {
     self.dictionary = aDictionary;
     self.inventory  = anInventory;
-
-    _equippableClasses = -1;
-    _equippedClasses   = -1;
 
     return self;
 }
@@ -210,62 +203,6 @@ const NSUInteger kSCKillEaterDefindex = 214;
     return [NSString stringWithString:description];
 }
 
-- (int)equippableClasses {
-    if (_equippableClasses == -1 ) {
-        _equippableClasses = 0;
-        NSArray *classes = (NSArray *)[self valueForKey:@"used_by_classes"];
-
-        if ([classes count] == 0) {
-            _equippableClasses = 511;
-        } else {
-            if ([classes containsObject:@"Scout"]) {
-                _equippableClasses = _equippableClasses | 1;
-            }
-            if ([classes containsObject:@"Soldier"]) {
-                _equippableClasses = _equippableClasses | 4;
-            }
-            if ([classes containsObject:@"Pyro"]) {
-                _equippableClasses = _equippableClasses | 64;
-            }
-            if ([classes containsObject:@"Demoman"]) {
-                _equippableClasses = _equippableClasses | 8;
-            }
-            if ([classes containsObject:@"Heavy"]) {
-                _equippableClasses = _equippableClasses | 32;
-            }
-            if ([classes containsObject:@"Engineer"]) {
-                _equippableClasses = _equippableClasses | 256;
-            }
-            if ([classes containsObject:@"Medic"]) {
-                _equippableClasses = _equippableClasses | 16;
-            }
-            if ([classes containsObject:@"Sniper"]) {
-                _equippableClasses = _equippableClasses | 2;
-            }
-            if ([classes containsObject:@"Spy"]) {
-                _equippableClasses = _equippableClasses | 128;
-            }
-        }
-    }
-
-    return _equippableClasses;
-}
-
-- (int)equippedClasses {
-    if(_equippedClasses == -1) {
-        _equippedClasses = 0;
-        [(NSArray *)[self.dictionary objectForKey:@"equipped"] enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-            int classId = [[obj objectForKey:@"class"] intValue];
-            if (classId == 0) {
-                classId = 1;
-            }
-            _equippedClasses = _equippedClasses | (1 << (classId - 1));
-        }];
-    }
-
-    return _equippedClasses;
-}
-
 - (BOOL)hasOrigin {
     return YES;
 }
@@ -412,19 +349,6 @@ const NSUInteger kSCKillEaterDefindex = 214;
 }
 
 - (UIColor *)qualityColor {
-    NSInteger itemQuality = [self.quality integerValue];
-    if (itemQuality == 1) {
-        return [UIColor colorWithRed:0.0 green:0.39 blue:0.0 alpha:1.0];
-    } else if (itemQuality == 3) {
-        return [UIColor colorWithRed:0.11 green:0.39 blue:0.82 alpha:1.0];
-    } else if (itemQuality == 5) {
-        return [UIColor colorWithRed:0.53 green:0.33 blue:0.82 alpha:1.0];
-    } else if (itemQuality == 7) {
-        return [UIColor colorWithRed:0.11 green:0.52 blue:0.17 alpha:1.0];
-    } else if (itemQuality == 11) {
-        return [UIColor colorWithRed:0.76 green:0.52 blue:0.17 alpha:1.0];
-    }
-
     return [UIColor colorWithWhite:0.2 alpha:1.0];
 }
 
