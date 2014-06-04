@@ -97,17 +97,9 @@
 		028B640F15265D690040D2FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B640E15265D690040D2FF /* CoreGraphics.framework */; };
 		028B641515265D690040D2FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 028B641315265D690040D2FF /* InfoPlist.strings */; };
 		028B641715265D690040D2FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B641615265D690040D2FF /* main.m */; };
-		028B642F15265D690040D2FF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B642E15265D690040D2FF /* SenTestingKit.framework */; };
-		028B643015265D690040D2FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B640A15265D690040D2FF /* UIKit.framework */; };
-		028B643115265D690040D2FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B640C15265D690040D2FF /* Foundation.framework */; };
-		028B643915265D690040D2FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 028B643715265D690040D2FF /* InfoPlist.strings */; };
-		028B643C15265D690040D2FF /* SuitcaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B643B15265D690040D2FF /* SuitcaseTests.m */; };
 		028B64931526761C0040D2FF /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B648E1526761C0040D2FF /* SCAppDelegate.m */; };
-		028B64941526761C0040D2FF /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B648E1526761C0040D2FF /* SCAppDelegate.m */; };
 		028B64951526761C0040D2FF /* SCItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64901526761C0040D2FF /* SCItemViewController.m */; };
-		028B64961526761C0040D2FF /* SCItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64901526761C0040D2FF /* SCItemViewController.m */; };
 		028B64971526761C0040D2FF /* SCInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCInventoryViewController.m */; };
-		028B64981526761C0040D2FF /* SCInventoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64921526761C0040D2FF /* SCInventoryViewController.m */; };
 		02958187193CB20300115131 /* SCTF2Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 02958186193CB20300115131 /* SCTF2Item.m */; };
 		0295818A193CCAB000115131 /* SCDota2Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 02958189193CCAB000115131 /* SCDota2Item.m */; };
 		0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */; };
@@ -136,16 +128,6 @@
 		02F36DF81826AC3C0036D1C6 /* SCSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F36DF71826AC3C0036D1C6 /* SCSplitViewController.m */; };
 		02F37EC41580152300BFB1B5 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F37EC31580152300BFB1B5 /* CoreText.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		028B643215265D690040D2FF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 028B63FD15265D680040D2FF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 028B640515265D680040D2FF;
-			remoteInfo = Suitcase;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		02010B30169858E400007456 /* SCWebApiRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWebApiRequestOperationManager.h; path = Classes/SCWebApiRequestOperationManager.h; sourceTree = "<group>"; };
@@ -290,12 +272,7 @@
 		028B641415265D690040D2FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		028B641615265D690040D2FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		028B641815265D690040D2FF /* Suitcase-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Suitcase-Prefix.pch"; sourceTree = "<group>"; };
-		028B642D15265D690040D2FF /* SuitcaseTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SuitcaseTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		028B642E15265D690040D2FF /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		028B643615265D690040D2FF /* SuitcaseTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SuitcaseTests-Info.plist"; sourceTree = "<group>"; };
-		028B643815265D690040D2FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		028B643A15265D690040D2FF /* SuitcaseTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuitcaseTests.h; sourceTree = "<group>"; };
-		028B643B15265D690040D2FF /* SuitcaseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuitcaseTests.m; sourceTree = "<group>"; };
 		028B648D1526761C0040D2FF /* SCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCAppDelegate.h; path = Classes/SCAppDelegate.h; sourceTree = "<group>"; };
 		028B648E1526761C0040D2FF /* SCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCAppDelegate.m; path = Classes/SCAppDelegate.m; sourceTree = "<group>"; };
 		028B648F1526761C0040D2FF /* SCItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemViewController.h; path = Classes/SCItemViewController.h; sourceTree = "<group>"; };
@@ -381,16 +358,6 @@
 				02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */,
 				0209E151157954C70073385D /* SystemConfiguration.framework in Frameworks */,
 				028B640B15265D690040D2FF /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		028B642915265D690040D2FF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				028B642F15265D690040D2FF /* SenTestingKit.framework in Frameworks */,
-				028B643015265D690040D2FF /* UIKit.framework in Frameworks */,
-				028B643115265D690040D2FF /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,7 +672,6 @@
 			isa = PBXGroup;
 			children = (
 				028B641015265D690040D2FF /* Suitcase */,
-				028B643415265D690040D2FF /* SuitcaseTests */,
 				028B640915265D690040D2FF /* Frameworks */,
 				028B640715265D690040D2FF /* Products */,
 			);
@@ -715,7 +681,6 @@
 			isa = PBXGroup;
 			children = (
 				028B640615265D680040D2FF /* Suitcase.app */,
-				028B642D15265D690040D2FF /* SuitcaseTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -775,25 +740,6 @@
 				028B641615265D690040D2FF /* main.m */,
 				028B641815265D690040D2FF /* Suitcase-Prefix.pch */,
 				0266DFE016920437009C6CE8 /* Suitcase.xcconfig */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		028B643415265D690040D2FF /* SuitcaseTests */ = {
-			isa = PBXGroup;
-			children = (
-				028B643A15265D690040D2FF /* SuitcaseTests.h */,
-				028B643B15265D690040D2FF /* SuitcaseTests.m */,
-				028B643515265D690040D2FF /* Supporting Files */,
-			);
-			path = SuitcaseTests;
-			sourceTree = "<group>";
-		};
-		028B643515265D690040D2FF /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				028B643615265D690040D2FF /* SuitcaseTests-Info.plist */,
-				028B643715265D690040D2FF /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -873,25 +819,6 @@
 			productReference = 028B640615265D680040D2FF /* Suitcase.app */;
 			productType = "com.apple.product-type.application";
 		};
-		028B642C15265D690040D2FF /* SuitcaseTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 028B644215265D690040D2FF /* Build configuration list for PBXNativeTarget "SuitcaseTests" */;
-			buildPhases = (
-				028B642815265D690040D2FF /* Sources */,
-				028B642915265D690040D2FF /* Frameworks */,
-				028B642A15265D690040D2FF /* Resources */,
-				028B642B15265D690040D2FF /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				028B643315265D690040D2FF /* PBXTargetDependency */,
-			);
-			name = SuitcaseTests;
-			productName = SuitcaseTests;
-			productReference = 028B642D15265D690040D2FF /* SuitcaseTests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -921,7 +848,6 @@
 			projectRoot = "";
 			targets = (
 				028B640515265D680040D2FF /* Suitcase */,
-				028B642C15265D690040D2FF /* SuitcaseTests */,
 			);
 		};
 /* End PBXProject section */
@@ -968,14 +894,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		028B642A15265D690040D2FF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				028B643915265D690040D2FF /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1017,19 +935,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "gitDescribe=$(git describe --always)\n/usr/libexec/PlistBuddy -c \"Delete CFBundleVersion\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Add CFBundleVersion string $gitDescribe\" Suitcase/Suitcase-Info.plist";
-		};
-		028B642B15265D690040D2FF /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 		029B08F5159262FF00BD6271 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1129,26 +1034,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		028B642815265D690040D2FF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				028B643C15265D690040D2FF /* SuitcaseTests.m in Sources */,
-				028B64941526761C0040D2FF /* SCAppDelegate.m in Sources */,
-				028B64961526761C0040D2FF /* SCItemViewController.m in Sources */,
-				028B64981526761C0040D2FF /* SCInventoryViewController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		028B643315265D690040D2FF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 028B640515265D680040D2FF /* Suitcase */;
-			targetProxy = 028B643215265D690040D2FF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		022D0CCD158349B80071F665 /* Localizable.strings */ = {
@@ -1164,14 +1050,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				028B641415265D690040D2FF /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		028B643715265D690040D2FF /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				028B643815265D690040D2FF /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1276,40 +1154,6 @@
 			};
 			name = Release;
 		};
-		028B644315265D690040D2FF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Suitcase.app/Suitcase";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Suitcase/Suitcase-Prefix.pch";
-				INFOPLIST_FILE = "SuitcaseTests/SuitcaseTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		028B644415265D690040D2FF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Suitcase.app/Suitcase";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Suitcase/Suitcase-Prefix.pch";
-				INFOPLIST_FILE = "SuitcaseTests/SuitcaseTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1327,15 +1171,6 @@
 			buildConfigurations = (
 				028B644015265D690040D2FF /* Debug */,
 				028B644115265D690040D2FF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		028B644215265D690040D2FF /* Build configuration list for PBXNativeTarget "SuitcaseTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				028B644315265D690040D2FF /* Debug */,
-				028B644415265D690040D2FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
