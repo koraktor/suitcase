@@ -89,18 +89,6 @@ static SCWebApiRequestOperationManager *_webApiClient;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    UINavigationController *navigationController;
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        navigationController = ((UISplitViewController *)self.window.rootViewController).viewControllers[0];
-    } else {
-        navigationController = (UINavigationController *)self.window.rootViewController;
-    }
-
-    NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
-    if (steamId64 == nil) {
-        [navigationController.topViewController performSegueWithIdentifier:@"SteamIDForm" sender:self];
-    }
-
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"clear_cache"]) {
         [SCImageCache clearImageCache];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"clear_cache"];
