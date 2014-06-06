@@ -13,7 +13,7 @@ static CGFloat kBorderWidth;
 static UIColor *kDefaultColor;
 
 + (void)initialize {
-    kBorderWidth = [[UIScreen mainScreen] scale] * 3;
+    kBorderWidth = [[UIScreen mainScreen] scale] * 2;
     kDefaultColor = [UIColor colorWithRed:0.6 green:0.64 blue:0.71 alpha:1.0];
 }
 
