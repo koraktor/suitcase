@@ -115,7 +115,7 @@
             <objects>
                 <viewController id="Lfv-Gw-nI3" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="I31-bB-KaI">
-                        <rect key="frame" x="0.0" y="64" width="703" height="704"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.37647062539999998" green="0.43137258290000002" blue="0.48235297199999999" alpha="1" colorSpace="deviceRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -281,8 +281,12 @@
                                             <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <size key="shadowOffset" width="0.0" height="1"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="6t7-GN-rMW">
+                                            <rect key="frame" x="10" y="25" width="24" height="27"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                         <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XPO-Cb-Bmu">
-                                            <rect key="frame" x="20" y="25" width="649" height="27"/>
+                                            <rect key="frame" x="42" y="25" width="627" height="27"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -295,6 +299,7 @@
                                 </view>
                                 <size key="customSize" width="679" height="52"/>
                                 <connections>
+                                    <outlet property="expandIcon" destination="6t7-GN-rMW" id="mNA-5l-XAN"/>
                                     <outlet property="headerLabel" destination="xAu-uC-OKg" id="Anf-hl-vPG"/>
                                     <outlet property="nameLabel" destination="XPO-Cb-Bmu" id="Cri-4M-st7"/>
                                 </connections>
@@ -735,7 +740,7 @@ http://steamcommunity.com/profile/{Profile ID}
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="frd-Wt-Efv"/>
         <segue reference="eS2-5p-lpL"/>
+        <segue reference="oUz-yf-NN8"/>
     </inferredMetricsTieBreakers>
 </document>

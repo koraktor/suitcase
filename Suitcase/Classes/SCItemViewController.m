@@ -31,6 +31,7 @@ NSString *const kSCOpenLinkInBrowser = @"kSCOpenLinkInBrowser";
 @interface SCItemViewController () {
     SCItemAttributeType _attributes;
     NSAttributedString *_itemDescription;
+    SCItemSetCell *_itemSetCell;
     NSURL *_linkUrl;
     BOOL _showItemSetItems;
 }
@@ -294,8 +295,9 @@ typedef enum {
         }
 
         case kSCCellTypeItemSet:
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemSetCell" forIndexPath:indexPath];
-            ((SCItemSetCell *)cell).item = self.item;
+            _itemSetCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ItemSetCell" forIndexPath:indexPath];
+            _itemSetCell.item = self.item;
+            cell = _itemSetCell;
             break;
 
         case kSCCellTypeItemSetItem: {
@@ -324,6 +326,14 @@ typedef enum {
         _showItemSetItems = !_showItemSetItems;
         [self.collectionView performBatchUpdates:^{
             [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:kSCCellTypeItemSetItem]];
+
+            CGFloat expandIconRotation = -0.5 * M_PI;
+            if (_showItemSetItems) {
+                expandIconRotation += M_PI;
+            }
+            [UIView animateWithDuration:0.5 animations:^{
+                _itemSetCell.expandIcon.transform = CGAffineTransformRotate(_itemSetCell.expandIcon.transform, expandIconRotation);
+            }];
         } completion:^(BOOL finished) {
             if (_showItemSetItems) {
                 [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:kSCCellTypeItemSet]
