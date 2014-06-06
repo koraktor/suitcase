@@ -52,8 +52,9 @@ static NSUInteger kMaxImageSize;
 }
 
 - (void)refresh {
-    UIColor *borderColor = [[self.item inventory] showColors] ? [self.item qualityColor] : nil;
-    [self.imageView setBorderColor:borderColor];
+    UIColor *itemColor = [[self.item inventory] showColors] ? [self.item qualityColor] : nil;
+    self.imageView.borderColor = itemColor;
+    self.imageView.backgroundColor = itemColor;
 }
 
 - (void)setItem:(id<SCItem>)item {
