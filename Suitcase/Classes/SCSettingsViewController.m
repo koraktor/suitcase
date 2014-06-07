@@ -6,6 +6,7 @@
 //
 
 #import "BPBarButtonItem.h"
+#import "FAKFontAwesome.h"
 #import "IASKSettingsReader.h"
 #import "IASKSwitch.h"
 
@@ -93,13 +94,31 @@
         return footer;
     }
 
-    UILabel *footer = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, 100.0)];
-    footer.backgroundColor = [UIColor clearColor];
-    footer.text = footerText;
-    footer.textAlignment = NSTextAlignmentCenter;
-    footer.textColor = [UIColor colorWithRed:0.3686 green:0.4196 blue:0.4745 alpha:1.0];
+    CGRect footerSize = CGRectMake(0.0, 0.0, tableView.frame.size.width, 100.0);
 
-    return footer;
+    NSShadow *logoShadow = [NSShadow new];
+    logoShadow.shadowColor = [UIColor colorWithWhite:0.7 alpha:0.9];
+    logoShadow.shadowOffset = CGSizeMake(0.0, -2.0);
+
+    FAKFontAwesome *steamLogo = [FAKFontAwesome steamIconWithSize:100.0];
+    [steamLogo addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:0.9 alpha:0.7]];
+    [steamLogo addAttribute:NSShadowAttributeName value:logoShadow];
+    UIImage *steamLogoImage = [steamLogo imageWithSize:CGSizeMake(140.0, 100.0)];
+    UIImageView *steamLogoView = [[UIImageView alloc] initWithFrame:footerSize];
+    steamLogoView.contentMode = UIViewContentModeCenter;
+    steamLogoView.image = steamLogoImage;
+
+    UILabel *steamLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, 100.0)];
+    steamLabel.backgroundColor = [UIColor clearColor];
+    steamLabel.text = footerText;
+    steamLabel.textAlignment = NSTextAlignmentCenter;
+    steamLabel.textColor = [UIColor colorWithRed:0.3686 green:0.4196 blue:0.4745 alpha:1.0];
+
+    UIView *footerView = [[UIView alloc] initWithFrame:footerSize];
+    [footerView addSubview:steamLogoView];
+    [footerView addSubview:steamLabel];
+
+    return footerView;
 }
 
 @end
