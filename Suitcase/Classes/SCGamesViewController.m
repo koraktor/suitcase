@@ -383,7 +383,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     for (SCGame *game in _games) {
         Class inventoryClass;
 
-        if ([@[@620, @730, @753] containsObject:game.appId]) {
+        if ([@[@620, @730, @753, @238460] containsObject:game.appId]) {
             inventoryClass = [SCCommunityInventory class];
         } else {
             inventoryClass = [SCWebApiInventory class];
