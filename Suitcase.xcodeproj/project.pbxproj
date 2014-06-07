@@ -281,8 +281,8 @@
 		028B64921526761C0040D2FF /* SCInventoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCInventoryViewController.m; path = Classes/SCInventoryViewController.m; sourceTree = "<group>"; };
 		02958185193CB20300115131 /* SCTF2Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCTF2Item.h; path = Classes/SCTF2Item.h; sourceTree = "<group>"; };
 		02958186193CB20300115131 /* SCTF2Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCTF2Item.m; path = Classes/SCTF2Item.m; sourceTree = "<group>"; };
-		02958188193CCAB000115131 /* SCDota2Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDota2Item.h; sourceTree = "<group>"; };
-		02958189193CCAB000115131 /* SCDota2Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDota2Item.m; sourceTree = "<group>"; };
+		02958188193CCAB000115131 /* SCDota2Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCDota2Item.h; path = Classes/SCDota2Item.h; sourceTree = "<group>"; };
+		02958189193CCAB000115131 /* SCDota2Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCDota2Item.m; path = Classes/SCDota2Item.m; sourceTree = "<group>"; };
 		0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSteamIdFormController.h; path = Classes/SCSteamIdFormController.h; sourceTree = "<group>"; };
 		0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSteamIdFormController.m; path = Classes/SCSteamIdFormController.m; sourceTree = "<group>"; };
 		029B08F3159261A600BD6271 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
