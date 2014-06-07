@@ -181,6 +181,9 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         if (![availableGames containsObject:@753]) {
             [availableGames addObject:@753];
         }
+        if (![availableGames containsObject:@104700]) {
+            [availableGames addObject:@104700];
+        }
         [_availableGamesCondition lock];
         _availableGames = [NSArray arrayWithArray:availableGames];
         [_availableGamesCondition signal];
@@ -383,7 +386,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     for (SCGame *game in _games) {
         Class inventoryClass;
 
-        if ([@[@620, @730, @753, @238460] containsObject:game.appId]) {
+        if ([@[@620, @730, @753, @104700, @238460] containsObject:game.appId]) {
             inventoryClass = [SCCommunityInventory class];
         } else {
             inventoryClass = [SCWebApiInventory class];

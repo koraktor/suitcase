@@ -2,7 +2,7 @@
 //  SCGame.m
 //  Suitcase
 //
-//  Copyright (c) 2013, Sebastian Staudt
+//  Copyright (c) 2013-2014, Sebastian Staudt
 //
 
 #import "SCGame.h"
@@ -21,10 +21,17 @@
 
 - (id)initWithJSONObject:(NSDictionary *)jsonObject
 {
+    NSArray *itemCategories;
+    if ([jsonObject[@"appid"] isEqualToNumber:@104700]) {
+        itemCategories = @[@2, @3, @13];
+    } else {
+        itemCategories = @[@2];
+    }
+
     self = [self initWithAppId:jsonObject[@"appid"]
                        andName:jsonObject[@"name"]
                    andLogoHash:jsonObject[@"img_logo_url"]
-             andItemCategories:@[@2]];
+             andItemCategories:itemCategories];
 
     return self;
 }
