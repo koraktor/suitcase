@@ -81,7 +81,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     NSString *footerText = [self tableView:tableView titleForFooterInSection:section];
     if (footerText == nil || [footerText length] == 0) {
-        return 0.01;
+        return 0.0;
     }
 
     return 100.0;
@@ -90,8 +90,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     NSString *footerText = [self tableView:tableView titleForFooterInSection:section];
     if (footerText == nil || [footerText length] == 0) {
-        UILabel *footer = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, 0.0)];
-        return footer;
+        return nil;
     }
 
     CGRect footerSize = CGRectMake(0.0, 0.0, tableView.frame.size.width, 100.0);
