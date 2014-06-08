@@ -85,8 +85,11 @@ withDescriptions:(NSDictionary *)descriptions
             forItemType:(NSNumber *)itemType
        withErrorMessage:(NSString *)errorMessage
 {
-    self.successful = NO;
-    self.temporaryFailed = temporaryFailed;
+    if (temporaryFailed) {
+        self.state = SCInventoryStateTemporaryFailed;
+    } else {
+        self.state = SCInventoryStateFailed;
+    }
 
 #ifdef DEBUG
     NSLog(@"Loading inventory for game \"%@\" (item type %@) failed with error: %@", self.game.name, itemType, errorMessage);

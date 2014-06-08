@@ -68,9 +68,8 @@ static NSMutableDictionary *__inventories;
 {
     self.game = game;
     self.slots = @0;
+    self.state = SCInventoryStateNew;
     self.steamId64 = steamId64;
-    self.successful = NO;
-    self.temporaryFailed = NO;
 
     return self;
 }
@@ -84,10 +83,15 @@ static NSMutableDictionary *__inventories;
     return ((SCItemQuality *)self.itemQualities[qualityName]).color;
 }
 
+- (BOOL)failed
+{
+    return self.state == SCInventoryStateFailed;
+}
+
 - (void)finish
 {
-    if (!self.temporaryFailed) {
-        self.successful = YES;
+    if (self.state == SCInventoryStateNew) {
+        self.state = SCInventoryStateSuccessful;
     }
     self.timestamp = [NSDate date];
 
@@ -101,7 +105,12 @@ static NSMutableDictionary *__inventories;
 
 - (BOOL)isLoaded
 {
-    return self.timestamp != nil;
+    return self.state != SCInventoryStateNew;
+}
+
+- (BOOL)isSuccessful
+{
+    return self.state == SCInventoryStateSuccessful;
 }
 
 - (void)sortItemsByPosition
@@ -113,12 +122,17 @@ static NSMutableDictionary *__inventories;
 
 - (BOOL)isEmpty
 {
-    return self.successful && _items.count == 0;
+    return [self isSuccessful] && _items.count == 0;
 }
 
 - (BOOL)outdated
 {
     return [_timestamp timeIntervalSinceNow] < -600;
+}
+
+- (BOOL)temporaryFailed
+{
+    return self.state == SCInventoryStateTemporaryFailed;
 }
 
 @end

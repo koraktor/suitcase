@@ -79,15 +79,12 @@ static NSArray *alphabetWithNumbers;
             self.slots = [inventoryResponse objectForKey:@"num_backpack_slots"];
 
             self.items = [NSArray arrayWithArray:items];
-            self.successful = YES;
-            self.temporaryFailed = NO;
         } else {
 #ifdef DEBUG
             NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [inventoryResponse objectForKey:@"statusDetail"]];
             NSLog(@"Loading inventory for game \"%@\" failed with error: %@", self.game.name, errorMessage);
 #endif
-            self.successful = NO;
-            self.temporaryFailed = NO;
+            self.state = SCInventoryStateFailed;
         }
 
         [self finish];
@@ -97,8 +94,7 @@ static NSArray *alphabetWithNumbers;
         NSLog(@"Loading inventory for game \"%@\" failed with error: %@", self.game.name, errorMessage);
 #endif
 
-        self.successful = NO;
-        self.temporaryFailed = YES;
+        self.state = SCInventoryStateTemporaryFailed;
 
         [self finish];
     }];

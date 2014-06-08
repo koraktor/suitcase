@@ -18,6 +18,7 @@
                               andGame:(SCGame *)game;
 
 - (UIColor *)colorForQualityIndex:(NSInteger)index;
+- (BOOL)failed;
 - (SCGame *)game;
 - (BOOL)isEmpty;
 - (BOOL)isLoaded;

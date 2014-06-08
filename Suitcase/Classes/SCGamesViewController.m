@@ -285,14 +285,12 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     }
 
     BOOL skipped = NO;
-    if ([inventory isSuccessful]) {
-        if (skipEmptyInventories && [inventory isEmpty]) {
-            skipped = YES;
-        }
-    } else {
-        if (skipFailedInventories && [inventory temporaryFailed]) {
-            skipped = YES;
-        }
+    if ([inventory failed]) {
+        skipped = YES;
+    } else if ([inventory isSuccessful] && skipEmptyInventories && [inventory isEmpty]) {
+        skipped = YES;
+    } else if (skipFailedInventories && [inventory temporaryFailed]) {
+        skipped = YES;
     }
 
     if (_waitingForInventoryReload) {
@@ -431,18 +429,14 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     self.steamInventory = nil;
 
     [inventories enumerateObjectsUsingBlock:^(id <SCInventory> inventory, NSUInteger idx, BOOL *stop) {
-        if (![inventory isLoaded]) {
+        if (![inventory isLoaded] || [inventory failed]) {
             return;
         }
 
-        if ([inventory isSuccessful]) {
-            if (skipEmptyInventories && [inventory isEmpty]) {
-                return;
-            }
-        } else {
-            if (skipFailedInventories && [inventory temporaryFailed]) {
-                return;
-            }
+        if ([inventory isSuccessful] && skipEmptyInventories && [inventory isEmpty]) {
+            return;
+        } else if (skipFailedInventories && [inventory temporaryFailed]) {
+            return;
         }
 
         if ([inventory.game isSteam]) {

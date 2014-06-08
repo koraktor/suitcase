@@ -14,6 +14,13 @@
 
 extern NSString *const kSCInventoryError;
 
+typedef NS_ENUM(NSUInteger, SCInventoryState) {
+    SCInventoryStateNew,
+    SCInventoryStateSuccessful,
+    SCInventoryStateTemporaryFailed,
+    SCInventoryStateFailed
+};
+
 @interface SCAbstractInventory : NSObject
 
 #pragma mark Properties
@@ -24,9 +31,8 @@ extern NSString *const kSCInventoryError;
 @property (strong, nonatomic) NSArray *itemSections;
 @property (nonatomic) BOOL showColors;
 @property (strong, nonatomic) NSNumber *slots;
+@property (nonatomic) SCInventoryState state;
 @property (strong, nonatomic) NSNumber *steamId64;
-@property (nonatomic, getter = isSuccessful) BOOL successful;
-@property (nonatomic) BOOL temporaryFailed;
 @property (strong, nonatomic) NSDate *timestamp;
 
 #pragma mark Class methods
@@ -45,10 +51,13 @@ extern NSString *const kSCInventoryError;
 #pragma mark Instance methods
 
 - (UIColor *)colorForQualityIndex:(NSInteger)index;
+- (BOOL)failed;
 - (void)finish;
 - (BOOL)isEmpty;
 - (BOOL)isLoaded;
+- (BOOL)isSuccessful;
 - (BOOL)outdated;
 - (void)sortItemsByPosition;
+- (BOOL)temporaryFailed;
 
 @end
