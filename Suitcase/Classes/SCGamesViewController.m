@@ -133,7 +133,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
     if (self.steamInventory != nil) {
         [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]]
-                              withRowAnimation:UITableViewRowAnimationLeft];
+                              withRowAnimation:UITableViewRowAnimationTop];
         noInventories = NO;
     }
 
@@ -142,9 +142,9 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         for (int i = 0; i < self.inventories.count; i ++) {
             [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:2]];
         }
-        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationLeft];
+        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:SCInventorySectionGames]
-                      withRowAnimation:UITableViewRowAnimationLeft];
+                      withRowAnimation:UITableViewRowAnimationTop];
 
         noInventories = NO;
     }
@@ -154,7 +154,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
     if (!noInventories) {
         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]]
-                              withRowAnimation:UITableViewRowAnimationFade];
+                              withRowAnimation:UITableViewRowAnimationTop];
     }
 
     [self.tableView endUpdates];
@@ -336,13 +336,13 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
         if (self.steamInventory == nil && self.inventories.count == 0) {
             [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]]
-                                  withRowAnimation:UITableViewRowAnimationFade];
+                                  withRowAnimation:UITableViewRowAnimationTop];
         }
 
         if ([inventory.game isSteam]) {
             self.steamInventory = inventory;
             [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]]
-                                                    withRowAnimation:UITableViewRowAnimationFade];
+                                                    withRowAnimation:UITableViewRowAnimationTop];
         } else {
             NSArray *newInventories = [self.inventories arrayByAddingObject:inventory];
             self.inventories = [newInventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
@@ -459,7 +459,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)];
         [self.tableView beginUpdates];
-        [self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationTop];
         [self.tableView endUpdates];
     } else {
         [self.tableView reloadData];
