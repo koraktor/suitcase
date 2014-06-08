@@ -109,7 +109,7 @@ withDescriptions:(NSDictionary *)descriptions
                 [self addItems:[responseObject[@"rgInventory"] allValues] withDescriptions:responseObject[@"rgDescriptions"] andItemCategory:itemCategory];
             } else {
                 if (![self temporaryFailed]) {
-                    NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), @""];
+                    NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), responseObject[@"Error"]];
                     [self failedTemporary:NO forItemType:itemCategory withErrorMessage:errorMessage];
                 }
             }
