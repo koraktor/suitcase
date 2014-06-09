@@ -43,7 +43,7 @@
         CGRect previousRowLeftFrame = [self layoutAttributesForItemAtIndexPath:previousRowLeftItem].frame;
         CGRect previousRowRightFrame = [self layoutAttributesForItemAtIndexPath:previousRowRightItem].frame;
 
-        frame.origin.y = MAX(CGRectGetMaxY(previousRowLeftFrame), CGRectGetMaxY(previousRowRightFrame)) + self.minimumInteritemSpacing;
+        frame.origin.y = MAX(CGRectGetMaxY(previousRowLeftFrame), CGRectGetMaxY(previousRowRightFrame));
     }
 
     if (indexPath.item % 2 == 0) {
