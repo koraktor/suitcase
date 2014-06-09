@@ -159,12 +159,6 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         }
-    } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
-        UINavigationController *navigationController = segue.destinationViewController;
-        SCSettingsViewController *settingsController = (SCSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];
-        settingsController.title = NSLocalizedString(@"Settings", @"Settings");
-        settingsController.showCreditsFooter = NO;
-        settingsController.showDoneButton = NO;
     }
 }
 

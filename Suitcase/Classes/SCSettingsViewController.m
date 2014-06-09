@@ -23,6 +23,9 @@
     }
 
     self.delegate = self;
+    self.showCreditsFooter = NO;
+    self.showDoneButton = NO;
+    self.title = NSLocalizedString(@"Settings", @"Settings");
 }
 
 - (IBAction)dismissSettings:(id)sender

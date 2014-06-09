@@ -404,12 +404,6 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
         SCInventoryViewController *inventoryController = segue.destinationViewController;
         inventoryController.inventory = _currentInventory;
-    } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
-        UINavigationController *navigationController = segue.destinationViewController;
-        IASKAppSettingsViewController *settingsController = (IASKAppSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];
-        settingsController.title = NSLocalizedString(@"Settings", @"Settings");
-        settingsController.showCreditsFooter = NO;
-        settingsController.showDoneButton = NO;
     }
 }
 
