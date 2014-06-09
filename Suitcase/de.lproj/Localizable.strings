@@ -37,11 +37,14 @@
 "kSCSchemaIsLoadingDetail"            = "Die Gegenstände für %@ werden geladen. Das kann eine Weile dauern.";
 "Cancel"                              = "Abbrechen";
 "Inventory"                           = "Inventar";
+"Inventories"                         = "Inventare";
+"items"                               = "Gegenstände";
 "Retry"                               = "Wiederholen";
 "Select an account"                   = "Account auswählen";
 "Settings"                            = "Einstellungen";
 "SteamID help"                        = "Geben Sie die benutzerdefinierte URL oder Profil-ID des Steam Community Profils an:";
 
+// Origin names
 "Achievement"                 = "Errungenschaft";
 "CD Key"                      = "CD-Key";
 "Collection Reward"           = "Sammlerbelohnung";
@@ -52,8 +55,6 @@
 "Games"                       = "Spiele";
 "Gifted"                      = "Geschenkt";
 "Halloween Drop"              = "Halloween-Fund";
-"Inventories"                 = "Inventare";
-"items"                       = "Gegenstände";
 "Preview Item"                = "Vorschaugegenstand";
 "Purchased"                   = "Gekauft";
 "Steam Purchase"              = "Steam-Kauf";
