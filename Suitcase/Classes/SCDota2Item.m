@@ -35,6 +35,14 @@ typedef NS_ENUM(NSUInteger, SCDota2ItemQuality) {
 
 @implementation SCDota2Item
 
+- (NSString *)name {
+    if (self.quality == [NSNumber numberWithUnsignedInteger:SCDota2ItemQualityUnique]) {
+        return super.name;
+    } else {
+        return [NSString stringWithFormat:@"%@ %@", self.qualityName, super.name];
+    }
+}
+
 - (UIColor *)qualityColor {
     NSInteger itemQuality = [self.quality integerValue];
 
