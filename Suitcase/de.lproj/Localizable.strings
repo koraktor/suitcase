@@ -66,3 +66,26 @@
 "Traded"                      = "Gehandelt";
 "Unknown"                     = "Unbekannt";
 "Wrapped Gift"                = "Verpacktes Geschenk";
+
+// Dota 2 Quality names
+"Base"        = "Basis";
+"Genuine"     = "Echt";
+"Elder"       = "Betagt";
+"Unusual"     = "Ungewöhnlich";
+"Standard"    = "Standard";
+"Community"   = "Community";
+"Valve"       = "Valve";
+"Self-Made"   = "Selbstgemacht";
+"Customized"  = "Maßgefertigt";
+"Inscribed"   = "Graviert";
+"Completed"   = "Vollendet";
+"Cursed"      = "Verflucht";
+"Heroic"      = "Heldenhaft";
+"Favored"     = "Begünstigt";
+"Ascendant"   = "Vorherrschend";
+"Autographed" = "Signiert";
+"Legacy"      = "Erbstück";
+"Exalted"     = "Erhaben";
+"Frozen"      = "Gefroren";
+"Corrupted"   = "Verdorben";
+"Auspicious"  = "Verheißungsvoll";
