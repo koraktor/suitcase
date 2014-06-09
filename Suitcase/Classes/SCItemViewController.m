@@ -109,7 +109,7 @@ typedef enum {
 #pragma mark - Managing the detail item
 
 - (Byte)activeAttributes {
-    Byte attributes = 0;
+    Byte attributes = SCItemAttributeTypeTradable;
 
     if ([self.item hasOrigin]) {
         attributes |= SCItemAttributeTypeOrigin;
@@ -117,6 +117,11 @@ typedef enum {
 
     if ([self.item hasQuality]) {
         attributes |= SCItemAttributeTypeQuality;
+    }
+
+    if ([self.item isKindOfClass:NSClassFromString(@"SCCommunityItem")] ||
+        [self.item isKindOfClass:NSClassFromString(@"SCTF2Item")]) {
+        attributes |= SCItemAttributeTypeMarketable;
     }
 
     return attributes;
@@ -352,12 +357,18 @@ typedef enum {
 
     switch (indexPath.section) {
         case kSCCellTypeAttribute: {
-            NSString *attributeValue = [SCItemAttributeCell attributeValueForType:[self itemAttributeTypeForIndex:indexPath.item]
-                                                                          andItem:self.item];
-            CGSize attributeValueLabelSize = [attributeValue sizeWithFont:[UIFont systemFontOfSize:16.0]
-                                                        constrainedToSize:CGSizeMake(170.0, CGFLOAT_MAX)
-                                                            lineBreakMode:NSLineBreakByWordWrapping];
+            CGSize attributeValueLabelSize;
             CGFloat cellHeight = attributeValueLabelSize.height + 10.0;
+            id attributeValue = [SCItemAttributeCell attributeValueForType:[self itemAttributeTypeForIndex:indexPath.item]
+                                                                          andItem:self.item];
+            if ([attributeValue isKindOfClass:[NSAttributedString class]]) {
+                cellHeight = 29.0;
+            } else {
+                CGSize attributeValueLabelSize = [attributeValue sizeWithFont:[UIFont systemFontOfSize:16.0]
+                                                            constrainedToSize:CGSizeMake(170.0, CGFLOAT_MAX)
+                                                                lineBreakMode:NSLineBreakByWordWrapping];
+                cellHeight = attributeValueLabelSize.height + 10.0;
+            }
 
             if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
                 cellWidth = floorf(cellWidth / 2) - 5.0;

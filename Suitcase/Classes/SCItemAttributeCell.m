@@ -11,21 +11,35 @@
 
 @implementation SCItemAttributeCell
 
+NSString *const kSCItemMarketable = @"kSCItemMarketable";
 NSString *const kSCItemOrigin = @"kSCItemOrigin";
 NSString *const kSCItemQuality = @"kSCItemQuality";
+NSString *const kSCItemTradable = @"kSCItemTradable";
 
+static NSAttributedString *kMarketableIcon;
 static NSAttributedString *kOriginIcon;
 static NSAttributedString *kQualityIcon;
+static NSAttributedString *kTradableIcon;
+
+static NSAttributedString *kNoIcon;
+static NSAttributedString *kYesIcon;
 
 + (void)initialize {
+    kMarketableIcon = [[FAKFontAwesome moneyIconWithSize:16.0] attributedString];
     kOriginIcon = [[FAKFontAwesome asteriskIconWithSize:16.0] attributedString];
     kQualityIcon = [[FAKFontAwesome starIconWithSize:16.0] attributedString];
+    kTradableIcon = [[FAKFontAwesome exchangeIconWithSize:16.0] attributedString];
+
+    kNoIcon = [[FAKFontAwesome timesIconWithSize:16.0] attributedString];
+    kYesIcon = [[FAKFontAwesome checkIconWithSize:16.0] attributedString];
 }
 
-+ (NSString *)attributeValueForType:(SCItemAttributeType)type andItem:(id <SCItem>)item {
++ (id)attributeValueForType:(SCItemAttributeType)type andItem:(id <SCItem>)item {
     switch (type) {
+        case SCItemAttributeTypeMarketable: return [item isMarketable] ? kYesIcon : kNoIcon;
         case SCItemAttributeTypeOrigin: return item.origin;
         case SCItemAttributeTypeQuality: return item.qualityName;
+        case SCItemAttributeTypeTradable: return [item isTradable] ? kYesIcon : kNoIcon;
         default: return nil;
     }
 }
@@ -39,6 +53,10 @@ static NSAttributedString *kQualityIcon;
     NSAttributedString *icon;
     NSString *name;
     switch (type) {
+        case SCItemAttributeTypeMarketable:
+            icon = kMarketableIcon;
+            name = NSLocalizedString(kSCItemMarketable, kSCItemMarketable);
+            break;
         case SCItemAttributeTypeOrigin:
             icon = kOriginIcon;
             name = NSLocalizedString(kSCItemOrigin, kSCItemOrigin);
@@ -46,6 +64,10 @@ static NSAttributedString *kQualityIcon;
         case SCItemAttributeTypeQuality:
             icon = kQualityIcon;
             name = NSLocalizedString(kSCItemQuality, kSCItemQuality);
+            break;
+        case SCItemAttributeTypeTradable:
+            icon = kTradableIcon;
+            name = NSLocalizedString(kSCItemTradable, kSCItemTradable);
     }
 
     NSMutableAttributedString *labelText = [[NSMutableAttributedString alloc] initWithAttributedString:icon];
@@ -53,8 +75,12 @@ static NSAttributedString *kQualityIcon;
     self.nameLabel.attributedText = labelText;
     [self.nameLabel sizeToFit];
 
-    NSString *value = [SCItemAttributeCell attributeValueForType:type andItem:self.item];
-    self.valueLabel.text = NSLocalizedString(value, value);
+    id value = [SCItemAttributeCell attributeValueForType:type andItem:self.item];
+    if ([value isKindOfClass:[NSAttributedString class]]) {
+        self.valueLabel.attributedText = value;
+    } else {
+        self.valueLabel.text = NSLocalizedString(value, value);
+    }
     [self.valueLabel sizeToFit];
 }
 

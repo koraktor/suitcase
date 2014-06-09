@@ -95,10 +95,12 @@ typedef NS_ENUM(NSUInteger, SCTF2ItemQuality) {
     return _equippedClasses;
 }
 
-- (UIColor *)qualityColor {
-    NSInteger itemQuality = [self.quality integerValue];
+- (BOOL)isMarketable {
+    return self.quality.integerValue == SCTF2ItemQualityVintage;
+}
 
-    switch (itemQuality) {
+- (UIColor *)qualityColor {
+    switch (self.quality.integerValue) {
         case SCTF2ItemQualityRarity1:
             return [UIColor colorWithHexString:@"#4D7455"];
 

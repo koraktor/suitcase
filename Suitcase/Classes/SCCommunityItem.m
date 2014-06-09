@@ -148,6 +148,14 @@ static NSString *kImageSize;
     return NO;
 }
 
+- (BOOL)isMarketable {
+    return [[self valueForKey:@"marketable"] boolValue];
+}
+
+- (BOOL)isTradable {
+    return [[self valueForKey:@"tradable"] boolValue];
+}
+
 - (SCItemSet *)itemSet {
     return nil;
 }

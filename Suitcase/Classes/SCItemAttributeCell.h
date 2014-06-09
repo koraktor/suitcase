@@ -10,8 +10,10 @@
 #import "SCItem.h"
 
 typedef NS_OPTIONS(NSUInteger, SCItemAttributeType) {
-    SCItemAttributeTypeOrigin  = 1,
-    SCItemAttributeTypeQuality = 2
+    SCItemAttributeTypeOrigin     = 1,
+    SCItemAttributeTypeQuality    = 2,
+    SCItemAttributeTypeTradable   = 4,
+    SCItemAttributeTypeMarketable = 8
 };
 
 @interface SCItemAttributeCell : UICollectionViewCell
@@ -21,7 +23,7 @@ typedef NS_OPTIONS(NSUInteger, SCItemAttributeType) {
 @property (nonatomic) SCItemAttributeType type;
 @property (strong, nonatomic) IBOutlet UILabel *valueLabel;
 
-+ (NSString *)attributeValueForType:(SCItemAttributeType)type andItem:(id <SCItem>)item;
++ (id)attributeValueForType:(SCItemAttributeType)type andItem:(id <SCItem>)item;
 
 - (void)empty;
 

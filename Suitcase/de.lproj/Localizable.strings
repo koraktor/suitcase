@@ -19,9 +19,11 @@
 "kSCInventorySearchNoResults"         = "Keine Gegenstände gefunden.";
 "kSCInventorySearchPlaceholder"       = "Nach Gegenständen suchen";
 "kSCItemItemSet"                      = "Gegenstandsset";
+"kSCItemMarketable"                   = "Marktfähig";
 "kSCItemOrigin"                       = "Herkunft";
 "kSCItemQuality"                      = "Qualität";
 "kSCItemSetCellHeader"                = "Ist Teil des Sets:";
+"kSCItemTradable"                     = "Handelbar";
 "kSCOpenInChrome"                     = "In Chrome öffnen";
 "kSCOpenInSafari"                     = "In Safari öffnen";
 "kSCOpenLinkInBrowser"                = "Diesen Link im Browser öffnen?";

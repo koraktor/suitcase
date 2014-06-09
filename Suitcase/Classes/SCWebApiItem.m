@@ -236,6 +236,19 @@ const NSUInteger kSCKillEaterDefindex = 214;
     return _killEaterScore != nil;
 }
 
+- (BOOL)isMarketable {
+    return NO;
+}
+
+- (BOOL)isTradable {
+    NSNumber *cannotTradeFlag = self.dictionary[@"flag_cannot_trade"];
+    if (cannotTradeFlag == nil) {
+        return YES;
+    }
+
+    return ![cannotTradeFlag boolValue];
+}
+
 - (SCItemSet *)itemSet {
     if (_itemSet == nil) {
         NSString *itemSetKey = [self valueForKey:@"item_set"];

@@ -25,6 +25,8 @@
 - (NSURL *)imageUrl;
 - (id<SCInventory>)inventory;
 - (BOOL)isKillEater;
+- (BOOL)isMarketable;
+- (BOOL)isTradable;
 - (SCItemSet *)itemSet;
 - (NSString *)itemType;
 - (NSString *)levelText;

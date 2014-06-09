@@ -19,8 +19,10 @@
 "kSCInventorySearchNoResults"         = "No items found.";
 "kSCInventorySearchPlaceholder"       = "Search for items";
 "kSCItemItemSet"                      = "Item set";
+"kSCItemMarketable"                   = "Marketable";
 "kSCItemOrigin"                       = "Origin";
 "kSCItemQuality"                      = "Quality";
+"kSCItemTradable"                     = "Tradable";
 "kSCItemSetCellHeader"                = "Is part of the item set:";
 "kSCOpenInChrome"                     = "Open in Chrome";
 "kSCOpenInSafari"                     = "Open in Safari";
