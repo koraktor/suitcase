@@ -105,10 +105,14 @@ withDescriptions:(NSDictionary *)descriptions
                                                                                                      andGame:self.game
                                                                                              andItemCategory:itemCategory];
         [itemCategoryOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if ([responseObject[@"success"] isEqualToNumber:@1] && [responseObject[@"rgInventory"] isKindOfClass:[NSDictionary class]]) {
-                [self addItems:[responseObject[@"rgInventory"] allValues] withDescriptions:responseObject[@"rgDescriptions"] andItemCategory:itemCategory];
-            } else {
-                if (![self temporaryFailed]) {
+            if (![self temporaryFailed]) {
+                if ([responseObject[@"success"] isEqualToNumber:@1]) {
+                    if ([responseObject[@"rgInventory"] isKindOfClass:[NSDictionary class]]) {
+                        [self addItems:[responseObject[@"rgInventory"] allValues]
+                      withDescriptions:responseObject[@"rgDescriptions"]
+                       andItemCategory:itemCategory];
+                    }
+                } else {
                     NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), responseObject[@"Error"]];
                     [self failedTemporary:NO forItemType:itemCategory withErrorMessage:errorMessage];
                 }
