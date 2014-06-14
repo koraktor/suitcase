@@ -81,6 +81,7 @@ static CGRect kTextLabelFrame;
 
 - (void)setInventory:(id <SCInventory>)inventory
 {
+    self.imageView.image = nil;
     _inventory = inventory;
 
     self.textLabel.text = inventory.game.name;

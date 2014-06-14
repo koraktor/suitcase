@@ -23,7 +23,7 @@
 #import "SCGamesViewController.h"
 
 @interface SCGamesViewController () {
-    NSArray *_availableGames;
+    NSSet *_availableGames;
     NSCondition *_availableGamesCondition;
     id <SCInventory> _currentInventory;
     NSArray *_games;
@@ -170,7 +170,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     [apiListOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *apiListResponse = [responseObject objectForKey:@"apilist"];
         NSArray *interfaces = [apiListResponse objectForKey:@"interfaces"];
-        NSMutableArray *availableGames = [NSMutableArray array];
+        NSMutableSet *availableGames = [NSMutableSet setWithObjects:@753, @104700, nil];
         [interfaces enumerateObjectsUsingBlock:^(NSDictionary *interface, NSUInteger idx, BOOL *stop) {
             NSString *interfaceName = [interface valueForKey:@"name"];
             if ([interfaceName hasPrefix:@"IEconItems_"]) {
@@ -185,7 +185,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
             [availableGames addObject:@104700];
         }
         [_availableGamesCondition lock];
-        _availableGames = [NSArray arrayWithArray:availableGames];
+        _availableGames = [NSSet setWithSet:availableGames];
         [_availableGamesCondition signal];
         [_availableGamesCondition unlock];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -222,7 +222,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
     NSDictionary *params = @{
-        @"appids_filter": _availableGames,
+        @"appids_filter": _availableGames.allObjects,
         @"steamId": steamId64,
         @"include_appinfo": @1,
         @"include_played_free_games": @1
@@ -311,9 +311,9 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
         NSIndexPath *indexPath;
         if ([inventory.game isSteam]) {
-            indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+            indexPath = [NSIndexPath indexPathForRow:0 inSection:SCInventorySectionSteam];
         } else {
-            indexPath = [NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:2];
+            indexPath = [NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:SCInventorySectionGames];
         }
 
         [self.tableView beginUpdates];
@@ -331,25 +331,28 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         }
 
         [self.tableView beginUpdates];
-
         if (self.steamInventory == nil && self.inventories.count == 0) {
-            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]]
+            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:SCInventorySectionNoInventories]]
                                   withRowAnimation:UITableViewRowAnimationTop];
         }
 
         if ([inventory.game isSteam]) {
             self.steamInventory = inventory;
-            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]]
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:SCInventorySectionSteam]]
                                                     withRowAnimation:UITableViewRowAnimationTop];
         } else {
+            NSMutableArray *otherInventories = [NSMutableArray arrayWithCapacity:self.inventories.count];
+            [self.inventories enumerateObjectsUsingBlock:^(id <SCInventory> otherInventory, NSUInteger row, BOOL *stop) {
+                [otherInventories addObject:[NSIndexPath indexPathForRow:row inSection:SCInventorySectionGames]];
+            }];
+
             NSArray *newInventories = [self.inventories arrayByAddingObject:inventory];
             self.inventories = [newInventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
                 return [inv1.game.name compare:inv2.game.name];
             }];
-            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:2]]
-                                  withRowAnimation:UITableViewRowAnimationNone];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2]
-                          withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:SCInventorySectionGames]]
+                                  withRowAnimation:UITableViewRowAnimationTop];
+            [self.tableView reloadRowsAtIndexPaths:otherInventories withRowAnimation:UITableViewRowAnimationFade];
         }
         [self.tableView endUpdates];
 
