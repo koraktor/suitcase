@@ -90,6 +90,7 @@
                             <outlet property="delegate" destination="dbF-Dt-raV" id="vQx-0R-4hH"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Inventories" id="uNc-HA-9MJ">
                         <barButtonItem key="leftBarButtonItem" title="…" id="DrV-SQ-KyY">
                             <connections>
