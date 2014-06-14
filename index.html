@@ -18,15 +18,22 @@ title:  Suitcase – An iOS inventory viewer for Steam games
         </div>
         <div class="span7 justified">
           <p>
-            Supports all games that provide inventory information via Steam's
-            Web API. Currently these are the following games:
+            Supports Steam itself and all games that provide inventory
+            information via Steam’s Web API. Currently these inventories are
+            supported:
           </p>
 
           <ul>
+            <li>Steam</li>
+          </ul>
+          <hr style="width: 80%">
+          <ul>
+            <li>BattleBlocks Theater</li>
             <li>Counter-Strike: Global Offensive</li>
-            <li>Dota 2</li>
+            <li>Dota 2 <em>(including Test version)</em></li>
             <li>Portal 2</li>
-            <li>Team Fortress 2</li>
+            <li>Super Monday Night Combat</li>
+            <li>Team Fortress 2 <em>(including Beta version)</em></li>
           </ul>
         </div>
       </div>
@@ -49,7 +56,12 @@ title:  Suitcase – An iOS inventory viewer for Steam games
 
           <p>
             Additionally, you can see the quality of an item with a quick
-            glance at the (optional) colored halo around its icon.<sup>2</sup>
+            glance at the (optional) colored bar left to its icon.<sup>2</sup>
+          </p>
+
+          <p>
+            Swiping down will show the search bar which can be used to search
+            through all items in an inventory by name.
           </p>
 
           <p>Sort items by:</p>
@@ -57,8 +69,8 @@ title:  Suitcase – An iOS inventory viewer for Steam games
             <li>Position in the inventory</li>
             <li>Item name</li>
             <li>Type of the item</li>
-            <li>Origin</li>
-            <li>Item quality</li>
+            <li>Origin<sup>2<sup></li>
+            <li>Item quality<sup>2<sup></li>
           </ul>
         </div>
       </div>
@@ -78,7 +90,7 @@ title:  Suitcase – An iOS inventory viewer for Steam games
         <div class="span7 justified">
           <p>
             Get detailed information on every aspect of an item. See which type
-            an item is and where it wasa obtained from, read its full
+            an item is and where it was obtained from, read its full
             description and all of its attributes.
           </p>
 
@@ -88,17 +100,20 @@ title:  Suitcase – An iOS inventory viewer for Steam games
           <ul>
             <li>
               Item sets
-              <p>See which item set, if any, an item belongs to.</p>
+              <p>
+                See which item set, if any, an item belongs to and which other
+                items (including images) belong to that set.
+              </p>
             </li>
             <li>
-              “Kill eater” ranks
+              “Kill eater” ranks<sup>2</sup>
               <p>
                 Some items have a rank that increases with kills or other
                 actions completed with this item.
               </p>
             </li>
             <li>
-              Equipped items<sup>2</sup>
+              Equipped items<sup>3</sup>
               <p>
                 Which class can equip an item? And which one actually has it
                 equipped at the moment?
@@ -130,7 +145,8 @@ title:  Suitcase – An iOS inventory viewer for Steam games
     <sup>1</sup> Item names, descriptions and other attributes will be
     displayed in the language set in your device preferences as far as
     supported by the game's translation.<br>
-    <sup>2</sup> Currently, this is only supported for Team Fortress 2 and the
+    <sup>2</sup> Not used by all supported games.<br>
+    <sup>3</sup> Currently, this is only supported for Team Fortress 2 and the
     Team Fortress 2 beta.
   </div>
 </div>
