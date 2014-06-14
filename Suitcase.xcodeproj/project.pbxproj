@@ -95,7 +95,6 @@
 		028B640B15265D690040D2FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B640A15265D690040D2FF /* UIKit.framework */; };
 		028B640D15265D690040D2FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B640C15265D690040D2FF /* Foundation.framework */; };
 		028B640F15265D690040D2FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B640E15265D690040D2FF /* CoreGraphics.framework */; };
-		028B641515265D690040D2FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 028B641315265D690040D2FF /* InfoPlist.strings */; };
 		028B641715265D690040D2FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B641615265D690040D2FF /* main.m */; };
 		028B64931526761C0040D2FF /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B648E1526761C0040D2FF /* SCAppDelegate.m */; };
 		028B64951526761C0040D2FF /* SCItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 028B64901526761C0040D2FF /* SCItemViewController.m */; };
@@ -269,7 +268,6 @@
 		028B640C15265D690040D2FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		028B640E15265D690040D2FF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		028B641215265D690040D2FF /* Suitcase-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Suitcase-Info.plist"; sourceTree = "<group>"; };
-		028B641415265D690040D2FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		028B641615265D690040D2FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		028B641815265D690040D2FF /* Suitcase-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Suitcase-Prefix.pch"; sourceTree = "<group>"; };
 		028B642E15265D690040D2FF /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -736,7 +734,6 @@
 			isa = PBXGroup;
 			children = (
 				028B641215265D690040D2FF /* Suitcase-Info.plist */,
-				028B641315265D690040D2FF /* InfoPlist.strings */,
 				028B641615265D690040D2FF /* main.m */,
 				028B641815265D690040D2FF /* Suitcase-Prefix.pch */,
 				0266DFE016920437009C6CE8 /* Suitcase.xcconfig */,
@@ -858,7 +855,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0253605718334AF50019D250 /* NotificationBackgroundMessage.png in Resources */,
-				028B641515265D690040D2FF /* InfoPlist.strings in Resources */,
 				0253605618334AF50019D250 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				0253605818334AF50019D250 /* NotificationBackgroundMessage@2x.png in Resources */,
 				022D0CCF158349B80071F665 /* Localizable.strings in Resources */,
@@ -1044,14 +1040,6 @@
 				022D0D101584E7870071F665 /* en */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		028B641315265D690040D2FF /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				028B641415265D690040D2FF /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
