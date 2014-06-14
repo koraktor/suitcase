@@ -57,6 +57,7 @@ typedef NS_ENUM(NSUInteger, SCInventoryState) {
 - (BOOL)isLoaded;
 - (BOOL)isSuccessful;
 - (BOOL)outdated;
+- (void)reload;
 - (void)sortItemsByPosition;
 - (BOOL)temporaryFailed;
 

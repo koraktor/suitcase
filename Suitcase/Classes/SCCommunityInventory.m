@@ -152,10 +152,10 @@ withDescriptions:(NSDictionary *)descriptions
 
 - (void)reload
 {
-    self.items = [NSArray array];
     _descriptions = [NSArray array];
     _itemTypes = nil;
-    [self load];
+
+    [super reload];
 }
 
 - (void)sortItems

@@ -122,12 +122,6 @@ static NSArray *alphabetWithNumbers;
     return NSLocalizedString([self.schema originNameForIndex:index], @"Origin name");
 }
 
-- (void)reload
-{
-    self.items = [NSArray array];
-    [self load];
-}
-
 - (void)sortItems {
     NSString *sortOption = [[NSUserDefaults standardUserDefaults] valueForKey:@"sorting"];
 

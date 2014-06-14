@@ -130,6 +130,14 @@ static NSMutableDictionary *__inventories;
     return [_timestamp timeIntervalSinceNow] < -600;
 }
 
+- (void)reload
+{
+    self.items = @[];
+    self.state = SCInventoryStateNew;
+
+    [(id <SCInventory>)self load];
+}
+
 - (BOOL)temporaryFailed
 {
     return self.state == SCInventoryStateTemporaryFailed;
