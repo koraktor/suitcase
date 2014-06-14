@@ -100,11 +100,14 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
     return NO;
 }
 
+- (void)viewDidLayoutSubviews {
+   [self.steamIdField becomeFirstResponder];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     self.steamIdField.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID"];
-    [self.steamIdField becomeFirstResponder];
 }
 
 - (void)viewDidLoad {
