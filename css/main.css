@@ -11,6 +11,17 @@ body {
   padding-top: 3em;
 }
 
+@media (max-width: 767px) {
+  .container-fluid {
+    overflow-x: hidden;
+  }
+
+  .justified {
+    margin: 0 auto;
+    width:  95%;
+  }
+}
+
 h1 {
   font-weight: 700;
 }
