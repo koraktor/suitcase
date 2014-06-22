@@ -72,7 +72,7 @@ li p {
 }
 
 .layered {
-  height: 350px;
+  height: 500px;
 }
 
 .layered img {
@@ -106,8 +106,13 @@ li p {
 }
 
 .layered img:nth-child(9) {
+  left:    75px;
   top:     -200px;
-  z-index: 1;
+  z-index: 3;
+}
+
+.layered img:nth-child(11) {
+  top:     -270px;
 }
 
 .justified {
