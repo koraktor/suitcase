@@ -134,14 +134,14 @@ static NSString *kImageSize;
 - (NSString *)imageIdentifier {
     NSString *identifier = [self valueForKey:@"icon_url_large"];
     if (identifier == nil || [identifier isEqualToString:@""]) {
-        return self.iconIdentifier;
-    } else {
-        return [identifier stringByAppendingPathComponent:kImageSize];
+        identifier = [self valueForKey:@"icon_url"];
     }
+
+    return [identifier stringByAppendingPathComponent:kImageSize];
 }
 
 - (NSURL *)imageUrl {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.steamcommunity.com/economy/image/%@/", self.imageIdentifier]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.steamcommunity.com/economy/image/%@", self.imageIdentifier]];
 }
 
 - (BOOL)isKillEater {
