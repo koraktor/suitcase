@@ -17,6 +17,7 @@
 @property (nonatomic, retain) id <SCItem> item;
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
 
+- (void)adjustToImageSize;
 - (void)refresh;
 
 @end

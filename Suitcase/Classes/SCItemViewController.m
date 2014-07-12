@@ -471,21 +471,9 @@ typedef enum {
 }
 
 - (void)reloadItemImageCell:(NSNotification *)notification {
-    [self.collectionView performBatchUpdates:^{
-        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:kSCCellTypeImage]];
-    } completion:^(BOOL finished) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:kSCCellTypeTitle]
-                                    atScrollPosition:UICollectionViewScrollPositionTop
-                                            animated:YES];
-
-        if ([notification.object isKindOfClass:[SCItemImageCell class]]) {
-            SCItemImageCell *imageCell = notification.object;
-            if (imageCell.imageView.hidden) {
-                [imageCell.activityIndicator stopAnimating];
-                imageCell.imageView.hidden = NO;
-            }
-        }
-    }];
+    [self.collectionView.collectionViewLayout invalidateLayout];
+    SCItemImageCell *cell = (SCItemImageCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:kSCCellTypeImage]];
+    [cell adjustToImageSize];
 }
 
 #pragma mark Link handling

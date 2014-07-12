@@ -51,6 +51,30 @@ static NSUInteger kMaxImageSize;
     return [SCItemImageCell sizeOfImageViewForImage:image].height + 2 * kImageMargin;
 }
 
+- (void)adjustImageViewSize {
+    CGSize imageViewSize = [SCItemImageCell sizeOfImageViewForImage:self.imageView.image];
+    CGFloat originX = self.frame.size.width / 2 - imageViewSize.width / 2;
+    self.imageView.frame = CGRectMake(originX, kImageMargin, imageViewSize.width, imageViewSize.height);
+}
+
+- (void)adjustToImageSize {
+    void (^adjustSizes)() = ^() {
+        CGRect frame = self.frame;
+        frame.size = CGSizeMake(frame.size.width, [SCItemImageCell heightOfCellForImage:self.imageView.image]);
+        self.frame = frame;
+
+        [self adjustImageViewSize];
+    };
+
+    [UIView transitionWithView:self
+                      duration:0.1f
+                       options:UIViewAnimationOptionCurveLinear
+                    animations:adjustSizes
+                    completion:^(BOOL finished) {
+                        [self showImage];
+                    }];
+}
+
 - (void)refresh {
     UIColor *itemColor = [[self.item inventory] showColors] ? [self.item qualityColor] : nil;
     self.imageView.borderColor = itemColor;
@@ -63,16 +87,8 @@ static NSUInteger kMaxImageSize;
     UIImage *cachedImage = [SCImageCache cachedImageForItem:item];
     if (cachedImage != nil) {
         self.imageView.image = cachedImage;
-
-        CGSize imageViewSize = [SCItemImageCell sizeOfImageViewForImage:cachedImage];
-        CGFloat originX = self.frame.size.width / 2 - imageViewSize.width / 2;
-        self.imageView.frame = CGRectMake(originX, kImageMargin,
-                                          imageViewSize.width, imageViewSize.height);
-
-        if (self.imageView.hidden) {
-            [self.activityIndicator stopAnimating];
-            self.imageView.hidden = NO;
-        }
+        [self adjustImageViewSize];
+        [self showImage];
 
         return;
     }
@@ -95,11 +111,7 @@ static NSUInteger kMaxImageSize;
 
                                        imageView.image = resizedImage;
                                        [SCImageCache cacheImage:resizedImage forItem:item];
-
-                                       CGSize imageViewSize = [SCItemImageCell sizeOfImageViewForImage:image];
-                                       CGFloat originX = weakSelf.frame.size.width / 2 - imageViewSize.width / 2;
-                                       imageView.frame = CGRectMake(originX, kImageMargin,
-                                                                    imageViewSize.width, imageViewSize.height);
+                                       [weakSelf adjustImageViewSize];
 
                                        if (request != nil) {
                                            dispatch_async(dispatch_get_main_queue(), ^{
@@ -110,6 +122,13 @@ static NSUInteger kMaxImageSize;
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                        weakSelf.hidden = YES;
                                    }];
+}
+
+- (void)showImage {
+    if (self.imageView.hidden) {
+        [self.activityIndicator stopAnimating];
+        self.imageView.hidden = NO;
+    }
 }
 
 @end
