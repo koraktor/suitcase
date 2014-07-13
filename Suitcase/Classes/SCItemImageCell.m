@@ -18,6 +18,7 @@ static UIImage *kClearImage;
 static NSUInteger kImageMargin = 16;
 static NSUInteger kImagePadding = 8;
 static NSUInteger kMaxImageSize;
+static NSUInteger kMinImageSize;
 
 + (void)initialize {
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(1.0, 1.0), NO, 0.0);
@@ -26,22 +27,33 @@ static NSUInteger kMaxImageSize;
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         kMaxImageSize = 256;
+        kMinImageSize = 128;
     } else {
         kMaxImageSize = 160;
+        kMinImageSize = 80;
     }
 }
 
 + (CGSize)sizeOfImageForImage:(UIImage *)image {
-    CGFloat hFactor = (double) kMaxImageSize / image.size.width;
-    CGFloat vFactor = (double) kMaxImageSize / image.size.height;
-    CGFloat factor =  MIN(1, MIN(hFactor, vFactor));
+    CGFloat hFactor;
+    CGFloat vFactor;
+    if (image.size.width < kMinImageSize && image.size.height < kMinImageSize) {
+        hFactor = (double) kMinImageSize / image.size.width;
+        vFactor = (double) kMinImageSize / image.size.height;
+    } else if (image.size.width > kMaxImageSize || image.size.height > kMaxImageSize) {
+        hFactor = (double) kMaxImageSize / image.size.width;
+        vFactor = (double) kMaxImageSize / image.size.height;
+    } else {
+        return image.size;
+    }
+
+    CGFloat factor = MIN(hFactor, vFactor);
 
     return CGSizeMake(factor * image.size.width, factor * image.size.height);
 }
 
 + (CGSize)sizeOfImageViewForImage:(UIImage *)image {
     CGSize imageSize = [SCItemImageCell sizeOfImageForImage:image];
-
 
     return CGSizeMake(imageSize.width + 2 * [UIImageView borderWidth] + 2 * kImagePadding,
                       imageSize.height + 2 * [UIImageView borderWidth] + 2 * kImagePadding);
