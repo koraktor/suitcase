@@ -211,7 +211,9 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
 - (void)loadGames
 {
-    [self clearInventories];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self clearInventories];
+    });
 
     UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
     if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
