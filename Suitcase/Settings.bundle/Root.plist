@@ -104,7 +104,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>2.0.1</string>
+			<string>2.0.2</string>
 			<key>Key</key>
 			<string>version</string>
 			<key>Title</key>
