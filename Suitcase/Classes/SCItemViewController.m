@@ -382,7 +382,7 @@ typedef enum {
 
         case kSCCellTypeDescription: {
             CGRect itemDescriptionLabelRect = [_itemDescription boundingRectWithSize:CGSizeMake(cellWidth - 20.0, CGFLOAT_MAX)
-                                                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                                                             options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
                                                                              context:nil];
 
             return CGSizeMake(cellWidth, itemDescriptionLabelRect.size.height + 20.0);

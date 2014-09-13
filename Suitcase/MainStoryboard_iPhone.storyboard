@@ -446,7 +446,7 @@ http://steamcommunity.com/profile/{Profile ID}
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HtS-3r-dWn" customClass="TTTAttributedLabel">
                                             <rect key="frame" x="10" y="10" width="300" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Label">
                                                     <attributes>
