@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F25" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -11,7 +10,6 @@
                 <navigationController id="3" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="6">
-                        <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.63137257099999999" green="0.69803923369999998" blue="0.77647066119999997" alpha="1" colorSpace="deviceRGB"/>
@@ -27,7 +25,7 @@
             </objects>
             <point key="canvasLocation" x="124" y="-1586"/>
         </scene>
-        <!--Games View Controller - Inventories-->
+        <!--Inventories-->
         <scene sceneID="IDe-HG-bbx">
             <objects>
                 <tableViewController title="Inventories" id="dbF-Dt-raV" customClass="SCGamesViewController" sceneMemberID="viewController">
@@ -35,7 +33,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.37647062539999998" green="0.43137258290000002" blue="0.48235297199999999" alpha="1" colorSpace="deviceRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                         <prototypes>
@@ -119,7 +116,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.37647062539999998" green="0.43137258290000002" blue="0.48235297199999999" alpha="1" colorSpace="deviceRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="MMt-u0-PdP"/>
@@ -128,7 +124,7 @@
             </objects>
             <point key="canvasLocation" x="1458" y="-637"/>
         </scene>
-        <!--Item View Controller - Item-->
+        <!--Item-->
         <scene sceneID="16">
             <objects>
                 <viewController storyboardIdentifier="ItemViewController" title="Item" id="4" customClass="SCItemViewController" sceneMemberID="viewController">
@@ -136,7 +132,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="703" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.37647062539999998" green="0.43137258290000002" blue="0.48235297199999999" alpha="1" colorSpace="deviceRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <collectionViewLayout key="collectionViewLayout" id="Rlj-Ek-RQM" customClass="SCItemViewLayout"/>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" reuseIdentifier="ItemTitleCell" id="6Tf-dp-dSa" customClass="SCItemTitleCell">
@@ -417,7 +412,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="15" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2940" y="-664"/>
+            <point key="canvasLocation" x="2671.5" y="-264"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Jw2-Ye-9PK">
@@ -425,7 +420,6 @@
                 <navigationController definesPresentationContext="YES" modalPresentationStyle="formSheet" id="j2j-OJ-mM7" sceneMemberID="viewController">
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" id="5f1-0j-Ejy">
-                        <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.53860629559999995" green="0.61986770069999997" blue="0.72747490879999999" alpha="0.63" colorSpace="calibratedRGB"/>
@@ -453,7 +447,7 @@
             </objects>
             <point key="canvasLocation" x="-1295" y="-1078"/>
         </scene>
-        <!--Steam Id Form Controller - Steam ID Form-->
+        <!--Steam ID Form-->
         <scene sceneID="4Hq-Zx-ABU">
             <objects>
                 <viewController autoresizesArchivedViewToFullSize="NO" title="Steam ID Form" modalPresentationStyle="formSheet" id="YOR-Ee-B7r" customClass="SCSteamIdFormController" sceneMemberID="viewController">
@@ -492,7 +486,6 @@ http://steamcommunity.com/profile/{Profile ID}
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.43921571970000001" green="0.49803924560000001" blue="0.54509806630000002" alpha="1" colorSpace="deviceRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" title="Select an account" id="24F-cp-iP4">
                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="LiS-vR-e20">
@@ -514,7 +507,7 @@ http://steamcommunity.com/profile/{Profile ID}
             </objects>
             <point key="canvasLocation" x="-158" y="-2644"/>
         </scene>
-        <!--Inventory View Controller - Inventory-->
+        <!--Inventory-->
         <scene sceneID="24">
             <objects>
                 <tableViewController title="Inventory" modalPresentationStyle="currentContext" id="19" customClass="SCInventoryViewController" sceneMemberID="viewController">
@@ -522,7 +515,6 @@ http://steamcommunity.com/profile/{Profile ID}
                         <rect key="frame" x="0.0" y="64" width="320" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                         <searchBar key="tableHeaderView" alpha="0.0" contentMode="redraw" barStyle="black" searchBarStyle="minimal" translucent="NO" id="qzT-Lj-kw4">
@@ -613,7 +605,6 @@ http://steamcommunity.com/profile/{Profile ID}
                 <navigationController id="42" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" id="43">
-                        <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.53860629559999995" green="0.61986770069999997" blue="0.72747490879999999" alpha="0.63" colorSpace="calibratedRGB"/>
@@ -639,7 +630,6 @@ http://steamcommunity.com/profile/{Profile ID}
                         <rect key="frame" x="0.0" y="44" width="540" height="532"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93268489837646484" green="0.94542181491851807" blue="0.9649999737739563" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="SettingsCell" id="NeG-u2-HaO">
                                 <rect key="frame" x="0.0" y="55" width="540" height="44"/>
@@ -674,7 +664,6 @@ http://steamcommunity.com/profile/{Profile ID}
                 <navigationController definesPresentationContext="YES" toolbarHidden="NO" id="d7O-Ry-HBv" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="TrL-Cu-4mL">
-                        <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
@@ -701,7 +690,6 @@ http://steamcommunity.com/profile/{Profile ID}
                         <rect key="frame" x="0.0" y="0.0" width="703" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.70600420239999995" green="0.75191462040000001" blue="0.81903254989999996" alpha="1" colorSpace="calibratedRGB"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <dataDetectorType key="dataDetectorTypes"/>
                         <connections>
                             <outlet property="delegate" destination="u2V-bm-OPg" id="cmu-ZS-yNE"/>
@@ -734,7 +722,6 @@ http://steamcommunity.com/profile/{Profile ID}
     <resources>
         <image name="game_placeholder.png" width="92" height="35"/>
     </resources>
-    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>
@@ -744,4 +731,5 @@ http://steamcommunity.com/profile/{Profile ID}
         <segue reference="eS2-5p-lpL"/>
         <segue reference="oUz-yf-NN8"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>
