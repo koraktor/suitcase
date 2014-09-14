@@ -89,6 +89,8 @@ static SCWebApiRequestOperationManager *_webApiClient;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
+
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"clear_cache"]) {
         [SCImageCache clearImageCache];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"clear_cache"];
@@ -171,7 +173,7 @@ static SCWebApiRequestOperationManager *_webApiClient;
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
+- (void)applicationDidEnterBackground:(UIApplication *)application
 {
     _storedDefaults = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
 
@@ -192,7 +194,9 @@ static SCWebApiRequestOperationManager *_webApiClient;
 
     if (![[defaults objectForKey:@"show_colors"] isEqual:[_storedDefaults objectForKey:@"show_colors"]]) {
         [defaultCenter postNotificationName:@"showColorsChanged" object:nil];
-    } else if (![[defaults objectForKey:@"sorting"] isEqual:[_storedDefaults objectForKey:@"sorting"]]) {
+    }
+
+    if (![[defaults objectForKey:@"sorting"] isEqual:[_storedDefaults objectForKey:@"sorting"]]) {
         [defaultCenter postNotificationName:@"sortInventory" object:nil];
     }
 }
