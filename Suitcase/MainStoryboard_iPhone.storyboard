@@ -611,33 +611,12 @@ http://steamcommunity.com/profile/{Profile ID}
                     </navigationItem>
                     <connections>
                         <outlet property="wikiButton" destination="gK6-Cu-cfz" id="wRX-Y3-T7J"/>
-                        <segue destination="Rbk-sh-M5b" kind="push" identifier="showItemSet" id="XHB-f3-kTS"/>
                         <segue destination="fAC-RK-h3U" kind="modal" identifier="showWikiPage" id="yua-j7-i8i"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="23" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1563" y="55"/>
-        </scene>
-        <!--Item Set-->
-        <scene sceneID="30b-1X-4mC">
-            <objects>
-                <viewController title="Item Set" id="Rbk-sh-M5b" sceneMemberID="viewController">
-                    <label key="view" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item set" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="d1R-KG-DpA" customClass="TTTAttributedLabel">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <size key="shadowOffset" width="0.0" height="1"/>
-                    </label>
-                    <navigationItem key="navigationItem" id="Qdi-Gf-Vp0"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qoq-V6-2So" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2093" y="48"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="H7k-Jk-Io0">
