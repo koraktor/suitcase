@@ -65,6 +65,7 @@
 		02536095183352220019D250 /* TSMessagesDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 02536094183352220019D250 /* TSMessagesDesign.json */; };
 		0255A148155D9BE20092741E /* SCWebApiItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255A147155D9BE20092741E /* SCWebApiItem.m */; };
 		0255A14C155D9BF80092741E /* SCWebApiSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255A14B155D9BF80092741E /* SCWebApiSchema.m */; };
+		0256513319D0CECA00C66316 /* IASKSpecifierValuesViewController+Suitcase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0256513219D0CECA00C66316 /* IASKSpecifierValuesViewController+Suitcase.m */; };
 		0258A3D119CCCFE900D70F5A /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0258A3D019CCCFE900D70F5A /* TSMessage.m */; };
 		0258A3D319CCCFFC00D70F5A /* TSMessagesDefaultDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 0258A3D219CCCFFC00D70F5A /* TSMessagesDefaultDesign.json */; };
 		0258A3E419CCD00A00D70F5A /* NotificationBackgroundError.png in Resources */ = {isa = PBXBuildFile; fileRef = 0258A3D419CCD00A00D70F5A /* NotificationBackgroundError.png */; };
@@ -227,6 +228,8 @@
 		0255A147155D9BE20092741E /* SCWebApiItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWebApiItem.m; path = Classes/SCWebApiItem.m; sourceTree = "<group>"; };
 		0255A14A155D9BF80092741E /* SCWebApiSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWebApiSchema.h; path = Classes/SCWebApiSchema.h; sourceTree = "<group>"; };
 		0255A14B155D9BF80092741E /* SCWebApiSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWebApiSchema.m; path = Classes/SCWebApiSchema.m; sourceTree = "<group>"; };
+		0256513119D0CECA00C66316 /* IASKSpecifierValuesViewController+Suitcase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "IASKSpecifierValuesViewController+Suitcase.h"; path = "Classes/IASKSpecifierValuesViewController+Suitcase.h"; sourceTree = "<group>"; };
+		0256513219D0CECA00C66316 /* IASKSpecifierValuesViewController+Suitcase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "IASKSpecifierValuesViewController+Suitcase.m"; path = "Classes/IASKSpecifierValuesViewController+Suitcase.m"; sourceTree = "<group>"; };
 		0258A3CF19CCCFE900D70F5A /* TSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSMessage.h; path = Suitcase/External/TSMessages/Pod/Classes/TSMessage.h; sourceTree = SOURCE_ROOT; };
 		0258A3D019CCCFE900D70F5A /* TSMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSMessage.m; path = Suitcase/External/TSMessages/Pod/Classes/TSMessage.m; sourceTree = SOURCE_ROOT; };
 		0258A3D219CCCFFC00D70F5A /* TSMessagesDefaultDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TSMessagesDefaultDesign.json; path = Suitcase/External/TSMessages/Pod/Assets/TSMessagesDefaultDesign.json; sourceTree = SOURCE_ROOT; };
@@ -489,6 +492,8 @@
 		021B96B016A3D9BE00EC2A25 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0256513119D0CECA00C66316 /* IASKSpecifierValuesViewController+Suitcase.h */,
+				0256513219D0CECA00C66316 /* IASKSpecifierValuesViewController+Suitcase.m */,
 				0269A4A715CC3AEB008A287A /* SCGamesViewController.h */,
 				0269A4A815CC3AEB008A287A /* SCGamesViewController.m */,
 				028B648F1526761C0040D2FF /* SCItemViewController.h */,
@@ -987,6 +992,7 @@
 				02010B73169E9CA000007456 /* IASKSpecifier.m in Sources */,
 				02010B74169E9CA000007456 /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				02010B75169E9CA000007456 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
+				0256513319D0CECA00C66316 /* IASKSpecifierValuesViewController+Suitcase.m in Sources */,
 				02010B76169E9CA000007456 /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
 				02520FEF1923F0D7000F83AF /* SCItemSet.m in Sources */,
 				02010B77169E9CA000007456 /* IASKSlider.m in Sources */,

@@ -104,6 +104,7 @@ http://steamcommunity.com/profile/{Profile ID}
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93268489840000002" green="0.94542181489999999" blue="0.96499997380000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCell" id="AEk-Jp-9m5">
                                 <rect key="frame" x="0.0" y="55" width="320" height="44"/>

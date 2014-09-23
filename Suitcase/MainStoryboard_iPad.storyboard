@@ -630,6 +630,7 @@ http://steamcommunity.com/profile/{Profile ID}
                         <rect key="frame" x="0.0" y="44" width="540" height="532"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93268489837646484" green="0.94542181491851807" blue="0.9649999737739563" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="SettingsCell" id="NeG-u2-HaO">
                                 <rect key="frame" x="0.0" y="55" width="540" height="44"/>
