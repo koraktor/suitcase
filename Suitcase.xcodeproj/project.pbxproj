@@ -18,7 +18,6 @@
 		02010B73169E9CA000007456 /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B5E169E9CA000007456 /* IASKSpecifier.m */; };
 		02010B74169E9CA000007456 /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B61169E9CA000007456 /* IASKPSSliderSpecifierViewCell.m */; };
 		02010B75169E9CA000007456 /* IASKPSTextFieldSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B63169E9CA000007456 /* IASKPSTextFieldSpecifierViewCell.m */; };
-		02010B76169E9CA000007456 /* IASKPSTitleValueSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B65169E9CA000007456 /* IASKPSTitleValueSpecifierViewCell.m */; };
 		02010B77169E9CA000007456 /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B67169E9CA000007456 /* IASKSlider.m */; };
 		02010B78169E9CA000007456 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B69169E9CA000007456 /* IASKSwitch.m */; };
 		02010B79169E9CA000007456 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 02010B6B169E9CA000007456 /* IASKTextField.m */; };
@@ -156,8 +155,6 @@
 		02010B61169E9CA000007456 /* IASKPSSliderSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSSliderSpecifierViewCell.m; sourceTree = "<group>"; };
 		02010B62169E9CA000007456 /* IASKPSTextFieldSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTextFieldSpecifierViewCell.h; sourceTree = "<group>"; };
 		02010B63169E9CA000007456 /* IASKPSTextFieldSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTextFieldSpecifierViewCell.m; sourceTree = "<group>"; };
-		02010B64169E9CA000007456 /* IASKPSTitleValueSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTitleValueSpecifierViewCell.h; sourceTree = "<group>"; };
-		02010B65169E9CA000007456 /* IASKPSTitleValueSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTitleValueSpecifierViewCell.m; sourceTree = "<group>"; };
 		02010B66169E9CA000007456 /* IASKSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSlider.h; sourceTree = "<group>"; };
 		02010B67169E9CA000007456 /* IASKSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSlider.m; sourceTree = "<group>"; };
 		02010B68169E9CA000007456 /* IASKSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSwitch.h; sourceTree = "<group>"; };
@@ -405,8 +402,6 @@
 				02010B61169E9CA000007456 /* IASKPSSliderSpecifierViewCell.m */,
 				02010B62169E9CA000007456 /* IASKPSTextFieldSpecifierViewCell.h */,
 				02010B63169E9CA000007456 /* IASKPSTextFieldSpecifierViewCell.m */,
-				02010B64169E9CA000007456 /* IASKPSTitleValueSpecifierViewCell.h */,
-				02010B65169E9CA000007456 /* IASKPSTitleValueSpecifierViewCell.m */,
 				02010B66169E9CA000007456 /* IASKSlider.h */,
 				02010B67169E9CA000007456 /* IASKSlider.m */,
 				02010B68169E9CA000007456 /* IASKSwitch.h */,
@@ -993,7 +988,6 @@
 				02010B74169E9CA000007456 /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				02010B75169E9CA000007456 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
 				0256513319D0CECA00C66316 /* IASKSpecifierValuesViewController+Suitcase.m in Sources */,
-				02010B76169E9CA000007456 /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
 				02520FEF1923F0D7000F83AF /* SCItemSet.m in Sources */,
 				02010B77169E9CA000007456 /* IASKSlider.m in Sources */,
 				02010B78169E9CA000007456 /* IASKSwitch.m in Sources */,
