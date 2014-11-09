@@ -45,6 +45,7 @@
 		022D0CCF158349B80071F665 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 022D0CCD158349B80071F665 /* Localizable.strings */; };
 		022D0D0E1584E5770071F665 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */; };
 		022D0D0F1584E5770071F665 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */; };
+		022D3CA919CECB0300DD58AE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D3CA819CECB0300DD58AE /* Launch Screen.storyboard */; };
 		022E38A01747D356000CA309 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 022E389D1747D356000CA309 /* FontAwesome.otf */; };
 		0238B35A1756AD5600284204 /* SCWebApiInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0238B3591756AD5600284204 /* SCWebApiInventory.m */; };
 		023DECE0187963A4007FE4AA /* FAKFontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DECDF187963A4007FE4AA /* FAKFontAwesome.m */; };
@@ -192,6 +193,7 @@
 		022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		022D0D101584E7870071F665 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		022D3CA819CECB0300DD58AE /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 		022E389D1747D356000CA309 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = External/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
 		0238B3581756AD5500284204 /* SCWebApiInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWebApiInventory.h; path = Classes/SCWebApiInventory.h; sourceTree = "<group>"; };
 		0238B3591756AD5600284204 /* SCWebApiInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWebApiInventory.m; path = Classes/SCWebApiInventory.m; sourceTree = "<group>"; };
@@ -722,6 +724,7 @@
 				02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */,
 				02010B30169858E400007456 /* SCWebApiRequestOperationManager.h */,
 				02010B31169858E400007456 /* SCWebApiRequestOperationManager.m */,
+				022D3CA819CECB0300DD58AE /* Launch Screen.storyboard */,
 				022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */,
 				022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */,
 				02EC921D1889FEAA00CC268C /* Images.xcassets */,
@@ -856,6 +859,7 @@
 			files = (
 				022D0CCF158349B80071F665 /* Localizable.strings in Resources */,
 				0258A3EF19CCD00A00D70F5A /* NotificationBackgroundWarning@2x.png in Resources */,
+				022D3CA919CECB0300DD58AE /* Launch Screen.storyboard in Resources */,
 				0258A3EA19CCD00A00D70F5A /* NotificationBackgroundSuccess.png in Resources */,
 				022D0D0E1584E5770071F665 /* MainStoryboard_iPad.storyboard in Resources */,
 				0258A3EC19CCD00A00D70F5A /* NotificationBackgroundSuccessIcon.png in Resources */,
