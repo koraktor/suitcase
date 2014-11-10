@@ -29,6 +29,7 @@
 		0203A67218C531C500EF5E25 /* SCCommunityRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0203A67118C531C500EF5E25 /* SCCommunityRequestOperationManager.m */; };
 		0203A67418C5350200EF5E25 /* SCCommunityItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0203A67318C5350200EF5E25 /* SCCommunityItem.m */; };
 		0203A67818C6F60A00EF5E25 /* SCAbstractInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0203A67718C6F60A00EF5E25 /* SCAbstractInventory.m */; };
+		020563BA1A115BA8002375E9 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 020563B91A115BA8002375E9 /* Fabric.framework */; };
 		020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 020958C4169386B000A44851 /* SCSettingsViewController.m */; };
 		020958C81693926300A44851 /* game_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 020958C61693926300A44851 /* game_placeholder.png */; };
 		020958C91693926300A44851 /* game_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 020958C71693926300A44851 /* game_placeholder@2x.png */; };
@@ -172,6 +173,7 @@
 		0203A67518C5351200EF5E25 /* SCCommunityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCCommunityItem.h; path = Classes/SCCommunityItem.h; sourceTree = "<group>"; };
 		0203A67618C6554500EF5E25 /* SCAbstractInventory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SCAbstractInventory.h; path = Classes/SCAbstractInventory.h; sourceTree = "<group>"; };
 		0203A67718C6F60A00EF5E25 /* SCAbstractInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCAbstractInventory.m; path = Classes/SCAbstractInventory.m; sourceTree = "<group>"; };
+		020563B91A115BA8002375E9 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		020958C3169386AF00A44851 /* SCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSettingsViewController.h; path = Classes/SCSettingsViewController.h; sourceTree = "<group>"; };
 		020958C4169386B000A44851 /* SCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSettingsViewController.m; path = Classes/SCSettingsViewController.m; sourceTree = "<group>"; };
 		020958C61693926300A44851 /* game_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_placeholder.png; path = Images/game_placeholder.png; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */,
 				0209E151157954C70073385D /* SystemConfiguration.framework in Frameworks */,
 				028B640B15265D690040D2FF /* UIKit.framework in Frameworks */,
+				020563BA1A115BA8002375E9 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +695,7 @@
 				028B640E15265D690040D2FF /* CoreGraphics.framework */,
 				02F37EC31580152300BFB1B5 /* CoreText.framework */,
 				02435AA219228F9500D1F779 /* Crashlytics.framework */,
+				020563B91A115BA8002375E9 /* Fabric.framework */,
 				028B640C15265D690040D2FF /* Foundation.framework */,
 				020EB42F15852C2800654D2A /* MessageUI.framework */,
 				0209E152157954D00073385D /* MobileCoreServices.framework */,
@@ -921,7 +925,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run $CRASHLYTICS_API_KEY";
+			shellScript = "./Fabric.framework/run $FABRIC_API_KEY";
 		};
 		0252CC4F15C055AE0040C949 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

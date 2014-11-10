@@ -5,6 +5,7 @@
 //  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
+#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
 #import "AFNetworkActivityIndicatorManager.h"
@@ -99,9 +100,7 @@ static SCWebApiRequestOperationManager *_webApiClient;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    if (__CRASHLYTICS_API_KEY__ != nil) {
-        [Crashlytics startWithAPIKey:__CRASHLYTICS_API_KEY__];
-    }
+    [Fabric with:@[CrashlyticsKit]];
 
     NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:5000000 diskCapacity:0 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
