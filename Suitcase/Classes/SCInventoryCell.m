@@ -25,14 +25,17 @@ static CGRect kTextLabelFrame;
     kImageViewFrame = CGRectMake(4.0, 4.0, 92.5, 34.5);
     kItemCountFrame = CGRectMake(100.5, 25.0, 218.0, 17.0);
     kPlaceHolderImage = [UIImage imageNamed:@"game_placeholder.png"];
-    kTextLabelFrame = CGRectMake(100.5, 0.0, 219.5, 25.0);
+    kTextLabelFrame = CGRectMake(100.5, 4.0, 219.5, 25.0);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
 
+    self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+
     _itemCountLabel = [[UILabel alloc] initWithFrame:kItemCountFrame];
+    _itemCountLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     _itemCountLabel.backgroundColor = [UIColor clearColor];
     _itemCountLabel.textAlignment = NSTextAlignmentRight;
     _itemCountLabel.textColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
@@ -58,6 +61,7 @@ static CGRect kTextLabelFrame;
 
     self.imageView.frame = kImageViewFrame;
     self.textLabel.frame = kTextLabelFrame;
+    [self.textLabel sizeToFit];
 }
 
 - (void)loadImage

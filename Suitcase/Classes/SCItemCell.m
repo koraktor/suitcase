@@ -16,7 +16,6 @@
 
 static CGRect kImageViewFrame;
 static UIImage *kPlaceHolderImage;
-static CGRect kTextLabelFrame;
 
 @implementation SCItemCell
 
@@ -28,7 +27,6 @@ static CGRect kTextLabelFrame;
     FAKIcon *placeHolderIcon = [FAKFontAwesome squareOIconWithSize:30.0];
     [placeHolderIcon addAttribute:NSForegroundColorAttributeName value:UIColor.lightGrayColor];
     kPlaceHolderImage = [placeHolderIcon imageWithSize:iconSize];
-    kTextLabelFrame = CGRectMake(53.0, 0.0, 257.0, 43.0);
 }
 
 - (void)awakeFromNib
@@ -38,6 +36,8 @@ static CGRect kTextLabelFrame;
         self.imageView.layer.shadowOpacity = 1.0;
         self.imageView.layer.shadowRadius = 4.0;
     }
+
+    self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
     UIView *selectionView = [[UIView alloc] initWithFrame:self.frame];
     self.selectedBackgroundView = selectionView;
@@ -84,7 +84,7 @@ static CGRect kTextLabelFrame;
     [super layoutSubviews];
 
     self.imageView.frame = kImageViewFrame;
-    self.textLabel.frame = kTextLabelFrame;
+    self.textLabel.frame = CGRectMake(53.0, 0.0, self.frame.size.width - 67.0, 43.0);
 }
 
 - (void)loadImage
