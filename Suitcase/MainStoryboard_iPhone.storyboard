@@ -123,7 +123,7 @@ http://steamcommunity.com/profile/{Profile ID}</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="DVF-yZ-f2j">
-                        <barButtonItem key="leftBarButtonItem" title="Done" style="done" id="GSu-DH-HgI">
+                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="GSu-DH-HgI">
                             <connections>
                                 <action selector="dismissSettings:" destination="r9B-R6-ule" id="FPo-1O-cds"/>
                             </connections>

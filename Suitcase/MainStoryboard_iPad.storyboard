@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B17" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B23" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -648,7 +648,7 @@ http://steamcommunity.com/profile/{Profile ID}
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem systemItem="done" id="ZKi-nX-IcC">
+                        <barButtonItem style="done" systemItem="done" id="ZKi-nX-IcC">
                             <connections>
                                 <action selector="dismissSettings:" destination="Men-12-BBe" id="9xM-jZ-t5a"/>
                             </connections>
