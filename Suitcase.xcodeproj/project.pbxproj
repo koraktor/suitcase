@@ -924,7 +924,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "gitDescribe=$(git describe --always)\n/usr/libexec/PlistBuddy -c \"Delete CFBundleVersion\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Add CFBundleVersion string $gitDescribe\" Suitcase/Suitcase-Info.plist";
+			shellScript = "gitDescribe=$(git describe --always)\n/usr/libexec/PlistBuddy -c \"Delete CFBundleShortVersionString\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Add CFBundleShortVersionString string $gitDescribe\" Suitcase/Suitcase-Info.plist\ngitLastTag=$(git describe --abbrev=0 | cut -d. -f1-2)\ngitCommitCount=$(git rev-list --count $gitLastTag.0..HEAD)\n/usr/libexec/PlistBuddy -c \"Delete CFBundleVersion\" Suitcase/Suitcase-Info.plist\n/usr/libexec/PlistBuddy -c \"Add CFBundleVersion string $gitLastTag.$gitCommitCount\" Suitcase/Suitcase-Info.plist";
 		};
 		029B08F5159262FF00BD6271 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -937,7 +937,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bundleVersion=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" Suitcase/Suitcase-Info.plist)\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:10:DefaultValue $bundleVersion\" Suitcase/Settings.bundle/Root.plist";
+			shellScript = "bundleVersion=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" Suitcase/Suitcase-Info.plist)\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:10:DefaultValue $bundleVersion\" Suitcase/Settings.bundle/Root.plist";
 		};
 /* End PBXShellScriptBuildPhase section */
 
