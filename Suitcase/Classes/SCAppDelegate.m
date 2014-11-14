@@ -100,7 +100,9 @@ static SCWebApiRequestOperationManager *_webApiClient;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#ifndef DEBUG
     [Fabric with:@[CrashlyticsKit]];
+#endif
 
     NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:5000000 diskCapacity:0 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
