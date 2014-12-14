@@ -101,7 +101,9 @@ static UIImage *kPlaceHolderImage;
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:_item.iconUrl]
                           placeholderImage:kPlaceHolderImage
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       weakSelf.imageView.image = image;
+                                       if (weakSelf.item == item) {
+                                           weakSelf.imageView.image = image;
+                                       }
 
                                        [SCImageCache cacheIcon:image forItem:item];
                                    }
