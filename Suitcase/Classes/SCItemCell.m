@@ -118,7 +118,15 @@ static UIImage *kPlaceHolderImage;
 {
     if (![item isEqual:_item]) {
         _item = item;
-        self.textLabel.text = item.name;
+        if ([item.quantity isEqual:@1]) {
+            self.textLabel.text = item.name;
+        } else {
+            NSMutableAttributedString *labelText = [[NSMutableAttributedString alloc] initWithString:item.quantity.stringValue];
+            [labelText addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, labelText.length)];
+            [labelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0] range:NSMakeRange(0, labelText.length)];
+            [labelText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", item.name]]];
+            self.textLabel.attributedText = labelText;
+        }
         [self loadImage];
     }
 }

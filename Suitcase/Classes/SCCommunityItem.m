@@ -221,7 +221,7 @@ static NSString *kImageSize;
 }
 
 - (NSNumber *)quantity {
-    return [self valueForKey:@"amount"];
+    return [NSNumber numberWithInteger:[[self valueForKey:@"amount"] integerValue]];
 }
 
 - (NSDictionary *)tags {
