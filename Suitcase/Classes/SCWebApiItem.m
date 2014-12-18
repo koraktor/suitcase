@@ -64,9 +64,11 @@ const NSUInteger kSCKillEaterDefindex = 214;
             if (attributeKey != nil) {
                 NSDictionary *schemaAttributeData = self.inventory.schema.attributes[attributeKey];
                 NSNumber *defindex = schemaAttributeData[@"defindex"];
-                NSMutableDictionary *attributes = [attributeData mutableCopy];
-                [attributes addEntriesFromDictionary:schemaAttributeData];
-                specificAttributes[defindex] = [attributes copy];
+                if (defindex != nil) {
+                    NSMutableDictionary *attributes = [attributeData mutableCopy];
+                    [attributes addEntriesFromDictionary:schemaAttributeData];
+                    specificAttributes[defindex] = [attributes copy];
+                }
             }
         }];
 
