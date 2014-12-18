@@ -12,8 +12,9 @@
 typedef NS_OPTIONS(NSUInteger, SCItemAttributeType) {
     SCItemAttributeTypeOrigin     = 1,
     SCItemAttributeTypeQuality    = 2,
-    SCItemAttributeTypeTradable   = 4,
-    SCItemAttributeTypeMarketable = 8
+    SCItemAttributeTypeQuantity   = 4,
+    SCItemAttributeTypeTradable   = 8,
+    SCItemAttributeTypeMarketable = 16
 };
 
 @interface SCItemAttributeCell : UICollectionViewCell

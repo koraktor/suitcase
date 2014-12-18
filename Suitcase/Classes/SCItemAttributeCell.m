@@ -14,11 +14,13 @@
 NSString *const kSCItemMarketable = @"kSCItemMarketable";
 NSString *const kSCItemOrigin = @"kSCItemOrigin";
 NSString *const kSCItemQuality = @"kSCItemQuality";
+NSString *const kSCItemQuantity = @"kSCItemQuantity";
 NSString *const kSCItemTradable = @"kSCItemTradable";
 
 static NSAttributedString *kMarketableIcon;
 static NSAttributedString *kOriginIcon;
 static NSAttributedString *kQualityIcon;
+static NSAttributedString *kQuantityIcon;
 static NSAttributedString *kTradableIcon;
 
 static NSAttributedString *kNoIcon;
@@ -28,6 +30,7 @@ static NSAttributedString *kYesIcon;
     kMarketableIcon = [[FAKFontAwesome moneyIconWithSize:16.0] attributedString];
     kOriginIcon = [[FAKFontAwesome asteriskIconWithSize:16.0] attributedString];
     kQualityIcon = [[FAKFontAwesome starIconWithSize:16.0] attributedString];
+    kQuantityIcon = [[FAKFontAwesome cubesIconWithSize:16.0] attributedString];
     kTradableIcon = [[FAKFontAwesome exchangeIconWithSize:16.0] attributedString];
 
     kNoIcon = [[FAKFontAwesome timesIconWithSize:16.0] attributedString];
@@ -39,6 +42,7 @@ static NSAttributedString *kYesIcon;
         case SCItemAttributeTypeMarketable: return [item isMarketable] ? kYesIcon : kNoIcon;
         case SCItemAttributeTypeOrigin: return item.origin;
         case SCItemAttributeTypeQuality: return item.qualityName;
+        case SCItemAttributeTypeQuantity: return item.quantity.stringValue;
         case SCItemAttributeTypeTradable: return [item isTradable] ? kYesIcon : kNoIcon;
         default: return nil;
     }
@@ -64,6 +68,10 @@ static NSAttributedString *kYesIcon;
         case SCItemAttributeTypeQuality:
             icon = kQualityIcon;
             name = NSLocalizedString(kSCItemQuality, kSCItemQuality);
+            break;
+        case SCItemAttributeTypeQuantity:
+            icon = kQuantityIcon;
+            name = NSLocalizedString(kSCItemQuantity, kSCItemQuantity);
             break;
         case SCItemAttributeTypeTradable:
             icon = kTradableIcon;

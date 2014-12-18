@@ -119,6 +119,10 @@ typedef enum {
         attributes |= SCItemAttributeTypeQuality;
     }
 
+    if (self.item.quantity.integerValue > 1) {
+        attributes |= SCItemAttributeTypeQuantity;
+    }
+
     if ([self.item isKindOfClass:NSClassFromString(@"SCCommunityItem")] ||
         [self.item isKindOfClass:NSClassFromString(@"SCTF2Item")]) {
         attributes |= SCItemAttributeTypeMarketable;

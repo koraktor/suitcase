@@ -22,6 +22,7 @@
 "kSCItemMarketable"                   = "Marketable";
 "kSCItemOrigin"                       = "Origin";
 "kSCItemQuality"                      = "Quality";
+"kSCItemQuantity"                     = "Quantity";
 "kSCItemTradable"                     = "Tradable";
 "kSCItemSetCellHeader"                = "Is part of the item set:";
 "kSCOpenInChrome"                     = "Open in Chrome";
