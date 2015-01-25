@@ -12,7 +12,7 @@
 
 @class SCItemViewController;
 
-@interface SCInventoryViewController : SCTableViewController <UISearchBarDelegate>
+@interface SCInventoryViewController : SCTableViewController <UISearchBarDelegate, UITableViewDelegate>
 
 @property (strong, nonatomic) id <SCInventory> inventory;
 @property (strong, nonatomic) NSArray *items;

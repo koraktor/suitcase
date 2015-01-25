@@ -2,7 +2,7 @@
 //  SCMasterViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2014, Sebastian Staudt
+//  Copyright (c) 2012-2015, Sebastian Staudt
 //
 
 #import "BPBarButtonItem.h"
@@ -10,6 +10,7 @@
 #import "IASKSettingsReader.h"
 
 #import "SCAppDelegate.h"
+#import "SCHeaderView.h"
 #import "SCWebApiInventory.h"
 #import "SCItem.h"
 #import "SCItemViewController.h"
@@ -61,6 +62,8 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
         [BPBarButtonItem customizeBarButtonItem:self.navigationItem.leftBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
         [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
     }
+
+    [self.tableView registerClass:[SCHeaderView class] forHeaderFooterViewReuseIdentifier:@"SCHeaderView"];
 }
 
 - (void)dealloc
@@ -379,6 +382,19 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
     return 20.0;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    SCHeaderView *headerView = (SCHeaderView *)view;
+    headerView.textLabel.adjustsFontSizeToFitWidth = YES;
+    headerView.textLabel.textAlignment = NSTextAlignmentCenter;
+    headerView.textLabel.center = headerView.center;
+
+    if (self.inventory.showColors && [[self sortOrder] isEqualToString:@"quality"]) {
+        headerView.backgroundColor = [self colorForQualityIndex:section];
+    } else {
+        headerView.backgroundColor = SCHeaderView.defaultBackgroundColor;
+    }
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     NSString *title = [self tableView:tableView titleForHeaderInSection:section];
@@ -387,72 +403,9 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
         return nil;
     }
 
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, 20.0)];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 0.0, tableView.frame.size.width - 10.0, 20.0)];
-    headerLabel.adjustsFontSizeToFitWidth = YES;
-    headerLabel.minimumScaleFactor = 0.8;
-    headerLabel.text = title;
-    headerLabel.textAlignment = NSTextAlignmentCenter;
-
-    UIColor *backgroundColor;
-    if (self.inventory.showColors && [[self sortOrder] isEqualToString:@"quality"]) {
-        backgroundColor = [self colorForQualityIndex:section];
-    } else {
-        backgroundColor = [UIColor colorWithRed:0.5372 green:0.6196 blue:0.7294 alpha:0.63];
-    }
-
-    CGFloat white;
-    if (![backgroundColor getWhite:&white alpha:nil]) {
-        const CGFloat *colorComponents = CGColorGetComponents(backgroundColor.CGColor);
-        white = ((colorComponents[0] * 299) + (colorComponents[1] * 587) + (colorComponents[2] * 114)) / 1000;
-    }
-    white = (white < 0.7) ? 0.9 : 0.1;
-    headerLabel.textColor = [UIColor colorWithWhite:white alpha:1.0];
-
-    CGFloat fontSize = 16.0;
-
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-        headerView.alpha = 0.8f;
-        headerLabel.backgroundColor = UIColor.clearColor;
-
-        headerLabel.font = [UIFont boldSystemFontOfSize:fontSize];
-
-        UIColor *gradientColor;
-        if (self.inventory.showColors) {
-            struct CGColorSpace *colorSpace = CGColorGetColorSpace(backgroundColor.CGColor);
-            if (CGColorSpaceGetModel(colorSpace) == kCGColorSpaceModelMonochrome) {
-                [backgroundColor getWhite:&white alpha:nil];
-                gradientColor = [UIColor colorWithWhite:white - 0.3 alpha:1.0];
-            } else {
-                CGFloat alpha;
-                CGFloat brightness;
-                CGFloat hue;
-                CGFloat saturation;
-                [backgroundColor getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
-                brightness -= 0.3;
-                gradientColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
-            }
-        } else {
-            gradientColor = [UIColor colorWithRed:0.2118 green:0.2392 blue:0.2706 alpha:1.0];
-        }
-
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = headerView.bounds;
-        gradient.colors = @[ (id)backgroundColor.CGColor, (id)gradientColor.CGColor ];
-        [headerView.layer addSublayer:gradient];
-
-        headerView.layer.shadowColor = [[UIColor blackColor] CGColor];
-        headerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-        headerView.layer.shadowOpacity = 0.5f;
-        headerView.layer.shadowRadius = 3.25f;
-        headerView.layer.masksToBounds = NO;
-    } else {
-        headerLabel.font = [UIFont systemFontOfSize:fontSize];
-        headerView.alpha = 1.0f;
-        headerView.backgroundColor = backgroundColor;
-    }
-
-    [headerView addSubview:headerLabel];
+    SCHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SCHeaderView"];
+    headerView.textLabel.text = title;
+    headerView.textLabel.textAlignment = NSTextAlignmentCenter;
 
     return headerView;
 }

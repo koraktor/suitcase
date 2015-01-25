@@ -87,6 +87,7 @@
 		0258A3F319CCD00A00D70F5A /* NotificationButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0258A3E319CCD00A00D70F5A /* NotificationButtonBackground@2x.png */; };
 		0258A3F819CCD01C00D70F5A /* TSBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0258A3F519CCD01C00D70F5A /* TSBlurView.m */; };
 		0258A3F919CCD01C00D70F5A /* TSMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0258A3F719CCD01C00D70F5A /* TSMessageView.m */; };
+		026261891A73EA24008DD4C7 /* SCHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026261881A73EA24008DD4C7 /* SCHeaderView.m */; };
 		0266E0A416933ACF009C6CE8 /* SCGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 0266E0A316933ACE009C6CE8 /* SCGame.m */; };
 		0269A4A915CC3AEB008A287A /* SCGamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0269A4A815CC3AEB008A287A /* SCGamesViewController.m */; };
 		026EE9F71748B45600FB8484 /* BPBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 026EE9F61748B45600FB8484 /* BPBarButtonItem.m */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -255,6 +256,8 @@
 		0258A3F519CCD01C00D70F5A /* TSBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSBlurView.m; path = Suitcase/External/TSMessages/Pod/Classes/TSBlurView.m; sourceTree = SOURCE_ROOT; };
 		0258A3F619CCD01C00D70F5A /* TSMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSMessageView.h; path = Suitcase/External/TSMessages/Pod/Classes/TSMessageView.h; sourceTree = SOURCE_ROOT; };
 		0258A3F719CCD01C00D70F5A /* TSMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSMessageView.m; path = Suitcase/External/TSMessages/Pod/Classes/TSMessageView.m; sourceTree = SOURCE_ROOT; };
+		026261871A73EA24008DD4C7 /* SCHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCHeaderView.h; path = Classes/SCHeaderView.h; sourceTree = "<group>"; };
+		026261881A73EA24008DD4C7 /* SCHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCHeaderView.m; path = Classes/SCHeaderView.m; sourceTree = "<group>"; };
 		0266DFE016920437009C6CE8 /* Suitcase.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Suitcase.xcconfig; sourceTree = "<group>"; };
 		0266E0A216933ACE009C6CE8 /* SCGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCGame.h; path = Classes/SCGame.h; sourceTree = "<group>"; };
 		0266E0A316933ACE009C6CE8 /* SCGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCGame.m; path = Classes/SCGame.m; sourceTree = "<group>"; };
@@ -538,6 +541,8 @@
 			children = (
 				026F215A156ADA1F00C7BD54 /* SCClassImageView.h */,
 				026F215B156ADA1F00C7BD54 /* SCClassImageView.m */,
+				026261871A73EA24008DD4C7 /* SCHeaderView.h */,
+				026261881A73EA24008DD4C7 /* SCHeaderView.m */,
 				0220FFC615D7A84700AB8AA3 /* SCInventoryCell.h */,
 				0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */,
 				023FDB7C18F66506002D6FC0 /* SCItemAttributeCell.h */,
@@ -979,6 +984,7 @@
 				02010B6D169E9CA000007456 /* IASKAppSettingsWebViewController.m in Sources */,
 				02010B6E169E9CA000007456 /* IASKSpecifierValuesViewController.m in Sources */,
 				02010B6F169E9CA000007456 /* IASKSettingsReader.m in Sources */,
+				026261891A73EA24008DD4C7 /* SCHeaderView.m in Sources */,
 				02010B70169E9CA000007456 /* IASKSettingsStore.m in Sources */,
 				0258A3D119CCCFE900D70F5A /* TSMessage.m in Sources */,
 				02010B71169E9CA000007456 /* IASKSettingsStoreFile.m in Sources */,

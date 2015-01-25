@@ -2,7 +2,7 @@
 //  SCGamesViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2014, Sebastian Staudt
+//  Copyright (c) 2012-2015, Sebastian Staudt
 //
 
 #import "BPBarButtonItem.h"
@@ -15,6 +15,7 @@
 #import "SCAppDelegate.h"
 #import "SCCommunityInventory.h"
 #import "SCGame.h"
+#import "SCHeaderView.h"
 #import "SCInventory.h"
 #import "SCWebApiInventory.h"
 #import "SCInventoryCell.h"
@@ -124,6 +125,8 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         [BPBarButtonItem customizeBarButtonItem:self.navigationItem.leftBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
         [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
     }
+
+    [self.tableView registerClass:[SCHeaderView class] forHeaderFooterViewReuseIdentifier:@"SCGamesHeaderView"];
 }
 
 - (void)clearInventories {
@@ -357,6 +360,9 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
             self.inventories = [newInventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
                 return [inv1.game.name compare:inv2.game.name];
             }];
+            if (self.inventories.count == 1) {
+                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:SCInventorySectionGames] withRowAnimation:UITableViewRowAnimationTop];
+            }
             [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:SCInventorySectionGames]]
                                   withRowAnimation:UITableViewRowAnimationTop];
             [self.tableView reloadRowsAtIndexPaths:otherInventories withRowAnimation:UITableViewRowAnimationFade];
@@ -538,49 +544,31 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     return 20.0;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if (section != SCInventorySectionGames || [self.inventories count] == 0) {
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section != SCInventorySectionGames) {
         return nil;
     }
 
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, 20.0)];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerView.frame];
-
-    headerLabel.backgroundColor = UIColor.clearColor;
-    headerLabel.text = NSLocalizedString(@"Games", @"Games");
-    headerLabel.textAlignment = NSTextAlignmentCenter;
-    headerLabel.textColor = UIColor.whiteColor;
-
-    UIColor *backgroundColor = [UIColor colorWithRed:0.5372 green:0.6196 blue:0.7294 alpha:1.0];
-    CGFloat fontSize = 16.0;
-
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-        headerView.alpha = 0.8f;
-        headerLabel.font = [UIFont boldSystemFontOfSize:fontSize];
-
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = headerView.bounds;
-        gradient.colors = @[ (id)[backgroundColor CGColor], (id)[[UIColor colorWithRed:0.2118 green:0.2392 blue:0.2706 alpha:1.0] CGColor] ];
-        [headerView.layer addSublayer:gradient];
-
-        headerView.layer.shadowColor = [[UIColor blackColor] CGColor];
-        headerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-        headerView.layer.shadowOpacity = 0.5f;
-        headerView.layer.shadowRadius = 3.25f;
-        headerView.layer.masksToBounds = NO;
-    } else {
-        headerView.alpha = 1.0f;
-        headerLabel.font = [UIFont systemFontOfSize:fontSize];
-        headerView.backgroundColor = backgroundColor;
-    }
-
-    [headerView addSubview:headerLabel];
+    SCHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SCGamesHeaderView"];
+    headerView.textLabel.text = NSLocalizedString(@"Games", @"Games");
 
     return headerView;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    SCHeaderView *headerView = (SCHeaderView *)view;
+    headerView.textLabel.adjustsFontSizeToFitWidth = YES;
+    headerView.textLabel.textAlignment = NSTextAlignmentCenter;
+    headerView.textLabel.center = headerView.center;
+
+    headerView.backgroundColor = SCHeaderView.defaultBackgroundColor;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (self.inventories.count == 0) {
+        return SCInventorySectionGames;
+    }
+
     return SCInventorySectionGames + 1;
 }
 
@@ -627,6 +615,20 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     } else {
         return [self.inventories count];
     }
+}
+
+#pragma mark - Refresh Control
+
+- (IBAction)triggerRefresh:(id)sender {
+    if (self.steamInventory != nil) {
+        _reloadingInventoriesCount ++;
+        [NSThread detachNewThreadSelector:@selector(reload) toTarget:self.steamInventory withObject:nil];
+    }
+
+    [self.inventories enumerateObjectsUsingBlock:^(id <SCInventory> inventory, NSUInteger idx, BOOL *stop) {
+        _reloadingInventoriesCount ++;
+        [NSThread detachNewThreadSelector:@selector(reload) toTarget:inventory withObject:nil];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
