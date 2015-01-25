@@ -2,7 +2,7 @@
 //  SCCommunityRequestOperationManager.m
 //  Suitcase
 //
-//  Copyright (c) 2014, Sebastian Staudt
+//  Copyright (c) 2014-2015, Sebastian Staudt
 //
 //
 
@@ -20,10 +20,8 @@
                            [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
                            [UIDevice currentDevice].systemVersion];
 
-    self.requestSerializer = [AFHTTPRequestSerializer serializer];
     [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [self.requestSerializer setValue:userAgent forHTTPHeaderField:@"User-Agent"];
-    self.responseSerializer = [AFJSONResponseSerializer serializer];
 
     return self;
 }
