@@ -26,6 +26,8 @@
     [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [self.requestSerializer setValue:userAgent forHTTPHeaderField:@"User-Agent"];
 
+    self.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+
     return self;
 }
 
@@ -61,7 +63,6 @@
         NSLog(@"Web API request @ %@ failed with status code %ld", path, (long) operation.response.statusCode);
 #endif
     }];
-    request.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     ((NSMutableURLRequest *)request.request).timeoutInterval = 30;
 
 #ifdef DEBUG
