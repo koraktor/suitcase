@@ -48,6 +48,7 @@ extern NSString *const kSCInventoryError;
 - (void)finish;
 - (BOOL)isEmpty;
 - (BOOL)isLoaded;
+- (BOOL)isReloading;
 - (BOOL)isSuccessful;
 - (BOOL)outdated;
 - (void)reload;

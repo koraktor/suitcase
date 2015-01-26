@@ -11,6 +11,7 @@
 
 typedef NS_ENUM(NSUInteger, SCInventoryState) {
     SCInventoryStateNew,
+    SCInventoryStateReloading,
     SCInventoryStateSuccessful,
     SCInventoryStateTemporaryFailed,
     SCInventoryStateFailed
@@ -29,6 +30,7 @@ typedef NS_ENUM(NSUInteger, SCInventoryState) {
 - (SCGame *)game;
 - (BOOL)isEmpty;
 - (BOOL)isLoaded;
+- (BOOL)isReloading;
 - (BOOL)isSuccessful;
 - (NSArray *)items;
 - (void)load;

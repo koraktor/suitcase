@@ -90,8 +90,10 @@ static NSMutableDictionary *__inventories;
 
 - (void)finish
 {
-    if (self.state == SCInventoryStateNew) {
+    if (self.state == SCInventoryStateNew || self.isReloading) {
         self.state = SCInventoryStateSuccessful;
+    } else if (self.failed || self.temporaryFailed) {
+        self.items = @[];
     }
     self.timestamp = [NSDate date];
 
@@ -105,7 +107,12 @@ static NSMutableDictionary *__inventories;
 
 - (BOOL)isLoaded
 {
-    return self.state != SCInventoryStateNew;
+    return self.state != SCInventoryStateNew && !self.isReloading;
+}
+
+- (BOOL)isReloading
+{
+    return self.state == SCInventoryStateReloading;
 }
 
 - (BOOL)isSuccessful
@@ -132,8 +139,7 @@ static NSMutableDictionary *__inventories;
 
 - (void)reload
 {
-    self.items = @[];
-    self.state = SCInventoryStateNew;
+    self.state = SCInventoryStateReloading;
 
     [(id <SCInventory>)self load];
 }
