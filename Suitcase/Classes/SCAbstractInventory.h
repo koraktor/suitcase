@@ -14,13 +14,6 @@
 
 extern NSString *const kSCInventoryError;
 
-typedef NS_ENUM(NSUInteger, SCInventoryState) {
-    SCInventoryStateNew,
-    SCInventoryStateSuccessful,
-    SCInventoryStateTemporaryFailed,
-    SCInventoryStateFailed
-};
-
 @interface SCAbstractInventory : NSObject
 
 #pragma mark Properties

@@ -9,6 +9,13 @@
 
 #import "SCGame.h"
 
+typedef NS_ENUM(NSUInteger, SCInventoryState) {
+    SCInventoryStateNew,
+    SCInventoryStateSuccessful,
+    SCInventoryStateTemporaryFailed,
+    SCInventoryStateFailed
+};
+
 @protocol SCInventory <NSObject>
 
 @property NSArray *itemSections;
