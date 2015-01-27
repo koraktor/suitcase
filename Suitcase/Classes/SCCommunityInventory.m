@@ -56,7 +56,6 @@
     self = [super initWithSteamId64:steamId64 andGame:game];
 
     _descriptions = [NSArray array];
-    self.items = [NSArray array];
 
     return self;
 }
@@ -78,7 +77,7 @@ withDescriptions:(NSDictionary *)descriptions
         [newItems addObject:item];
     }
 
-    self.items = [self.items arrayByAddingObjectsFromArray:newItems];
+    self.loadingItems = [self.loadingItems arrayByAddingObjectsFromArray:newItems];
 }
 
 - (void)failedTemporary:(BOOL)temporaryFailed

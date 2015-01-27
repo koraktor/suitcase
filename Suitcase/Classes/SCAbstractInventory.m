@@ -67,6 +67,8 @@ static NSMutableDictionary *__inventories;
                 andGame:(SCGame *)game
 {
     self.game = game;
+    self.items = @[];
+    self.loadingItems = @[];
     self.slots = @0;
     self.state = SCInventoryStateNew;
     self.steamId64 = steamId64;
@@ -91,9 +93,8 @@ static NSMutableDictionary *__inventories;
 - (void)finish
 {
     if (self.state == SCInventoryStateNew || self.isReloading) {
+        self.items = self.loadingItems;
         self.state = SCInventoryStateSuccessful;
-    } else if (self.failed || self.temporaryFailed) {
-        self.items = @[];
     }
     self.timestamp = [NSDate date];
 
@@ -139,6 +140,7 @@ static NSMutableDictionary *__inventories;
 
 - (void)reload
 {
+    self.loadingItems = @[];
     self.state = SCInventoryStateReloading;
 
     [(id <SCInventory>)self load];

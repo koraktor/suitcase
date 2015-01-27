@@ -22,6 +22,7 @@ extern NSString *const kSCInventoryError;
 @property (strong, nonatomic) NSArray *items;
 @property (strong, nonatomic) NSDictionary *itemQualities;
 @property (strong, nonatomic) NSArray *itemSections;
+@property (strong, nonatomic) NSArray *loadingItems;
 @property (nonatomic) BOOL showColors;
 @property (strong, nonatomic) NSNumber *slots;
 @property (nonatomic) SCInventoryState state;
