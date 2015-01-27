@@ -119,7 +119,12 @@ withDescriptions:(NSDictionary *)descriptions
 
             dispatch_group_leave(dispatchGroup);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if (![self temporaryFailed]) {
+            if (self.isReloading && [operation.responseString isEqualToString:@"null"]) {
+                self.loadingItems = self.items;
+#ifdef DEBUG
+                NSLog(@"Silently ignore load failure.");
+#endif
+            } else if (!self.temporaryFailed) {
                 NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
                 [self failedTemporary:YES forItemType:itemCategory withErrorMessage:errorMessage];
             }
