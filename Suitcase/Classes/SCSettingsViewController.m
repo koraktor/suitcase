@@ -110,7 +110,7 @@
     steamLogoView.contentMode = UIViewContentModeCenter;
     steamLogoView.image = steamLogoImage;
 
-    UILabel *steamLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, 100.0)];
+    UILabel *steamLabel = [[UILabel alloc] initWithFrame:footerSize];
     steamLabel.backgroundColor = [UIColor clearColor];
     steamLabel.text = footerText;
     steamLabel.textAlignment = NSTextAlignmentCenter;
