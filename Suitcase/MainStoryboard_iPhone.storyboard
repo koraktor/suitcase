@@ -227,6 +227,20 @@ http://steamcommunity.com/profile/{Profile ID}</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="SJ2-rV-SRU">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <attributedString key="attributedTitle">
+                            <fragment content="Refresh">
+                                <attributes>
+                                    <font key="NSFont" metaFont="smallSystem"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <connections>
+                            <action selector="triggerRefresh:" destination="OFf-mD-FT8" eventType="valueChanged" id="qik-Zq-8iA"/>
+                        </connections>
+                    </refreshControl>
                     <connections>
                         <segue destination="12" kind="push" identifier="showInventory" id="Zmm-7E-rdQ"/>
                     </connections>

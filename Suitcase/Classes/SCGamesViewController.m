@@ -28,7 +28,7 @@
     NSCondition *_availableGamesCondition;
     id <SCInventory> _currentInventory;
     NSArray *_games;
-    BOOL _waitingForInventoryReload;
+    NSInteger _reloadingInventoriesCount;
 }
 
 @property NSArray *inventories;
@@ -107,7 +107,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
                                                object:nil];
 
     _availableGamesCondition = [[NSCondition alloc] init];
-    _waitingForInventoryReload = NO;
+    _reloadingInventoriesCount = 0;
 
     self.navigationItem.title = NSLocalizedString(@"Inventories", @"Inventories");
 
@@ -125,6 +125,9 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         [BPBarButtonItem customizeBarButtonItem:self.navigationItem.leftBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
         [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
     }
+
+    self.refreshControl.frame = CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 40.0);
+    [self setRefreshControlTitle:NSLocalizedString(@"Refresh", @"Refresh")];
 
     [self.tableView registerClass:[SCHeaderView class] forHeaderFooterViewReuseIdentifier:@"SCGamesHeaderView"];
 }
@@ -303,21 +306,25 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         skipped = YES;
     }
 
-    if (_waitingForInventoryReload) {
-        [TSMessage dismissActiveNotificationWithCompletion:^{
-            _waitingForInventoryReload = NO;
+    if (_reloadingInventoriesCount > 0) {
+        if ([TSMessage isNotificationActive]) {
+            [TSMessage dismissActiveNotificationWithCompletion:^{
+                _reloadingInventoriesCount --;
 
-            if ([_currentInventory isSuccessful]) {
-                [_currentInventory loadSchema];
-            } else {
-                [self.view setUserInteractionEnabled:YES];
-                [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+                if ([_currentInventory isSuccessful]) {
+                    [_currentInventory loadSchema];
+                } else {
+                    [self.view setUserInteractionEnabled:YES];
+                    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 
-                [SCAppDelegate errorWithTitle:NSLocalizedString(kSCInventoryLoadingFailed, kSCInventoryLoadingFailed)
-                                   andMessage:[NSString stringWithFormat:NSLocalizedString(kSCInventoryLoadingFailedDetail, kSCInventoryLoadingFailedDetail), _currentInventory.game.name]
-                                 inController:self];
-            }
-        }];
+                    [SCAppDelegate errorWithTitle:NSLocalizedString(kSCInventoryLoadingFailed, kSCInventoryLoadingFailed)
+                                       andMessage:[NSString stringWithFormat:NSLocalizedString(kSCInventoryLoadingFailedDetail, kSCInventoryLoadingFailedDetail), _currentInventory.game.name]
+                                     inController:self];
+                }
+            }];
+        } else {
+            _reloadingInventoriesCount --;
+        }
 
         NSIndexPath *indexPath;
         if ([inventory.game isSteam]) {
@@ -326,15 +333,27 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
             indexPath = [NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:SCInventorySectionGames];
         }
 
-        [self.tableView beginUpdates];
-        if (skipped) {
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-        } else {
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath]
-                                  withRowAnimation:UITableViewRowAnimationNone];
-        }
-        [self.tableView endUpdates];
+        [UIView animateWithDuration:0.0 animations:^{
+            [self.tableView beginUpdates];
+            if (skipped) {
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+            } else {
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath]
+                                      withRowAnimation:UITableViewRowAnimationNone];
+            }
+            [self.tableView endUpdates];
+
+            if (_reloadingInventoriesCount > 0) {
+                self.tableView.contentOffset = CGPointMake(0.0, -self.tableView.contentInset.top);
+            }
+        } completion:^(BOOL finished) {
+            if (_reloadingInventoriesCount == 0) {
+                [self setRefreshControlTitle:NSLocalizedString(@"Refresh", @"Refresh")];
+
+                [self.refreshControl endRefreshing];
+            }
+        }];
     } else {
         if (skipped) {
             return;
@@ -526,7 +545,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
                                        duration:TSMessageNotificationDurationEndless
                            canBeDismissedByUser:NO];
 
-    _waitingForInventoryReload = YES;
+    _reloadingInventoriesCount ++;
 
     [NSThread detachNewThreadSelector:@selector(reload) toTarget:_currentInventory withObject:nil];
 }
@@ -619,7 +638,15 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
 #pragma mark - Refresh Control
 
+- (void)setRefreshControlTitle:(NSString *)title {
+    NSMutableAttributedString *refreshTitle = [[NSMutableAttributedString alloc] initWithString:title];
+    [refreshTitle setAttributes:@{ NSForegroundColorAttributeName: [UIColor whiteColor]} range:NSMakeRange(0, refreshTitle.length)];
+    self.refreshControl.attributedTitle = [refreshTitle copy];
+}
+
 - (IBAction)triggerRefresh:(id)sender {
+    [self setRefreshControlTitle:NSLocalizedString(@"Refreshing…", @"Refreshing…")];
+
     if (self.steamInventory != nil) {
         _reloadingInventoriesCount ++;
         [NSThread detachNewThreadSelector:@selector(reload) toTarget:self.steamInventory withObject:nil];

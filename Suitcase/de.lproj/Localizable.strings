@@ -40,6 +40,8 @@
 "Inventory"                           = "Inventar";
 "Inventories"                         = "Inventare";
 "items"                               = "Gegenstände";
+"Refresh"                             = "Aktualisieren";
+"Refreshing…"                         = "Aktualisieren…";
 "Retry"                               = "Wiederholen";
 "Select an account"                   = "Account auswählen";
 "Settings"                            = "Einstellungen";

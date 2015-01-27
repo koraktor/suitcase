@@ -11,4 +11,8 @@
 
 @interface SCGamesViewController : SCTableViewController <UIAlertViewDelegate>
 
+@property (strong, nonatomic) IBOutlet UIRefreshControl *refreshControl;
+
+- (IBAction)triggerRefresh:(id)sender;
+
 @end
