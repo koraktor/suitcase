@@ -63,6 +63,9 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
         [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
     }
 
+    self.refreshControl.frame = CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 40.0);
+    [self setRefreshControlTitle:NSLocalizedString(@"Refresh", @"Refresh")];
+
     [self.tableView registerClass:[SCHeaderView class] forHeaderFooterViewReuseIdentifier:@"SCHeaderView"];
 }
 
@@ -87,13 +90,27 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
 
         self.navigationItem.title = self.inventory.game.name;
 
-        if ([inventory.items count] > 0) {
-            self.items = self.inventory.items;
-            [self sortItems];
-
-            [self.tableView setContentOffset:CGPointMake(0, self.searchBar.frame.size.height)];
-        }
+        [self reloadInventory];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadInventory)
+                                                 name:@"inventoryLoaded"
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"inventoryLoaded"
+                                                  object:nil];
+
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidLoad
@@ -162,6 +179,22 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         }
+    }
+}
+
+- (void)reloadInventory
+{
+    self.items = self.inventory.items;
+
+    if ([self.inventory.items count] > 0) {
+        [self sortItems];
+    }
+
+    [self.tableView reloadData];
+    [self.tableView setContentOffset:CGPointMake(0, self.searchBar.frame.size.height)];
+
+    if (self.refreshControl.isRefreshing) {
+        [self.refreshControl endRefreshing];
     }
 }
 
@@ -416,6 +449,20 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
     if ([cell isKindOfClass:[SCItemCell class]]) {
         ((SCItemCell *)cell).showColors = self.inventory.showColors;
     }
+}
+
+#pragma mark - Refresh Control
+
+- (void)setRefreshControlTitle:(NSString *)title {
+    NSMutableAttributedString *refreshTitle = [[NSMutableAttributedString alloc] initWithString:title];
+    [refreshTitle setAttributes:@{ NSForegroundColorAttributeName: [UIColor whiteColor]} range:NSMakeRange(0, refreshTitle.length)];
+    self.refreshControl.attributedTitle = [refreshTitle copy];
+}
+
+- (IBAction)triggerRefresh:(id)sender {
+    [self setRefreshControlTitle:NSLocalizedString(@"Refreshing…", @"Refreshing…")];
+
+    [NSThread detachNewThreadSelector:@selector(reload) toTarget:self.inventory withObject:nil];
 }
 
 @end

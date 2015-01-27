@@ -21,4 +21,6 @@
 @property (strong, nonatomic) NSArray *itemTypes;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
+- (IBAction)triggerRefresh:(id)sender;
+
 @end
