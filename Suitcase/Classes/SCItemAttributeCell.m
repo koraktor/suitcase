@@ -2,7 +2,7 @@
 //  SCItemAttributeCell.m
 //  Suitcase
 //
-//  Copyright (c) 2014, Sebastian Staudt
+//  Copyright (c) 2014-2015, Sebastian Staudt
 //
 
 #import "FAKFontAwesome.h"
@@ -78,8 +78,12 @@ static NSAttributedString *kYesIcon;
             name = NSLocalizedString(kSCItemTradable, kSCItemTradable);
     }
 
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.defaultTabInterval = 13.0;
+
     NSMutableAttributedString *labelText = [[NSMutableAttributedString alloc] initWithAttributedString:icon];
-    [labelText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", name]]];
+    [labelText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\t%@", name]]];
+    [labelText setAttributes:@{ NSParagraphStyleAttributeName: paragraphStyle } range:NSMakeRange(1, 2)];
     self.nameLabel.attributedText = labelText;
     [self.nameLabel sizeToFit];
 
