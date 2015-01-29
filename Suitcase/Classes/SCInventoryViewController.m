@@ -5,8 +5,6 @@
 //  Copyright (c) 2012-2015, Sebastian Staudt
 //
 
-#import "BPBarButtonItem.h"
-#import "FAKFontAwesome.h"
 #import "IASKSettingsReader.h"
 
 #import "SCAppDelegate.h"
@@ -52,26 +50,6 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
                                              selector:@selector(sortInventory)
                                                  name:@"sortInventory"
                                                object:nil];
-
-    FAKIcon *wrenchIcon = [FAKFontAwesome wrenchIconWithSize:0.0];
-    self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@" %@ ", [wrenchIcon characterCode]];
-    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
-                                                          forState:UIControlStateNormal];
-
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-        [BPBarButtonItem customizeBarButtonItem:self.navigationItem.leftBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
-        [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
-    }
-
-    self.refreshControl.frame = CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 40.0);
-    [self setRefreshControlTitle:NSLocalizedString(@"Refresh", @"Refresh")];
-
-    [self.tableView registerClass:[SCHeaderView class] forHeaderFooterViewReuseIdentifier:@"SCHeaderView"];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)settingsChanged:(NSNotification *)notification {
@@ -453,14 +431,8 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
 
 #pragma mark - Refresh Control
 
-- (void)setRefreshControlTitle:(NSString *)title {
-    NSMutableAttributedString *refreshTitle = [[NSMutableAttributedString alloc] initWithString:title];
-    [refreshTitle setAttributes:@{ NSForegroundColorAttributeName: [UIColor whiteColor]} range:NSMakeRange(0, refreshTitle.length)];
-    self.refreshControl.attributedTitle = [refreshTitle copy];
-}
-
 - (IBAction)triggerRefresh:(id)sender {
-    [self setRefreshControlTitle:NSLocalizedString(@"Refreshing…", @"Refreshing…")];
+    [super triggerRefresh:sender];
 
     [NSThread detachNewThreadSelector:@selector(reload) toTarget:self.inventory withObject:nil];
 }

@@ -5,7 +5,6 @@
 //  Copyright (c) 2012-2015, Sebastian Staudt
 //
 
-#import "BPBarButtonItem.h"
 #import "FAKFontAwesome.h"
 #import "IASKSettingsReader.h"
 #import "IASKAppSettingsViewController.h"
@@ -111,21 +110,6 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:@" %@ ", [userIcon characterCode]];
     [self.navigationItem.leftBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
                                                          forState:UIControlStateNormal];
-
-    FAKIcon *wrenchIcon = [FAKFontAwesome wrenchIconWithSize:0.0];
-    self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@" %@ ", [wrenchIcon characterCode]];
-    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
-                                                         forState:UIControlStateNormal];
-
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-        [BPBarButtonItem customizeBarButtonItem:self.navigationItem.leftBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
-        [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
-    }
-
-    self.refreshControl.frame = CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 40.0);
-    [self setRefreshControlTitle:NSLocalizedString(@"Refresh", @"Refresh")];
-
-    [self.tableView registerClass:[SCHeaderView class] forHeaderFooterViewReuseIdentifier:@"SCGamesHeaderView"];
 }
 
 - (void)clearInventories {
@@ -564,7 +548,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         return nil;
     }
 
-    SCHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SCGamesHeaderView"];
+    SCHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SCHeaderView"];
     headerView.textLabel.text = NSLocalizedString(@"Games", @"Games");
 
     return headerView;
@@ -634,14 +618,9 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
 #pragma mark - Refresh Control
 
-- (void)setRefreshControlTitle:(NSString *)title {
-    NSMutableAttributedString *refreshTitle = [[NSMutableAttributedString alloc] initWithString:title];
-    [refreshTitle setAttributes:@{ NSForegroundColorAttributeName: [UIColor whiteColor]} range:NSMakeRange(0, refreshTitle.length)];
-    self.refreshControl.attributedTitle = [refreshTitle copy];
-}
 
 - (IBAction)triggerRefresh:(id)sender {
-    [self setRefreshControlTitle:NSLocalizedString(@"Refreshing…", @"Refreshing…")];
+    [super triggerRefresh:sender];
 
     if (self.steamInventory != nil) {
         _reloadingInventoriesCount ++;
@@ -679,11 +658,6 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
                                                   object:nil];
 
     [super viewWillDisappear:animated];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
