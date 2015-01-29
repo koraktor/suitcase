@@ -1,6 +1,6 @@
 [submodule "TTTAttributedLabel"]
 	path = Suitcase/External/TTTAttributedLabel
-	url = git://github.com/mattt/TTTAttributedLabel.git
+	url = git://github.com/TTTAttributedLabel/TTTAttributedLabel.git
 [submodule "InAppSettingsKit"]
 	path = Suitcase/External/InAppSettingsKit
 	url = git://github.com/futuretap/InAppSettingsKit.git
