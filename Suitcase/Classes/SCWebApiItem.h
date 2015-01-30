@@ -20,6 +20,7 @@
 - (id)initWithDictionary:(NSDictionary *)aDictionary
             andInventory:(SCWebApiInventory *)anInventory;
 
+- (void)clearCachedValues;
 - (NSNumber *)defindex;
 - (NSURL *)imageUrl;
 - (NSNumber *)level;

@@ -36,16 +36,17 @@
 "kSCResolveSteamIdErrorTitle"         = "Nicht gefunden";
 "kSCSchemaIsLoading"                  = "Lade Gegenstandsinformationen…";
 "kSCSchemaIsLoadingDetail"            = "Die Gegenstände für %@ werden geladen. Das kann eine Weile dauern.";
+"kSCSteamIdHelpText"                  = "Geben Sie die benutzerdefinierte URL oder Profil-ID des Steam Community Profils an:";
+"kSCSteamIdTitle"                     = "Account auswählen";
 "Cancel"                              = "Abbrechen";
+"Done"                                = "Fertig";
 "Inventory"                           = "Inventar";
 "Inventories"                         = "Inventare";
 "items"                               = "Gegenstände";
 "Refresh"                             = "Aktualisieren";
 "Refreshing…"                         = "Aktualisieren…";
 "Retry"                               = "Wiederholen";
-"Select an account"                   = "Account auswählen";
 "Settings"                            = "Einstellungen";
-"SteamID help"                        = "Geben Sie die benutzerdefinierte URL oder Profil-ID des Steam Community Profils an:";
 
 // Origin names
 "Achievement"                 = "Errungenschaft";

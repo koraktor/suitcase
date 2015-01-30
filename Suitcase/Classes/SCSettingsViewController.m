@@ -10,7 +10,15 @@
 #import "IASKSettingsReader.h"
 #import "IASKSwitch.h"
 
+#import "SCLanguage.h"
+#import "SCSettingsReader.h"
+
 #import "SCSettingsViewController.h"
+
+@interface SCSettingsViewController () {
+    SCSettingsReader *_settingsReader;
+}
+@end
 
 @implementation SCSettingsViewController
 
@@ -25,12 +33,46 @@
     self.delegate = self;
     self.showCreditsFooter = NO;
     self.showDoneButton = NO;
-    self.title = NSLocalizedString(@"Settings", @"Settings");
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadStrings)
+                                                 name:kSCLanguageSettingChanged
+                                               object:nil];
+
+    [self reloadStrings];
+
+    /*UIBarButtonItem *doneButton;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        doneButton = self.toolbarItems.firstObject;
+    } else {
+        doneButton = self.navigationItem.leftBarButtonItem;
+    }
+    [doneButton setTitleTextAttributes:@{ NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0] }
+                              forState:UIControlStateNormal];*/
 }
 
 - (IBAction)dismissSettings:(id)sender
 {
     [self dismiss:sender];
+}
+
+- (IASKSettingsReader *)settingsReader {
+    if (_settingsReader == nil) {
+        _settingsReader = [[SCSettingsReader alloc] initWithFile:self.file];
+    }
+
+    return _settingsReader;
+}
+
+- (void)reloadStrings
+{
+    self.title = NSLocalizedString(@"Settings", @"Settings");
+
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        ((UIBarButtonItem *)self.toolbarItems.firstObject).title = NSLocalizedString(@"Done", @"Done");
+    } else {
+        self.navigationItem.leftBarButtonItem.title = NSLocalizedString(@"Done", @"Done");
+    }
 }
 
 - (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewController

@@ -6,6 +6,7 @@
 //
 
 #import "SCItemSet.h"
+#import "SCLanguage.h"
 
 #import "SCWebApiItem.h"
 
@@ -121,6 +122,13 @@ const NSUInteger kSCKillEaterDefindex = 214;
 
 - (BOOL)belongsToItemSet {
     return self.itemSet != nil;
+}
+
+- (void)clearCachedValues {
+    _attributes = nil;
+    _itemSet = nil;
+    _killEaterDescription = nil;
+    _name = nil;
 }
 
 - (NSNumber *)defindex {
@@ -286,7 +294,7 @@ const NSUInteger kSCKillEaterDefindex = 214;
 }
 
 - (NSString *)levelFormat {
-    if ([[[NSLocale preferredLanguages] objectAtIndex:0] isEqualToString:@"de"]) {
+    if ([[[SCLanguage currentLanguage] localeIdentifier] isEqualToString:@"de"]) {
         return @"%2$@ (%1$@)";
     } else {
         return @"%@ %@";

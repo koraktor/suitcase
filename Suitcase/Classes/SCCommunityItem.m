@@ -7,6 +7,8 @@
 
 #import "HexColor.h"
 
+#import "SCLanguage.h"
+
 #import "SCCommunityItem.h"
 
 @interface SCCommunityItem () {
@@ -26,7 +28,7 @@ static NSString *kImageSize;
 + (void)initialize {
     kDateFormatter = [[NSDateFormatter alloc] init];
     kDateFormatter.dateStyle = NSDateFormatterLongStyle;
-    kDateFormatter.locale = [NSLocale currentLocale];
+    kDateFormatter.locale = [SCLanguage currentLanguage];
     kDateFormatter.timeStyle = NSDateFormatterNoStyle;
 
     NSError *regexError;
@@ -217,7 +219,7 @@ static NSString *kImageSize;
         qualityName = self.tags[@"Quality"][@"value"];
     }
 
-    return [qualityName capitalizedStringWithLocale:NSLocale.currentLocale];
+    return [qualityName capitalizedStringWithLocale:[SCLanguage currentLanguage]];
 }
 
 - (NSNumber *)quantity {

@@ -14,6 +14,7 @@
 #import "SCItemViewController.h"
 #import "SCItemCell.h"
 #import "SCItemQuality.h"
+#import "SCLanguage.h"
 #import "SCSettingsViewController.h"
 #import "SCSteamIdFormController.h"
 
@@ -58,6 +59,8 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
     } else if ([[notification object] isEqual:@"show_colors"]) {
         _inventory.showColors = [[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue];
         [self refreshInventory];
+    } else if ([notification.object isEqualToString:@"language"]) {
+        [self reloadStrings];
     }
 }
 
@@ -183,6 +186,16 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
     }
 
     [self.tableView reloadData];
+}
+
+- (void)reloadStrings {
+    self.items = self.inventory.items;
+
+    if ([self.inventory.items count] > 0) {
+        [self sortItems];
+    }
+
+    [super reloadStrings];
 }
 
 - (void)sortInventory

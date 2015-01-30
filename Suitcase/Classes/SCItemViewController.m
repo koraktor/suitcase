@@ -22,6 +22,7 @@
 #import "SCItemTitleCell.h"
 #import "SCItemAttributeCell.h"
 #import "SCItemViewController.h"
+#import "SCLanguage.h"
 #import "SCTF2Item.h"
 
 NSString *const kSCOpenInChrome = @"kSCOpenInChrome";
@@ -231,7 +232,7 @@ typedef enum {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showWikiPage"]) {
-        NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", ((SCWebApiItem *)self.item).defindex, [[NSLocale preferredLanguages] objectAtIndex:0]]];
+        NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", ((SCWebApiItem *)self.item).defindex, [SCLanguage currentLanguage]]];
 
         UIWebView *webView;
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {

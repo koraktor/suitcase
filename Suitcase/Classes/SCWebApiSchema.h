@@ -26,7 +26,7 @@
 + (SCWebApiSchema *)brokenSchema;
 + (NSDictionary *)schemas;
 + (AFHTTPRequestOperation *)schemaOperationForInventory:(SCWebApiInventory *)inventory
-                                            andLanguage:(NSString *)language;
+                                            andLanguage:(NSLocale *)locale;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

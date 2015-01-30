@@ -9,6 +9,7 @@
 
 @interface SCTableViewController : UITableViewController
 
+- (void)reloadStrings;
 - (void)setRefreshControlTitle:(NSString *)title;
 - (IBAction)triggerRefresh:(id)sender;
 

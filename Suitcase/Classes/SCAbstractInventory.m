@@ -106,6 +106,11 @@ static NSMutableDictionary *__inventories;
     });
 }
 
+- (void)forceOutdated
+{
+    self.timestamp = [NSDate dateWithTimeIntervalSince1970:0];
+}
+
 - (BOOL)isLoaded
 {
     return self.state != SCInventoryStateNew && !self.isReloading;

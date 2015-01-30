@@ -36,4 +36,5 @@
 "kSCResolveSteamIdErrorTitle"         = "Not found";
 "kSCSchemaIsLoading"                  = "Loading item information…";
 "kSCSchemaIsLoadingDetail"            = "The items for %@ are being loaded. This might take some time.";
-"SteamID help"                        = "Please supply the custom URL or profile ID of the Steam Community profile:";
+"kSCSteamIdHelpText"                  = "Please supply the custom URL or profile ID of the Steam Community profile:";
+"kSCSteamIdTitle"                     = "Select an account";

@@ -26,8 +26,10 @@ static NSMutableDictionary *__schemas;
 }
 
 + (AFHTTPRequestOperation *)schemaOperationForInventory:(SCWebApiInventory *)inventory
-                                            andLanguage:(NSString *)language
+                                            andLanguage:(NSLocale *)locale
 {
+    NSString *language = locale.localeIdentifier;
+
     if (__schemas == nil) {
         __schemas = [NSMutableDictionary dictionary];
     }

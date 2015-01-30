@@ -47,6 +47,7 @@ extern NSString *const kSCInventoryError;
 - (UIColor *)colorForQualityIndex:(NSInteger)index;
 - (BOOL)failed;
 - (void)finish;
+- (void)forceOutdated;
 - (BOOL)isEmpty;
 - (BOOL)isLoaded;
 - (BOOL)isReloading;

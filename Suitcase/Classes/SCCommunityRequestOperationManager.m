@@ -6,6 +6,8 @@
 //
 //
 
+#import "SCLanguage.h"
+
 #import "SCCommunityRequestOperationManager.h"
 
 @implementation SCCommunityRequestOperationManager
@@ -32,7 +34,7 @@
                                             andGame:(SCGame *)game
                                     andItemCategory:(NSNumber *)itemCategory
 {
-    NSLocale *preferredLanguage = [NSLocale localeWithLocaleIdentifier:[NSLocale preferredLanguages][0]];
+    NSLocale *preferredLanguage = [SCLanguage currentLanguage];
     NSDictionary *params = @{ @"l": [[[NSLocale localeWithLocaleIdentifier:@"en-US"] displayNameForKey:NSLocaleIdentifier value:preferredLanguage.localeIdentifier] lowercaseString] };
     NSString *path = [NSString stringWithFormat:@"profiles/%@/inventory/json/%@/%@", steamId64, game.appId, itemCategory];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {

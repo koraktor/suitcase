@@ -20,6 +20,11 @@
 {
     [super awakeFromNib];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadStrings)
+                                                 name:kSCLanguageSettingChanged
+                                               object:nil];
+
     FAKIcon *wrenchIcon = [FAKFontAwesome wrenchIconWithSize:0.0];
     self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@" %@ ", [wrenchIcon characterCode]];
     [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
@@ -31,9 +36,10 @@
     }
 
     self.refreshControl.frame = CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 40.0);
-    [self setRefreshControlTitle:NSLocalizedString(@"Refresh", @"Refresh")];
 
     [self.tableView registerClass:[SCHeaderView class] forHeaderFooterViewReuseIdentifier:@"SCHeaderView"];
+
+    [self reloadStrings];
 }
 
 
@@ -60,6 +66,15 @@
 - (IBAction)triggerRefresh:(id)sender
 {
     [self setRefreshControlTitle:NSLocalizedString(@"Refreshing…", @"Refreshing…")];
+}
+
+#pragma mark - Language Support
+
+- (void)reloadStrings
+{
+    [self setRefreshControlTitle:NSLocalizedString(@"Refresh", @"Refresh")];
+
+    [self.tableView reloadData];
 }
 
 #pragma mark - Deallocation

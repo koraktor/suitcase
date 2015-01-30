@@ -81,7 +81,7 @@ http://steamcommunity.com/profile/{Profile ID}</string>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Select an account" id="anc-QY-Zxb">
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="Kl0-8V-H8T">
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="Kl0-8V-H8T">
                             <color key="tintColor" red="0.63138686129999999" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="dismissForm:" destination="n1t-WO-e29" id="lB2-MU-99O"/>
@@ -123,7 +123,7 @@ http://steamcommunity.com/profile/{Profile ID}</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="DVF-yZ-f2j">
-                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="GSu-DH-HgI">
+                        <barButtonItem key="leftBarButtonItem" title="Done" style="done" id="GSu-DH-HgI">
                             <connections>
                                 <action selector="dismissSettings:" destination="r9B-R6-ule" id="FPo-1O-cds"/>
                             </connections>

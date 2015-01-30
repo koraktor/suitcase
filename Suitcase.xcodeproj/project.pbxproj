@@ -67,6 +67,8 @@
 		0255A148155D9BE20092741E /* SCWebApiItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255A147155D9BE20092741E /* SCWebApiItem.m */; };
 		0255A14C155D9BF80092741E /* SCWebApiSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 0255A14B155D9BF80092741E /* SCWebApiSchema.m */; };
 		0256513319D0CECA00C66316 /* IASKSpecifierValuesViewController+Suitcase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0256513219D0CECA00C66316 /* IASKSpecifierValuesViewController+Suitcase.m */; };
+		0258A3C819CBF7E400D70F5A /* SCLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0258A3C719CBF7E400D70F5A /* SCLanguage.m */; };
+		0258A3CE19CC552100D70F5A /* SCSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0258A3CD19CC552100D70F5A /* SCSettingsReader.m */; };
 		0258A3D119CCCFE900D70F5A /* TSMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0258A3D019CCCFE900D70F5A /* TSMessage.m */; };
 		0258A3D319CCCFFC00D70F5A /* TSMessagesDefaultDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 0258A3D219CCCFFC00D70F5A /* TSMessagesDefaultDesign.json */; };
 		0258A3E419CCD00A00D70F5A /* NotificationBackgroundError.png in Resources */ = {isa = PBXBuildFile; fileRef = 0258A3D419CCD00A00D70F5A /* NotificationBackgroundError.png */; };
@@ -233,6 +235,10 @@
 		0255A14B155D9BF80092741E /* SCWebApiSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWebApiSchema.m; path = Classes/SCWebApiSchema.m; sourceTree = "<group>"; };
 		0256513119D0CECA00C66316 /* IASKSpecifierValuesViewController+Suitcase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "IASKSpecifierValuesViewController+Suitcase.h"; path = "Classes/IASKSpecifierValuesViewController+Suitcase.h"; sourceTree = "<group>"; };
 		0256513219D0CECA00C66316 /* IASKSpecifierValuesViewController+Suitcase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "IASKSpecifierValuesViewController+Suitcase.m"; path = "Classes/IASKSpecifierValuesViewController+Suitcase.m"; sourceTree = "<group>"; };
+		0258A3C619CBF7E400D70F5A /* SCLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLanguage.h; path = Classes/SCLanguage.h; sourceTree = "<group>"; };
+		0258A3C719CBF7E400D70F5A /* SCLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLanguage.m; path = Classes/SCLanguage.m; sourceTree = "<group>"; };
+		0258A3CC19CC552100D70F5A /* SCSettingsReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSettingsReader.h; path = Classes/SCSettingsReader.h; sourceTree = "<group>"; };
+		0258A3CD19CC552100D70F5A /* SCSettingsReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSettingsReader.m; path = Classes/SCSettingsReader.m; sourceTree = "<group>"; };
 		0258A3CF19CCCFE900D70F5A /* TSMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSMessage.h; path = Suitcase/External/TSMessages/Pod/Classes/TSMessage.h; sourceTree = SOURCE_ROOT; };
 		0258A3D019CCCFE900D70F5A /* TSMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSMessage.m; path = Suitcase/External/TSMessages/Pod/Classes/TSMessage.m; sourceTree = SOURCE_ROOT; };
 		0258A3D219CCCFFC00D70F5A /* TSMessagesDefaultDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TSMessagesDefaultDesign.json; path = Suitcase/External/TSMessages/Pod/Assets/TSMessagesDefaultDesign.json; sourceTree = SOURCE_ROOT; };
@@ -734,8 +740,12 @@
 				02238C661914E88B0050CDCF /* SCItemViewLayout.m */,
 				0203A67018C531C500EF5E25 /* SCCommunityRequestOperationManager.h */,
 				0203A67118C531C500EF5E25 /* SCCommunityRequestOperationManager.m */,
+				0258A3C619CBF7E400D70F5A /* SCLanguage.h */,
+				0258A3C719CBF7E400D70F5A /* SCLanguage.m */,
 				02BB278F19026DA4002D151A /* SCReplaceDetailSegue.h */,
 				02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */,
+				0258A3CC19CC552100D70F5A /* SCSettingsReader.h */,
+				0258A3CD19CC552100D70F5A /* SCSettingsReader.m */,
 				02010B30169858E400007456 /* SCWebApiRequestOperationManager.h */,
 				02010B31169858E400007456 /* SCWebApiRequestOperationManager.m */,
 				022D3CA819CECB0300DD58AE /* Launch Screen.storyboard */,
@@ -947,7 +957,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bundleVersion=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" Suitcase/Suitcase-Info.plist)\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:10:DefaultValue $bundleVersion\" Suitcase/Settings.bundle/Root.plist";
+			shellScript = "bundleVersion=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" Suitcase/Suitcase-Info.plist)\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:11:DefaultValue $bundleVersion\" Suitcase/Settings.bundle/Root.plist";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -988,6 +998,7 @@
 				02010B70169E9CA000007456 /* IASKSettingsStore.m in Sources */,
 				0258A3D119CCCFE900D70F5A /* TSMessage.m in Sources */,
 				02010B71169E9CA000007456 /* IASKSettingsStoreFile.m in Sources */,
+				0258A3CE19CC552100D70F5A /* SCSettingsReader.m in Sources */,
 				02D5BC5E19210274000D8206 /* SCTableViewController.m in Sources */,
 				02010B72169E9CA000007456 /* IASKSettingsStoreUserDefaults.m in Sources */,
 				02010B73169E9CA000007456 /* IASKSpecifier.m in Sources */,
@@ -1024,6 +1035,7 @@
 				02010B32169858E500007456 /* SCWebApiRequestOperationManager.m in Sources */,
 				0203A67218C531C500EF5E25 /* SCCommunityRequestOperationManager.m in Sources */,
 				0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */,
+				0258A3C819CBF7E400D70F5A /* SCLanguage.m in Sources */,
 				02010B8A169E9CDA00007456 /* TTTAttributedLabel.m in Sources */,
 				029F6941182E3EEC00851826 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				029D94711939EBA100D1DF43 /* SCNavigationController.m in Sources */,

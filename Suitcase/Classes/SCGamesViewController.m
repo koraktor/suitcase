@@ -104,8 +104,6 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     _availableGamesCondition = [[NSCondition alloc] init];
     _reloadingInventoriesCount = 0;
 
-    self.navigationItem.title = NSLocalizedString(@"Inventories", @"Inventories");
-
     FAKIcon *userIcon = [FAKFontAwesome userIconWithSize:0.0];
     self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:@" %@ ", [userIcon characterCode]];
     [self.navigationItem.leftBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
@@ -631,6 +629,14 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         _reloadingInventoriesCount ++;
         [NSThread detachNewThreadSelector:@selector(reload) toTarget:inventory withObject:nil];
     }];
+}
+
+#pragma mark - Language Support
+
+- (void)reloadStrings {
+    [super reloadStrings];
+
+    self.navigationItem.title = NSLocalizedString(@"Inventories", @"Inventories");
 }
 
 - (void)viewDidAppear:(BOOL)animated

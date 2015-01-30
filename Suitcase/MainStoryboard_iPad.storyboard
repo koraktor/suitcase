@@ -503,7 +503,7 @@ http://steamcommunity.com/profile/{Profile ID}
                         <color key="backgroundColor" red="0.43921571970000001" green="0.49803924560000001" blue="0.54509806630000002" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Select an account" id="24F-cp-iP4">
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="LiS-vR-e20">
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="LiS-vR-e20">
                             <color key="tintColor" red="0.63138686131386856" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="dismissForm:" destination="YOR-Ee-B7r" id="bhZ-TN-9I2"/>
@@ -673,7 +673,7 @@ http://steamcommunity.com/profile/{Profile ID}
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem style="done" systemItem="done" id="ZKi-nX-IcC">
+                        <barButtonItem title="Done" style="done" id="ZKi-nX-IcC">
                             <connections>
                                 <action selector="dismissSettings:" destination="Men-12-BBe" id="9xM-jZ-t5a"/>
                             </connections>

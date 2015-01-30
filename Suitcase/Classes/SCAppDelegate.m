@@ -2,7 +2,7 @@
 //  SCAppDelegate.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2014, Sebastian Staudt
+//  Copyright (c) 2012-2015, Sebastian Staudt
 //
 
 #import <Fabric/Fabric.h>
@@ -13,7 +13,9 @@
 #import "TSMessage.h"
 #import "IASKSpecifierValuesViewController.h"
 
+#import "SCCommunityInventory.h"
 #import "SCImageCache.h"
+#import "SCLanguage.h"
 
 #import "SCAppDelegate.h"
 
@@ -199,6 +201,33 @@ static SCWebApiRequestOperationManager *_webApiClient;
 
     if (![[defaults objectForKey:@"sorting"] isEqual:[_storedDefaults objectForKey:@"sorting"]]) {
         [defaultCenter postNotificationName:@"sortInventory" object:nil];
+    }
+
+    if (![[defaults objectForKey:@"language" ] isEqualToString:@"language"]) {
+        NSLocale *currentLanguage = [SCLanguage currentLanguage];
+        [SCLanguage updateLanguage];
+
+        if ([currentLanguage isEqual:[SCLanguage currentLanguage]]) {
+            [defaultCenter postNotificationName:kSCLanguageSettingChanged object:nil];
+
+            [SCAbstractInventory.inventories.allValues enumerateObjectsUsingBlock:^(NSDictionary *userInventories, NSUInteger idx, BOOL *stop) {
+                [userInventories.allValues enumerateObjectsUsingBlock:^(SCAbstractInventory *inventory, NSUInteger idx, BOOL *stop) {
+                    if ([inventory isKindOfClass:[SCCommunityInventory class]]) {
+                        [inventory forceOutdated];
+                    }
+                }];
+            }];
+
+            UINavigationController *navigationController;
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+                UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+                navigationController = splitViewController.viewControllers.lastObject;
+            } else {
+                navigationController = (UINavigationController *)self.window.rootViewController;
+            }
+
+            [navigationController popToRootViewControllerAnimated:NO];
+        }
     }
 }
 

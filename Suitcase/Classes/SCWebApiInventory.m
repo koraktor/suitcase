@@ -105,7 +105,7 @@ static NSArray *alphabetWithNumbers;
 - (void)loadSchema
 {
     AFHTTPRequestOperation *schemaOperation = [SCWebApiSchema schemaOperationForInventory:self
-                                                                        andLanguage:[[NSLocale preferredLanguages] objectAtIndex:0]];
+                                                                              andLanguage:SCLanguage.currentLanguage];
     if (schemaOperation != nil) {
         [schemaOperation start];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaStarted" object:nil];
@@ -120,6 +120,17 @@ static NSArray *alphabetWithNumbers;
 
 - (NSString *)originNameForIndex:(NSUInteger)index {
     return NSLocalizedString([self.schema originNameForIndex:index], @"Origin name");
+}
+
+- (void)setSchema:(SCWebApiSchema *)schema
+{
+    if (_schema != nil) {
+        [self.items enumerateObjectsUsingBlock:^(SCWebApiItem *item, NSUInteger idx, BOOL *stop) {
+            [item clearCachedValues];
+        }];
+    }
+
+    _schema = schema;
 }
 
 - (void)sortItems {

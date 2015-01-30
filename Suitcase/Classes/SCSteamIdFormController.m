@@ -15,6 +15,8 @@
 
 @implementation SCSteamIdFormController
 
+NSString *const kSCSteamIdHelpText = @"kSCSteamIdHelpText";
+NSString *const kSCSteamIdTitle = @"kSCSteamIdTitle";
 NSString *const kSCResolveSteamIdErrorMessage = @"kSCResolveSteamIdErrorMessage";
 NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
 
@@ -26,6 +28,30 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
         self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
         [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withTintColor:[UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:1.0]];
     }
+
+    UIView *sampleView = [self.view.subviews lastObject];
+    sampleView.frame = CGRectMake(self.view.frame.size.width / 2 - sampleView.frame.size.width / 2, sampleView.frame.origin.y, sampleView.frame.size.width, sampleView.frame.size.height);
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadStrings)
+                                                 name:kSCLanguageSettingChanged
+                                               object:nil];
+
+    [self reloadStrings];
+}
+
+- (void)reloadStrings
+{
+    self.helpLabel.text = NSLocalizedString(kSCSteamIdHelpText, kSCSteamIdHelpTitle);
+    self.navigationItem.title = NSLocalizedString(kSCSteamIdTitle, kSCSteamIdTitle);
+
+    UIBarButtonItem *cancelButton;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        cancelButton = self.toolbarItems.lastObject;
+    } else {
+        cancelButton = self.navigationItem.rightBarButtonItem;
+    }
+    cancelButton.title = NSLocalizedString(@"Cancel", "Cancel");
 }
 
 - (void)resolveSteamId
@@ -107,15 +133,9 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    self.steamIdField.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID"];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    self.helpLabel.text = NSLocalizedString(self.helpLabel.text, @"SteamID help");
-    self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"SteamID form title");
     self.navigationItem.rightBarButtonItem.enabled = ([[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID"] != nil);
+
+    self.steamIdField.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID"];
 }
 
 - (IBAction)dismissForm:(id)sender {
