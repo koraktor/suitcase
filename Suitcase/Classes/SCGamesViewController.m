@@ -85,6 +85,10 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
                                                  name:kIASKAppSettingChanged
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(inventoryLoaded:)
+                                                 name:@"inventoryLoaded"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadAvailableGames)
                                                  name:@"loadAvailableGames"
                                                object:nil];
@@ -616,7 +620,6 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
 #pragma mark - Refresh Control
 
-
 - (IBAction)triggerRefresh:(id)sender {
     [super triggerRefresh:sender];
 
@@ -643,11 +646,6 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 {
     [super viewDidAppear:animated];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(inventoryLoaded:)
-                                                 name:@"inventoryLoaded"
-                                               object:nil];
-
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"] == nil) {
         [self performSegueWithIdentifier:@"SteamIDForm" sender:self];
     }
@@ -655,15 +653,6 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"clearItem" object:nil];
     }
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"inventoryLoaded"
-                                                  object:nil];
-
-    [super viewWillDisappear:animated];
 }
 
 @end

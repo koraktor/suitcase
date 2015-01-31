@@ -48,6 +48,10 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
                                                  name:@"showColorsChanged"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadInventory)
+                                                 name:@"inventoryLoaded"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sortInventory)
                                                  name:@"sortInventory"
                                                object:nil];
@@ -73,25 +77,6 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
 
         [self reloadInventory];
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadInventory)
-                                                 name:@"inventoryLoaded"
-                                               object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"inventoryLoaded"
-                                                  object:nil];
-
-    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidLoad
