@@ -115,6 +115,8 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 }
 
 - (void)clearInventories {
+    [self.refreshControl endRefreshing];
+
     [self.tableView beginUpdates];
 
     BOOL noInventories = YES;
@@ -126,14 +128,8 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     }
 
     if (self.inventories.count > 0) {
-        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:self.inventories.count];
-        for (int i = 0; i < self.inventories.count; i ++) {
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:2]];
-        }
-        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:SCInventorySectionGames]
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:SCInventorySectionGames]
                       withRowAnimation:UITableViewRowAnimationTop];
-
         noInventories = NO;
     }
 
@@ -141,7 +137,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     self.steamInventory = nil;
 
     if (!noInventories) {
-        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]]
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:SCInventorySectionNoInventories]]
                               withRowAnimation:UITableViewRowAnimationTop];
     }
 
