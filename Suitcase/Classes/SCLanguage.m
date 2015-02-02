@@ -19,8 +19,8 @@ static NSBundle *iaskRootBundle = nil;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *currentLanguage = [defaults objectForKey:@"language"];
-    if ([currentLanguage isEqualToString:@"auto"]) {
-        currentLanguage = [defaults objectForKey:@"AppleLanguages"][0];
+    if (currentLanguage == nil || [currentLanguage isEqualToString:@"auto"]) {
+        currentLanguage = [NSLocale preferredLanguages][0];
     }
     [self setLanguage:currentLanguage];
 }
@@ -29,8 +29,8 @@ static NSBundle *iaskRootBundle = nil;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *currentLanguage = [defaults stringForKey:@"language"];
 
-    if ([currentLanguage isEqualToString:@"auto"]) {
-        currentLanguage = [defaults objectForKey:@"AppleLanguages"][0];
+    if (currentLanguage == nil || [currentLanguage isEqualToString:@"auto"]) {
+        currentLanguage = [NSLocale preferredLanguages][0];
     }
 
     return [NSLocale localeWithLocaleIdentifier:currentLanguage];
