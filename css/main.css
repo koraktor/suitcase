@@ -37,6 +37,18 @@ li p {
   font-size: 0.95em;
 }
 
+.changelog h2:nth-of-type(2):before {
+  content: '\APrevious versions:\A\A';
+  font-weight: 700;
+  margin-bottom: 1em;
+  white-space: pre;
+}
+
+.changelog h2:first-of-type:after {
+  content: ' – Current version';
+  font-weight: 700;
+}
+
 .disclaimer {
   font-size:   0.8em;
   line-height: 0.9em;
