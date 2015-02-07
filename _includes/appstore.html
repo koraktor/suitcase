@@ -1,7 +1,7 @@
 <script type="text/javascript">
-  $(function() {
-    if (navigator.userAgent.match('CriOS')) {
-      $('#appstore-link').attr('href', 'itmss://itunes.apple.com/app/id539259008');
+  document.addEventListener("DOMContentLoaded", function(event) {
+    if (['iPad', 'iPod', 'iPhone', 'MacIntel', 'MacPPC'].indexOf(navigator.platform.replace(' Simulator', '')) >= 0) {
+      document.getElementById('appstore-link').setAttribute('href', 'itmss://itunes.apple.com/app/id539259008');
     }
   });
 </script>
