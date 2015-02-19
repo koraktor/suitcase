@@ -628,6 +628,12 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         _reloadingInventoriesCount ++;
         [NSThread detachNewThreadSelector:@selector(reload) toTarget:inventory withObject:nil];
     }];
+
+    if (_reloadingInventoriesCount == 0) {
+        [self setRefreshControlTitle:NSLocalizedString(@"Refresh", @"Refresh")];
+
+        [self.refreshControl endRefreshing];
+    }
 }
 
 #pragma mark - Language Support
