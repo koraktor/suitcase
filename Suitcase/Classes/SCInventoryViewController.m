@@ -160,6 +160,8 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
     [self.tableView setContentOffset:CGPointMake(0, self.searchBar.frame.size.height)];
 
     if (self.refreshControl.isRefreshing) {
+        [self setRefreshControlTitle:NSLocalizedString(@"Refresh", @"Refresh")];
+
         [self.refreshControl endRefreshing];
     }
 }
