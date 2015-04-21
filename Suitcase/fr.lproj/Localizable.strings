@@ -1,0 +1,96 @@
+/*
+ * Localizable.strings
+ * Suitcase
+ *
+ * Copyright (c) 2015, Sebastian Staudt
+ */
+
+"kSCAvailableGamesErrorMessage"       = "Jeux disponibles ne pouvaient pas être chargés:\n%@\n\nCela est nécessaire pour démontrer les inventaires.";
+"kSCAvailableGamesErrorTitle"         = "Impossible de charger les jeux disponsible";
+"kSCGamesErrorMessage"                = "Jeux de l'utilisateur ne pouvaient pas être chargés:\n%@\n\nVous pouvez soit réessayer ou sélectionnez un autre utilisateur.";
+"kSCGamesErrorTitle"                  = "Impossible de charger les jeux de cet utilisateur";
+"kSCGamesNoInventories"               = "Pas un inventaire";
+"kSCHour"                             = "%d heure";
+"kSCHours"                            = "%d heures";
+"kSCInventoryCellLoadingFailed"       = "Erreur. Touchez pour répéter.";
+"kSCInventoryError"                   = "Erreur de chargement de l’inventaire: %@";
+"kSCInventoryLoadingFailed"           = "Erreur de chargement";
+"kSCInventoryLoadingFailedDetail"     = "L’inventaire pour %@ ne pouvait être chargé";
+"kSCInventorySearchNoResults"         = "Pas d’objets trouvés.";
+"kSCInventorySearchPlaceholder"       = "Recherche d’objets";
+"kSCItemItemSet"                      = "Ensemble d’objets";
+"kSCItemMarketable"                   = "Négociable";
+"kSCItemOrigin"                       = "Origine";
+"kSCItemQuality"                      = "Qualité";
+"kSCItemQuantity"                     = "Quantité";
+"kSCItemSetCellHeader"                = "Relever de ensemble:";
+"kSCItemTradable"                     = "Échangeable";
+"kSCOpenInChrome"                     = "Ouvrir avec Chrome";
+"kSCOpenInSafari"                     = "Ouvrir avec Safari";
+"kSCOpenLinkInBrowser"                = "Ouvrir ce lien dans un navigateur?";
+"kSCReloadingFailedInventory"         = "Recharger…";
+"kSCReloadingFailedInventoryDetail"   = "Inventaire pour %@ est rechargée.";
+"kSCReloadingOutdatedInventory"       = "Actualiser…";
+"kSCReloadingOutdatedInventoryDetail" = "Inventaire pour %@ est actualisé.";
+"kSCResolveSteamIdErrorMessage"       = "Une erreur survient lors de la résolution ID Steam: %@";
+"kSCResolveSteamIdErrorTitle"         = "Introuvable";
+"kSCSchemaFailed"                     = "Erreur de chargement des informations des objets";
+"kSCSchemaIsLoading"                  = "Charger les informations des objets…";
+"kSCSchemaIsLoadingDetail"            = "Les objets pour %@ est chargé. Cela peut prendre un moment.";
+"kSCSteamIdHelpText"                  = "Spécifiez l'URL personnalisée ou ID de profil de la Communauté Steam:";
+"kSCSteamIdTitle"                     = "Sélectionnez un compte";
+"Cancel"                              = "Annuler";
+"Done"                                = "Terminer";
+"Inventory"                           = "Inventaire";
+"Inventories"                         = "Inventaires";
+"items"                               = "objets";
+"Refresh"                             = "Rafraîchir";
+"Refreshing…"                         = "Rafraichissement…";
+"Retry"                               = "Réessayer";
+"Settings"                            = "Réglages";
+
+// Origin names
+"Achievement"                 = "Succès";
+"CD Key"                      = "Clé CD";
+"Collection Reward"           = "Récompense de collection";
+"Crafted"                     = "Fabriqué";
+"Earned"                      = "Mérité";
+"Found in Crate"              = "Trouvé dans une boîte";
+"Foreign Item"                = "Objet étrangère";
+"Games"                       = "Jeux";
+"Gifted"                      = "Offert";
+"Halloween Drop"              = "Découverte d’Halloween";
+"Preview Item"                = "Aperçu d‘objet";
+"Purchased"                   = "Acheté";
+"Steam Purchase"              = "Achat de Steam";
+"Steam Workshop Contribution" = "Participation à Steam Workshop";
+"Store Promotion"             = "Promotion de Magasin";
+"Support Granted"             = "Accordée par le support client";
+"Third-Party Promotion"       = "Promotion de tierce partie";
+"Timed Drop"                  = "Découverte aléatoire";
+"Traded"                      = "Échangé";
+"Unknown"                     = "Inconnu";
+"Wrapped Gift"                = "Cadeau enveloppé";
+
+// Dota 2 Quality names
+"Base"        = "Basis";
+"Genuine"     = "Authentique";
+"Elder"       = "Antique";
+"Unusual"     = "Inhabituel";
+"Standard"    = "Standard";
+"Community"   = "Communauté";
+"Valve"       = "Valve";
+"Self-Made"   = "Fait soi-même";
+"Customized"  = "Personnalisé";
+"Inscribed"   = "Runique";
+"Completed"   = "Achevé";
+"Cursed"      = "Maudit";
+"Heroic"      = "Héroïque";
+"Favored"     = "Favori";
+"Ascendant"   = "Ascendant";
+"Autographed" = "Dédicacé";
+"Legacy"      = "Héritage";
+"Exalted"     = "Exalté";
+"Frozen"      = "Gelé";
+"Corrupted"   = "Corrompu";
+"Auspicious"  = "Chanceux";

@@ -353,6 +353,7 @@
 		02E98C6119128C840039E1E7 /* SCItemTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemTitleCell.h; path = Classes/SCItemTitleCell.h; sourceTree = "<group>"; };
 		02E98C6219128C840039E1E7 /* SCItemTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemTitleCell.m; path = Classes/SCItemTitleCell.m; sourceTree = "<group>"; };
 		02EC921D1889FEAA00CC268C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		02F0DE071AE644FA0023A4F2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		02F19B4E1A4159E1001F3D2F /* IASKMultipleValueSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKMultipleValueSelection.h; sourceTree = "<group>"; };
 		02F19B4F1A4159E1001F3D2F /* IASKMultipleValueSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKMultipleValueSelection.m; sourceTree = "<group>"; };
 		02F36DF61826AC3C0036D1C6 /* SCSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSplitViewController.h; path = Classes/SCSplitViewController.h; sourceTree = "<group>"; };
@@ -872,6 +873,7 @@
 			knownRegions = (
 				en,
 				de,
+				fr,
 			);
 			mainGroup = 028B63FB15265D680040D2FF;
 			productRefGroup = 028B640715265D690040D2FF /* Products */;
@@ -1064,6 +1066,7 @@
 			children = (
 				022D0CCE158349B80071F665 /* de */,
 				022D0D101584E7870071F665 /* en */,
+				02F0DE071AE644FA0023A4F2 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

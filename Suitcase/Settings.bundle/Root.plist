@@ -32,6 +32,7 @@
 				<string>Automatic</string>
 				<string>English</string>
 				<string>German</string>
+				<string>French</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
@@ -40,6 +41,7 @@
 				<string>auto</string>
 				<string>en</string>
 				<string>de</string>
+				<string>fr</string>
 			</array>
 		</dict>
 		<dict>
