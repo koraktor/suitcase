@@ -57,10 +57,11 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
 - (void)resolveSteamId
 {
     NSString *steamId = self.steamIdField.text;
-    steamId = [steamId stringByReplacingOccurrencesOfString:@"(?:http://)?steamcommunity\\.com/(id|profiles)/"
+    steamId = [steamId stringByReplacingOccurrencesOfString:@"(?:https?://)?steamcommunity\\.com/(id|profiles)/"
                                                  withString:@""
                                                     options:NSRegularExpressionSearch
                                                       range:NSMakeRange(0, steamId.length)];
+    steamId = [[steamId pathComponents] firstObject];
     __block NSNumber *steamId64 = [[[NSNumberFormatter alloc] init] numberFromString:steamId];
 
     void (^SteamIdFound)() = ^() {
