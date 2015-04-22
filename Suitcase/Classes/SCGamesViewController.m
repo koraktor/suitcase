@@ -344,9 +344,13 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         }
 
         if ([inventory.game isSteam]) {
+            NSArray *steamIndexPath = @[[NSIndexPath indexPathForRow:0 inSection:SCInventorySectionSteam]];
+            if (self.steamInventory == nil) {
+                [self.tableView insertRowsAtIndexPaths:steamIndexPath withRowAnimation:UITableViewRowAnimationTop];
+            } else {
+                [self.tableView reloadRowsAtIndexPaths:steamIndexPath withRowAnimation:UITableViewRowAnimationFade];
+            }
             self.steamInventory = inventory;
-            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:SCInventorySectionSteam]]
-                                                    withRowAnimation:UITableViewRowAnimationTop];
         } else {
             NSMutableArray *otherInventories = [NSMutableArray arrayWithCapacity:self.inventories.count];
             [self.inventories enumerateObjectsUsingBlock:^(id <SCInventory> otherInventory, NSUInteger row, BOOL *stop) {
