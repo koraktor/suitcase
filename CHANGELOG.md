@@ -5,6 +5,12 @@ title: Changelog
 Changelog
 =========
 
+## Version 2.1.0 (12-02-2015)
+
+ * Added pull-to-refresh to update one or all inventories
+ * Added a setting to force a language: This lets you override the language of the device.
+ * Various other small improvements
+
 ## Version 2.0.4 (01-04-2015)
 
  * Quantity for countable items
