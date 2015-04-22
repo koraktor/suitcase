@@ -2,7 +2,7 @@
 //  SCInventory.h
 //  Suitcase
 //
-//  Copyright (c) 2014, Sebastian Staudt
+//  Copyright (c) 2014-2015, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
@@ -26,6 +26,7 @@ typedef NS_ENUM(NSUInteger, SCInventoryState) {
                               andGame:(SCGame *)game;
 
 - (UIColor *)colorForQualityIndex:(NSInteger)index;
+- (NSComparisonResult)compare:(id <SCInventory>)inventory;
 - (BOOL)failed;
 - (SCGame *)game;
 - (BOOL)isEmpty;

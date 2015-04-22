@@ -2,7 +2,7 @@
 //  SCAbstractInventory.m
 //  Suitcase
 //
-//  Copyright (c) 2014, Sebastian Staudt
+//  Copyright (c) 2014-2015, Sebastian Staudt
 //
 
 #import "SCAbstractInventory.h"
@@ -83,6 +83,10 @@ static NSMutableDictionary *__inventories;
     NSString *qualityName = [[[self.itemQualities allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:index];
 
     return ((SCItemQuality *)self.itemQualities[qualityName]).color;
+}
+
+- (NSComparisonResult)compare:(id <SCInventory>)inventory {
+    return [self.game compare:inventory.game];
 }
 
 - (BOOL)failed

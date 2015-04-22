@@ -2,7 +2,7 @@
 //  SCGame.h
 //  Suitcase
 //
-//  Copyright (c) 2013, Sebastian Staudt
+//  Copyright (c) 2013-2015, Sebastian Staudt
 //
 
 @interface SCGame : NSObject
@@ -14,6 +14,7 @@
 
 + (instancetype)steamGame;
 - (id)initWithJSONObject:(NSDictionary *)jsonObject;
+- (NSComparisonResult)compare:(SCGame *)game;
 - (NSString *)logoIdentifier;
 - (BOOL)isDota2;
 - (BOOL)isSteam;

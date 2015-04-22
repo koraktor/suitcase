@@ -2,7 +2,7 @@
 //  SCAbstractInventory.h
 //  Suitcase
 //
-//  Copyright (c) 2014, Sebastian Staudt
+//  Copyright (c) 2014-2015, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
@@ -45,6 +45,7 @@ extern NSString *const kSCInventoryError;
 #pragma mark Instance methods
 
 - (UIColor *)colorForQualityIndex:(NSInteger)index;
+- (NSComparisonResult)compare:(id <SCInventory>)inventory;
 - (BOOL)failed;
 - (void)finish;
 - (void)forceOutdated;

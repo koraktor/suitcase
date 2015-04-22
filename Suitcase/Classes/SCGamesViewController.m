@@ -354,9 +354,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
             }];
 
             NSArray *newInventories = [self.inventories arrayByAddingObject:inventory];
-            self.inventories = [newInventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
-                return [inv1.game.name compare:inv2.game.name];
-            }];
+            self.inventories = [newInventories sortedArrayUsingSelector:@selector(compare:)];
             if (self.inventories.count == 1) {
                 [self.tableView insertSections:[NSIndexSet indexSetWithIndex:SCInventorySectionGames] withRowAnimation:UITableViewRowAnimationTop];
             }
@@ -384,9 +382,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
             [(NSMutableArray *)_games addObject:game];
         }
     }];
-    _games = [_games sortedArrayUsingComparator:^NSComparisonResult(SCGame *game1, SCGame *game2) {
-        return [game1.name compare:game2.name];
-    }];
+    _games = [_games copy];
 
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
 
@@ -453,9 +449,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         }
     }];
 
-    self.inventories = [newInventories sortedArrayUsingComparator:^NSComparisonResult(id <SCInventory> inv1, id <SCInventory> inv2) {
-        return [inv1.game.name compare:inv2.game.name];
-    }];
+    self.inventories = [newInventories sortedArrayUsingSelector:@selector(compare:)];
 
     if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)];

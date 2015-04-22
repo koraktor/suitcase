@@ -2,7 +2,7 @@
 //  SCGame.m
 //  Suitcase
 //
-//  Copyright (c) 2013-2014, Sebastian Staudt
+//  Copyright (c) 2013-2015, Sebastian Staudt
 //
 
 #import "SCGame.h"
@@ -48,6 +48,10 @@
     _itemCategories = itemCategories;
 
     return self;
+}
+
+- (NSComparisonResult)compare:(SCGame *)game {
+    return [self.name compare:game.name];
 }
 
 - (BOOL)isDota2
