@@ -5,6 +5,11 @@ title: Changelog
 Changelog
 =========
 
+## Version 2.1.1 (01-05-2015)
+
+ * Fixed various problems while reloading inventories
+ * Improved URL detection when selecting a Steam ID
+
 ## Version 2.1.0 (12-02-2015)
 
  * Added pull-to-refresh to update one or all inventories
