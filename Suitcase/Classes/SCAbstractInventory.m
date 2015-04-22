@@ -115,6 +115,22 @@ static NSMutableDictionary *__inventories;
     self.timestamp = [NSDate dateWithTimeIntervalSince1970:0];
 }
 
+- (NSUInteger)hash
+{
+    return [self.game hash] ^ [self.steamId64 hash];
+}
+
+- (BOOL)isEqual:(id)object
+{
+    if (![[object class] conformsToProtocol:@protocol(SCInventory)]) {
+        return NO;
+    }
+
+    id <SCInventory> other = object;
+
+    return [self.game isEqual:other.game] && [self.steamId64 isEqual:other.steamId64];
+}
+
 - (BOOL)isLoaded
 {
     return self.state != SCInventoryStateNew && !self.isReloading;

@@ -54,6 +54,11 @@
     return [self.name compare:game.name];
 }
 
+- (NSUInteger)hash
+{
+    return [_appId unsignedIntegerValue];
+}
+
 - (BOOL)isDota2
 {
     return [_appId intValue] == 570 || [_appId intValue] == 205790;

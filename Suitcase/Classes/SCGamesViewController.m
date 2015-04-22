@@ -357,14 +357,20 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
                 [otherInventories addObject:[NSIndexPath indexPathForRow:row inSection:SCInventorySectionGames]];
             }];
 
-            NSArray *newInventories = [self.inventories arrayByAddingObject:inventory];
-            self.inventories = [newInventories sortedArrayUsingSelector:@selector(compare:)];
-            if (self.inventories.count == 1) {
-                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:SCInventorySectionGames] withRowAnimation:UITableViewRowAnimationTop];
+            NSMutableSet *newInventories = [NSMutableSet setWithArray:self.inventories];
+            if ([newInventories containsObject:inventory]) {
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:SCInventorySectionGames]]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+            } else {
+                [newInventories addObject:inventory];
+                self.inventories = [[newInventories allObjects] sortedArrayUsingSelector:@selector(compare:)];
+                if (self.inventories.count == 1) {
+                    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:SCInventorySectionGames] withRowAnimation:UITableViewRowAnimationTop];
+                }
+                [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:SCInventorySectionGames]]
+                                      withRowAnimation:UITableViewRowAnimationTop];
+                [self.tableView reloadRowsAtIndexPaths:otherInventories withRowAnimation:UITableViewRowAnimationFade];
             }
-            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:SCInventorySectionGames]]
-                                  withRowAnimation:UITableViewRowAnimationTop];
-            [self.tableView reloadRowsAtIndexPaths:otherInventories withRowAnimation:UITableViewRowAnimationFade];
         }
         [self.tableView endUpdates];
 
