@@ -203,11 +203,11 @@ static SCWebApiRequestOperationManager *_webApiClient;
         [defaultCenter postNotificationName:@"sortInventory" object:nil];
     }
 
-    if (![[defaults objectForKey:@"language" ] isEqualToString:@"language"]) {
-        NSLocale *currentLanguage = [SCLanguage currentLanguage];
+    NSLocale *currentLanguage = [SCLanguage currentLanguage];
+    if (![[defaults objectForKey:@"language" ] isEqual:[currentLanguage localeIdentifier]]) {
         [SCLanguage updateLanguage];
 
-        if ([currentLanguage isEqual:[SCLanguage currentLanguage]]) {
+        if (![currentLanguage isEqual:[SCLanguage currentLanguage]]) {
             [defaultCenter postNotificationName:kSCLanguageSettingChanged object:nil];
 
             [SCAbstractInventory.inventories.allValues enumerateObjectsUsingBlock:^(NSDictionary *userInventories, NSUInteger idx, BOOL *stop) {

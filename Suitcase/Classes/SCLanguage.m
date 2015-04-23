@@ -36,11 +36,14 @@ static NSBundle *iaskRootBundle = nil;
     return [NSLocale localeWithLocaleIdentifier:currentLanguage];
 }
 
-+ (void)setLanguage:(NSString *)l {
-    NSLog(@"preferredLang: %@", l);
-    NSString *path = [[NSBundle mainBundle] pathForResource:l ofType:@"lproj" ];
++ (void)setLanguage:(NSString *)lang {
+#if DEBUG
+    NSLog(@"Changing preferred language to: %@", lang);
+#endif
+
+    NSString *path = [[NSBundle mainBundle] pathForResource:lang ofType:@"lproj" ];
     bundle = [NSBundle bundleWithPath:path];
-    path = [iaskRootBundle pathForResource:l ofType:@"lproj" ];
+    path = [iaskRootBundle pathForResource:lang ofType:@"lproj" ];
     iaskBundle = [NSBundle bundleWithPath:path];
 }
 
