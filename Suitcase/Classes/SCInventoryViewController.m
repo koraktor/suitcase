@@ -168,8 +168,10 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
 
 - (void)refreshInventory
 {
-    for (SCItemCell *cell in [self.tableView visibleCells]) {
-        cell.showColors = _inventory.showColors;
+    for (UITableViewCell *cell in [self.tableView visibleCells]) {
+        if ([cell isMemberOfClass:[SCItemCell class]]) {
+            ((SCItemCell *) cell).showColors = _inventory.showColors;
+        }
     }
 
     [self.tableView reloadData];
