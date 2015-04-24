@@ -23,7 +23,6 @@
 @property (strong, readonly) NSArray *origins;
 @property (strong, readonly) NSArray *qualities;
 
-+ (SCWebApiSchema *)brokenSchema;
 + (NSDictionary *)schemas;
 + (AFHTTPRequestOperation *)schemaOperationForInventory:(SCWebApiInventory *)inventory
                                             andLanguage:(NSLocale *)locale;

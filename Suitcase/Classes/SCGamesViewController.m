@@ -473,6 +473,19 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
 - (void)loadSchemaFinished
 {
+    if ([_currentInventory isMemberOfClass:[SCWebApiInventory class]] && ((SCWebApiInventory *)_currentInventory).schema == nil) {
+        if ([TSMessage isNotificationActive]) {
+            [TSMessage dismissActiveNotification];
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.view setUserInteractionEnabled:YES];
+            [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+        });
+
+        return;
+    }
+
     void (^showInventory)() = ^() {
         [self showInventory];
         [self.view setUserInteractionEnabled:YES];

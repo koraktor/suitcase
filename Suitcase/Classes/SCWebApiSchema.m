@@ -13,13 +13,6 @@
 
 static NSMutableDictionary *__schemas;
 
-+ (SCWebApiSchema *)brokenSchema
-{
-    SCWebApiSchema *schema = [[SCWebApiSchema alloc] init];
-
-    return schema;
-}
-
 + (NSDictionary *)schemas
 {
     return [__schemas copy];
@@ -71,14 +64,14 @@ static NSMutableDictionary *__schemas;
             inventory.schema = schema;
         } else {
             NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [schemaResponse objectForKey:@"statusDetail"]];
-            inventory.schema = [SCWebApiSchema brokenSchema];
+            inventory.schema = nil;
             [SCAppDelegate errorWithMessage:errorMessage];
         }
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *errorMessage = [NSString stringWithFormat:@"Error loading item schema: %@", [error localizedDescription]];
-        inventory.schema = [SCWebApiSchema brokenSchema];
+        inventory.schema = nil;
         [SCAppDelegate errorWithMessage:errorMessage];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
