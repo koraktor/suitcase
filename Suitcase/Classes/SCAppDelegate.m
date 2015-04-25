@@ -46,19 +46,6 @@ static SCWebApiRequestOperationManager *_webApiClient;
     return _communityClient;
 }
 
-+ (void)errorWithMessage:(NSString *)errorMessage
-{
-#ifdef DEBUG
-    NSLog(@"%@", errorMessage);
-#endif
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                        message:errorMessage
-                                                       delegate:[UIApplication sharedApplication].delegate
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-    [alertView performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:YES];
-}
-
 + (void)errorWithTitle:(NSString *)title andMessage:(NSString *)message inController:(UIViewController *)controller {
     NSShadow *iconShadow = [NSShadow new];
     [iconShadow setShadowColor:[UIColor colorWithRed:0.2 green:0.1 blue:0.1 alpha:1.0]];

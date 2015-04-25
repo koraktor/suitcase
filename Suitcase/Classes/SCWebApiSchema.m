@@ -62,19 +62,17 @@ static NSMutableDictionary *__schemas;
             SCWebApiSchema *schema = [[SCWebApiSchema alloc] initWithDictionary:schemaResponse];
             [gameSchemas setObject:schema forKey:language];
             inventory.schema = schema;
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
         } else {
-            NSString *errorMessage = [NSString stringWithFormat:@"Error loading the inventory: %@", [schemaResponse objectForKey:@"statusDetail"]];
             inventory.schema = nil;
-            [SCAppDelegate errorWithMessage:errorMessage];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished"
+                                                                object:[schemaResponse objectForKey:@"statusDetail"]];
         }
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *errorMessage = [NSString stringWithFormat:@"Error loading item schema: %@", [error localizedDescription]];
         inventory.schema = nil;
-        [SCAppDelegate errorWithMessage:errorMessage];
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished"
+                                                            object:[error localizedDescription]];
     }];
 
     return schemaOperation;

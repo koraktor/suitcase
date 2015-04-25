@@ -34,6 +34,7 @@
 "kSCReloadingOutdatedInventoryDetail" = "Inventar für %@ wird aktualisiert.";
 "kSCResolveSteamIdErrorMessage"       = "Beim Auflösen der Steam ID ist ein Fehler aufgetreten: %@";
 "kSCResolveSteamIdErrorTitle"         = "Nicht gefunden";
+"kSCSchemaFailed"                     = "Fehler beim Laden der Gegenstandsinformationen";
 "kSCSchemaIsLoading"                  = "Lade Gegenstandsinformationen…";
 "kSCSchemaIsLoadingDetail"            = "Die Gegenstände für %@ werden geladen. Das kann eine Weile dauern.";
 "kSCSteamIdHelpText"                  = "Geben Sie die benutzerdefinierte URL oder Profil-ID des Steam Community Profils an:";

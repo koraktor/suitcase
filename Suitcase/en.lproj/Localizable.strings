@@ -34,6 +34,7 @@
 "kSCReloadingOutdatedInventoryDetail" = "Refreshing inventory for %@.";
 "kSCResolveSteamIdErrorMessage"       = "An error occured while resolving the Steam ID: %@";
 "kSCResolveSteamIdErrorTitle"         = "Not found";
+"kSCSchemaFailed"                     = "Error loading the item schema";
 "kSCSchemaIsLoading"                  = "Loading item information…";
 "kSCSchemaIsLoadingDetail"            = "The items for %@ are being loaded. This might take some time.";
 "kSCSteamIdHelpText"                  = "Please supply the custom URL or profile ID of the Steam Community profile:";

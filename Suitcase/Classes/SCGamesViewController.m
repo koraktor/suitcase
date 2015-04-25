@@ -50,6 +50,7 @@ NSString *const kSCReloadingFailedInventory         = @"kSCReloadingFailedInvent
 NSString *const kSCReloadingFailedInventoryDetail   = @"kSCReloadingFailedInventoryDetail";
 NSString *const kSCReloadingOutdatedInventory       = @"kSCReloadingOutdatedInventory";
 NSString *const kSCReloadingOutdatedInventoryDetail = @"kSCReloadingOutdatedInventoryDetail";
+NSString *const kSCSchemaFailed                     = @"kSCSchemaFailed";
 NSString *const kSCSchemaIsLoading                  = @"kSCSchemaIsLoading";
 NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail";
 
@@ -101,7 +102,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
                                                  name:@"loadSchemaStarted"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(loadSchemaFinished)
+                                             selector:@selector(loadSchemaFinished:)
                                                  name:@"loadSchemaFinished"
                                                object:nil];
 
@@ -471,7 +472,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     }
 }
 
-- (void)loadSchemaFinished
+- (void)loadSchemaFinished:(NSNotification *)notification
 {
     if ([_currentInventory isMemberOfClass:[SCWebApiInventory class]] && ((SCWebApiInventory *)_currentInventory).schema == nil) {
         if ([TSMessage isNotificationActive]) {
@@ -479,6 +480,12 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         }
 
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (notification.object != nil) {
+                [SCAppDelegate errorWithTitle:NSLocalizedString(kSCSchemaFailed, kSCSchemaFailed)
+                                   andMessage:(NSString *)notification.object
+                                 inController:self];
+            }
+
             [self.view setUserInteractionEnabled:YES];
             [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
         });
