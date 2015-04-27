@@ -155,7 +155,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     [apiListOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *apiListResponse = [responseObject objectForKey:@"apilist"];
         NSArray *interfaces = [apiListResponse objectForKey:@"interfaces"];
-        NSMutableSet *availableGames = [NSMutableSet setWithObjects:@753, @104700, nil];
+        NSMutableSet *availableGames = [NSMutableSet setWithObjects:@753, @104700, @230410, nil];
         [interfaces enumerateObjectsUsingBlock:^(NSDictionary *interface, NSUInteger idx, BOOL *stop) {
             NSString *interfaceName = [interface valueForKey:@"name"];
             if ([interfaceName hasPrefix:@"IEconItems_"]) {
@@ -163,15 +163,6 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
                 [availableGames addObject:appId];
             }
         }];
-        if (![availableGames containsObject:@753]) {
-            [availableGames addObject:@753];
-        }
-        if (![availableGames containsObject:@104700]) {
-            [availableGames addObject:@104700];
-        }
-        if (![availableGames containsObject:@230410]) {
-            [availableGames addObject:@230410];
-        }
         [_availableGamesCondition lock];
         _availableGames = [NSSet setWithSet:availableGames];
         [_availableGamesCondition signal];
