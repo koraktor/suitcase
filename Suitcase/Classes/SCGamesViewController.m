@@ -54,11 +54,19 @@ NSString *const kSCSchemaFailed                     = @"kSCSchemaFailed";
 NSString *const kSCSchemaIsLoading                  = @"kSCSchemaIsLoading";
 NSString *const kSCSchemaIsLoadingDetail            = @"kSCSchemaIsLoadingDetail";
 
+static NSArray *kSCNonDiscoverableInventories;
+static NSArray *kSCNonWebApiInventories;
+
 typedef NS_ENUM(NSUInteger, SCInventorySection) {
     SCInventorySectionNoInventories,
     SCInventorySectionSteam,
     SCInventorySectionGames
 };
+
++ (void)initialize {
+    kSCNonDiscoverableInventories = @[@753, @104700, @230410, @251970];
+    kSCNonWebApiInventories = [kSCNonDiscoverableInventories arrayByAddingObjectsFromArray:@[@620, @730, @238460]];
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -155,7 +163,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     [apiListOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *apiListResponse = [responseObject objectForKey:@"apilist"];
         NSArray *interfaces = [apiListResponse objectForKey:@"interfaces"];
-        NSMutableSet *availableGames = [NSMutableSet setWithObjects:@753, @104700, @230410, @251970, nil];
+        NSMutableSet *availableGames = [NSMutableSet setWithArray:kSCNonDiscoverableInventories];
         [interfaces enumerateObjectsUsingBlock:^(NSDictionary *interface, NSUInteger idx, BOOL *stop) {
             NSString *interfaceName = [interface valueForKey:@"name"];
             if ([interfaceName hasPrefix:@"IEconItems_"]) {
@@ -395,7 +403,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     for (SCGame *game in _games) {
         Class inventoryClass;
 
-        if ([@[@620, @730, @753, @104700, @230410, @238460, @251970] containsObject:game.appId]) {
+        if ([kSCNonWebApiInventories containsObject:game.appId]) {
             inventoryClass = [SCCommunityInventory class];
         } else {
             inventoryClass = [SCWebApiInventory class];
