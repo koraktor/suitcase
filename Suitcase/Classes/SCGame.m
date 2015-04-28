@@ -21,16 +21,17 @@
 
 - (id)initWithJSONObject:(NSDictionary *)jsonObject
 {
+    NSNumber *appId = jsonObject[@"appid"];
     NSArray *itemCategories;
-    if ([jsonObject[@"appid"] isEqualToNumber:@104700]) {
+    if ([appId isEqualToNumber:@104700]) {
         itemCategories = @[@2, @3, @13];
-    } else if ([jsonObject[@"appid"] isEqualToNumber:@251970]) {
+    } else if ([appId isEqualToNumber:@251970]) {
         itemCategories = @[@1];
     } else {
         itemCategories = @[@2];
     }
 
-    self = [self initWithAppId:jsonObject[@"appid"]
+    self = [self initWithAppId:appId
                        andName:jsonObject[@"name"]
                    andLogoHash:jsonObject[@"img_logo_url"]
              andItemCategories:itemCategories];
