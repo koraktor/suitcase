@@ -24,6 +24,8 @@
     NSArray *itemCategories;
     if ([jsonObject[@"appid"] isEqualToNumber:@104700]) {
         itemCategories = @[@2, @3, @13];
+    } else if ([jsonObject[@"appid"] isEqualToNumber:@251970]) {
+        itemCategories = @[@1];
     } else {
         itemCategories = @[@2];
     }
