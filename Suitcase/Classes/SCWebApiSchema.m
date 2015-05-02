@@ -13,6 +13,31 @@
 
 static NSMutableDictionary *__schemas;
 
++ (void)initialize {
+    __schemas = [NSMutableDictionary dictionary];
+}
+
++ (void)restoreSchemas {
+    NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:documentsPath];
+
+    NSString *fileName;
+    while (fileName = [dirEnum nextObject]) {
+        if ([[fileName pathExtension] isEqualToString:@"apischema"]) {
+            SCWebApiSchema *schema = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsPath stringByAppendingPathComponent:fileName]];
+            NSNumber *appId = [NSNumber numberWithInteger:[[[fileName lastPathComponent] stringByDeletingPathExtension] integerValue]];
+            NSString *locale = [fileName stringByDeletingLastPathComponent];
+            if (__schemas[appId] == nil) {
+                __schemas[appId] = [NSMutableDictionary dictionary];
+            }
+            __schemas[appId][locale] = schema;
+#ifdef DEBUG
+            NSLog(@"Restored Web API item schema for app ID %@ and locale \"%@\".", appId, locale);
+#endif
+        }
+    };
+}
+
 + (NSDictionary *)schemas
 {
     return [__schemas copy];
@@ -22,11 +47,6 @@ static NSMutableDictionary *__schemas;
                                             andLanguage:(NSLocale *)locale
 {
     NSString *language = locale.localeIdentifier;
-
-    if (__schemas == nil) {
-        __schemas = [NSMutableDictionary dictionary];
-    }
-
     NSNumber *appId = inventory.game.appId;
 
     if ([__schemas objectForKey:appId] == nil) {
@@ -76,6 +96,21 @@ static NSMutableDictionary *__schemas;
     }];
 
     return schemaOperation;
+}
+
++ (void)storeSchema:(SCWebApiSchema *)schema forAppId:(NSNumber *)appId andLanguage:(NSString *)locale {
+    NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *fileName = [NSString stringWithFormat:@"%@.apischema", appId];
+    NSString *localePath = [documentsPath stringByAppendingPathComponent:locale];
+    NSString *schemaPath = [localePath stringByAppendingPathComponent:fileName];
+
+    [[NSFileManager defaultManager] createDirectoryAtPath:localePath withIntermediateDirectories:YES attributes:nil error:nil];
+
+    [NSKeyedArchiver archiveRootObject:schema toFile:schemaPath];
+
+#ifdef DEBUG
+    NSLog(@"Stored Web API item schema for app ID %@ and locale \"%@\".", appId, locale);
+#endif
 }
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
@@ -211,6 +246,36 @@ static NSMutableDictionary *__schemas;
 
 - (NSString *)qualityNameForIndex:(NSNumber *)qualityIndex {
     return [self.qualities objectAtIndex:[qualityIndex integerValue]];
+}
+
+#pragma NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+
+    _attributes = [aDecoder decodeObjectForKey:@"attributes"];
+    _effects = [aDecoder decodeObjectForKey:@"effects"];
+    _itemLevels = [aDecoder decodeObjectForKey:@"itemLevels"];
+    _itemNameMap = [aDecoder decodeObjectForKey:@"itemNameMap"];
+    _items = [aDecoder decodeObjectForKey:@"items"];
+    _itemSets = [aDecoder decodeObjectForKey:@"itemSets"];
+    _killEaterTypes = [aDecoder decodeObjectForKey:@"killEaterTypes"];
+    _origins = [aDecoder decodeObjectForKey:@"origins"];
+    _qualities = [aDecoder decodeObjectForKey:@"qualities"];
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.attributes forKey:@"attributes"];
+    [aCoder encodeObject:self.effects forKey:@"effects"];
+    [aCoder encodeObject:self.itemLevels forKey:@"itemLevels"];
+    [aCoder encodeObject:self.itemNameMap forKey:@"itemNameMap"];
+    [aCoder encodeObject:self.items forKey:@"items"];
+    [aCoder encodeObject:self.itemSets forKey:@"itemSets"];
+    [aCoder encodeObject:self.killEaterTypes forKey:@"killEaterTypes"];
+    [aCoder encodeObject:self.origins forKey:@"origins"];
+    [aCoder encodeObject:self.qualities forKey:@"qualities"];
 }
 
 @end

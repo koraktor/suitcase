@@ -9,9 +9,9 @@
 
 #import "AFHTTPRequestOperation.h"
 
-#import "SCWebApiInventory.h"
+@class SCWebApiInventory;
 
-@interface SCWebApiSchema : NSObject
+@interface SCWebApiSchema : NSObject <NSCoding>
 
 @property (strong, readonly) NSDictionary *attributes;
 @property (strong, readonly) NSDictionary *effects;
@@ -23,9 +23,11 @@
 @property (strong, readonly) NSArray *origins;
 @property (strong, readonly) NSArray *qualities;
 
++ (void)restoreSchemas;
 + (NSDictionary *)schemas;
 + (AFHTTPRequestOperation *)schemaOperationForInventory:(SCWebApiInventory *)inventory
                                             andLanguage:(NSLocale *)locale;
++ (void)storeSchema:(SCWebApiSchema *)schema forAppId:(NSNumber *)appId andLanguage:(NSString *)locale;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

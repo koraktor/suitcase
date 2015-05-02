@@ -16,6 +16,7 @@
 #import "SCCommunityInventory.h"
 #import "SCImageCache.h"
 #import "SCLanguage.h"
+#import "SCWebApiSchema.h"
 
 #import "SCAppDelegate.h"
 
@@ -100,6 +101,7 @@ static SCWebApiRequestOperationManager *_webApiClient;
     [TSMessage addCustomDesignFromFileWithName:@"TSMessagesDesign.json"];
 
     [SCImageCache setupImageCacheDirectory];
+    [SCWebApiSchema restoreSchemas];
 
     UIViewController *masterViewController;
     UINavigationController *navigationController;
@@ -171,6 +173,12 @@ static SCWebApiRequestOperationManager *_webApiClient;
                                              selector:@selector(defaultsChanged:)
                                                  name:NSUserDefaultsDidChangeNotification
                                                object:nil];
+
+    [SCWebApiSchema.schemas enumerateKeysAndObjectsUsingBlock:^(NSNumber *appId, NSDictionary *schemas, BOOL *stop) {
+        [schemas enumerateKeysAndObjectsUsingBlock:^(NSString *locale, SCWebApiSchema *schema, BOOL *stop) {
+            [SCWebApiSchema storeSchema:schema forAppId:appId andLanguage:locale];
+        }];
+    }];
 }
 
 - (void)defaultsChanged:(NSNotification *)notification
