@@ -27,6 +27,8 @@
         itemCategories = @[@2, @3, @13];
     } else if ([@[@251970, @308080] containsObject:appId]) {
         itemCategories = @[@1];
+    } else if ([appId isEqualToNumber:@239220]) {
+        itemCategories = @[@15];
     } else {
         itemCategories = @[@2];
     }
