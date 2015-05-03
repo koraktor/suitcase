@@ -5,6 +5,14 @@ title: Changelog
 Changelog
 =========
 
+## Version 2.1.2 (03-05-2015)
+
+ * Workaround for Dota 2 Web API problems
+ * Add support for Sins of a Dark Age
+ * Fix crashes caused by Web API errors
+ * Fix rare problems when changing settings
+ * Various other improvements
+
 ## Version 2.1.1 (01-05-2015)
 
  * Fixed various problems while reloading inventories
