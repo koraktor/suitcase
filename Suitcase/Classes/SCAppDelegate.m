@@ -82,9 +82,21 @@ static SCWebApiRequestOperationManager *_webApiClient;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"clear_cache"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"clear_image_cache"]) {
         [SCImageCache clearImageCache];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"clear_cache"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"clear_image_cache"];
+    }
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"clear_data_cache"]) {
+        NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+        NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:documentsPath];
+
+        NSString *fileName;
+        while (fileName = [dirEnum nextObject]) {
+            [[NSFileManager defaultManager] removeItemAtPath:[documentsPath stringByAppendingPathComponent:fileName]
+                                                       error:nil];
+        }
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"clear_data_cache"];
     }
 }
 

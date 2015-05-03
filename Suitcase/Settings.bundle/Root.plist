@@ -120,9 +120,19 @@
 			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>
-			<string>clear_cache</string>
+			<string>clear_image_cache</string>
 			<key>Title</key>
 			<string>Clear image cache</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>clear_data_cache</string>
+			<key>Title</key>
+			<string>Clear data cache</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
