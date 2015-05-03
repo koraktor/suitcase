@@ -64,7 +64,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 };
 
 + (void)initialize {
-    kSCNonDiscoverableInventories = @[@753, @104700, @218620, @230410, @239220, @251970, @308080];
+    kSCNonDiscoverableInventories = @[@753, @104700, @218620, @230410, @239220, @251970, @308080, @321360];
     kSCNonWebApiInventories = [kSCNonDiscoverableInventories arrayByAddingObjectsFromArray:@[@570, @620, @730, @205790, @221540, @238460]];
 }
 
