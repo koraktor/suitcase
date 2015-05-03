@@ -257,7 +257,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     id <SCInventory> inventory = notification.object;
 
 #ifdef DEBUG
-    NSLog(@"Loaded inventory for game \"%@\"", inventory.game.name);
+    NSLog(@"Loaded inventory for game \"%@\" (App ID %@)", inventory.game.name, inventory.game.appId);
 #endif
 
     BOOL skipEmptyInventories;
