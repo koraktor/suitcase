@@ -9,6 +9,22 @@
 
 @implementation SCGame
 
+static NSArray *kSCNonDiscoverableInventories;
+static NSArray *kSCNonWebApiInventories;
+
++ (void)initialize {
+    kSCNonDiscoverableInventories = @[@753, @104700, @218620, @230410, @239220, @251970, @308080, @321360];
+    kSCNonWebApiInventories = [kSCNonDiscoverableInventories arrayByAddingObjectsFromArray:@[@570, @620, @730, @205790, @221540, @238460]];
+}
+
++ (NSArray *)nonDiscoverableInventories {
+    return kSCNonDiscoverableInventories;
+}
+
++ (NSArray *)nonWebApiInventories {
+    return kSCNonWebApiInventories;
+}
+
 + (instancetype)steamGame
 {
     SCGame *game = [[self alloc] initWithAppId:@753
