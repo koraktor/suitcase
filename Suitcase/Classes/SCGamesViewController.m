@@ -395,10 +395,10 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     for (SCGame *game in _games) {
         Class inventoryClass;
 
-        if ([[SCGame nonWebApiInventories] containsObject:game.appId]) {
-            inventoryClass = [SCCommunityInventory class];
-        } else {
+        if ([[SCGame webApiInventories] containsObject:game.appId]) {
             inventoryClass = [SCWebApiInventory class];
+        } else {
+            inventoryClass = [SCCommunityInventory class];
         }
 
         [inventoryClass inventoryForSteamId64:steamId64 andGame:game];

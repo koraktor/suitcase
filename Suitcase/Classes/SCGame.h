@@ -13,8 +13,8 @@
 @property (readonly) NSArray *itemCategories;
 
 + (NSArray *)nonDiscoverableInventories;
-+ (NSArray *)nonWebApiInventories;
 + (instancetype)steamGame;
++ (NSArray *)webApiInventories;
 - (id)initWithJSONObject:(NSDictionary *)jsonObject;
 - (NSComparisonResult)compare:(SCGame *)game;
 - (NSString *)logoIdentifier;
