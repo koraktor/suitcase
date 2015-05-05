@@ -36,6 +36,7 @@
                                          andVersion:(NSUInteger)version
                                      withParameters:(NSDictionary *)parameters
                                             encoded:(BOOL)encoded
+                                      modifiedSince:(NSDate *)date
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
 
@@ -47,6 +48,14 @@
         }
     } else {
         [params addEntriesFromDictionary:parameters];
+    }
+
+    if (date != nil) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+        dateFormatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss Z";
+        [self.requestSerializer setValue:[dateFormatter stringFromDate:date]
+                      forHTTPHeaderField:@"If-Modified-Since"];
     }
 
     [params setObject:__API_KEY__ forKey:@"key"];
@@ -64,6 +73,10 @@
 #endif
     }];
     ((NSMutableURLRequest *)request.request).timeoutInterval = 30;
+
+    if (date != nil) {
+        [self.requestSerializer setValue:nil forHTTPHeaderField:@"If-Modified-Since"];
+    }
 
 #ifdef DEBUG
     NSLog(@"Querying Steam Web API: %@", [[[[request request] URL] absoluteString] stringByReplacingOccurrencesOfString:__API_KEY__ withString:@"SECRET"]);

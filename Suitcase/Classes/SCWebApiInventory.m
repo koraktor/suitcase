@@ -34,7 +34,8 @@ static NSArray *alphabetWithNumbers;
                                                        andMethod:@"GetPlayerItems"
                                                       andVersion:1
                                                   withParameters:params
-                                                         encoded:NO];
+                                                         encoded:NO
+                                                   modifiedSince:nil];
 }
 
 + (instancetype)inventoryForSteamId64:(NSNumber *)steamId64

@@ -48,6 +48,7 @@ static NSMutableDictionary *__schemas;
 {
     NSString *language = locale.localeIdentifier;
     NSNumber *appId = inventory.game.appId;
+    NSDate *lastUpdated = nil;
 
     if ([__schemas objectForKey:appId] == nil) {
         [__schemas setObject:[NSMutableDictionary dictionary] forKey:appId];
@@ -55,7 +56,12 @@ static NSMutableDictionary *__schemas;
         SCWebApiSchema *schema = [[__schemas objectForKey:appId] objectForKey:language];
         if (schema != nil) {
             inventory.schema = schema;
-            return nil;
+
+            if ([schema.timestamp timeIntervalSinceNow] > -900) {
+                return nil;
+            }
+
+            lastUpdated = schema.timestamp;
         }
     }
     __block NSMutableDictionary *gameSchemas = [__schemas objectForKey:appId];
@@ -70,7 +76,8 @@ static NSMutableDictionary *__schemas;
                                                                                           andMethod:@"GetSchema"
                                                                                          andVersion:version
                                                                                      withParameters:params
-                                                                                            encoded:NO];
+                                                                                            encoded:NO
+                                                                                      modifiedSince:lastUpdated];
     ((NSMutableURLRequest *)schemaOperation.request).timeoutInterval = 60;
     [schemaOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
 #ifdef DEBUG
@@ -90,7 +97,12 @@ static NSMutableDictionary *__schemas;
                                                                 object:[schemaResponse objectForKey:@"statusDetail"]];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        inventory.schema = nil;
+        if (operation.response.statusCode == 304) {
+            inventory.schema.timestamp = [NSDate date];
+        } else {
+            inventory.schema = nil;
+        }
+
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished"
                                                             object:[error localizedDescription]];
     }];
@@ -188,6 +200,8 @@ static NSMutableDictionary *__schemas;
     }];
     _qualities = [_qualities copy];
 
+    _timestamp = [NSDate date];
+
 #ifdef DEBUG
     NSLog(@"Finished initializing item schema.");
 #endif
@@ -262,6 +276,7 @@ static NSMutableDictionary *__schemas;
     _killEaterTypes = [aDecoder decodeObjectForKey:@"killEaterTypes"];
     _origins = [aDecoder decodeObjectForKey:@"origins"];
     _qualities = [aDecoder decodeObjectForKey:@"qualities"];
+    _timestamp = [aDecoder decodeObjectForKey:@"timestamp"];
 
     return self;
 }
@@ -276,6 +291,7 @@ static NSMutableDictionary *__schemas;
     [aCoder encodeObject:self.killEaterTypes forKey:@"killEaterTypes"];
     [aCoder encodeObject:self.origins forKey:@"origins"];
     [aCoder encodeObject:self.qualities forKey:@"qualities"];
+    [aCoder encodeObject:self.timestamp forKey:@"timestamp"];
 }
 
 @end

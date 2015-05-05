@@ -151,7 +151,8 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
                                                                                            andMethod:@"GetSupportedAPIList"
                                                                                           andVersion:1
                                                                                       withParameters:nil
-                                                                                             encoded:NO];
+                                                                                             encoded:NO
+                                                                                       modifiedSince:nil];
     [apiListOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *apiListResponse = [responseObject objectForKey:@"apilist"];
         NSArray *interfaces = [apiListResponse objectForKey:@"interfaces"];
@@ -215,7 +216,8 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
                                                                                          andMethod:@"GetOwnedGames"
                                                                                         andVersion:1
                                                                                     withParameters:params
-                                                                                           encoded:YES];
+                                                                                           encoded:YES
+                                                                                     modifiedSince:nil];
     [gamesOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *gamesResponse = [responseObject objectForKey:@"response"];
         NSArray *games = [gamesResponse objectForKey:@"games"];

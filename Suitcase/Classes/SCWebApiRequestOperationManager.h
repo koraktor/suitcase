@@ -13,6 +13,7 @@
                                           andMethod:(NSString *)method
                                          andVersion:(NSUInteger)version
                                      withParameters:(NSDictionary *)parameters
-                                            encoded:(BOOL)encoded;
+                                            encoded:(BOOL)encoded
+                                      modifiedSince:(NSDate *)date;
 
 @end

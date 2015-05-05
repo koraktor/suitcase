@@ -83,7 +83,8 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
                                                                                         andMethod:@"ResolveVanityURL"
                                                                                        andVersion:1
                                                                                    withParameters:params
-                                                                                          encoded:NO];
+                                                                                          encoded:NO
+                                                                                    modifiedSince:nil];
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *steamIdResponse = [responseObject objectForKey:@"response"];
             if ([[steamIdResponse objectForKey:@"success"] isEqualToNumber:[NSNumber numberWithInt:1]]) {

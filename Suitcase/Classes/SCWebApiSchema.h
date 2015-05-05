@@ -22,6 +22,7 @@
 @property (strong, readonly) NSDictionary *killEaterTypes;
 @property (strong, readonly) NSArray *origins;
 @property (strong, readonly) NSArray *qualities;
+@property (strong, nonatomic) NSDate *timestamp;
 
 + (void)restoreSchemas;
 + (NSDictionary *)schemas;
