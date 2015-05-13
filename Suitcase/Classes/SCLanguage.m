@@ -42,6 +42,16 @@ static NSBundle *iaskRootBundle = nil;
 #endif
 
     NSString *path = [[NSBundle mainBundle] pathForResource:lang ofType:@"lproj" ];
+
+    if (path == nil) {
+#if DEBUG
+        NSLog(@"%@ unavailable, falling back to en.", lang);
+#endif
+
+        lang = @"en";
+        path = [[NSBundle mainBundle] pathForResource:lang ofType:@"lproj" ];
+    }
+
     bundle = [NSBundle bundleWithPath:path];
     path = [iaskRootBundle pathForResource:lang ofType:@"lproj" ];
     iaskBundle = [NSBundle bundleWithPath:path];
