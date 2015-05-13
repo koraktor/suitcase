@@ -236,7 +236,7 @@ static NSString *kImageSize;
                                   @"raw_value": rawTag[@"internal_name"],
                                   @"value": rawTag[@"name"]
                                 };
-            if (rawTag[@"color"]) {
+            if ([rawTag[@"color"] length] > 0) {
                 tag = [tag mutableCopy];
                 ((NSMutableDictionary *)tag)[@"color"] = [UIColor colorWithHexString:rawTag[@"color"]];
                 tag = [tag copy];

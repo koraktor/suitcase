@@ -13,7 +13,7 @@ static NSArray *kSCNonDiscoverableInventories;
 static NSArray *kSCWebApiInventories;
 
 + (void)initialize {
-    kSCNonDiscoverableInventories = @[@753, @104700, @218620, @230410, @239220, @251970, @308080, @321360];
+    kSCNonDiscoverableInventories = @[@753, @104700, @218620, @230410, @239220, @251970, @295110, @308080, @321360];
     kSCWebApiInventories = @[@440];
 }
 
@@ -41,7 +41,7 @@ static NSArray *kSCWebApiInventories;
     NSArray *itemCategories;
     if ([appId isEqualToNumber:@104700]) {
         itemCategories = @[@2, @3, @13];
-    } else if ([@[@251970, @308080, @321360] containsObject:appId]) {
+    } else if ([@[@251970, @295110, @308080, @321360] containsObject:appId]) {
         itemCategories = @[@1];
     } else if ([appId isEqualToNumber:@239220]) {
         itemCategories = @[@15];
