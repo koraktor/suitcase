@@ -108,6 +108,8 @@
 		0295818A193CCAB000115131 /* SCDota2Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 02958189193CCAB000115131 /* SCDota2Item.m */; };
 		0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */; };
 		029B08F4159261A600BD6271 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 029B08F3159261A600BD6271 /* Settings.bundle */; };
+		029B94E01B03EC8F008B89AC /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 029B94DE1B03EC8F008B89AC /* libc++.dylib */; };
+		029B94E11B03EC8F008B89AC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 029B94DF1B03EC8F008B89AC /* libz.dylib */; };
 		029D94711939EBA100D1DF43 /* SCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D94701939EBA100D1DF43 /* SCNavigationController.m */; };
 		029F6927182E3E5D00851826 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F6915182E3E5D00851826 /* AFHTTPRequestOperation.m */; };
 		029F6929182E3E5D00851826 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F6919182E3E5D00851826 /* AFHTTPSessionManager.m */; };
@@ -298,6 +300,8 @@
 		0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSteamIdFormController.h; path = Classes/SCSteamIdFormController.h; sourceTree = "<group>"; };
 		0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSteamIdFormController.m; path = Classes/SCSteamIdFormController.m; sourceTree = "<group>"; };
 		029B08F3159261A600BD6271 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		029B94DE1B03EC8F008B89AC /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		029B94DF1B03EC8F008B89AC /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		029D946F1939EBA100D1DF43 /* SCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCNavigationController.h; path = Classes/SCNavigationController.h; sourceTree = "<group>"; };
 		029D94701939EBA100D1DF43 /* SCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCNavigationController.m; path = Classes/SCNavigationController.m; sourceTree = "<group>"; };
 		029F6914182E3E5D00851826 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperation.h; path = Suitcase/External/AFNetworking/AFNetworking/AFHTTPRequestOperation.h; sourceTree = SOURCE_ROOT; };
@@ -368,7 +372,9 @@
 				028B640D15265D690040D2FF /* Foundation.framework in Frameworks */,
 				020EB43015852C2800654D2A /* MessageUI.framework in Frameworks */,
 				0209E153157954D00073385D /* MobileCoreServices.framework in Frameworks */,
+				029B94E01B03EC8F008B89AC /* libc++.dylib in Frameworks */,
 				02DDB4861582A9E0004DB9D8 /* QuartzCore.framework in Frameworks */,
+				029B94E11B03EC8F008B89AC /* libz.dylib in Frameworks */,
 				02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */,
 				0209E151157954C70073385D /* SystemConfiguration.framework in Frameworks */,
 				028B640B15265D690040D2FF /* UIKit.framework in Frameworks */,
@@ -707,6 +713,8 @@
 		028B640915265D690040D2FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				029B94DE1B03EC8F008B89AC /* libc++.dylib */,
+				029B94DF1B03EC8F008B89AC /* libz.dylib */,
 				0209E14E157954C20073385D /* CFNetwork.framework */,
 				028B640E15265D690040D2FF /* CoreGraphics.framework */,
 				02F37EC31580152300BFB1B5 /* CoreText.framework */,
