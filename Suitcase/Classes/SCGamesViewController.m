@@ -428,6 +428,11 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     NSArray *inventories = [[SCAbstractInventory inventoriesForUser:steamId64] allValues];
     NSMutableArray *newInventories = [NSMutableArray arrayWithCapacity:inventories.count];
 
+    if (![notification.userInfo.allKeys containsObject:@"skip_empty_inventories"] &&
+        ![notification.userInfo.allKeys containsObject:@"skip_failed_inventories"]) {
+        return;
+    }
+
     BOOL skipEmptyInventories = [[[NSUserDefaults standardUserDefaults] valueForKey:@"skip_empty_inventories"] boolValue];
     BOOL skipFailedInventories = [[[NSUserDefaults standardUserDefaults] valueForKey:@"skip_failed_inventories"] boolValue];
 
