@@ -5,6 +5,14 @@ title: Changelog
 Changelog
 =========
 
+## Version 2.1.3 (14-05-2015)
+
+ * Fixed crash caused by the current device language
+ * Fixed sporadic crash when changing filter settings on iPad
+ * Added support for Altitude0
+ * Added support for H1Z1
+ * Added support for Primal Carnage: Extinction
+
 ## Version 2.1.2 (03-05-2015)
 
  * Workaround for Dota 2 Web API problems
