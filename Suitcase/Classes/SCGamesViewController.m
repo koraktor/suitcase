@@ -456,14 +456,27 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         }
     }];
 
-    self.inventories = [newInventories sortedArrayUsingSelector:@selector(compare:)];
-
     if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)];
         [self.tableView beginUpdates];
-        [self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationTop];
+        BOOL inventoriesEmptyBefore = [self.inventories count] == 0;
+        self.inventories = [newInventories sortedArrayUsingSelector:@selector(compare:)];
+        BOOL inventoriesEmptyAfter = [self.inventories count] == 0;
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)]
+                      withRowAnimation:UITableViewRowAnimationFade];
+        NSIndexSet *gamesSection = [NSIndexSet indexSetWithIndex:SCInventorySectionGames];
+        if (inventoriesEmptyBefore != inventoriesEmptyAfter) {
+            if (inventoriesEmptyAfter) {
+                [self.tableView insertSections:gamesSection withRowAnimation:UITableViewRowAnimationFade];
+            } else {
+                [self.tableView deleteSections:gamesSection withRowAnimation:UITableViewRowAnimationFade];
+            }
+        } else {
+            [self.tableView reloadSections:gamesSection withRowAnimation:UITableViewRowAnimationFade];
+        }
+
         [self.tableView endUpdates];
     } else {
+        self.inventories = [newInventories sortedArrayUsingSelector:@selector(compare:)];
         [self.tableView reloadData];
     }
 }
