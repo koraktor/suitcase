@@ -85,7 +85,6 @@ static NSAttributedString *kYesIcon;
     [labelText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\t%@", name]]];
     [labelText setAttributes:@{ NSParagraphStyleAttributeName: paragraphStyle } range:NSMakeRange(1, 2)];
     self.nameLabel.attributedText = labelText;
-    [self.nameLabel sizeToFit];
 
     id value = [SCItemAttributeCell attributeValueForType:type andItem:self.item];
     if ([value isKindOfClass:[NSAttributedString class]]) {
@@ -93,7 +92,6 @@ static NSAttributedString *kYesIcon;
     } else {
         self.valueLabel.text = NSLocalizedString(value, value);
     }
-    [self.valueLabel sizeToFit];
 }
 
 @end

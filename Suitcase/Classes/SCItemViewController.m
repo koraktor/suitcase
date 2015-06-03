@@ -370,7 +370,7 @@ typedef enum {
                 cellHeight = 29.0;
             } else {
                 CGSize attributeValueLabelSize = [attributeValue sizeWithFont:[UIFont systemFontOfSize:16.0]
-                                                            constrainedToSize:CGSizeMake(170.0, CGFLOAT_MAX)
+                                                            constrainedToSize:CGSizeMake(150.0, CGFLOAT_MAX)
                                                                 lineBreakMode:NSLineBreakByWordWrapping];
                 cellHeight = attributeValueLabelSize.height + 10.0;
             }
