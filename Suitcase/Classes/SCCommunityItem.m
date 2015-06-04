@@ -37,7 +37,8 @@ static NSString *kImageSize;
                                                         error:&regexError];
 
     NSUInteger cellHeight = 44;
-    NSUInteger iconHeight = [[UIScreen mainScreen] scale] * cellHeight;
+    CGFloat scale = UIScreen.mainScreen.scale;
+    NSUInteger iconHeight = scale * cellHeight;
     kIconSize = [NSString stringWithFormat:@"%1$lux%1$lu", (unsigned long)iconHeight];
 
     NSUInteger imageHeight;
@@ -46,7 +47,7 @@ static NSString *kImageSize;
     } else {
         imageHeight = 128;
     }
-    imageHeight = [[UIScreen mainScreen] scale] * imageHeight;
+    imageHeight = scale * imageHeight;
     kImageSize = [NSString stringWithFormat:@"%1$lux%1$lu", (unsigned long)imageHeight];
 }
 

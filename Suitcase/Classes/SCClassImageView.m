@@ -18,7 +18,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
         self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-        self.layer.borderWidth = [[UIScreen mainScreen] scale] * self.layer.frame.size.width / 21;
+        self.layer.borderWidth = UIScreen.mainScreen.scale * self.layer.frame.size.width / 21;
         self.layer.cornerRadius = 5.0;
         self.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.layer.shadowOffset = CGSizeMake(0.0, 0.0);
@@ -36,7 +36,7 @@
         CGRect rect = CGRectInset(self.bounds, 0.0, 0.0);
         imageView = [[UIImageView alloc] initWithFrame:rect];
         imageView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-        imageView.layer.borderWidth = [[UIScreen mainScreen] scale] * self.layer.frame.size.width / 21;
+        imageView.layer.borderWidth = UIScreen.mainScreen.scale * self.layer.frame.size.width / 21;
         imageView.layer.cornerRadius = 5.0;
         imageView.clipsToBounds = YES;
         [self addSubview:imageView];
@@ -88,7 +88,7 @@
 }
 
 - (void)setImage:(UIImage *)image {
-    CGFloat scale = [[UIScreen mainScreen] scale];
+    CGFloat scale = UIScreen.mainScreen.scale;
     CGRect imageRect = CGRectMake(0, 0, image.size.width * scale, image.size.height * scale);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
     CGContextRef context = CGBitmapContextCreate(nil, image.size.width * scale, image.size.height * scale, 8, 0, colorSpace, (CGBitmapInfo) kCGImageAlphaNone);

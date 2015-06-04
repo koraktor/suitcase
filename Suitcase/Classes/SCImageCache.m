@@ -14,8 +14,7 @@
 + (UIImage *)cachedImageForIdentifier:(NSString *)identifier {
     NSString *path = [self imagePathForIdentifier:[self sha1Identifier:identifier]];
     NSData *data = [NSData dataWithContentsOfFile:path];
-    UIScreen *firstScreen = UIScreen.screens[0];
-    UIImage *image = [UIImage imageWithData:data scale:firstScreen.scale];
+    UIImage *image = [UIImage imageWithData:data scale:UIScreen.mainScreen.scale];
 
     return image;
 }
