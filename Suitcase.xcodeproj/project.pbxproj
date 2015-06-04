@@ -341,6 +341,7 @@
 		02BAAB5F17BFAE1E004E635F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		02BB278F19026DA4002D151A /* SCReplaceDetailSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCReplaceDetailSegue.h; path = Classes/SCReplaceDetailSegue.h; sourceTree = "<group>"; };
 		02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCReplaceDetailSegue.m; path = Classes/SCReplaceDetailSegue.m; sourceTree = "<group>"; };
+		02CA57101B1CE48C00A74F61 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		02CD62D018D8F64A00EFA973 /* SCInventory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SCInventory.h; path = Classes/SCInventory.h; sourceTree = "<group>"; };
 		02CD62D118D8F97700EFA973 /* SCItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SCItem.h; path = Classes/SCItem.h; sourceTree = "<group>"; };
 		02D5BC59191982B2000D8206 /* SCItemQuality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemQuality.h; path = Classes/SCItemQuality.h; sourceTree = "<group>"; };
@@ -874,6 +875,7 @@
 				en,
 				de,
 				fr,
+				ru,
 			);
 			mainGroup = 028B63FB15265D680040D2FF;
 			productRefGroup = 028B640715265D690040D2FF /* Products */;
@@ -1067,6 +1069,7 @@
 				022D0CCE158349B80071F665 /* de */,
 				022D0D101584E7870071F665 /* en */,
 				02F0DE071AE644FA0023A4F2 /* fr */,
+				02CA57101B1CE48C00A74F61 /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

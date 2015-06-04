@@ -33,6 +33,7 @@
 				<string>English</string>
 				<string>German</string>
 				<string>French</string>
+				<string>Russian</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
@@ -42,6 +43,7 @@
 				<string>en</string>
 				<string>de</string>
 				<string>fr</string>
+				<string>ru</string>
 			</array>
 		</dict>
 		<dict>
