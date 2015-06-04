@@ -31,8 +31,8 @@
 			<array>
 				<string>Automatic</string>
 				<string>English</string>
-				<string>German</string>
 				<string>French</string>
+				<string>German</string>
 				<string>Russian</string>
 			</array>
 			<key>Type</key>
@@ -41,8 +41,8 @@
 			<array>
 				<string>auto</string>
 				<string>en</string>
-				<string>de</string>
 				<string>fr</string>
+				<string>de</string>
 				<string>ru</string>
 			</array>
 		</dict>
