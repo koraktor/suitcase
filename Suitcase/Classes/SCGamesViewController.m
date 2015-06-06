@@ -182,6 +182,9 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [alertView show];
         });
+        [_availableGamesCondition lock];
+        [_availableGamesCondition signal];
+        [_availableGamesCondition unlock];
     }];
     [apiListOperation start];
 }
