@@ -259,7 +259,7 @@ http://steamcommunity.com/profile/{Profile ID}</string>
                         <color key="backgroundColor" red="0.37647062539999998" green="0.43137258290000002" blue="0.48235297199999999" alpha="1" colorSpace="deviceRGB"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
-                        <searchBar key="tableHeaderView" alpha="0.0" contentMode="redraw" searchBarStyle="minimal" translucent="NO" id="HVz-s3-un3">
+                        <searchBar key="tableHeaderView" alpha="0.0" contentMode="redraw" barStyle="black" searchBarStyle="minimal" translucent="NO" id="HVz-s3-un3">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.53860629559999995" green="0.61986770069999997" blue="0.72747490879999999" alpha="1" colorSpace="calibratedRGB"/>
