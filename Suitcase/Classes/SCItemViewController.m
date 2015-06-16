@@ -232,7 +232,7 @@ typedef enum {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showWikiPage"]) {
-        NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", ((SCWebApiItem *)self.item).defindex, [SCLanguage currentLanguage]]];
+        NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", ((SCWebApiItem *)self.item).defindex, [[SCLanguage currentLanguage] localeIdentifier]]];
 
         UIWebView *webView;
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
