@@ -1,0 +1,54 @@
+/*
+ * Localizable.strings
+ * Suitcase
+ *
+ * Copyright (c) 2012-2014, Sebastian Staudt
+ */
+
+"kSCAvailableGamesErrorMessage"       = "Verfügbare Spiele konnten nicht geladen werden:\n%@\n\nDies ist notwendig, um die Inventare anzeigen zu können.";
+"kSCAvailableGamesErrorTitle"         = "Fehler beim Laden der verfügbaren Spiele";
+"kSCGamesErrorMessage"                = "Spiele des Benutzers konnten nicht geladen werden:\n%@\n\nDu kannst es entweder erneut versuchen oder einen anderen Benutzer auswählen.";
+"kSCGamesErrorTitle"                  = "Fehler beim Laden der Spiele dieses Benutzers";
+"kSCHour"                             = "%d Stunde";
+"kSCHours"                            = "%d Stunden";
+"kSCInventoryCellLoadingFailed"       = "Fehler. Antippen zum Wiederholen.";
+"kSCInventoryError"                   = "Fehler beim Laden des Inventars: %@";
+"kSCInventoryLoadingFailed"           = "Fehler beim Laden";
+"kSCInventoryLoadingFailedDetail"     = "Das Inventar für %@ konnte nicht geladen werden";
+"kSCReloadingFailedInventory"         = "Erneut laden…";
+"kSCReloadingFailedInventoryDetail"   = "Inventar für %@ wird erneut laden.";
+"kSCReloadingOutdatedInventory"       = "Aktualisiere…";
+"kSCReloadingOutdatedInventoryDetail" = "Inventar für %@ wird aktualisiert.";
+"kSCResolveSteamIdErrorMessage"       = "Beim Auflösen der Steam ID ist ein Fehler aufgetreten: %@";
+"kSCResolveSteamIdErrorTitle"         = "Nicht gefunden";
+"kSCSchemaIsLoading"                  = "Lade Gegenstandsinformationen…";
+"kSCSchemaIsLoadingDetail"            = "Die Gegenstände für %@ werden geladen. Das kann eine Weile dauern.";
+"Cancel"                              = "Abbrechen";
+"Inventory"                           = "Inventar";
+"Retry"                               = "Wiederholen";
+"Select an account"                   = "Account auswählen";
+"Settings"                            = "Einstellungen";
+"SteamID help"                        = "Geben Sie die benutzerdefinierte URL oder Profil-ID des Steam Community Profils an:";
+
+"Achievement"                 = "Errungenschaft";
+"CD Key"                      = "CD-Key";
+"Collection Reward"           = "Sammlerbelohnung";
+"Crafted"                     = "Hergestellt";
+"Earned"                      = "Verdient";
+"Found in Crate"              = "In Kiste gefunden";
+"Foreign Item"                = "Fremder Gegenstand";
+"Games"                       = "Spiele";
+"Gifted"                      = "Geschenkt";
+"Halloween Drop"              = "Halloween-Fund";
+"items"                       = "Gegenstände";
+"Preview Item"                = "Vorschaugegenstand";
+"Purchased"                   = "Gekauft";
+"Steam Purchase"              = "Steam-Kauf";
+"Steam Workshop Contribution" = "Mitwirkung beim Steam-Workshop";
+"Store Promotion"             = "Shop-Promotion";
+"Support Granted"             = "Durch Support erhalten";
+"Third-Party Promotion"       = "Drittanbieter-Promotion";
+"Timed Drop"                  = "Zufälliger Fund";
+"Traded"                      = "Gehandelt";
+"Unknown"                     = "Unbekannt";
+"Wrapped Gift"                = "Verpacktes Geschenk";
