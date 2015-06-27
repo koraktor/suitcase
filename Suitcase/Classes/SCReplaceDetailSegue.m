@@ -12,6 +12,7 @@
 - (void)perform {
     UISplitViewController *splitViewController = [self.sourceViewController splitViewController];
     UINavigationController *detailNavigationController = splitViewController.viewControllers[1];
+    [detailNavigationController setToolbarHidden:YES animated:YES];
     [detailNavigationController setViewControllers:@[self.destinationViewController] animated:YES];
 }
 
