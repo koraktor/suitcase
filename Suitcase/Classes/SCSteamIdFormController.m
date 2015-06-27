@@ -63,6 +63,9 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
                                                       range:NSMakeRange(0, steamId.length)];
     steamId = [[steamId pathComponents] firstObject];
     __block NSNumber *steamId64 = [[[NSNumberFormatter alloc] init] numberFromString:steamId];
+    if ([steamId64 compare:@76561193665298433] == NSOrderedAscending || [steamId64 compare:@81064793292668927] == NSOrderedDescending) {
+        steamId64 = nil;
+    }
 
     void (^SteamIdFound)() = ^() {
         NSNumber *currentSteamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
