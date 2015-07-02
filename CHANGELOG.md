@@ -5,6 +5,13 @@ title: Changelog
 Changelog
 =========
 
+## Version 2.2.0 (02-07-2015)
+
+ * Added French and Russian localization
+ * Cache item schemas between app restarts
+ * Fixed a crash when changing settings on iPad
+ * Various small fixes and improvement
+
 ## Version 2.1.3 (14-05-2015)
 
  * Fixed crash caused by the current device language
