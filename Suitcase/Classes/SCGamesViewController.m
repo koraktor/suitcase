@@ -303,9 +303,21 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
         NSIndexPath *indexPath;
         if ([inventory.game isSteam]) {
+            if (skipped) {
+                self.steamInventory = nil;
+            }
+
             indexPath = [NSIndexPath indexPathForRow:0 inSection:SCInventorySectionSteam];
         } else {
-            indexPath = [NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:SCInventorySectionGames];
+            NSInteger inventoryIndex = [self.inventories indexOfObject:inventory];
+
+            if (skipped) {
+                NSMutableArray *newInventories = [self.inventories mutableCopy];
+                [newInventories removeObjectAtIndex:inventoryIndex];
+                self.inventories = [newInventories copy];
+            }
+
+            indexPath = [NSIndexPath indexPathForRow:inventoryIndex inSection:SCInventorySectionGames];
         }
 
         [UIView animateWithDuration:0.0 animations:^{
