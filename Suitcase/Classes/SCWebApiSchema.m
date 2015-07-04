@@ -230,14 +230,19 @@ static NSMutableDictionary *__schemas;
     __block NSString *itemLevel;
 
     NSArray *itemLevels = [self.itemLevels objectForKey:levelType];
-    [[itemLevels sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *level1, NSDictionary *level2) {
+    itemLevels = [itemLevels sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *level1, NSDictionary *level2) {
         return [level1[@"required_score"] compare:level2[@"required_score"]];
-    }] enumerateObjectsUsingBlock:^(NSDictionary *level, NSUInteger idx, BOOL *stop) {
+    }];
+    [itemLevels enumerateObjectsUsingBlock:^(NSDictionary *level, NSUInteger idx, BOOL *stop) {
         if ([score intValue] < [level[@"required_score"] intValue]) {
             itemLevel = level[@"name"];
             *stop = YES;
         }
     }];
+
+    if (itemLevel == nil) {
+        itemLevel = itemLevels.lastObject[@"name"];
+    }
 
     return itemLevel;
 }
