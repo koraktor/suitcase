@@ -361,7 +361,12 @@ const NSUInteger kSCKillEaterDefindex = 214;
 - (NSNumber *)position {
     if (_position == nil) {
         int inventoryMask = [(NSNumber *)[self.dictionary objectForKey:@"inventory"] intValue];
-        _position = [NSNumber numberWithInt:(inventoryMask & 0xFFFF)];
+        int unpositioned = inventoryMask & 0x7F000000;
+        if (unpositioned > 0) {
+            _position = [NSNumber numberWithInt:unpositioned >> 24];
+        } else {
+            _position = [NSNumber numberWithInt:(inventoryMask & 0xFFFF) << 8];
+        }
     }
 
     return _position;
