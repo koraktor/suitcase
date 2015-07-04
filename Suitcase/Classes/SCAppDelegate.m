@@ -82,22 +82,7 @@ static SCWebApiRequestOperationManager *_webApiClient;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"clear_image_cache"]) {
-        [SCImageCache clearImageCache];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"clear_image_cache"];
-    }
-
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"clear_data_cache"]) {
-        NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-        NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:documentsPath];
-
-        NSString *fileName;
-        while (fileName = [dirEnum nextObject]) {
-            [[NSFileManager defaultManager] removeItemAtPath:[documentsPath stringByAppendingPathComponent:fileName]
-                                                       error:nil];
-        }
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"clear_data_cache"];
-    }
+    [self clearCaches];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -177,6 +162,13 @@ static SCWebApiRequestOperationManager *_webApiClient;
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [self clearCaches];
+
+    return YES;
+}
+
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     _storedDefaults = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
@@ -191,6 +183,26 @@ static SCWebApiRequestOperationManager *_webApiClient;
             [SCWebApiSchema storeSchema:schema forAppId:appId andLanguage:locale];
         }];
     }];
+}
+
+- (void)clearCaches
+{
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"clear_image_cache"]) {
+        [SCImageCache clearImageCache];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"clear_image_cache"];
+    }
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"clear_data_cache"]) {
+        NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+        NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:documentsPath];
+
+        NSString *fileName;
+        while (fileName = [dirEnum nextObject]) {
+            [[NSFileManager defaultManager] removeItemAtPath:[documentsPath stringByAppendingPathComponent:fileName]
+                                                       error:nil];
+        }
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"clear_data_cache"];
+    }
 }
 
 - (void)defaultsChanged:(NSNotification *)notification
