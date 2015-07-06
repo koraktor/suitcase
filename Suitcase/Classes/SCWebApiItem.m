@@ -327,23 +327,27 @@ const NSUInteger kSCKillEaterDefindex = 214;
 
 - (NSString *)name {
     if (_name == nil) {
-        [self attributes];
-
-        NSMutableString *name = [[self valueForKey:@"item_name"] mutableCopy];
-        if ([name rangeOfString:@"%s1"].location != NSNotFound) {
-            [name replaceOccurrencesOfString:@"%s1"
-                                  withString:self.level.stringValue
-                                     options:NSLiteralSearch
-                                       range:NSMakeRange(0, [name length])];
-        }
-
-        if ([self isKillEater]) {
-            NSDictionary *killEaterType = [self.inventory.schema killEaterTypeForIndex:_killEaterTypeIndex];
-            NSString *itemLevel = [self.inventory.schema itemLevelForScore:_killEaterScore
-                                                              andLevelType:killEaterType[@"level_data"]];
-            _name = [NSString stringWithFormat:[self levelFormat], itemLevel, name];
+        if (self.dictionary[@"custom_name"] != nil) {
+            _name = self.dictionary[@"custom_name"];
         } else {
-            _name = [NSString stringWithString:name];
+            [self attributes];
+
+            NSMutableString *name = [[self valueForKey:@"item_name"] mutableCopy];
+            if ([name rangeOfString:@"%s1"].location != NSNotFound) {
+                [name replaceOccurrencesOfString:@"%s1"
+                                      withString:self.level.stringValue
+                                         options:NSLiteralSearch
+                                           range:NSMakeRange(0, [name length])];
+            }
+
+            if ([self isKillEater]) {
+                NSDictionary *killEaterType = [self.inventory.schema killEaterTypeForIndex:_killEaterTypeIndex];
+                NSString *itemLevel = [self.inventory.schema itemLevelForScore:_killEaterScore
+                                                                  andLevelType:killEaterType[@"level_data"]];
+                _name = [NSString stringWithFormat:[self levelFormat], itemLevel, name];
+            } else {
+                _name = [NSString stringWithString:name];
+            }
         }
     }
 
