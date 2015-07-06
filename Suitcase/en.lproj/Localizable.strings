@@ -2,7 +2,7 @@
  * Localizable.strings
  * Suitcase
  *
- * Copyright (c) 2012-2014, Sebastian Staudt
+ * Copyright (c) 2012-2015, Sebastian Staudt
  */
 
 "kSCAvailableGamesErrorMessage"       = "Could not load available games:\n%@\n\nThis is required to display inventories.";
@@ -23,8 +23,9 @@
 "kSCItemOrigin"                       = "Origin";
 "kSCItemQuality"                      = "Quality";
 "kSCItemQuantity"                     = "Quantity";
-"kSCItemTradable"                     = "Tradable";
 "kSCItemSetCellHeader"                = "Is part of the item set:";
+"kSCItemStyle"                        = "Style";
+"kSCItemTradable"                     = "Tradable";
 "kSCOpenInChrome"                     = "Open in Chrome";
 "kSCOpenInSafari"                     = "Open in Safari";
 "kSCOpenLinkInBrowser"                = "Open this link in the browser?";

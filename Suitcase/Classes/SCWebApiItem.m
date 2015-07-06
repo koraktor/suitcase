@@ -388,6 +388,15 @@ const NSUInteger kSCKillEaterDefindex = 214;
     return [self.dictionary objectForKey:@"quantity"];
 }
 
+- (NSString *)style {
+    NSNumber *styleIndex = self.dictionary[@"style"];
+    if (styleIndex == nil) {
+        return nil;
+    }
+
+    return [self valueForKey:@"styles"][styleIndex.unsignedIntegerValue][@"name"];
+}
+
 - (id)valueForKey:(NSString *)key {
     return [self.inventory.schema itemValueForDefIndex:self.defindex andKey:key];
 }

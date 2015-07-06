@@ -127,4 +127,10 @@ typedef NS_ENUM(NSUInteger, SCTF2ItemQuality) {
     }
 }
 
+- (NSString *)style {
+    NSString *style = [super style];
+
+    return [style isEqualToString:@"TF_UnknownStyle"] ? nil : style;
+}
+
 @end

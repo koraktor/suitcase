@@ -24,6 +24,7 @@
 "kSCItemQuality"                      = "Qualité";
 "kSCItemQuantity"                     = "Quantité";
 "kSCItemSetCellHeader"                = "Relever de ensemble:";
+"kSCItemStyle"                        = "Style";
 "kSCItemTradable"                     = "Échangeable";
 "kSCOpenInChrome"                     = "Ouvrir avec Chrome";
 "kSCOpenInSafari"                     = "Ouvrir avec Safari";

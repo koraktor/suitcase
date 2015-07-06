@@ -10,11 +10,12 @@
 #import "SCItem.h"
 
 typedef NS_OPTIONS(NSUInteger, SCItemAttributeType) {
-    SCItemAttributeTypeOrigin     = 1,
-    SCItemAttributeTypeQuality    = 2,
-    SCItemAttributeTypeQuantity   = 4,
-    SCItemAttributeTypeTradable   = 8,
-    SCItemAttributeTypeMarketable = 16
+    SCItemAttributeTypeStyle      = 1,
+    SCItemAttributeTypeOrigin     = 2,
+    SCItemAttributeTypeQuality    = 4,
+    SCItemAttributeTypeQuantity   = 8,
+    SCItemAttributeTypeTradable   = 16,
+    SCItemAttributeTypeMarketable = 32
 };
 
 @interface SCItemAttributeCell : UICollectionViewCell

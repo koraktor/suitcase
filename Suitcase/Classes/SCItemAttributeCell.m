@@ -15,12 +15,14 @@ NSString *const kSCItemMarketable = @"kSCItemMarketable";
 NSString *const kSCItemOrigin = @"kSCItemOrigin";
 NSString *const kSCItemQuality = @"kSCItemQuality";
 NSString *const kSCItemQuantity = @"kSCItemQuantity";
+NSString *const kSCItemStyle = @"kSCItemStyle";
 NSString *const kSCItemTradable = @"kSCItemTradable";
 
 static NSAttributedString *kMarketableIcon;
 static NSAttributedString *kOriginIcon;
 static NSAttributedString *kQualityIcon;
 static NSAttributedString *kQuantityIcon;
+static NSAttributedString *kStyleIcon;
 static NSAttributedString *kTradableIcon;
 
 static NSAttributedString *kNoIcon;
@@ -31,6 +33,7 @@ static NSAttributedString *kYesIcon;
     kOriginIcon = [[FAKFontAwesome asteriskIconWithSize:16.0] attributedString];
     kQualityIcon = [[FAKFontAwesome starIconWithSize:16.0] attributedString];
     kQuantityIcon = [[FAKFontAwesome cubesIconWithSize:16.0] attributedString];
+    kStyleIcon = [[FAKFontAwesome magicIconWithSize:16.0] attributedString];
     kTradableIcon = [[FAKFontAwesome exchangeIconWithSize:16.0] attributedString];
 
     kNoIcon = [[FAKFontAwesome timesIconWithSize:16.0] attributedString];
@@ -43,6 +46,7 @@ static NSAttributedString *kYesIcon;
         case SCItemAttributeTypeOrigin: return item.origin;
         case SCItemAttributeTypeQuality: return item.qualityName;
         case SCItemAttributeTypeQuantity: return item.quantity.stringValue;
+        case SCItemAttributeTypeStyle: return item.style;
         case SCItemAttributeTypeTradable: return [item isTradable] ? kYesIcon : kNoIcon;
         default: return nil;
     }
@@ -72,6 +76,10 @@ static NSAttributedString *kYesIcon;
         case SCItemAttributeTypeQuantity:
             icon = kQuantityIcon;
             name = NSLocalizedString(kSCItemQuantity, kSCItemQuantity);
+            break;
+        case SCItemAttributeTypeStyle:
+            icon = kStyleIcon;
+            name = NSLocalizedString(kSCItemStyle, kSCItemStyle);
             break;
         case SCItemAttributeTypeTradable:
             icon = kTradableIcon;

@@ -37,5 +37,6 @@
 - (UIColor *)qualityColor;
 - (NSString *)qualityName;
 - (NSNumber *)quantity;
+- (NSString *)style;
 
 @end

@@ -227,6 +227,10 @@ static NSString *kImageSize;
     return [NSNumber numberWithInteger:[[self valueForKey:@"amount"] integerValue]];
 }
 
+- (NSString *)style {
+    return nil;
+}
+
 - (NSDictionary *)tags {
     if (_tags == nil) {
         _tags = [NSMutableDictionary dictionary];

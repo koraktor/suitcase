@@ -24,6 +24,7 @@
 "kSCItemQuality"                      = "Qualität";
 "kSCItemQuantity"                     = "Anzahl";
 "kSCItemSetCellHeader"                = "Ist Teil des Sets:";
+"kSCItemStyle"                        = "Stil";
 "kSCItemTradable"                     = "Handelbar";
 "kSCOpenInChrome"                     = "In Chrome öffnen";
 "kSCOpenInSafari"                     = "In Safari öffnen";

@@ -129,6 +129,10 @@ typedef enum {
         attributes |= SCItemAttributeTypeMarketable;
     }
 
+    if (self.item.style != nil) {
+        attributes |= SCItemAttributeTypeStyle;
+    }
+
     return attributes;
 }
 
