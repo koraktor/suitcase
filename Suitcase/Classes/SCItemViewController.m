@@ -421,7 +421,7 @@ typedef enum {
 
         case kSCCellTypeTitle: {
             CGSize itemTitleSize = [self.item.name sizeWithFont:[UIFont boldSystemFontOfSize:22.0]
-                                              constrainedToSize:CGSizeMake(cellWidth - 20.0, CGFLOAT_MAX)
+                                              constrainedToSize:CGSizeMake(cellWidth - 40.0, CGFLOAT_MAX)
                                                   lineBreakMode:NSLineBreakByWordWrapping];
 
             return CGSizeMake(cellWidth, itemTitleSize.height + 28.0);

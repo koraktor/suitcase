@@ -11,7 +11,7 @@
 
 - (void)setItem:(id<SCItem>)item {
     CGSize itemTitleSize = [item.name sizeWithFont:[UIFont boldSystemFontOfSize:22.0]
-                                 constrainedToSize:CGSizeMake(self.title.frame.size.width, CGFLOAT_MAX)
+                                 constrainedToSize:CGSizeMake(self.frame.size.width - 40.0, CGFLOAT_MAX)
                                      lineBreakMode:NSLineBreakByWordWrapping];
     self.title.frame = CGRectMake(self.title.frame.origin.x, self.title.frame.origin.y,
                                   self.title.frame.size.width, itemTitleSize.height);
