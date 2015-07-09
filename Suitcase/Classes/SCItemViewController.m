@@ -398,13 +398,8 @@ typedef enum {
         }
 
         case kSCCellTypeImage: {
-            CGFloat height;
             UIImage *cachedImage = [SCImageCache cachedImageForItem:self.item];
-            if (cachedImage != nil) {
-                height = [SCItemImageCell heightOfCellForImage:cachedImage];
-            } else {
-                height = 75.0;
-            }
+            CGFloat height = [SCItemImageCell heightOfCellForImage:cachedImage];
 
             return CGSizeMake(cellWidth, height);
         }

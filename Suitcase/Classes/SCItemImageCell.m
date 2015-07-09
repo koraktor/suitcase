@@ -35,6 +35,10 @@ static NSUInteger kMinImageSize;
 }
 
 + (CGSize)sizeOfImageForImage:(UIImage *)image {
+    if (image == nil) {
+        return CGSizeMake(kMinImageSize, kMinImageSize);
+    }
+
     CGFloat hFactor;
     CGFloat vFactor;
     if (image.size.width < kMinImageSize && image.size.height < kMinImageSize) {
