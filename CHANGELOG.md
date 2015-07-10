@@ -5,14 +5,14 @@ title: Changelog
 Changelog
 =========
 
-## Version 2.2.0 (02-07-2015)
+## Version 2.2.0 (07-02-2015)
 
  * Added French and Russian localization
  * Cache item schemas between app restarts
  * Fixed a crash when changing settings on iPad
  * Various small fixes and improvement
 
-## Version 2.1.3 (14-05-2015)
+## Version 2.1.3 (05-14-2015)
 
  * Fixed crash caused by the current device language
  * Fixed sporadic crash when changing filter settings on iPad
@@ -20,7 +20,7 @@ Changelog
  * Added support for H1Z1
  * Added support for Primal Carnage: Extinction
 
-## Version 2.1.2 (03-05-2015)
+## Version 2.1.2 (05-03-2015)
 
  * Workaround for Dota 2 Web API problems
  * Add support for Sins of a Dark Age
@@ -28,12 +28,12 @@ Changelog
  * Fix rare problems when changing settings
  * Various other improvements
 
-## Version 2.1.1 (01-05-2015)
+## Version 2.1.1 (05-01-2015)
 
  * Fixed various problems while reloading inventories
  * Improved URL detection when selecting a Steam ID
 
-## Version 2.1.0 (12-02-2015)
+## Version 2.1.0 (02-12-2015)
 
  * Added pull-to-refresh to update one or all inventories
  * Added a setting to force a language: This lets you override the language of the device.
