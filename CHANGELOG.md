@@ -5,6 +5,12 @@ title: Changelog
 Changelog
 =========
 
+## Version 2.2.1 (07-10-2015)
+
+ * Allow number-only custom URLs (also known as vanity URLs)
+ * Fixed a crash that could occur when reloading all inventories
+ * Fixed a few display problems
+
 ## Version 2.2.0 (07-02-2015)
 
  * Added French and Russian localization
