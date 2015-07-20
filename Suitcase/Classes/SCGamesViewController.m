@@ -311,7 +311,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         } else {
             NSInteger inventoryIndex = [self.inventories indexOfObject:inventory];
 
-            if (skipped) {
+            if (skipped && inventoryIndex != NSNotFound) {
                 NSMutableArray *newInventories = [self.inventories mutableCopy];
                 [newInventories removeObjectAtIndex:inventoryIndex];
                 self.inventories = [newInventories copy];
