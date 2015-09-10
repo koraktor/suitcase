@@ -29,7 +29,6 @@
 		0203A67218C531C500EF5E25 /* SCCommunityRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0203A67118C531C500EF5E25 /* SCCommunityRequestOperationManager.m */; };
 		0203A67418C5350200EF5E25 /* SCCommunityItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0203A67318C5350200EF5E25 /* SCCommunityItem.m */; };
 		0203A67818C6F60A00EF5E25 /* SCAbstractInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0203A67718C6F60A00EF5E25 /* SCAbstractInventory.m */; };
-		020563BA1A115BA8002375E9 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 020563B91A115BA8002375E9 /* Fabric.framework */; };
 		020958C5169386B000A44851 /* SCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 020958C4169386B000A44851 /* SCSettingsViewController.m */; };
 		020958C81693926300A44851 /* game_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 020958C61693926300A44851 /* game_placeholder.png */; };
 		020958C91693926300A44851 /* game_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 020958C71693926300A44851 /* game_placeholder@2x.png */; };
@@ -107,8 +106,6 @@
 		0295818A193CCAB000115131 /* SCDota2Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 02958189193CCAB000115131 /* SCDota2Item.m */; };
 		0295DAC0152A44CC00B18882 /* SCSteamIdFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */; };
 		029B08F4159261A600BD6271 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 029B08F3159261A600BD6271 /* Settings.bundle */; };
-		029B94E01B03EC8F008B89AC /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 029B94DE1B03EC8F008B89AC /* libc++.dylib */; };
-		029B94E11B03EC8F008B89AC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 029B94DF1B03EC8F008B89AC /* libz.dylib */; };
 		029D94711939EBA100D1DF43 /* SCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029D94701939EBA100D1DF43 /* SCNavigationController.m */; };
 		029F6927182E3E5D00851826 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F6915182E3E5D00851826 /* AFHTTPRequestOperation.m */; };
 		029F6929182E3E5D00851826 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F6919182E3E5D00851826 /* AFHTTPSessionManager.m */; };
@@ -122,6 +119,7 @@
 		029F6944182E3EEC00851826 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F693A182E3EEC00851826 /* UIImageView+AFNetworking.m */; };
 		029F6945182E3EEC00851826 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F693D182E3EEC00851826 /* UIProgressView+AFNetworking.m */; };
 		029F6946182E3EEC00851826 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F693F182E3EEC00851826 /* UIWebView+AFNetworking.m */; };
+		02BA97EE1BA208EA000FF198 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BA97EC1BA208EA000FF198 /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
 		02BA97EF1BA208EA000FF198 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BA97ED1BA208EA000FF198 /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
 		02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BAAB5F17BFAE1E004E635F /* Security.framework */; };
 		02BB279119026DA4002D151A /* SCReplaceDetailSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */; };
@@ -338,6 +336,7 @@
 		029F693D182E3EEC00851826 /* UIProgressView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIProgressView+AFNetworking.m"; sourceTree = "<group>"; };
 		029F693E182E3EEC00851826 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		029F693F182E3EEC00851826 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		02BA97EC1BA208EA000FF198 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		02BA97ED1BA208EA000FF198 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		02BAAB5F17BFAE1E004E635F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		02BB278F19026DA4002D151A /* SCReplaceDetailSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCReplaceDetailSegue.h; path = Classes/SCReplaceDetailSegue.h; sourceTree = "<group>"; };
@@ -377,11 +376,11 @@
 				029B94E01B03EC8F008B89AC /* libc++.dylib in Frameworks */,
 				02BA97EF1BA208EA000FF198 /* Crashlytics.framework in Frameworks */,
 				02DDB4861582A9E0004DB9D8 /* QuartzCore.framework in Frameworks */,
+				02BA97EE1BA208EA000FF198 /* Fabric.framework in Frameworks */,
 				029B94E11B03EC8F008B89AC /* libz.dylib in Frameworks */,
 				02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */,
 				0209E151157954C70073385D /* SystemConfiguration.framework in Frameworks */,
 				028B640B15265D690040D2FF /* UIKit.framework in Frameworks */,
-				020563BA1A115BA8002375E9 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,6 +715,7 @@
 		028B640915265D690040D2FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				02BA97EC1BA208EA000FF198 /* Fabric.framework */,
 				029B94DE1B03EC8F008B89AC /* libc++.dylib */,
 				029B94DF1B03EC8F008B89AC /* libz.dylib */,
 				02BA97ED1BA208EA000FF198 /* Crashlytics.framework */,
