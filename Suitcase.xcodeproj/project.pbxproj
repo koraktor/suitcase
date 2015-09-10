@@ -56,7 +56,6 @@
 		023FDB8418FAD353002D6FC0 /* SCItemDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023FDB8318FAD353002D6FC0 /* SCItemDescriptionCell.m */; };
 		0241CF8F190BEF32005EC030 /* UIImageView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 0241CF8E190BEF32005EC030 /* UIImageView+Border.m */; };
 		02435A9F1921F24600D1F779 /* SCImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 02435A9E1921F24600D1F779 /* SCImageCache.m */; };
-		02435AA319228F9500D1F779 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02435AA219228F9500D1F779 /* Crashlytics.framework */; };
 		0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */; };
 		02520FEF1923F0D7000F83AF /* SCItemSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 02520FEE1923F0D7000F83AF /* SCItemSet.m */; };
 		02520FF21923FFAE000F83AF /* SCItemSetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02520FF11923FFAE000F83AF /* SCItemSetCell.m */; };
@@ -123,6 +122,7 @@
 		029F6944182E3EEC00851826 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F693A182E3EEC00851826 /* UIImageView+AFNetworking.m */; };
 		029F6945182E3EEC00851826 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F693D182E3EEC00851826 /* UIProgressView+AFNetworking.m */; };
 		029F6946182E3EEC00851826 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F693F182E3EEC00851826 /* UIWebView+AFNetworking.m */; };
+		02BA97EF1BA208EA000FF198 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BA97ED1BA208EA000FF198 /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
 		02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BAAB5F17BFAE1E004E635F /* Security.framework */; };
 		02BB279119026DA4002D151A /* SCReplaceDetailSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */; };
 		02D5BC5B191982B2000D8206 /* SCItemQuality.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D5BC5A191982B2000D8206 /* SCItemQuality.m */; };
@@ -338,6 +338,7 @@
 		029F693D182E3EEC00851826 /* UIProgressView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIProgressView+AFNetworking.m"; sourceTree = "<group>"; };
 		029F693E182E3EEC00851826 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		029F693F182E3EEC00851826 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		02BA97ED1BA208EA000FF198 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		02BAAB5F17BFAE1E004E635F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		02BB278F19026DA4002D151A /* SCReplaceDetailSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCReplaceDetailSegue.h; path = Classes/SCReplaceDetailSegue.h; sourceTree = "<group>"; };
 		02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCReplaceDetailSegue.m; path = Classes/SCReplaceDetailSegue.m; sourceTree = "<group>"; };
@@ -370,11 +371,11 @@
 				0209E14F157954C20073385D /* CFNetwork.framework in Frameworks */,
 				028B640F15265D690040D2FF /* CoreGraphics.framework in Frameworks */,
 				02F37EC41580152300BFB1B5 /* CoreText.framework in Frameworks */,
-				02435AA319228F9500D1F779 /* Crashlytics.framework in Frameworks */,
 				028B640D15265D690040D2FF /* Foundation.framework in Frameworks */,
 				020EB43015852C2800654D2A /* MessageUI.framework in Frameworks */,
 				0209E153157954D00073385D /* MobileCoreServices.framework in Frameworks */,
 				029B94E01B03EC8F008B89AC /* libc++.dylib in Frameworks */,
+				02BA97EF1BA208EA000FF198 /* Crashlytics.framework in Frameworks */,
 				02DDB4861582A9E0004DB9D8 /* QuartzCore.framework in Frameworks */,
 				029B94E11B03EC8F008B89AC /* libz.dylib in Frameworks */,
 				02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */,
@@ -717,6 +718,7 @@
 			children = (
 				029B94DE1B03EC8F008B89AC /* libc++.dylib */,
 				029B94DF1B03EC8F008B89AC /* libz.dylib */,
+				02BA97ED1BA208EA000FF198 /* Crashlytics.framework */,
 				0209E14E157954C20073385D /* CFNetwork.framework */,
 				028B640E15265D690040D2FF /* CoreGraphics.framework */,
 				02F37EC31580152300BFB1B5 /* CoreText.framework */,
