@@ -21,7 +21,7 @@
     return UIStatusBarStyleLightContent;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskLandscape;
 }

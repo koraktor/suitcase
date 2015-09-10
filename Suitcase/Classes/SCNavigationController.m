@@ -9,7 +9,7 @@
 
 @implementation SCNavigationController
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     if ([self.topViewController isKindOfClass:NSClassFromString(@"SCWikiViewController")]) {
         return UIInterfaceOrientationMaskAllButUpsideDown;
