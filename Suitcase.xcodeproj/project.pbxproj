@@ -35,6 +35,8 @@
 		0209E14F157954C20073385D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0209E14E157954C20073385D /* CFNetwork.framework */; };
 		0209E151157954C70073385D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0209E150157954C70073385D /* SystemConfiguration.framework */; };
 		0209E153157954D00073385D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0209E152157954D00073385D /* MobileCoreServices.framework */; };
+		020B1E6F1BA29B5E00E5CD5E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 020B1E6E1BA29B5E00E5CD5E /* libz.tbd */; };
+		020B1E711BA29B7700E5CD5E /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 020B1E701BA29B7700E5CD5E /* libc++.tbd */; };
 		020EB42E15852A2A00654D2A /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 020EB42D15852A2A00654D2A /* InAppSettings.bundle */; };
 		020EB43015852C2800654D2A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 020EB42F15852C2800654D2A /* MessageUI.framework */; };
 		0213CC331769087F0010908D /* cell_selection_gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 0213CC311769087F0010908D /* cell_selection_gradient.png */; };
@@ -185,6 +187,8 @@
 		0209E14E157954C20073385D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		0209E150157954C70073385D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0209E152157954D00073385D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		020B1E6E1BA29B5E00E5CD5E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		020B1E701BA29B7700E5CD5E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		020EB42D15852A2A00654D2A /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = InAppSettings.bundle; sourceTree = "<group>"; };
 		020EB42F15852C2800654D2A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		0213CC311769087F0010908D /* cell_selection_gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cell_selection_gradient.png; path = Images/cell_selection_gradient.png; sourceTree = "<group>"; };
@@ -284,7 +288,6 @@
 		028B641215265D690040D2FF /* Suitcase-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Suitcase-Info.plist"; sourceTree = "<group>"; };
 		028B641615265D690040D2FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		028B641815265D690040D2FF /* Suitcase-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Suitcase-Prefix.pch"; sourceTree = "<group>"; };
-		028B642E15265D690040D2FF /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		028B648D1526761C0040D2FF /* SCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCAppDelegate.h; path = Classes/SCAppDelegate.h; sourceTree = "<group>"; };
 		028B648E1526761C0040D2FF /* SCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCAppDelegate.m; path = Classes/SCAppDelegate.m; sourceTree = "<group>"; };
 		028B648F1526761C0040D2FF /* SCItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemViewController.h; path = Classes/SCItemViewController.h; sourceTree = "<group>"; };
@@ -298,8 +301,6 @@
 		0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSteamIdFormController.h; path = Classes/SCSteamIdFormController.h; sourceTree = "<group>"; };
 		0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSteamIdFormController.m; path = Classes/SCSteamIdFormController.m; sourceTree = "<group>"; };
 		029B08F3159261A600BD6271 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		029B94DE1B03EC8F008B89AC /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		029B94DF1B03EC8F008B89AC /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		029D946F1939EBA100D1DF43 /* SCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCNavigationController.h; path = Classes/SCNavigationController.h; sourceTree = "<group>"; };
 		029D94701939EBA100D1DF43 /* SCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCNavigationController.m; path = Classes/SCNavigationController.m; sourceTree = "<group>"; };
 		029F6914182E3E5D00851826 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperation.h; path = Suitcase/External/AFNetworking/AFNetworking/AFHTTPRequestOperation.h; sourceTree = SOURCE_ROOT; };
@@ -367,17 +368,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				020B1E711BA29B7700E5CD5E /* libc++.tbd in Frameworks */,
+				020B1E6F1BA29B5E00E5CD5E /* libz.tbd in Frameworks */,
 				0209E14F157954C20073385D /* CFNetwork.framework in Frameworks */,
 				028B640F15265D690040D2FF /* CoreGraphics.framework in Frameworks */,
 				02F37EC41580152300BFB1B5 /* CoreText.framework in Frameworks */,
 				028B640D15265D690040D2FF /* Foundation.framework in Frameworks */,
 				020EB43015852C2800654D2A /* MessageUI.framework in Frameworks */,
 				0209E153157954D00073385D /* MobileCoreServices.framework in Frameworks */,
-				029B94E01B03EC8F008B89AC /* libc++.dylib in Frameworks */,
 				02BA97EF1BA208EA000FF198 /* Crashlytics.framework in Frameworks */,
 				02DDB4861582A9E0004DB9D8 /* QuartzCore.framework in Frameworks */,
 				02BA97EE1BA208EA000FF198 /* Fabric.framework in Frameworks */,
-				029B94E11B03EC8F008B89AC /* libz.dylib in Frameworks */,
 				02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */,
 				0209E151157954C70073385D /* SystemConfiguration.framework in Frameworks */,
 				028B640B15265D690040D2FF /* UIKit.framework in Frameworks */,
@@ -715,9 +716,9 @@
 		028B640915265D690040D2FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				020B1E701BA29B7700E5CD5E /* libc++.tbd */,
+				020B1E6E1BA29B5E00E5CD5E /* libz.tbd */,
 				02BA97EC1BA208EA000FF198 /* Fabric.framework */,
-				029B94DE1B03EC8F008B89AC /* libc++.dylib */,
-				029B94DF1B03EC8F008B89AC /* libz.dylib */,
 				02BA97ED1BA208EA000FF198 /* Crashlytics.framework */,
 				0209E14E157954C20073385D /* CFNetwork.framework */,
 				028B640E15265D690040D2FF /* CoreGraphics.framework */,
@@ -729,7 +730,6 @@
 				0209E152157954D00073385D /* MobileCoreServices.framework */,
 				02DDB4851582A9E0004DB9D8 /* QuartzCore.framework */,
 				02BAAB5F17BFAE1E004E635F /* Security.framework */,
-				028B642E15265D690040D2FF /* SenTestingKit.framework */,
 				0209E150157954C70073385D /* SystemConfiguration.framework */,
 				028B640A15265D690040D2FF /* UIKit.framework */,
 			);
