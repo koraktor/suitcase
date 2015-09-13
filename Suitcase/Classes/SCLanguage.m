@@ -37,6 +37,11 @@ static NSBundle *iaskRootBundle = nil;
 }
 
 + (void)setLanguage:(NSString *)lang {
+    NSRange dashRange = [lang rangeOfString:@"-"];
+    if (dashRange.location != NSNotFound) {
+        lang = [lang substringToIndex:dashRange.location];
+    }
+
 #if DEBUG
     NSLog(@"Changing preferred language to: %@", lang);
 #endif

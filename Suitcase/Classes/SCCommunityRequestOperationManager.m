@@ -35,7 +35,7 @@
                                     andItemCategory:(NSNumber *)itemCategory
 {
     NSLocale *preferredLanguage = [SCLanguage currentLanguage];
-    NSDictionary *params = @{ @"l": [[[NSLocale localeWithLocaleIdentifier:@"en-US"] displayNameForKey:NSLocaleIdentifier value:preferredLanguage.localeIdentifier] lowercaseString] };
+    NSDictionary *params = @{ @"l": [[[NSLocale localeWithLocaleIdentifier:@"en-US"] displayNameForKey:NSLocaleLanguageCode value:preferredLanguage.localeIdentifier] lowercaseString] };
     NSString *path = [NSString stringWithFormat:@"profiles/%@/inventory/json/%@/%@", steamId64, game.appId, itemCategory];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         self.operationQueue = [[NSOperationQueue alloc] init];
