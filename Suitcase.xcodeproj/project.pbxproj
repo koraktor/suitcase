@@ -57,6 +57,7 @@
 		023FDB8418FAD353002D6FC0 /* SCItemDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 023FDB8318FAD353002D6FC0 /* SCItemDescriptionCell.m */; };
 		0241CF8F190BEF32005EC030 /* UIImageView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 0241CF8E190BEF32005EC030 /* UIImageView+Border.m */; };
 		02435A9F1921F24600D1F779 /* SCImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 02435A9E1921F24600D1F779 /* SCImageCache.m */; };
+		024F01E81BAB6038008A789E /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 024F01E71BAB6038008A789E /* SafariServices.framework */; };
 		0250CBDB1693C8D100B20A6F /* SCWikiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */; };
 		02520FEF1923F0D7000F83AF /* SCItemSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 02520FEE1923F0D7000F83AF /* SCItemSet.m */; };
 		02520FF21923FFAE000F83AF /* SCItemSetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02520FF11923FFAE000F83AF /* SCItemSetCell.m */; };
@@ -222,6 +223,7 @@
 		02435A9D1921F24600D1F779 /* SCImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCImageCache.h; path = Classes/SCImageCache.h; sourceTree = "<group>"; };
 		02435A9E1921F24600D1F779 /* SCImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCImageCache.m; path = Classes/SCImageCache.m; sourceTree = "<group>"; };
 		02435AA219228F9500D1F779 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		024F01E71BAB6038008A789E /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		0250CBD91693C8D100B20A6F /* SCWikiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWikiViewController.h; path = Classes/SCWikiViewController.h; sourceTree = "<group>"; };
 		0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWikiViewController.m; path = Classes/SCWikiViewController.m; sourceTree = "<group>"; };
 		02520FED1923F0D7000F83AF /* SCItemSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemSet.h; path = Classes/SCItemSet.h; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				02BA97EF1BA208EA000FF198 /* Crashlytics.framework in Frameworks */,
 				02DDB4861582A9E0004DB9D8 /* QuartzCore.framework in Frameworks */,
 				02BA97EE1BA208EA000FF198 /* Fabric.framework in Frameworks */,
+				024F01E81BAB6038008A789E /* SafariServices.framework in Frameworks */,
 				02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */,
 				0209E151157954C70073385D /* SystemConfiguration.framework in Frameworks */,
 				028B640B15265D690040D2FF /* UIKit.framework in Frameworks */,
@@ -716,6 +719,7 @@
 		028B640915265D690040D2FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				024F01E71BAB6038008A789E /* SafariServices.framework */,
 				020B1E701BA29B7700E5CD5E /* libc++.tbd */,
 				020B1E6E1BA29B5E00E5CD5E /* libz.tbd */,
 				02BA97EC1BA208EA000FF198 /* Fabric.framework */,

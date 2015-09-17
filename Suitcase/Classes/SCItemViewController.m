@@ -2,11 +2,12 @@
 //  SCDetailViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2014, Sebastian Staudt
+//  Copyright (c) 2012-2015, Sebastian Staudt
 //
 
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
+#import <SafariServices/SafariServices.h>
 
 #import "BPBarButtonItem.h"
 #import "FAKFontAwesome.h"
@@ -230,13 +231,19 @@ typedef enum {
 }
 
 - (IBAction)showWikiPage:(id)sender {
-    [self performSegueWithIdentifier:@"showWikiPage" sender:self];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0) {
+        SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[self wikiUrl]];
+        safari.view.tintColor = [UIColor colorWithRed:0.45 green:0.52 blue:0.60 alpha:1.0];
+        [self presentViewController:safari animated:YES completion:nil];
+    } else {
+        [self performSegueWithIdentifier:@"showWikiPage" sender:self];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showWikiPage"]) {
-        NSURL *wikiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", ((SCWebApiItem *)self.item).defindex, [[SCLanguage currentLanguage] localeIdentifier]]];
+        NSURL *wikiUrl = [self wikiUrl];
 
         UIWebView *webView;
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -249,6 +256,10 @@ typedef enum {
             [webView loadRequest:wikiRequest];
         }
     }
+}
+
+- (NSURL *)wikiUrl {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://wiki.teamfortress.com/scripts/itemredirect.php?id=%@&lang=%@", ((SCWebApiItem *)self.item).defindex, [[SCLanguage currentLanguage] localeIdentifier]]];
 }
 
 #pragma mark - Collection View Data Source
