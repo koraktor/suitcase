@@ -616,6 +616,13 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     SCHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SCHeaderView"];
     headerView.textLabel.text = NSLocalizedString(@"Games", @"Games");
 
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0) {
+        if (headerView.backgroundView == nil) {
+            headerView.backgroundView = [[UIView alloc] initWithFrame:headerView.frame];
+        }
+        [self tableView:tableView willDisplayHeaderView:headerView forSection:section];
+    }
+
     return headerView;
 }
 

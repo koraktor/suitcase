@@ -87,4 +87,15 @@
     }
 }
 
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0) {
+        if (frame.size.height != 0) {
+            self.textLabel.center = self.center;
+            self.textLabel.frame = CGRectMake(self.textLabel.frame.origin.x, 0.0, self.textLabel.frame.size.width, self.textLabel.frame.size.height);
+        }
+    }
+}
+
 @end
