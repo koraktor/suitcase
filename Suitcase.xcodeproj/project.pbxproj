@@ -44,6 +44,7 @@
 		021E72011928EF600056D784 /* SCItemSetItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E72001928EF600056D784 /* SCItemSetItemCell.m */; };
 		0220FFC815D7A84700AB8AA3 /* SCInventoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */; };
 		02238C671914E88B0050CDCF /* SCItemViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 02238C661914E88B0050CDCF /* SCItemViewLayout.m */; };
+		02299F0A1BAA91B1006FEBD5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02299F091BAA91B1006FEBD5 /* WebKit.framework */; };
 		022D0CCF158349B80071F665 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 022D0CCD158349B80071F665 /* Localizable.strings */; };
 		022D0D0E1584E5770071F665 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */; };
 		022D0D0F1584E5770071F665 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */; };
@@ -200,6 +201,7 @@
 		0220FFC715D7A84700AB8AA3 /* SCInventoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCInventoryCell.m; path = Classes/SCInventoryCell.m; sourceTree = "<group>"; };
 		02238C651914E88B0050CDCF /* SCItemViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemViewLayout.h; path = Classes/SCItemViewLayout.h; sourceTree = "<group>"; };
 		02238C661914E88B0050CDCF /* SCItemViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemViewLayout.m; path = Classes/SCItemViewLayout.m; sourceTree = "<group>"; };
+		02299F091BAA91B1006FEBD5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		022D0CCE158349B80071F665 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		022D0D0C1584E5770071F665 /* MainStoryboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */,
 				0209E151157954C70073385D /* SystemConfiguration.framework in Frameworks */,
 				028B640B15265D690040D2FF /* UIKit.framework in Frameworks */,
+				02299F0A1BAA91B1006FEBD5 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,6 +723,7 @@
 			isa = PBXGroup;
 			children = (
 				024F01E71BAB6038008A789E /* SafariServices.framework */,
+				02299F091BAA91B1006FEBD5 /* WebKit.framework */,
 				020B1E701BA29B7700E5CD5E /* libc++.tbd */,
 				020B1E6E1BA29B5E00E5CD5E /* libz.tbd */,
 				02BA97EC1BA208EA000FF198 /* Fabric.framework */,

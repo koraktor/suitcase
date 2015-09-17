@@ -25,6 +25,7 @@
 #import "SCItemViewController.h"
 #import "SCLanguage.h"
 #import "SCTF2Item.h"
+#import "SCWikiViewController.h"
 
 NSString *const kSCOpenInChrome = @"kSCOpenInChrome";
 NSString *const kSCOpenInSafari = @"kSCOpenInSafari";
@@ -243,18 +244,14 @@ typedef enum {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showWikiPage"]) {
-        NSURL *wikiUrl = [self wikiUrl];
-
-        UIWebView *webView;
+        SCWikiViewController *wikiController;
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            webView = (UIWebView *)[[segue destinationViewController] view];
+            wikiController = [segue destinationViewController];
         } else {
-            webView = (UIWebView *)((UINavigationController *)segue.destinationViewController).topViewController.view;
+            wikiController = (SCWikiViewController *)((UINavigationController *)segue.destinationViewController).topViewController;
         }
-        if (![webView.request.URL.absoluteURL isEqual:wikiUrl]) {
-            NSURLRequest *wikiRequest = [NSURLRequest requestWithURL:wikiUrl];
-            [webView loadRequest:wikiRequest];
-        }
+
+        [wikiController loadUrl:self.wikiUrl];
     }
 }
 
