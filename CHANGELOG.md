@@ -5,6 +5,19 @@ title: Changelog
 Changelog
 =========
 
+## Version 2.2.3 (09-19-2015)
+
+ * Fixed automatic language selection on iOS 9
+ * Improved web views for iOS 8 and 9
+ * Enhanced security on iOS 9
+ * Fixed minor display issues on iOS 7
+
+## Version 2.2.2 (07-24-2015)
+
+ * Various improvements for Team Fortress 2 inventories
+ * Fixed a rare crash while reloading inventories
+ * Fixed various display problems
+
 ## Version 2.2.1 (07-10-2015)
 
  * Allow number-only custom URLs (also known as vanity URLs)
