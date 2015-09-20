@@ -13,7 +13,7 @@ static NSArray *kSCNonDiscoverableInventories;
 static NSArray *kSCWebApiInventories;
 
 + (void)initialize {
-    kSCNonDiscoverableInventories = @[@753, @104700, @218620, @230410, @239220, @251970, @252490, @295110, @308080, @321360];
+    kSCNonDiscoverableInventories = @[@753, @104700, @218620, @230410, @239220, @251970, @252490, @295110, @308080, @321360, @375950];
     kSCWebApiInventories = @[@440];
 }
 
