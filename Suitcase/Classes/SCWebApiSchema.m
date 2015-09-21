@@ -47,13 +47,14 @@ static NSMutableDictionary *__schemas;
                                             andLanguage:(NSLocale *)locale
 {
     NSString *language = locale.localeIdentifier;
+    NSString *languageCode = [NSLocale componentsFromLocaleIdentifier:language][(NSString *)kCFLocaleLanguageCode];
     NSNumber *appId = inventory.game.appId;
     NSDate *lastUpdated = nil;
 
     if ([__schemas objectForKey:appId] == nil) {
         [__schemas setObject:[NSMutableDictionary dictionary] forKey:appId];
     } else {
-        SCWebApiSchema *schema = [[__schemas objectForKey:appId] objectForKey:language];
+        SCWebApiSchema *schema = [[__schemas objectForKey:appId] objectForKey:languageCode];
         if (schema != nil) {
             inventory.schema = schema;
 
@@ -87,7 +88,7 @@ static NSMutableDictionary *__schemas;
 
         if ([[schemaResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             SCWebApiSchema *schema = [[SCWebApiSchema alloc] initWithDictionary:schemaResponse];
-            [gameSchemas setObject:schema forKey:language];
+            [gameSchemas setObject:schema forKey:languageCode];
             inventory.schema = schema;
 
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSchemaFinished" object:nil];
