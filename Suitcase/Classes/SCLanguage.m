@@ -36,29 +36,26 @@ static NSBundle *iaskRootBundle = nil;
     return [NSLocale localeWithLocaleIdentifier:currentLanguage];
 }
 
-+ (void)setLanguage:(NSString *)lang {
-    NSRange dashRange = [lang rangeOfString:@"-"];
-    if (dashRange.location != NSNotFound) {
-        lang = [lang substringToIndex:dashRange.location];
-    }
++ (void)setLanguage:(NSString *)localeIdentifier {
+    NSString *languageCode = [NSLocale componentsFromLocaleIdentifier:localeIdentifier][(NSString *)kCFLocaleLanguageCode];
 
 #if DEBUG
-    NSLog(@"Changing preferred language to: %@", lang);
+    NSLog(@"Changing preferred language to: %@", languageCode);
 #endif
 
-    NSString *path = [[NSBundle mainBundle] pathForResource:lang ofType:@"lproj" ];
+    NSString *path = [[NSBundle mainBundle] pathForResource:languageCode ofType:@"lproj" ];
 
     if (path == nil) {
 #if DEBUG
-        NSLog(@"%@ unavailable, falling back to en.", lang);
+        NSLog(@"%@ unavailable, falling back to en.", languageCode);
 #endif
 
-        lang = @"en";
-        path = [[NSBundle mainBundle] pathForResource:lang ofType:@"lproj" ];
+        languageCode = @"en";
+        path = [[NSBundle mainBundle] pathForResource:languageCode ofType:@"lproj" ];
     }
 
     bundle = [NSBundle bundleWithPath:path];
-    path = [iaskRootBundle pathForResource:lang ofType:@"lproj" ];
+    path = [iaskRootBundle pathForResource:languageCode ofType:@"lproj" ];
     iaskBundle = [NSBundle bundleWithPath:path];
 }
 
