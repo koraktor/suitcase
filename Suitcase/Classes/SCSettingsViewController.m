@@ -40,15 +40,6 @@
                                                object:nil];
 
     [self reloadStrings];
-
-    /*UIBarButtonItem *doneButton;
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        doneButton = self.toolbarItems.firstObject;
-    } else {
-        doneButton = self.navigationItem.leftBarButtonItem;
-    }
-    [doneButton setTitleTextAttributes:@{ NSFontAttributeName: [UIFont boldSystemFontOfSize:17.0] }
-                              forState:UIControlStateNormal];*/
 }
 
 - (IBAction)dismissSettings:(id)sender
