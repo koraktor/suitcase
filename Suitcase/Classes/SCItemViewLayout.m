@@ -16,7 +16,8 @@
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
-    NSArray* attributesToReturn = [super layoutAttributesForElementsInRect:rect];
+    NSArray* originalAttributes = [super layoutAttributesForElementsInRect:rect];
+    NSArray* attributesToReturn = [[NSArray alloc] initWithArray:originalAttributes copyItems:YES];
     for (UICollectionViewLayoutAttributes* attributes in attributesToReturn) {
         if (nil == attributes.representedElementKind) {
             NSIndexPath* indexPath = attributes.indexPath;
@@ -27,7 +28,7 @@
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewLayoutAttributes* currentItemAttributes = [super layoutAttributesForItemAtIndexPath:indexPath];
+    UICollectionViewLayoutAttributes* currentItemAttributes = [[super layoutAttributesForItemAtIndexPath:indexPath] copy];
 
     if (indexPath.section != 2) {
         return currentItemAttributes;
