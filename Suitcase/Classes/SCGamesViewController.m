@@ -116,7 +116,9 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 }
 
 - (void)clearInventories {
-    [self.refreshControl endRefreshing];
+    if (self.refreshControl.isRefreshing) {
+        [self.refreshControl endRefreshing];
+    }
 
     [self.tableView beginUpdates];
 
