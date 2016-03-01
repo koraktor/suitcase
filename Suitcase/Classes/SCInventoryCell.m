@@ -55,6 +55,10 @@ static CGRect kTextLabelFrame;
     return self;
 }
 
+- (NSString *)accessibilityLabel {
+    return _inventory.game.name;
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];

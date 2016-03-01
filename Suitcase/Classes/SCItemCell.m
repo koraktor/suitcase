@@ -55,6 +55,10 @@ static UIImage *kPlaceHolderImage;
     [super awakeFromNib];
 }
 
+- (NSString *)accessibilityLabel {
+    return self.item.name;
+}
+
 - (void)setShowColors:(BOOL)showColors
 {
     _showColors = showColors;

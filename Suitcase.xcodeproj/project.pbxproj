@@ -50,6 +50,8 @@
 		022D0D0F1584E5770071F665 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */; };
 		022D3CA919CECB0300DD58AE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D3CA819CECB0300DD58AE /* Launch Screen.storyboard */; };
 		022E38A01747D356000CA309 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 022E389D1747D356000CA309 /* FontAwesome.otf */; };
+		0236A6051BDA62F500762FD3 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0236A6041BDA62F500762FD3 /* Snapshot.swift */; };
+		0236A60D1BDA633F00762FD3 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0236A60C1BDA633F00762FD3 /* SnapshotHelper.swift */; };
 		0238B35A1756AD5600284204 /* SCWebApiInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0238B3591756AD5600284204 /* SCWebApiInventory.m */; };
 		023DECE0187963A4007FE4AA /* FAKFontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DECDF187963A4007FE4AA /* FAKFontAwesome.m */; };
 		023DECE618796C99007FE4AA /* FAKIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DECE518796C99007FE4AA /* FAKIcon.m */; };
@@ -129,6 +131,7 @@
 		02BB279119026DA4002D151A /* SCReplaceDetailSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */; };
 		02D5BC5B191982B2000D8206 /* SCItemQuality.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D5BC5A191982B2000D8206 /* SCItemQuality.m */; };
 		02D5BC5E19210274000D8206 /* SCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D5BC5D19210274000D8206 /* SCTableViewController.m */; };
+		02D91C731C8599920014B024 /* Snapfile in Resources */ = {isa = PBXBuildFile; fileRef = 02D91C721C8599920014B024 /* Snapfile */; };
 		02DDB4861582A9E0004DB9D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DDB4851582A9E0004DB9D8 /* QuartzCore.framework */; };
 		02E98C60191274210039E1E7 /* SCItemClassesTF2Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E98C5F191274210039E1E7 /* SCItemClassesTF2Cell.m */; };
 		02E98C6319128C840039E1E7 /* SCItemTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E98C6219128C840039E1E7 /* SCItemTitleCell.m */; };
@@ -137,6 +140,16 @@
 		02F36DF81826AC3C0036D1C6 /* SCSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F36DF71826AC3C0036D1C6 /* SCSplitViewController.m */; };
 		02F37EC41580152300BFB1B5 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F37EC31580152300BFB1B5 /* CoreText.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0236A6071BDA62F500762FD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 028B63FD15265D680040D2FF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 028B640515265D680040D2FF;
+			remoteInfo = Suitcase;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		02010B30169858E400007456 /* SCWebApiRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWebApiRequestOperationManager.h; path = Classes/SCWebApiRequestOperationManager.h; sourceTree = "<group>"; };
@@ -208,6 +221,10 @@
 		022D0D101584E7870071F665 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		022D3CA819CECB0300DD58AE /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		022E389D1747D356000CA309 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = External/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
+		0236A6021BDA62F500762FD3 /* Snapshot.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Snapshot.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0236A6041BDA62F500762FD3 /* Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot.swift; sourceTree = "<group>"; };
+		0236A6061BDA62F500762FD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0236A60C1BDA633F00762FD3 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		0238B3581756AD5500284204 /* SCWebApiInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWebApiInventory.h; path = Classes/SCWebApiInventory.h; sourceTree = "<group>"; };
 		0238B3591756AD5600284204 /* SCWebApiInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWebApiInventory.m; path = Classes/SCWebApiInventory.m; sourceTree = "<group>"; };
 		023DECDE187963A4007FE4AA /* FAKFontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FAKFontAwesome.h; path = External/FontAwesomeKit/FontAwesomeKit/FAKFontAwesome.h; sourceTree = "<group>"; };
@@ -353,6 +370,7 @@
 		02D5BC5A191982B2000D8206 /* SCItemQuality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemQuality.m; path = Classes/SCItemQuality.m; sourceTree = "<group>"; };
 		02D5BC5C19210274000D8206 /* SCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCTableViewController.h; path = Classes/SCTableViewController.h; sourceTree = "<group>"; };
 		02D5BC5D19210274000D8206 /* SCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCTableViewController.m; path = Classes/SCTableViewController.m; sourceTree = "<group>"; };
+		02D91C721C8599920014B024 /* Snapfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Snapfile; sourceTree = SOURCE_ROOT; };
 		02DDB4851582A9E0004DB9D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		02E98C5E191274210039E1E7 /* SCItemClassesTF2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemClassesTF2Cell.h; path = Classes/SCItemClassesTF2Cell.h; sourceTree = "<group>"; };
 		02E98C5F191274210039E1E7 /* SCItemClassesTF2Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemClassesTF2Cell.m; path = Classes/SCItemClassesTF2Cell.m; sourceTree = "<group>"; };
@@ -557,6 +575,17 @@
 			name = FontAwesomeKit;
 			sourceTree = "<group>";
 		};
+		0236A6031BDA62F500762FD3 /* Snapshot */ = {
+			isa = PBXGroup;
+			children = (
+				02D91C721C8599920014B024 /* Snapfile */,
+				0236A60C1BDA633F00762FD3 /* SnapshotHelper.swift */,
+				0236A6041BDA62F500762FD3 /* Snapshot.swift */,
+				0236A6061BDA62F500762FD3 /* Info.plist */,
+			);
+			path = Snapshot;
+			sourceTree = "<group>";
+		};
 		023FDB7B18F65B66002D6FC0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,6 +735,7 @@
 			isa = PBXGroup;
 			children = (
 				028B641015265D690040D2FF /* Suitcase */,
+				0236A6031BDA62F500762FD3 /* Snapshot */,
 				028B640915265D690040D2FF /* Frameworks */,
 				028B640715265D690040D2FF /* Products */,
 			);
@@ -715,6 +745,7 @@
 			isa = PBXGroup;
 			children = (
 				028B640615265D680040D2FF /* Suitcase.app */,
+				0236A6021BDA62F500762FD3 /* Snapshot.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -842,6 +873,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0236A6011BDA62F500762FD3 /* Snapshot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0236A60B1BDA62F500762FD3 /* Build configuration list for PBXNativeTarget "Snapshot" */;
+			buildPhases = (
+				0236A5FE1BDA62F500762FD3 /* Sources */,
+				0236A5FF1BDA62F500762FD3 /* Frameworks */,
+				0236A6001BDA62F500762FD3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0236A6081BDA62F500762FD3 /* PBXTargetDependency */,
+			);
+			name = Snapshot;
+			productName = Snapshot;
+			productReference = 0236A6021BDA62F500762FD3 /* Snapshot.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		028B640515265D680040D2FF /* Suitcase */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 028B643F15265D690040D2FF /* Build configuration list for PBXNativeTarget "Suitcase" */;
@@ -893,11 +942,20 @@
 			projectRoot = "";
 			targets = (
 				028B640515265D680040D2FF /* Suitcase */,
+				0236A6011BDA62F500762FD3 /* Snapshot */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0236A6001BDA62F500762FD3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02D91C731C8599920014B024 /* Snapfile in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		028B640415265D680040D2FF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -984,6 +1042,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0236A5FE1BDA62F500762FD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0236A6051BDA62F500762FD3 /* Snapshot.swift in Sources */,
+				0236A60D1BDA633F00762FD3 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		028B640215265D680040D2FF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1072,6 +1139,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		0236A6081BDA62F500762FD3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 028B640515265D680040D2FF /* Suitcase */;
+			targetProxy = 0236A6071BDA62F500762FD3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		022D0CCD158349B80071F665 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -1087,6 +1162,61 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0236A6091BDA62F500762FD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Snapshot/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = de.koraktor.Snapshot;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_TARGET_NAME = Suitcase;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		0236A60A1BDA62F500762FD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Snapshot/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = de.koraktor.Snapshot;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Suitcase;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		028B643D15265D690040D2FF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1197,6 +1327,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0236A60B1BDA62F500762FD3 /* Build configuration list for PBXNativeTarget "Snapshot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0236A6091BDA62F500762FD3 /* Debug */,
+				0236A60A1BDA62F500762FD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		028B640015265D680040D2FF /* Build configuration list for PBXProject "Suitcase" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
