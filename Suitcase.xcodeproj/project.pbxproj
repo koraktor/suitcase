@@ -386,6 +386,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0236A5FF1BDA62F500762FD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		028B640315265D680040D2FF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -918,9 +925,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SC;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = koraktor.de;
 				TargetAttributes = {
+					0236A6011BDA62F500762FD3 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 028B640515265D680040D2FF;
+					};
 					028B640515265D680040D2FF = {
 						DevelopmentTeam = J7C4VNR3HR;
 					};
