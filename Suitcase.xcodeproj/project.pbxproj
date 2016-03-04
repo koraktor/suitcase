@@ -125,8 +125,8 @@
 		029F6944182E3EEC00851826 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F693A182E3EEC00851826 /* UIImageView+AFNetworking.m */; };
 		029F6945182E3EEC00851826 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F693D182E3EEC00851826 /* UIProgressView+AFNetworking.m */; };
 		029F6946182E3EEC00851826 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F693F182E3EEC00851826 /* UIWebView+AFNetworking.m */; };
-		02BA97EE1BA208EA000FF198 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BA97EC1BA208EA000FF198 /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
 		02BA97EF1BA208EA000FF198 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BA97ED1BA208EA000FF198 /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
+		02BA97EE1BA208EA000FF198 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BA97EC1BA208EA000FF198 /* Fabric.framework */; };
 		02BAAB6017BFAE1E004E635F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BAAB5F17BFAE1E004E635F /* Security.framework */; };
 		02BB279119026DA4002D151A /* SCReplaceDetailSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 02BB279019026DA4002D151A /* SCReplaceDetailSegue.m */; };
 		02D5BC5B191982B2000D8206 /* SCItemQuality.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D5BC5A191982B2000D8206 /* SCItemQuality.m */; };
