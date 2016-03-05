@@ -622,6 +622,9 @@ http://steamcommunity.com/profile/{Profile ID}
                                 </attributes>
                             </fragment>
                         </attributedString>
+                        <connections>
+                            <action selector="triggerRefresh:" destination="19" eventType="valueChanged" id="jCJ-Gc-prN"/>
+                        </connections>
                     </refreshControl>
                     <connections>
                         <outlet property="searchBar" destination="qzT-Lj-kw4" id="sVY-v4-198"/>
