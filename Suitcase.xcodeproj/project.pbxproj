@@ -101,6 +101,8 @@
 		026EEA0517491B1900FB8484 /* bar_gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 026EEA0317491B1900FB8484 /* bar_gradient@2x.png */; };
 		026F215C156ADA1F00C7BD54 /* SCClassImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026F215B156ADA1F00C7BD54 /* SCClassImageView.m */; };
 		0275E20D158E6B5B008EA0AD /* SCItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0275E20C158E6B5B008EA0AD /* SCItemCell.m */; };
+		027759F61C8B09D000AA6EC4 /* IASKTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 027759F51C8B09D000AA6EC4 /* IASKTextViewCell.m */; };
+		027759F91C8B0A6E00AA6EC4 /* IASKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 027759F81C8B0A6E00AA6EC4 /* IASKTextView.m */; };
 		028B640B15265D690040D2FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B640A15265D690040D2FF /* UIKit.framework */; };
 		028B640D15265D690040D2FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B640C15265D690040D2FF /* Foundation.framework */; };
 		028B640F15265D690040D2FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028B640E15265D690040D2FF /* CoreGraphics.framework */; };
@@ -302,6 +304,10 @@
 		026F215B156ADA1F00C7BD54 /* SCClassImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCClassImageView.m; path = Classes/SCClassImageView.m; sourceTree = "<group>"; };
 		0275E20B158E6B5B008EA0AD /* SCItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCItemCell.h; path = Classes/SCItemCell.h; sourceTree = "<group>"; };
 		0275E20C158E6B5B008EA0AD /* SCItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCItemCell.m; path = Classes/SCItemCell.m; sourceTree = "<group>"; };
+		027759F41C8B09D000AA6EC4 /* IASKTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextViewCell.h; sourceTree = "<group>"; };
+		027759F51C8B09D000AA6EC4 /* IASKTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextViewCell.m; sourceTree = "<group>"; };
+		027759F71C8B0A6E00AA6EC4 /* IASKTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextView.h; sourceTree = "<group>"; };
+		027759F81C8B0A6E00AA6EC4 /* IASKTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextView.m; sourceTree = "<group>"; };
 		028B640615265D680040D2FF /* Suitcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Suitcase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		028B640A15265D690040D2FF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		028B640C15265D690040D2FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -467,6 +473,10 @@
 				02010B69169E9CA000007456 /* IASKSwitch.m */,
 				02010B6A169E9CA000007456 /* IASKTextField.h */,
 				02010B6B169E9CA000007456 /* IASKTextField.m */,
+				027759F71C8B0A6E00AA6EC4 /* IASKTextView.h */,
+				027759F81C8B0A6E00AA6EC4 /* IASKTextView.m */,
+				027759F41C8B09D000AA6EC4 /* IASKTextViewCell.h */,
+				027759F51C8B09D000AA6EC4 /* IASKTextViewCell.m */,
 			);
 			name = Views;
 			path = Suitcase/External/InAppSettingsKit/InAppSettingsKit/Views;
@@ -1088,6 +1098,7 @@
 				0203A66918C4B4C300EF5E25 /* AFURLSessionManager.m in Sources */,
 				026EE9F71748B45600FB8484 /* BPBarButtonItem.m in Sources */,
 				023DECE0187963A4007FE4AA /* FAKFontAwesome.m in Sources */,
+				027759F61C8B09D000AA6EC4 /* IASKTextViewCell.m in Sources */,
 				023DECE618796C99007FE4AA /* FAKIcon.m in Sources */,
 				0253608018334BDE0019D250 /* HexColor.m in Sources */,
 				02010B6C169E9CA000007456 /* IASKAppSettingsViewController.m in Sources */,
@@ -1141,6 +1152,7 @@
 				029F6941182E3EEC00851826 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				029D94711939EBA100D1DF43 /* SCNavigationController.m in Sources */,
 				029F6942182E3EEC00851826 /* UIAlertView+AFNetworking.m in Sources */,
+				027759F91C8B0A6E00AA6EC4 /* IASKTextView.m in Sources */,
 				02238C671914E88B0050CDCF /* SCItemViewLayout.m in Sources */,
 				029F6944182E3EEC00851826 /* UIImageView+AFNetworking.m in Sources */,
 				029F6945182E3EEC00851826 /* UIProgressView+AFNetworking.m in Sources */,
