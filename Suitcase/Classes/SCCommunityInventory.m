@@ -100,37 +100,10 @@ withDescriptions:(NSDictionary *)descriptions
     dispatch_group_t dispatchGroup = dispatch_group_create();
     for (NSNumber *itemCategory in self.game.itemCategories) {
         dispatch_group_enter(dispatchGroup);
-        AFHTTPRequestOperation *itemCategoryOperation = [SCCommunityInventory inventoryOperationForSteamId64:self.steamId64
-                                                                                                     andGame:self.game
-                                                                                             andItemCategory:itemCategory];
-        [itemCategoryOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if (![self temporaryFailed]) {
-                if ([responseObject[@"success"] isEqualToNumber:@1]) {
-                    if ([responseObject[@"rgInventory"] isKindOfClass:[NSDictionary class]]) {
-                        [self addItems:[responseObject[@"rgInventory"] allValues]
-                      withDescriptions:responseObject[@"rgDescriptions"]
-                       andItemCategory:itemCategory];
-                    }
-                } else {
-                    NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), responseObject[@"Error"]];
-                    [self failedTemporary:NO forItemType:itemCategory withErrorMessage:errorMessage];
-                }
-            }
 
-            dispatch_group_leave(dispatchGroup);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if (self.isReloading && [operation.responseString isEqualToString:@"null"]) {
-                self.loadingItems = self.items;
-#ifdef DEBUG
-                NSLog(@"Silently ignore load failure.");
-#endif
-            } else if (!self.temporaryFailed) {
-                NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
-                [self failedTemporary:YES forItemType:itemCategory withErrorMessage:errorMessage];
-            }
-
-            dispatch_group_leave(dispatchGroup);
-        }];
+        AFHTTPRequestOperation *itemCategoryOperation = [self operationForItemCategory:itemCategory
+                                                                       inDispatchGroup:dispatchGroup
+                                                                        withRetryDelay:0];
 
         [itemCategoryOperation start];
     }
@@ -148,6 +121,78 @@ withDescriptions:(NSDictionary *)descriptions
 
 - (NSArray *)origins {
     return nil;
+}
+
+- (AFHTTPRequestOperation *)operationForItemCategory:(NSNumber *)itemCategory
+                                     inDispatchGroup:(dispatch_group_t)dispatchGroup
+                                      withRetryDelay:(NSUInteger)retryDelay {
+    AFHTTPRequestOperation *itemCategoryOperation = [SCCommunityInventory inventoryOperationForSteamId64:self.steamId64
+                                                                                              andGame:self.game
+                                                                                      andItemCategory:itemCategory];
+    [itemCategoryOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (![self temporaryFailed]) {
+            if ([responseObject[@"success"] isEqualToNumber:@1]) {
+                if ([responseObject[@"rgInventory"] isKindOfClass:[NSDictionary class]]) {
+                    [self addItems:[responseObject[@"rgInventory"] allValues]
+                  withDescriptions:responseObject[@"rgDescriptions"]
+                   andItemCategory:itemCategory];
+                }
+            } else {
+                NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), responseObject[@"Error"]];
+                [self failedTemporary:NO forItemType:itemCategory withErrorMessage:errorMessage];
+            }
+        }
+
+        dispatch_group_leave(dispatchGroup);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        BOOL finished = YES;
+        BOOL failed = YES;
+        if (operation.response.statusCode == 429) {
+#ifdef DEBUG
+            NSLog(@"Too many requests.");
+#endif
+            if (self.isReloading) {
+#ifdef DEBUG
+                NSLog(@"  Inventory is reloading. Ignoring failure.");
+#endif
+                self.loadingItems = self.items;
+            } else {
+#ifdef DEBUG
+                NSLog(@"  Retrying…");
+#endif
+
+                uint64_t delay = ((1 << retryDelay) - 1) * NSEC_PER_SEC;
+                dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, delay);
+                if (retryDelay < 4) {
+                    failed = NO;
+                    finished = NO;
+                    dispatch_after(delayTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                        AFHTTPRequestOperation *retryOperation = [self operationForItemCategory:itemCategory
+                                                                                inDispatchGroup:dispatchGroup
+                                                                                 withRetryDelay:retryDelay + 1];
+                        [retryOperation start];
+                    });
+                }
+            }
+        } else if (self.isReloading && [operation.responseString isEqualToString:@"null"]) {
+            failed = NO;
+            self.loadingItems = self.items;
+#ifdef DEBUG
+            NSLog(@"Silently ignore load failure.");
+#endif
+        }
+
+        if (finished) {
+            if (failed) {
+                NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
+                [self failedTemporary:YES forItemType:itemCategory withErrorMessage:errorMessage];
+            }
+
+            dispatch_group_leave(dispatchGroup);
+        }
+    }];
+
+    return itemCategoryOperation;
 }
 
 - (NSString *)originNameForIndex:(NSUInteger)index {
