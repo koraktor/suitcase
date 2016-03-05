@@ -55,11 +55,6 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
                                              selector:@selector(sortInventory)
                                                  name:@"sortInventory"
                                                object:nil];
-
-    if (self.refreshControl != nil) {
-        [self.refreshControl beginRefreshing];
-        [self.refreshControl endRefreshing];
-    }
 }
 
 - (void)settingsChanged:(NSNotification *)notification {
