@@ -2,7 +2,7 @@
 //  SCGameCell.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2014, Sebastian Staudt
+//  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
 #import "UIImageView+AFNetworking.h"
@@ -16,14 +16,12 @@
 NSString *const kSCInventoryCellLoadingFailed = @"kSCInventoryCellLoadingFailed";
 
 static CGRect kImageViewFrame;
-static CGRect kItemCountFrame;
 static UIImage *kPlaceHolderImage;
 static CGRect kTextLabelFrame;
 
 + (void)initialize
 {
     kImageViewFrame = CGRectMake(4.0, 4.0, 92.5, 34.5);
-    kItemCountFrame = CGRectMake(100.5, 25.0, 218.0, 17.0);
     kPlaceHolderImage = [UIImage imageNamed:@"game_placeholder.png"];
     kTextLabelFrame = CGRectMake(100.5, 4.0, 219.5, 25.0);
 }
@@ -34,7 +32,7 @@ static CGRect kTextLabelFrame;
 
     self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
-    _itemCountLabel = [[UILabel alloc] initWithFrame:kItemCountFrame];
+    _itemCountLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _itemCountLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     _itemCountLabel.backgroundColor = [UIColor clearColor];
     _itemCountLabel.textAlignment = NSTextAlignmentRight;
@@ -85,6 +83,12 @@ static CGRect kTextLabelFrame;
                                        [SCImageCache cacheLogo:image forGame:cell.inventory.game];
                                    }
                                    failure:nil];
+}
+
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+
+    _itemCountLabel.frame = CGRectMake(100.5, 25.0, self.frame.size.width - 102.0, 17.0);
 }
 
 - (void)setInventory:(id <SCInventory>)inventory

@@ -7,6 +7,7 @@ languages [
 
 devices [
   'iPad Air',
+  'iPad Pro',
   'iPhone 4s',
   'iPhone 5s',
   'iPhone 6',

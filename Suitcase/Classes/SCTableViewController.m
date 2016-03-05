@@ -2,7 +2,7 @@
 //  SCTableViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2014-2015, Sebastian Staudt
+//  Copyright (c) 2014-2016, Sebastian Staudt
 //
 
 #import "BPBarButtonItem.h"
@@ -44,6 +44,10 @@
 
 
 #pragma mark - Table View Delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44.0;
+}
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
