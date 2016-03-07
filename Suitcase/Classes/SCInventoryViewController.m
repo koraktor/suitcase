@@ -2,7 +2,7 @@
 //  SCMasterViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2015, Sebastian Staudt
+//  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
 #import "IASKSettingsReader.h"
@@ -58,12 +58,13 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
 }
 
 - (void)settingsChanged:(NSNotification *)notification {
-    if ([[notification object] isEqual:@"sorting"]) {
+    NSString *settingsKey = notification.userInfo.allKeys[0];
+    if ([settingsKey isEqual:@"sorting"]) {
         [self sortInventory];
-    } else if ([[notification object] isEqual:@"show_colors"]) {
+    } else if ([settingsKey isEqual:@"show_colors"]) {
         _inventory.showColors = [[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue];
         [self refreshInventory];
-    } else if ([notification.object isEqualToString:@"language"]) {
+    } else if ([settingsKey isEqualToString:@"language"]) {
         [self reloadStrings];
     }
 }

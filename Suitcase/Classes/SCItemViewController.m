@@ -2,7 +2,7 @@
 //  SCDetailViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2015, Sebastian Staudt
+//  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
 #import <CoreText/CoreText.h>
@@ -226,7 +226,7 @@ typedef enum {
 }
 
 - (void)settingsChanged:(NSNotification *)notification {
-    if ([notification.object isEqual:@"show_colors"]) {
+    if ([notification.userInfo.allKeys[0] isEqual:@"show_colors"]) {
         [self reloadItemImageCell:notification];
     }
 }
