@@ -50,7 +50,7 @@
 		022D0D0F1584E5770071F665 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D0D0D1584E5770071F665 /* MainStoryboard_iPhone.storyboard */; };
 		022D3CA919CECB0300DD58AE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022D3CA819CECB0300DD58AE /* Launch Screen.storyboard */; };
 		022E38A01747D356000CA309 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 022E389D1747D356000CA309 /* FontAwesome.otf */; };
-		0236A6051BDA62F500762FD3 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0236A6041BDA62F500762FD3 /* Snapshot.swift */; };
+		0236A6051BDA62F500762FD3 /* SnapshotSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0236A6041BDA62F500762FD3 /* SnapshotSequence.swift */; };
 		0236A60D1BDA633F00762FD3 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0236A60C1BDA633F00762FD3 /* SnapshotHelper.swift */; };
 		0238B35A1756AD5600284204 /* SCWebApiInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0238B3591756AD5600284204 /* SCWebApiInventory.m */; };
 		023DECE0187963A4007FE4AA /* FAKFontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 023DECDF187963A4007FE4AA /* FAKFontAwesome.m */; };
@@ -224,7 +224,7 @@
 		022D3CA819CECB0300DD58AE /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		022E389D1747D356000CA309 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = External/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
 		0236A6021BDA62F500762FD3 /* Snapshot.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Snapshot.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0236A6041BDA62F500762FD3 /* Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot.swift; sourceTree = "<group>"; };
+		0236A6041BDA62F500762FD3 /* SnapshotSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotSequence.swift; sourceTree = "<group>"; };
 		0236A6061BDA62F500762FD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0236A60C1BDA633F00762FD3 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		0238B3581756AD5500284204 /* SCWebApiInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWebApiInventory.h; path = Classes/SCWebApiInventory.h; sourceTree = "<group>"; };
@@ -597,7 +597,7 @@
 			children = (
 				02D91C721C8599920014B024 /* Snapfile */,
 				0236A60C1BDA633F00762FD3 /* SnapshotHelper.swift */,
-				0236A6041BDA62F500762FD3 /* Snapshot.swift */,
+				0236A6041BDA62F500762FD3 /* SnapshotSequence.swift */,
 				0236A6061BDA62F500762FD3 /* Info.plist */,
 			);
 			path = Snapshot;
@@ -1068,7 +1068,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0236A6051BDA62F500762FD3 /* Snapshot.swift in Sources */,
+				0236A6051BDA62F500762FD3 /* SnapshotSequence.swift in Sources */,
 				0236A60D1BDA633F00762FD3 /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,7 +14,7 @@ class SnapshotSequence: XCTestCase {
     let exists = NSPredicate(format: "exists == true")
 
     func launchApp(forSteamId64 steamId64: UInt64) {
-        app.launchArguments += ["-SteamID64", String(steamId64)]
+        app.launchArguments += ["-SteamID64", String(steamId64), "-sorting", "quality"]
         app.launch()
 
         sleep(5)
@@ -60,7 +60,7 @@ class SnapshotSequence: XCTestCase {
 
         let firstCell = app.cells.elementBoundByIndex(0)
         let start = firstCell.coordinateWithNormalizedOffset(CGVectorMake(0, 0))
-        let finish = firstCell.coordinateWithNormalizedOffset(CGVectorMake(0, 1))
+        let finish = firstCell.coordinateWithNormalizedOffset(CGVectorMake(0, 3))
         start.pressForDuration(0, thenDragToCoordinate: finish)
 
         app.searchFields.element.tap()
@@ -76,14 +76,12 @@ class SnapshotSequence: XCTestCase {
         snapshot("dota2", waitForLoadingIndicator: false)
     }
 
-    func testGames() {
+    func testGamesAndSettings() {
         launchApp(forSteamId64: 76561197961384956)
+
+        sleep(5)
 
         snapshot("games", waitForLoadingIndicator: false)
-    }
-
-    func testSettings() {
-        launchApp(forSteamId64: 76561197961384956)
 
         app.navigationBars.buttons["Settings"].tap()
 
@@ -91,8 +89,7 @@ class SnapshotSequence: XCTestCase {
     }
 
     func testTF2() {
-        app.launchArguments += ["-SteamID64", "76561197961384956"]
-        app.launch()
+        launchApp(forSteamId64: 76561197961384956)
 
         selectGame("Team Fortress 2")
 
@@ -101,6 +98,8 @@ class SnapshotSequence: XCTestCase {
         } else {
             app.cells.elementBoundByIndex(0).tap()
         }
+
+        sleep(1)
 
         snapshot("tf2", waitForLoadingIndicator: false)
     }
