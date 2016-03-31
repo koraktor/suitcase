@@ -40,6 +40,8 @@
 "kSCSchemaIsLoadingDetail"            = "Die Gegenstände für %@ werden geladen. Das kann eine Weile dauern.";
 "kSCSteamIdHelpText"                  = "Geben Sie die benutzerdefinierte URL oder Profil-ID des Steam Community Profils an:";
 "kSCSteamIdTitle"                     = "Account auswählen";
+"kSCUsageReportingQuestionTitle"       = "Hilf die App zu verbessern";
+"kSCUsageReportingQuestionDescription" = "Suitcase sendet anonyme Informationen und Absturzberichte, um die App zu verbessern. Dies kann deaktiviert werden.";
 "Cancel"                              = "Abbrechen";
 "Done"                                = "Fertig";
 "Inventory"                           = "Inventar";

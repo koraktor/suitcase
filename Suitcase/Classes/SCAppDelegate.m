@@ -2,7 +2,7 @@
 //  SCAppDelegate.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2015, Sebastian Staudt
+//  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
 #import <Fabric/Fabric.h>
@@ -10,7 +10,6 @@
 
 #import "AFNetworkActivityIndicatorManager.h"
 #import "FAKFontAwesome.h"
-#import "TSMessage.h"
 #import "IASKSpecifierValuesViewController.h"
 
 #import "SCCommunityInventory.h"
@@ -34,6 +33,9 @@
 @end
 
 @implementation SCAppDelegate
+
+NSString *const kSCUsageReportingQuestionTitle = @"kSCUsageReportingQuestionTitle";
+NSString *const kSCUsageReportingQuestionDescription = @"kSCUsageReportingQuestionDescription";
 
 static SCCommunityRequestOperationManager *_communityClient;
 static SCWebApiRequestOperationManager *_webApiClient;
@@ -87,15 +89,12 @@ static SCWebApiRequestOperationManager *_webApiClient;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#ifndef DEBUG
-    [Fabric with:@[CrashlyticsKit]];
-#endif
-
     NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:5000000 diskCapacity:0 diskPath:nil];
     [NSURLCache setSharedURLCache:cache];
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [TSMessage addCustomDesignFromFileWithName:@"TSMessagesDesign.json"];
+    [TSMessage setDelegate:self];
 
     [SCImageCache setupImageCacheDirectory];
     [SCWebApiSchema restoreSchemas];
@@ -111,6 +110,8 @@ static SCWebApiRequestOperationManager *_webApiClient;
         navigationController = (UINavigationController *)self.window.rootViewController;
         masterViewController = navigationController.topViewController;
     }
+
+    [self configureUsageReportingInViewController:navigationController];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadAvailableGames" object:nil];
@@ -205,6 +206,57 @@ static SCWebApiRequestOperationManager *_webApiClient;
     }
 }
 
+- (void)configureUsageReportingInViewController:(UIViewController *)viewController {
+    NSNumber *usageReporting = [[NSUserDefaults standardUserDefaults] objectForKey:@"usage_reporting"];
+
+    if (usageReporting == nil) {
+#ifdef DEBUG
+        NSLog(@"Usage reporting is not yet configured…");
+#endif
+
+        usageReporting = @1;
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"usage_reporting"];
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            UIViewController *c = viewController;
+            while (c.childViewControllers.lastObject != nil) {
+                c = c.childViewControllers.lastObject;
+            }
+            while (c.presentedViewController != nil) {
+                c = c.presentedViewController;
+            }
+
+            NSString *settingsName = [[NSBundle bundleWithIdentifier:@"com.apple.UIKit"] localizedStringForKey:@"Settings" value:@"" table:nil];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [TSMessage showNotificationInViewController:c
+                                                      title:NSLocalizedString(kSCUsageReportingQuestionTitle, kSCUsageReportingQuestionTitle)
+                                                   subtitle:NSLocalizedString(kSCUsageReportingQuestionDescription, kSCUsageReportingQuestionDescription)
+                                                      image:nil
+                                                       type:TSMessageNotificationTypeMessage
+                                                   duration:8
+                                                   callback:nil
+                                                buttonTitle:settingsName
+                                             buttonCallback:^(void) {
+                                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                                             }
+                                                 atPosition:TSMessageNotificationPositionTop
+                                       canBeDismissedByUser:YES];
+            });
+        });
+
+
+    }
+
+    if ([usageReporting boolValue]) {
+#ifdef DEBUG
+        NSLog(@"Usage reporting is enabled.");
+#endif
+
+        CrashlyticsKit.delegate = self;
+        [Fabric with:@[[Crashlytics class]]];
+    }
+}
+
 - (void)defaultsChanged:(NSNotification *)notification
 {
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
@@ -253,6 +305,42 @@ static SCWebApiRequestOperationManager *_webApiClient;
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark Crashlytics Delegate
+
+- (void)crashlyticsDidDetectReportForLastExecution:(CLSReport *)report
+                                 completionHandler:(void (^)(BOOL submit))completionHandler {
+#ifdef DEBUG
+    NSLog(@"Detected an error report…");
+#endif
+
+    BOOL usageReporting = [[NSUserDefaults standardUserDefaults] boolForKey:@"usage_reporting"];
+
+#ifdef DEBUG
+    NSLog(@"Error report will %@be sent%@", usageReporting ? @"" : @"NOT ", usageReporting ? @"…" : @".");
+#endif
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        completionHandler(usageReporting);
+    }];
+}
+
+#pragma mark TSMessage Delegate
+
+- (void)customizeMessageView:(TSMessageView *)messageView {
+    for (UIView *subview in messageView.subviews) {
+        if ([subview isKindOfClass:[UIButton class]]) {
+            CALayer *buttonLayer = subview.layer;
+            buttonLayer.borderColor = [[UIColor colorWithRed:0.875f green:0.882f blue:0.894f alpha:1.0f] CGColor];
+            buttonLayer.borderWidth = 1.0f;
+            buttonLayer.cornerRadius = 8.0f;
+            buttonLayer.masksToBounds = NO;
+            buttonLayer.shadowColor = [[UIColor colorWithRed: 0.263f green: 0.267f blue: 0.271f alpha: 1.0f] CGColor];
+            buttonLayer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+            buttonLayer.shadowOpacity = 1.0f;
+            buttonLayer.shadowRadius = 1.0f;
+        }
+    }
 }
 
 @end
