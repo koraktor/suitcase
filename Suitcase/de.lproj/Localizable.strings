@@ -13,6 +13,7 @@
 "kSCHour"                             = "%d Stunde";
 "kSCHours"                            = "%d Stunden";
 "kSCInventoryCellLoadingFailed"       = "Fehler. Antippen zum Wiederholen.";
+"kSCInventoryCellLoadingRetrying"     = "Wiederhole…";
 "kSCInventoryError"                   = "Fehler beim Laden des Inventars: %@";
 "kSCInventoryLoadingFailed"           = "Fehler beim Laden";
 "kSCInventoryLoadingFailedDetail"     = "Das Inventar für %@ konnte nicht geladen werden";

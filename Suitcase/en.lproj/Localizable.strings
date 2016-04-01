@@ -13,6 +13,7 @@
 "kSCHour"                             = "%d Hour";
 "kSCHours"                            = "%d Hours";
 "kSCInventoryCellLoadingFailed"       = "Loading failed. Tap to try again.";
+"kSCInventoryCellLoadingRetrying"     = "Retrying…";
 "kSCInventoryError"                   = "Error loading the inventory: %@";
 "kSCInventoryLoadingFailed"           = "Failed to load";
 "kSCInventoryLoadingFailedDetail"     = "The inventory for %@ could not be loaded.";

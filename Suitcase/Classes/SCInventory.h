@@ -2,7 +2,7 @@
 //  SCInventory.h
 //  Suitcase
 //
-//  Copyright (c) 2014-2015, Sebastian Staudt
+//  Copyright (c) 2014-2016, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
@@ -12,6 +12,7 @@
 typedef NS_ENUM(NSUInteger, SCInventoryState) {
     SCInventoryStateNew,
     SCInventoryStateReloading,
+    SCInventoryStateRetrying,
     SCInventoryStateSuccessful,
     SCInventoryStateTemporaryFailed,
     SCInventoryStateFailed
@@ -32,6 +33,7 @@ typedef NS_ENUM(NSUInteger, SCInventoryState) {
 - (BOOL)isEmpty;
 - (BOOL)isLoaded;
 - (BOOL)isReloading;
+- (BOOL)isRetrying;
 - (BOOL)isSuccessful;
 - (NSArray *)items;
 - (void)load;

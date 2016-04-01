@@ -2,7 +2,7 @@
 //  SCAbstractInventory.m
 //  Suitcase
 //
-//  Copyright (c) 2014-2015, Sebastian Staudt
+//  Copyright (c) 2014-2016, Sebastian Staudt
 //
 
 #import "SCAbstractInventory.h"
@@ -133,12 +133,17 @@ static NSMutableDictionary *__inventories;
 
 - (BOOL)isLoaded
 {
-    return self.state != SCInventoryStateNew && !self.isReloading;
+    return self.state != SCInventoryStateNew && !self.isReloading && !self.isRetrying;
 }
 
 - (BOOL)isReloading
 {
     return self.state == SCInventoryStateReloading;
+}
+
+- (BOOL)isRetrying
+{
+    return self.state == SCInventoryStateRetrying;
 }
 
 - (BOOL)isSuccessful

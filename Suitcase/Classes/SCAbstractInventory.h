@@ -2,7 +2,7 @@
 //  SCAbstractInventory.h
 //  Suitcase
 //
-//  Copyright (c) 2014-2015, Sebastian Staudt
+//  Copyright (c) 2014-2016, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
@@ -52,6 +52,7 @@ extern NSString *const kSCInventoryError;
 - (BOOL)isEmpty;
 - (BOOL)isLoaded;
 - (BOOL)isReloading;
+- (BOOL)isRetrying;
 - (BOOL)isSuccessful;
 - (BOOL)outdated;
 - (void)reload;

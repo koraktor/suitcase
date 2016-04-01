@@ -2,7 +2,7 @@
 //  SCCommunityInventory.h
 //  Suitcase
 //
-//  Copyright (c) 2014, Sebastian Staudt
+//  Copyright (c) 2014-2016, Sebastian Staudt
 //
 //
 
@@ -12,4 +12,7 @@
 #import "SCInventory.h"
 
 @interface SCCommunityInventory : SCAbstractInventory <SCInventory>
+
+- (void)retry;
+
 @end

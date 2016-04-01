@@ -13,6 +13,7 @@
 "kSCHour"                             = "%d heure";
 "kSCHours"                            = "%d heures";
 "kSCInventoryCellLoadingFailed"       = "Erreur. Touchez pour répéter.";
+"kSCInventoryCellLoadingRetrying"     = "Réessayant…";
 "kSCInventoryError"                   = "Erreur de chargement de l’inventaire: %@";
 "kSCInventoryLoadingFailed"           = "Erreur de chargement";
 "kSCInventoryLoadingFailedDetail"     = "L’inventaire pour %@ ne pouvait être chargé";

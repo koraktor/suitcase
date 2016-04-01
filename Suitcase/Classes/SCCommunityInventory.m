@@ -159,6 +159,11 @@ withDescriptions:(NSDictionary *)descriptions
 
         dispatch_group_leave(dispatchGroup);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (self.isLoaded) {
+            dispatch_group_leave(dispatchGroup);
+            return;
+        }
+
         BOOL finished = YES;
         BOOL failed = YES;
         if (operation.response.statusCode == 429) {
@@ -185,6 +190,7 @@ withDescriptions:(NSDictionary *)descriptions
                     failed = NO;
                     finished = NO;
                     dispatch_after(delayTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                        [self retry];
                         AFHTTPRequestOperation *retryOperation = [self operationForItemCategory:itemCategory
                                                                                 inDispatchGroup:dispatchGroup
                                                                                  withRetryDelay:retryDelay + 1];
@@ -227,6 +233,15 @@ withDescriptions:(NSDictionary *)descriptions
     _itemTypes = nil;
 
     [super reload];
+}
+
+- (void)retry
+{
+    self.state = SCInventoryStateRetrying;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"inventoryLoaded" object:self];
+    });
 }
 
 - (void)sortItems

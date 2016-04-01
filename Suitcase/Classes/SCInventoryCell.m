@@ -14,6 +14,7 @@
 @implementation SCInventoryCell
 
 NSString *const kSCInventoryCellLoadingFailed = @"kSCInventoryCellLoadingFailed";
+NSString *const kSCInventoryCellLoadingRetrying = @"kSCInventoryCellLoadingRetrying";
 
 static CGRect kImageViewFrame;
 static UIImage *kPlaceHolderImage;
@@ -97,7 +98,9 @@ static CGRect kTextLabelFrame;
     _inventory = inventory;
 
     self.textLabel.text = inventory.game.name;
-    if (![inventory isSuccessful]) {
+    if (inventory.isRetrying) {
+        self.itemCountLabel.text = NSLocalizedString(kSCInventoryCellLoadingRetrying, kSCInventoryCellLoadingRetrying);
+    } else if (![inventory isSuccessful]) {
         self.itemCountLabel.text = NSLocalizedString(kSCInventoryCellLoadingFailed, kSCInventoryCellLoadingFailed);
     } else if ([inventory.slots isEqualToNumber:@0]) {
         self.itemCountLabel.text = [NSString stringWithFormat:@"%lu %@", (unsigned long) [inventory.items count], NSLocalizedString(@"items", @"items")];
