@@ -2,7 +2,7 @@
 //  SCCommunityInventory.m
 //  Suitcase
 //
-//  Copyright (c) 2014, Sebastian Staudt
+//  Copyright (c) 2014-2016, Sebastian Staudt
 //
 //
 
@@ -15,6 +15,7 @@
 @interface SCCommunityInventory() {
     NSArray *_descriptions;
     NSArray *_itemTypes;
+    NSMutableArray *_operations;
 }
 @end
 
@@ -80,6 +81,17 @@ withDescriptions:(NSDictionary *)descriptions
     self.loadingItems = [self.loadingItems arrayByAddingObjectsFromArray:newItems];
 }
 
+- (void)cancelOperationsInDispatchGroup:(dispatch_group_t)dispatchGroup
+{
+#ifdef DEBUG
+    NSLog(@"Cancelling all operations for game \"%@\"…", self.game.name);
+#endif
+
+    for (NSOperation *operation in _operations) {
+        [operation cancel];
+    }
+}
+
 - (void)failedTemporary:(BOOL)temporaryFailed
             forItemType:(NSNumber *)itemType
        withErrorMessage:(NSString *)errorMessage
@@ -97,6 +109,7 @@ withDescriptions:(NSDictionary *)descriptions
 
 - (void)load
 {
+    _operations = [NSMutableArray arrayWithCapacity:self.game.itemCategories.count];
     dispatch_group_t dispatchGroup = dispatch_group_create();
     for (NSNumber *itemCategory in self.game.itemCategories) {
         dispatch_group_enter(dispatchGroup);
@@ -104,6 +117,7 @@ withDescriptions:(NSDictionary *)descriptions
         AFHTTPRequestOperation *itemCategoryOperation = [self operationForItemCategory:itemCategory
                                                                        inDispatchGroup:dispatchGroup
                                                                         withRetryDelay:0];
+        [_operations addObject:itemCategoryOperation];
 
         [itemCategoryOperation start];
     }
@@ -157,6 +171,9 @@ withDescriptions:(NSDictionary *)descriptions
 #endif
                 failed = NO;
                 self.loadingItems = self.items;
+                self.state = SCInventoryStateSuccessful;
+
+                [self cancelOperationsInDispatchGroup:dispatchGroup];
             } else {
 #ifdef DEBUG
                 NSLog(@"  Retrying…");
@@ -178,6 +195,9 @@ withDescriptions:(NSDictionary *)descriptions
         } else if (self.isReloading && [operation.responseString isEqualToString:@"null"]) {
             failed = NO;
             self.loadingItems = self.items;
+            self.state = SCInventoryStateSuccessful;
+
+            [self cancelOperationsInDispatchGroup:dispatchGroup];
 #ifdef DEBUG
             NSLog(@"Silently ignore load failure.");
 #endif
@@ -187,6 +207,7 @@ withDescriptions:(NSDictionary *)descriptions
             if (failed) {
                 NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
                 [self failedTemporary:YES forItemType:itemCategory withErrorMessage:errorMessage];
+                [self cancelOperationsInDispatchGroup:dispatchGroup];
             }
 
             dispatch_group_leave(dispatchGroup);
