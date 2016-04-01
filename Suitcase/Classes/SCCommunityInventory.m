@@ -155,6 +155,7 @@ withDescriptions:(NSDictionary *)descriptions
 #ifdef DEBUG
                 NSLog(@"  Inventory is reloading. Ignoring failure.");
 #endif
+                failed = NO;
                 self.loadingItems = self.items;
             } else {
 #ifdef DEBUG
