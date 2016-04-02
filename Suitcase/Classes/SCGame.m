@@ -26,6 +26,7 @@ static NSArray *kSCWebApiInventories;
         @304930, // Unturned
         @308080, // Altitude0: Lower & Faster
         @321360, // Primal Carnage: Extinction
+        @375950, // Viridi
     ];
     kSCWebApiInventories = @[
         @440 // Team Fortress 2
