@@ -676,7 +676,11 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         _currentInventory = [self.inventories objectAtIndex:indexPath.row];
     }
 
-    [self prepareInventory];
+    if (_currentInventory.isRetrying) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    } else {
+        [self prepareInventory];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
