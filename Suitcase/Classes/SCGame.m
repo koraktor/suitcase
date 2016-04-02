@@ -13,8 +13,24 @@ static NSArray *kSCNonDiscoverableInventories;
 static NSArray *kSCWebApiInventories;
 
 + (void)initialize {
-    kSCNonDiscoverableInventories = @[@753, @104700, @218620, @230410, @232090, @239220, @251970, @252490, @295110, @304930, @308080, @321360, @375950];
-    kSCWebApiInventories = @[@440];
+    kSCNonDiscoverableInventories = @[
+        @753,    // Steam
+        @104700, // Super Monday Night Combat
+        @218620, // PAYDAY 2
+        @230410, // Warframe
+        @232090, // Killing Floor 2
+        @239220, // The Mighty Quest For Epic Loot
+        @251970, // Sins of a Dark Age
+        @252490, // Rust
+        @295110, // H1Z1: Just Survive
+        @304930, // Unturned
+        @308080, // Altitude0: Lower & Faster
+        @321360, // Primal Carnage: Extinction
+        @375950, // Viridi
+    ];
+    kSCWebApiInventories = @[
+        @440 // Team Fortress 2
+    ];
 }
 
 + (NSArray *)nonDiscoverableInventories {
