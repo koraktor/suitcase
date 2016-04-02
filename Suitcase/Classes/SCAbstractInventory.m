@@ -171,7 +171,11 @@ static NSMutableDictionary *__inventories;
 - (void)reload
 {
     self.loadingItems = @[];
-    self.state = SCInventoryStateReloading;
+    if (self.state == SCInventoryStateSuccessful) {
+        self.state = SCInventoryStateReloading;
+    } else {
+        self.state = SCInventoryStateNew;
+    }
 
     [(id <SCInventory>)self load];
 }
