@@ -2,7 +2,7 @@
 //  SCGame.m
 //  Suitcase
 //
-//  Copyright (c) 2013-2015, Sebastian Staudt
+//  Copyright (c) 2013-2016, Sebastian Staudt
 //
 
 #import "SCGame.h"
@@ -15,6 +15,7 @@ static NSArray *kSCWebApiInventories;
 + (void)initialize {
     kSCNonDiscoverableInventories = @[
         @753,    // Steam
+        @4920,   // Natural Selection 2
         @104700, // Super Monday Night Combat
         @218620, // PAYDAY 2
         @230410, // Warframe
