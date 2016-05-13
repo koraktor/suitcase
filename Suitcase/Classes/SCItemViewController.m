@@ -374,8 +374,7 @@ typedef enum {
 
     switch (indexPath.section) {
         case kSCCellTypeAttribute: {
-            CGSize attributeValueLabelSize;
-            CGFloat cellHeight = attributeValueLabelSize.height + 10.0;
+            CGFloat cellHeight;
             id attributeValue = [SCItemAttributeCell attributeValueForType:[self itemAttributeTypeForIndex:indexPath.item]
                                                                           andItem:self.item];
             if ([attributeValue isKindOfClass:[NSAttributedString class]]) {
