@@ -9,16 +9,22 @@
 
 @implementation SCGame
 
-static NSArray *kSCNonDiscoverableInventories;
+static NSArray *kSCCommunityInventories;
 static NSArray *kSCWebApiInventories;
 
 + (void)initialize {
-    kSCNonDiscoverableInventories = @[
+    kSCCommunityInventories = @[
+        @570,    // Dota 2
+        @620,    // Portal 2
+        @730,    // Counter-Strike: Global Offensive
         @753,    // Steam
         @4920,   // Natural Selection 2
         @104700, // Super Monday Night Combat
+        @205790, // Dota 2 Test
         @218620, // PAYDAY 2
+        @221540, // Defense Grid 2
         @230410, // Warframe
+        @238460, // BattleBlock Theater
         @232090, // Killing Floor 2
         @239220, // The Mighty Quest For Epic Loot
         @251970, // Sins of a Dark Age
@@ -35,8 +41,8 @@ static NSArray *kSCWebApiInventories;
     ];
 }
 
-+ (NSArray *)nonDiscoverableInventories {
-    return kSCNonDiscoverableInventories;
++ (NSArray *)communityInventories {
+    return kSCCommunityInventories;
 }
 
 + (instancetype)steamGame

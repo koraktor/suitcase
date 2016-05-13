@@ -2,7 +2,7 @@
 //  SCGame.h
 //  Suitcase
 //
-//  Copyright (c) 2013-2015, Sebastian Staudt
+//  Copyright (c) 2013-2016, Sebastian Staudt
 //
 
 @interface SCGame : NSObject
@@ -12,7 +12,7 @@
 @property (readonly) NSString *name;
 @property (readonly) NSArray *itemCategories;
 
-+ (NSArray *)nonDiscoverableInventories;
++ (NSArray *)communityInventories;
 + (instancetype)steamGame;
 + (NSArray *)webApiInventories;
 - (id)initWithJSONObject:(NSDictionary *)jsonObject;
