@@ -101,6 +101,11 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [SCAbstractInventory setCurrentInventory:nil];
+}
+
 #pragma mark - Search Bar
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {

@@ -2,7 +2,7 @@
 //  SCSchema.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2014, Sebastian Staudt
+//  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
 #import "SCAppDelegate.h"
@@ -15,6 +15,24 @@ static NSMutableDictionary *__schemas;
 
 + (void)initialize {
     __schemas = [NSMutableDictionary dictionary];
+}
+
++ (void)clearSchemas {
+    NSArray *appIds = [__schemas allKeys];
+    if ([SCAbstractInventory.currentInventory isKindOfClass:[SCWebApiInventory class]]) {
+        appIds = [appIds mutableCopy];
+        [(NSMutableArray *)appIds removeObject:SCAbstractInventory.currentInventory.game.appId];
+    }
+
+    [__schemas removeObjectsForKeys:appIds];
+
+    [SCAbstractInventory.inventories enumerateKeysAndObjectsUsingBlock:^(NSNumber *_Nonnull steamId64, NSDictionary *_Nonnull inventories, BOOL * _Nonnull stop) {
+        [inventories enumerateKeysAndObjectsUsingBlock:^(NSNumber *_Nonnull appId, id<SCInventory> _Nonnull inventory, BOOL *_Nonnull stop) {
+            if ([appIds containsObject:inventory.game.appId] && [inventory isKindOfClass:[SCWebApiInventory class]]) {
+                ((SCWebApiInventory *)inventory).schema = nil;
+            }
+        }];
+    }];
 }
 
 + (void)restoreSchemas {

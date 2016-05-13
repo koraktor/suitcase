@@ -34,8 +34,10 @@ extern NSString *const kSCInventoryError;
 + (NSArray *)alphabet;
 + (NSArray *)alphabetWithNumbers;
 + (void)addInventory:(SCAbstractInventory *)inventory forUser:(NSNumber *)steamId64 andGame:(SCGame *)game;
++ (instancetype)currentInventory;
 + (NSDictionary *)inventories;
 + (NSDictionary *)inventoriesForUser:(NSNumber *)steamId64;
++ (void)setCurrentInventory:(SCAbstractInventory *)inventory;
 
 #pragma mark Constructor
 

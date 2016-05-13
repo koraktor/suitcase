@@ -80,6 +80,11 @@ static SCWebApiRequestOperationManager *_webApiClient;
     return _webApiClient;
 }
 
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
+    [SCWebApiSchema clearSchemas];
+}
+
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];

@@ -16,6 +16,7 @@ NSString *const kSCInventoryError = @"kSCInventoryError";
 
 static NSArray *__alphabet;
 static NSArray *__alphabetWithNumbers;
+static SCAbstractInventory *__currentInventory;
 static NSMutableDictionary *__inventories;
 
 #pragma mark Class methods
@@ -43,6 +44,10 @@ static NSMutableDictionary *__inventories;
     __inventories[steamId64][game.appId] = inventory;
 }
 
++ (instancetype)currentInventory {
+    return __currentInventory;
+}
+
 + (NSDictionary *)inventories
 {
     return __inventories;
@@ -59,6 +64,11 @@ static NSMutableDictionary *__inventories;
     }
 
     return __inventories[steamId64];
+}
+
++ (void)setCurrentInventory:(SCAbstractInventory *)inventory
+{
+    __currentInventory = inventory;
 }
 
 #pragma mark Constructor

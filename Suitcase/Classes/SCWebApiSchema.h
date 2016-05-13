@@ -2,7 +2,7 @@
 //  SCSchema.h
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
@@ -24,6 +24,7 @@
 @property (strong, readonly) NSArray *qualities;
 @property (strong, nonatomic) NSDate *timestamp;
 
++ (void)clearSchemas;
 + (void)restoreSchemas;
 + (NSDictionary *)schemas;
 + (AFHTTPRequestOperation *)schemaOperationForInventory:(SCWebApiInventory *)inventory
