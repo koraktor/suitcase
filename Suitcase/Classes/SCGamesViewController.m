@@ -189,6 +189,14 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     NSLog(@"Loaded inventory for game \"%@\" (App ID %@)", inventory.game.name, inventory.game.appId);
 #endif
 
+    NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
+    if (![inventory.steamId64 isEqual:steamId64]) {
+#ifdef DEBUG
+        NSLog(@"Discarding inventory for different user.");
+#endif
+        return;
+    }
+
     BOOL skipEmptyInventories;
     NSNumber *rawSkipEmptyInventories = [[NSUserDefaults standardUserDefaults] valueForKey:@"skip_empty_inventories"];
     if (rawSkipEmptyInventories == nil) {
