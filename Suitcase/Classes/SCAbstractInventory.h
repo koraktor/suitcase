@@ -14,7 +14,7 @@
 
 extern NSString *const kSCInventoryError;
 
-@interface SCAbstractInventory : NSObject
+@interface SCAbstractInventory : NSObject <NSCoding>
 
 #pragma mark Properties
 
@@ -37,7 +37,9 @@ extern NSString *const kSCInventoryError;
 + (instancetype)currentInventory;
 + (NSDictionary *)inventories;
 + (NSDictionary *)inventoriesForUser:(NSNumber *)steamId64;
++ (void)restoreInventories;
 + (void)setCurrentInventory:(SCAbstractInventory *)inventory;
++ (void)storeInventories;
 
 #pragma mark Constructor
 

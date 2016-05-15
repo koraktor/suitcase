@@ -2,7 +2,7 @@
 //  SCItem.h
 //  Suitcase
 //
-//  Copyright (c) 2014, Sebastian Staudt
+//  Copyright (c) 2014-2016, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
@@ -11,7 +11,7 @@
 
 #import "SCInventory.h"
 
-@protocol SCItem <NSObject>
+@protocol SCItem <NSCoding, NSObject>
 
 @property (nonatomic, readonly) NSNumber *position;
 

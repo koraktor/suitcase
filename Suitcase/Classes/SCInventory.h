@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, SCInventoryState) {
     SCInventoryStateFailed
 };
 
-@protocol SCInventory <NSObject>
+@protocol SCInventory <NSCoding, NSObject>
 
 @property NSArray *itemSections;
 @property BOOL showColors;

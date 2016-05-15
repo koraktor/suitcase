@@ -103,6 +103,8 @@ static SCWebApiRequestOperationManager *_webApiClient;
 
     [SCImageCache setupImageCacheDirectory];
     [SCWebApiSchema restoreSchemas];
+    [SCGame restoreGames];
+    [SCAbstractInventory restoreInventories];
 
     UIViewController *masterViewController;
     UINavigationController *navigationController;
@@ -189,6 +191,8 @@ static SCWebApiRequestOperationManager *_webApiClient;
             [SCWebApiSchema storeSchema:schema forAppId:appId andLanguage:locale];
         }];
     }];
+    [SCGame storeGames];
+    [SCAbstractInventory storeInventories];
 }
 
 - (void)clearCaches

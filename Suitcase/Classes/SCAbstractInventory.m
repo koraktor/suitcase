@@ -66,9 +66,58 @@ static NSMutableDictionary *__inventories;
     return __inventories[steamId64];
 }
 
++ (void)restoreInventories {
+    if (__inventories == nil) {
+        __inventories = [NSMutableDictionary dictionary];
+    }
+
+    NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:documentsPath];
+
+    NSString *fileName;
+    while (fileName = [dirEnum nextObject]) {
+        if ([[fileName pathExtension] isEqualToString:@"inventory"]) {
+            id<SCInventory> inventory = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsPath stringByAppendingPathComponent:fileName]];
+            NSNumber *appId = [NSNumber numberWithInteger:[[[fileName lastPathComponent] stringByDeletingPathExtension] integerValue]];
+            NSNumber *steamId64 = [NSNumber numberWithInteger:[[fileName stringByDeletingLastPathComponent] integerValue]];
+            if (__inventories[steamId64] == nil) {
+                __inventories[steamId64] = [NSMutableDictionary dictionary];
+            }
+            __inventories[steamId64][appId] = inventory;
+#ifdef DEBUG
+            NSLog(@"Restored inventory for app ID %@ and Steam ID \"%@\".", appId, steamId64);
+#endif
+        }
+    };
+}
+
 + (void)setCurrentInventory:(SCAbstractInventory *)inventory
 {
     __currentInventory = inventory;
+}
+
++ (void)storeInventories
+{
+    [__inventories enumerateKeysAndObjectsUsingBlock:^(NSNumber *_Nonnull steamId64, NSDictionary *_Nonnull userInventories, BOOL * _Nonnull stop) {
+        [userInventories enumerateKeysAndObjectsUsingBlock:^(NSNumber *_Nonnull appId, id<SCInventory> _Nonnull inventory, BOOL * _Nonnull stop) {
+            [SCAbstractInventory storeInventory:inventory forAppId:appId andSteamId64:steamId64];
+        }];
+    }];
+}
+
++ (void)storeInventory:(id<SCInventory>)inventory forAppId:(NSNumber *)appId andSteamId64:(NSNumber *)steamId64 {
+    NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *fileName = [NSString stringWithFormat:@"%@.inventory", appId];
+    NSString *steamId64Path = [documentsPath stringByAppendingPathComponent:[steamId64 stringValue]];
+    NSString *inventoryPath = [steamId64Path stringByAppendingPathComponent:fileName];
+
+    [[NSFileManager defaultManager] createDirectoryAtPath:steamId64Path withIntermediateDirectories:YES attributes:nil error:nil];
+
+    [NSKeyedArchiver archiveRootObject:inventory toFile:inventoryPath];
+
+#ifdef DEBUG
+    NSLog(@"Stored inventory for app ID %@ and Steam ID %@.", appId, steamId64);
+#endif
 }
 
 #pragma mark Constructor
@@ -193,6 +242,35 @@ static NSMutableDictionary *__inventories;
 - (BOOL)temporaryFailed
 {
     return self.state == SCInventoryStateTemporaryFailed;
+}
+
+#pragma NSCoding
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+
+    NSNumber *appId = [aDecoder decodeObjectForKey:@"appId"];
+    _game = [SCGame gameWithAppId:appId];
+    _items = [aDecoder decodeObjectForKey:@"items"];
+    _itemQualities = [aDecoder decodeObjectForKey:@"itemQualities"];
+    _itemSections = [aDecoder decodeObjectForKey:@"itemSections"];
+    _slots = [aDecoder decodeObjectForKey:@"slots"];
+    _state = (SCInventoryState) [[aDecoder decodeObjectForKey:@"state"] intValue];
+    _steamId64 = [aDecoder decodeObjectForKey:@"steamId64"];
+    _timestamp = [aDecoder decodeObjectForKey:@"timestamp"];
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_game.appId forKey:@"appId"];
+    [aCoder encodeObject:_items forKey:@"items"];
+    [aCoder encodeObject:_itemQualities forKey:@"itemQualities"];
+    [aCoder encodeObject:_itemSections forKey:@"itemSections"];
+    [aCoder encodeObject:_slots forKey:@"slots"];
+    [aCoder encodeObject:@(_state) forKey:@"state"];
+    [aCoder encodeObject:_steamId64 forKey:@"steamId64"];
+    [aCoder encodeObject:_timestamp forKey:@"timestamp"];
 }
 
 @end

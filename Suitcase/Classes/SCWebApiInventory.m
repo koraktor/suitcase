@@ -2,7 +2,7 @@
 //  SCInventory.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2014, Sebastian Staudt
+//  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
 #import <QuartzCore/QuartzCore.h>
@@ -214,6 +214,26 @@ static NSArray *alphabetWithNumbers;
         }];
         self.itemSections = [NSArray arrayWithArray:sortedItemSections];
     }
+}
+
+#pragma NSCoding
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+
+    _itemTypes = [aDecoder decodeObjectForKey:@"itemTypes"];
+
+    NSString *language = SCLanguage.currentLanguage.localeIdentifier;
+    NSString *languageCode = [NSLocale componentsFromLocaleIdentifier:language][(NSString *)kCFLocaleLanguageCode];
+    _schema = SCWebApiSchema.schemas[self.game.appId][languageCode];
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:(NSCoder *)aCoder];
+
+    [aCoder encodeObject:_itemTypes forKey:@"itemTypes"];
 }
 
 @end

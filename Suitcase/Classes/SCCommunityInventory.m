@@ -318,4 +318,22 @@ withDescriptions:(NSDictionary *)descriptions
     }
 }
 
+#pragma NSCoding
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+
+    _itemTypes = [aDecoder decodeObjectForKey:@"itemTypes"];
+    _descriptions = [aDecoder decodeObjectForKey:@"descriptions"];
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+
+    [aCoder encodeObject:_itemTypes forKey:@"itemTypes"];
+    [aCoder encodeObject:_descriptions forKey:@"descriptions"];
+}
+
 @end

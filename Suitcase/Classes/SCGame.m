@@ -11,6 +11,7 @@
 
 static NSArray *kSCCommunityInventories;
 static NSArray *kSCWebApiInventories;
+static NSMutableDictionary *__games;
 
 + (void)initialize {
     kSCCommunityInventories = @[
@@ -39,20 +40,64 @@ static NSArray *kSCWebApiInventories;
     kSCWebApiInventories = @[
         @440 // Team Fortress 2
     ];
+    __games = [NSMutableDictionary dictionary];
 }
 
 + (NSArray *)communityInventories {
     return kSCCommunityInventories;
 }
 
++ (instancetype)gameWithAppId:(NSNumber *)appId {
+    return __games[appId];
+}
+
++ (NSArray *)itemCategoriesForAppId:(NSNumber *)appId {
+    if ([appId isEqualToNumber:@753]) {
+        return @[@3, @6, @7];
+    } else if ([appId isEqualToNumber:@104700]) {
+        return @[@2, @3, @13];
+    } else if ([@[@251970, @295110, @308080, @321360] containsObject:appId]) {
+        return @[@1];
+    } else if ([appId isEqualToNumber:@239220]) {
+        return @[@15];
+    } else {
+        return @[@2];
+    }
+}
+
++ (void)restoreGames {
+    NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:documentsPath];
+
+    NSString *fileName;
+    while (fileName = [dirEnum nextObject]) {
+        if ([fileName isEqualToString:@"games"]) {
+            __games = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsPath stringByAppendingPathComponent:fileName]];
+#ifdef DEBUG
+            NSLog(@"Restored games.");
+#endif
+            return;
+        }
+    };
+}
+
 + (instancetype)steamGame
 {
-    SCGame *game = [[self alloc] initWithAppId:@753
-                                       andName:@"Steam"
-                                   andLogoHash:@"ebc73b4e326945ea7eb986d93e2b1aabb291fe7d"
-                             andItemCategories:@[@3, @6, @7]];
+    return [[self alloc] initWithAppId:@753
+                               andName:@"Steam"
+                           andLogoHash:@"ebc73b4e326945ea7eb986d93e2b1aabb291fe7d"];
+}
 
-    return game;
++ (void)storeGames {
+    NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *fileName = [NSString stringWithFormat:@"games"];
+    NSString *gamesPath = [documentsPath stringByAppendingPathComponent:fileName];
+
+    [NSKeyedArchiver archiveRootObject:__games toFile:gamesPath];
+
+#ifdef DEBUG
+    NSLog(@"Stored games.");
+#endif
 }
 
 + (NSArray *)webApiInventories {
@@ -61,22 +106,9 @@ static NSArray *kSCWebApiInventories;
 
 - (id)initWithJSONObject:(NSDictionary *)jsonObject
 {
-    NSNumber *appId = jsonObject[@"appid"];
-    NSArray *itemCategories;
-    if ([appId isEqualToNumber:@104700]) {
-        itemCategories = @[@2, @3, @13];
-    } else if ([@[@251970, @295110, @308080, @321360] containsObject:appId]) {
-        itemCategories = @[@1];
-    } else if ([appId isEqualToNumber:@239220]) {
-        itemCategories = @[@15];
-    } else {
-        itemCategories = @[@2];
-    }
-
-    self = [self initWithAppId:appId
+    self = [self initWithAppId:jsonObject[@"appid"]
                        andName:jsonObject[@"name"]
-                   andLogoHash:jsonObject[@"img_logo_url"]
-             andItemCategories:itemCategories];
+                   andLogoHash:jsonObject[@"img_logo_url"]];
 
     return self;
 }
@@ -84,13 +116,14 @@ static NSArray *kSCWebApiInventories;
 - (id)initWithAppId:(NSNumber *)appId
             andName:(NSString *)name
         andLogoHash:(NSString *)logoHash
-  andItemCategories:(NSArray *)itemCategories
 {
     _appId = appId;
     NSString *logoUrl = [NSString stringWithFormat:@"http://media.steampowered.com/steamcommunity/public/images/apps/%@/%@.jpg", _appId, logoHash];
     _logoUrl = [NSURL URLWithString:logoUrl];
     _name = name;
-    _itemCategories = itemCategories;
+    _itemCategories = [SCGame itemCategoriesForAppId:_appId];
+
+    __games[appId] = self;
 
     return self;
 }
@@ -120,6 +153,25 @@ static NSArray *kSCWebApiInventories;
 
 - (NSString *)logoIdentifier {
     return [self.appId stringValue];
+}
+
+#pragma NSCoding
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+
+    _appId = [aDecoder decodeObjectForKey:@"appId"];
+    _itemCategories = [SCGame itemCategoriesForAppId:_appId];
+    _logoUrl = [aDecoder decodeObjectForKey:@"logoUrl"];
+    _name = [aDecoder decodeObjectForKey:@"name"];
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_appId forKey:@"appId"];
+    [aCoder encodeObject:_logoUrl forKey:@"logoUrl"];
+    [aCoder encodeObject:_name forKey:@"name"];
 }
 
 @end

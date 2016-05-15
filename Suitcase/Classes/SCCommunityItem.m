@@ -2,7 +2,7 @@
 //  SCCommunityItem.m
 //  Suitcase
 //
-//  Copyright (c) 2014, Sebastian Staudt
+//  Copyright (c) 2014-2016, Sebastian Staudt
 //
 
 #import "HexColor.h"
@@ -261,6 +261,30 @@ static NSString *kImageSize;
 
 - (id)valueForKey:(NSString *)key {
     return [self.dictionary objectForKey:key];
+}
+
+#pragma NSCoding
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+
+    _attributes = [aDecoder decodeObjectForKey:@"attributes"];
+    _dictionary = [aDecoder decodeObjectForKey:@"dictionary"];
+    _equippableClasses = [[aDecoder decodeObjectForKey:@"equippableClasses"] intValue];
+    _equippedClasses = [[aDecoder decodeObjectForKey:@"equippedClasses"] intValue];
+    _itemCategory = [aDecoder decodeObjectForKey:@"itemCategory"];
+    _tags = [aDecoder decodeObjectForKey:@"tags"];
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_attributes forKey:@"attributes"];
+    [aCoder encodeObject:_dictionary forKey:@"dictionary"];
+    [aCoder encodeObject:@(_equippableClasses) forKey:@"equippableClasses"];
+    [aCoder encodeObject:@(_equippedClasses) forKey:@"equippedClasses"];
+    [aCoder encodeObject:_itemCategory forKey:@"itemCategory"];
+    [aCoder encodeObject:_tags forKey:@"tags"];
 }
 
 @end

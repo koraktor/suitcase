@@ -2,7 +2,7 @@
 //  SCWebApiItem.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2014, Sebastian Staudt
+//  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
 #import "SCItemSet.h"
@@ -403,6 +403,24 @@ const NSUInteger kSCKillEaterDefindex = 214;
 
 - (id)valueForKey:(NSString *)key {
     return [self.inventory.schema itemValueForDefIndex:self.defindex andKey:key];
+}
+
+#pragma NSCoding
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+
+    _attributes = [aDecoder decodeObjectForKey:@"attributes"];
+    _dictionary = [aDecoder decodeObjectForKey:@"dictionary"];
+    _position = [aDecoder decodeObjectForKey:@"position"];
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_attributes forKey:@"attributes"];
+    [aCoder encodeObject:_dictionary forKey:@"dictionary"];
+    [aCoder encodeObject:_position forKey:@"position"];
 }
 
 @end
