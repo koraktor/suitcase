@@ -206,6 +206,12 @@ static NSString *kImageSize;
 - (UIColor *)qualityColor {
     UIColor *color = self.tags[@"Quality"][@"color"];
     if (color == nil) {
+        NSString *colorString = [self valueForKey:@"name_color"];
+        if (colorString != nil && [colorString length] > 0) {
+            color = [UIColor colorWithHexString:colorString];
+        }
+    }
+    if (color == nil) {
         color = [UIColor colorWithRed:0.56 green:0.64 blue:0.73 alpha:1.0];
     }
 
@@ -236,17 +242,15 @@ static NSString *kImageSize;
         _tags = [NSMutableDictionary dictionary];
 
         for (NSDictionary *rawTag in [self valueForKey:@"tags"]) {
-            NSDictionary *tag = @{
+            NSMutableDictionary *tag = [@{
                                   @"name": rawTag[@"category_name"],
                                   @"raw_value": rawTag[@"internal_name"],
                                   @"value": rawTag[@"name"]
-                                };
+                                } mutableCopy];
             if ([rawTag[@"color"] length] > 0) {
-                tag = [tag mutableCopy];
-                ((NSMutableDictionary *)tag)[@"color"] = [UIColor colorWithHexString:rawTag[@"color"]];
-                tag = [tag copy];
+                tag[@"color"] = [UIColor colorWithHexString:rawTag[@"color"]];
             }
-            ((NSMutableDictionary *)_tags)[rawTag[@"category"]] = tag;
+            ((NSMutableDictionary *)_tags)[rawTag[@"category"]] = [tag copy];
         }
 
         _tags = [_tags copy];
