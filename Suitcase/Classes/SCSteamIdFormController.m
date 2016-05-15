@@ -91,7 +91,7 @@ NSString *const kSCResolveSteamIdErrorTitle = @"kSCResolveSteamIdErrorTitle";
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *steamIdResponse = [responseObject objectForKey:@"response"];
             if ([[steamIdResponse objectForKey:@"success"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
-                steamId64 = [steamIdResponse objectForKey:@"steamid"];
+                steamId64 = [[[NSNumberFormatter alloc] init] numberFromString:[steamIdResponse objectForKey:@"steamid"]];
                 SteamIdFound();
             } else {
                 NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCResolveSteamIdErrorMessage, kSCResolveSteamIdErrorMessage), [steamIdResponse objectForKey:@"message"]];
