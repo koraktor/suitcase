@@ -30,6 +30,7 @@
 + (AFHTTPRequestOperation *)schemaOperationForInventory:(SCWebApiInventory *)inventory
                                             andLanguage:(NSLocale *)locale;
 + (void)storeSchema:(SCWebApiSchema *)schema forAppId:(NSNumber *)appId andLanguage:(NSString *)locale;
++ (void)storeSchemas;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

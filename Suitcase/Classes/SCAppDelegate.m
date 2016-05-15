@@ -82,6 +82,7 @@ static SCWebApiRequestOperationManager *_webApiClient;
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
+    [SCWebApiSchema storeSchemas];
     [SCWebApiSchema clearSchemas];
 }
 
@@ -186,11 +187,7 @@ static SCWebApiRequestOperationManager *_webApiClient;
                                                  name:NSUserDefaultsDidChangeNotification
                                                object:nil];
 
-    [SCWebApiSchema.schemas enumerateKeysAndObjectsUsingBlock:^(NSNumber *appId, NSDictionary *schemas, BOOL *stop) {
-        [schemas enumerateKeysAndObjectsUsingBlock:^(NSString *locale, SCWebApiSchema *schema, BOOL *stop) {
-            [SCWebApiSchema storeSchema:schema forAppId:appId andLanguage:locale];
-        }];
-    }];
+    [SCWebApiSchema storeSchemas];
     [SCGame storeGames];
     [SCAbstractInventory storeInventories];
 }

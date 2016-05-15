@@ -144,6 +144,14 @@ static NSMutableDictionary *__schemas;
 #endif
 }
 
++ (void)storeSchemas {
+    [SCWebApiSchema.schemas enumerateKeysAndObjectsUsingBlock:^(NSNumber *appId, NSDictionary *schemas, BOOL *stop) {
+        [schemas enumerateKeysAndObjectsUsingBlock:^(NSString *locale, SCWebApiSchema *schema, BOOL *stop) {
+            [SCWebApiSchema storeSchema:schema forAppId:appId andLanguage:locale];
+        }];
+    }];
+}
+
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     NSArray *attributesArray = [dictionary objectForKey:@"attributes"];
     _attributes = [NSMutableDictionary dictionaryWithCapacity:[attributesArray count]];
