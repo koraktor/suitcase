@@ -22,6 +22,7 @@ static NSMutableDictionary *__games;
         @4920,   // Natural Selection 2
         @104700, // Super Monday Night Combat
         @205790, // Dota 2 Test
+        @207140, // Speed Runners
         @218620, // PAYDAY 2
         @221540, // Defense Grid 2
         @230410, // Warframe
