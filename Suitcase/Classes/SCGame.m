@@ -38,6 +38,7 @@ static NSMutableDictionary *__games;
         @321360, // Primal Carnage: Extinction
         @322330, // Don’t Starve Together
         @375950, // Viridi
+        @394690, // Tower Unite
     ];
     kSCWebApiInventories = @[
         @440 // Team Fortress 2
