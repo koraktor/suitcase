@@ -38,6 +38,7 @@ static NSMutableDictionary *__games;
         @308080, // Altitude0: Lower & Faster
         @321360, // Primal Carnage: Extinction
         @322330, // Don’t Starve Together
+        @338170, // Ratz Instagib 2.0
         @375950, // Viridi
         @394690, // Tower Unite
         @433850, // H1Z1: King of the Kill
