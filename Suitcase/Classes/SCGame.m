@@ -35,6 +35,7 @@ static NSMutableDictionary *__games;
         @304930, // Unturned
         @308080, // Altitude0: Lower & Faster
         @321360, // Primal Carnage: Extinction
+        @322330, // Don’t Starve Together
         @375950, // Viridi
     ];
     kSCWebApiInventories = @[
@@ -56,7 +57,7 @@ static NSMutableDictionary *__games;
         return @[@3, @6, @7];
     } else if ([appId isEqualToNumber:@104700]) {
         return @[@2, @3, @13];
-    } else if ([@[@251970, @295110, @308080, @321360] containsObject:appId]) {
+    } else if ([@[@251970, @295110, @308080, @321360, @322330] containsObject:appId]) {
         return @[@1];
     } else if ([appId isEqualToNumber:@239220]) {
         return @[@15];
