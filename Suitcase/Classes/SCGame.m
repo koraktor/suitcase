@@ -39,6 +39,7 @@ static NSMutableDictionary *__games;
         @322330, // Don’t Starve Together
         @375950, // Viridi
         @394690, // Tower Unite
+        @433850, // H1Z1: King of the Kill
     ];
     kSCWebApiInventories = @[
         @440 // Team Fortress 2
