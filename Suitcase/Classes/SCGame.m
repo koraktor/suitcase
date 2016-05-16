@@ -31,6 +31,7 @@ static NSMutableDictionary *__games;
         @251970, // Sins of a Dark Age
         @252490, // Rust
         @263920, // Zombie Grinder
+        @290340, // Armello
         @295110, // H1Z1: Just Survive
         @304930, // Unturned
         @308080, // Altitude0: Lower & Faster
