@@ -128,6 +128,10 @@ static SCWebApiRequestOperationManager *_webApiClient;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         NSString *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
         if (steamId64 != nil) {
+            if ([steamId64 isKindOfClass:[NSString class]]) {
+                [[NSUserDefaults standardUserDefaults] setObject:[[NSNumberFormatter new] numberFromString:steamId64] forKey:@"SteamID64"];
+            }
+
             if ([masterViewController class] == NSClassFromString(@"SCGamesViewController")) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"loadGames" object:nil];
             } else {
