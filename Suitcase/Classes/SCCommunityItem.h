@@ -2,7 +2,7 @@
 //  SCCommunityItem.h
 //  Suitcase
 //
-//  Copyright (c) 2014, Sebastian Staudt
+//  Copyright (c) 2014-2016, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
@@ -16,7 +16,7 @@
 @property NSDictionary *dictionary;
 @property (readonly) int equippableClasses;
 @property (readonly) int equippedClasses;
-@property SCCommunityInventory *inventory;
+@property (nonatomic, strong) SCCommunityInventory *inventory;
 @property (readonly) NSNumber *itemCategory;
 @property (readonly) NSString *name;
 

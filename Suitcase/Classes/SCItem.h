@@ -13,6 +13,7 @@
 
 @protocol SCItem <NSCoding, NSObject>
 
+@property (nonatomic, strong) id<SCInventory> inventory;
 @property (nonatomic, readonly) NSNumber *position;
 
 - (BOOL)belongsToItemSet;
@@ -23,7 +24,6 @@
 - (NSURL *)iconUrl;
 - (NSString *)imageIdentifier;
 - (NSURL *)imageUrl;
-- (id<SCInventory>)inventory;
 - (BOOL)isKillEater;
 - (BOOL)isMarketable;
 - (BOOL)isTradable;

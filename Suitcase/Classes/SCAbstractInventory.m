@@ -259,6 +259,10 @@ static NSMutableDictionary *__inventories;
     _steamId64 = [aDecoder decodeObjectForKey:@"steamId64"];
     _timestamp = [aDecoder decodeObjectForKey:@"timestamp"];
 
+    [_items enumerateObjectsUsingBlock:^(id<SCItem> _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
+        item.inventory = (id<SCInventory>) self;
+    }];
+
     return self;
 }
 

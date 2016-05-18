@@ -24,6 +24,7 @@ const NSUInteger kSCKillEaterDefindex = 214;
 
 @implementation SCWebApiItem
 
+@synthesize inventory = _inventory;
 @synthesize position = _position;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary
