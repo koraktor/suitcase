@@ -646,14 +646,12 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 - (IBAction)triggerRefresh:(id)sender {
     [super triggerRefresh:sender];
 
-    if (self.steamInventory != nil) {
-        _reloadingInventoriesCount ++;
-        [NSThread detachNewThreadSelector:@selector(reload) toTarget:self.steamInventory withObject:nil];
-    }
-
-    [self.inventories enumerateObjectsUsingBlock:^(id <SCInventory> inventory, NSUInteger idx, BOOL *stop) {
-        _reloadingInventoriesCount ++;
-        [NSThread detachNewThreadSelector:@selector(reload) toTarget:inventory withObject:nil];
+    NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
+    [[SCAbstractInventory inventoriesForUser:steamId64] enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id<SCInventory> _Nonnull inventory, BOOL *_Nonnull stop) {
+        if (![inventory failed]) {
+            _reloadingInventoriesCount ++;
+            [NSThread detachNewThreadSelector:@selector(reload) toTarget:inventory withObject:nil];
+        }
     }];
 
     if (_reloadingInventoriesCount == 0) {
