@@ -221,7 +221,8 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         skipped = YES;
     }
 
-    if (_reloadingInventoriesCount > 0) {
+    BOOL refreshing = _reloadingInventoriesCount > 0;
+    if (refreshing) {
         if ([TSMessage isNotificationActive]) {
             [TSMessage dismissActiveNotificationWithCompletion:^{
                 _reloadingInventoriesCount --;
@@ -240,97 +241,102 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         } else {
             _reloadingInventoriesCount --;
         }
+    } else if (skipped) {
+        return;
+    }
 
-        NSIndexPath *indexPath;
-        if ([inventory.game isSteam]) {
-            if (skipped) {
-                self.steamInventory = nil;
-            }
-
-            indexPath = [NSIndexPath indexPathForRow:0 inSection:SCInventorySectionSteam];
-        } else {
-            NSInteger inventoryIndex = [self.inventories indexOfObject:inventory];
-
-            if (skipped && inventoryIndex != NSNotFound) {
-                NSMutableArray *newInventories = [self.inventories mutableCopy];
-                [newInventories removeObjectAtIndex:inventoryIndex];
-                self.inventories = [newInventories copy];
-            }
-
-            indexPath = [NSIndexPath indexPathForRow:inventoryIndex inSection:SCInventorySectionGames];
-        }
-
-        [UIView animateWithDuration:0.0 animations:^{
-            [self.tableView beginUpdates];
-            if (skipped) {
-                [self.tableView deleteRowsAtIndexPaths:@[indexPath]
-                                      withRowAnimation:UITableViewRowAnimationFade];
-            } else {
-                [self.tableView reloadRowsAtIndexPaths:@[indexPath]
-                                      withRowAnimation:UITableViewRowAnimationNone];
-            }
-            [self.tableView endUpdates];
-
-            if (_reloadingInventoriesCount > 0) {
-                self.tableView.contentOffset = CGPointMake(0.0, -self.tableView.contentInset.top);
-            }
-        } completion:^(BOOL finished) {
+    void (^refreshCompletion)(BOOL) = nil;
+    if (refreshing) {
+        refreshCompletion = ^void (BOOL finished) {
             if (_reloadingInventoriesCount == 0) {
                 [self setRefreshControlTitle:NSLocalizedString(@"Refresh", @"Refresh")];
 
                 [self.refreshControl endRefreshing];
             }
-        }];
+        };
+    }
+
+    BOOL gamesBefore = self.inventories.count != 0;
+    NSUInteger inventoryCount = self.inventories.count + ((self.steamInventory == nil) ? 0 : 1);
+    BOOL inventoriesBefore = inventoryCount != 0;
+    NSIndexPath *indexPath;
+    BOOL visibleBefore;
+    if ([inventory.game isSteam]) {
+        visibleBefore = self.steamInventory != nil;
+        self.steamInventory = skipped ? nil : inventory;
+        indexPath = [NSIndexPath indexPathForRow:0 inSection:SCInventorySectionSteam];
     } else {
-        if (skipped) {
-            return;
+        visibleBefore = [self.inventories containsObject:inventory];
+
+        NSMutableArray *newInventories = [self.inventories mutableCopy];
+        if (skipped && visibleBefore) {
+            indexPath = [NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory]
+                                           inSection:SCInventorySectionGames];
+            [newInventories removeObject:inventory];
+            self.inventories = [newInventories copy];
+        } else if (!visibleBefore && !skipped) {
+            [newInventories addObject:inventory];
+            self.inventories = [newInventories sortedArrayUsingSelector:@selector(compare:)];
         }
 
+        if (indexPath == nil) {
+            indexPath = [NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory]
+                                           inSection:SCInventorySectionGames];
+        }
+    }
+    BOOL gamesAfter = self.inventories.count != 0;
+    inventoryCount = self.inventories.count + ((self.steamInventory == nil) ? 0 : 1);
+    BOOL inventoriesAfter = inventoryCount != 0;
+
+    [UIView transitionWithView:self.tableView
+                      duration:0.2
+                       options:UIViewAnimationOptionAllowAnimatedContent | UIViewAnimationOptionCurveLinear
+                    animations:^{
         [self.tableView beginUpdates];
-        if (self.steamInventory == nil && self.inventories.count == 0) {
-            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:SCInventorySectionNoInventories]]
-                                  withRowAnimation:UITableViewRowAnimationTop];
-        }
 
-        if ([inventory.game isSteam]) {
-            NSArray *steamIndexPath = @[[NSIndexPath indexPathForRow:0 inSection:SCInventorySectionSteam]];
-            if (self.steamInventory == nil) {
-                [self.tableView insertRowsAtIndexPaths:steamIndexPath withRowAnimation:UITableViewRowAnimationTop];
-            } else {
-                [self.tableView reloadRowsAtIndexPaths:steamIndexPath withRowAnimation:UITableViewRowAnimationFade];
-            }
-            self.steamInventory = inventory;
-        } else {
-            NSMutableArray *otherInventories = [NSMutableArray arrayWithCapacity:self.inventories.count];
-            [self.inventories enumerateObjectsUsingBlock:^(id <SCInventory> otherInventory, NSUInteger row, BOOL *stop) {
-                [otherInventories addObject:[NSIndexPath indexPathForRow:row inSection:SCInventorySectionGames]];
-            }];
-
-            NSMutableSet *newInventories = [NSMutableSet setWithArray:self.inventories];
-            if ([newInventories containsObject:inventory]) {
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:SCInventorySectionGames]]
-                                      withRowAnimation:UITableViewRowAnimationFade];
-            } else {
-                [newInventories addObject:inventory];
-                self.inventories = [[newInventories allObjects] sortedArrayUsingSelector:@selector(compare:)];
-                if (self.inventories.count == 1) {
-                    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:SCInventorySectionGames] withRowAnimation:UITableViewRowAnimationTop];
+        if (skipped) {
+            if (visibleBefore) {
+                if (!inventoriesAfter) {
+                    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:SCInventorySectionNoInventories]]
+                                          withRowAnimation:UITableViewRowAnimationTop];
                 }
-                [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.inventories indexOfObject:inventory] inSection:SCInventorySectionGames]]
+                if (!inventory.game.isSteam && gamesBefore && !gamesAfter) {
+                    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:SCInventorySectionGames]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+                } else {
+                    [self.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                          withRowAnimation:UITableViewRowAnimationFade];
+                }
+            }
+        } else {
+            if (!visibleBefore) {
+                if (!inventoriesBefore) {
+                    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:SCInventorySectionNoInventories]]
+                                          withRowAnimation:UITableViewRowAnimationFade];
+                }
+                if (!inventory.game.isSteam && !gamesBefore) {
+                    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:SCInventorySectionGames]
+                                  withRowAnimation:UITableViewRowAnimationTop];
+                }
+                [self.tableView insertRowsAtIndexPaths:@[indexPath]
                                       withRowAnimation:UITableViewRowAnimationTop];
-                [self.tableView reloadRowsAtIndexPaths:otherInventories withRowAnimation:UITableViewRowAnimationFade];
+            } else {
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath]
+                                      withRowAnimation:UITableViewRowAnimationFade];
             }
         }
+
         [self.tableView endUpdates];
 
-#ifdef DEBUG
-        NSUInteger inventoryCount = self.inventories.count;
-        if (_steamInventory != nil) {
-            inventoryCount ++;
+
+        if (refreshing && _reloadingInventoriesCount > 0) {
+            self.tableView.contentOffset = CGPointMake(0.0, -self.tableView.contentInset.top);
         }
-        NSLog(@"Loaded %lu inventories.", (unsigned long) inventoryCount);
+    } completion:refreshCompletion];
+
+#ifdef DEBUG
+    NSLog(@"Loaded %lu inventories.", (unsigned long)inventoryCount);
 #endif
-    }
 }
 
 - (void)populateGames:(NSArray *)games
