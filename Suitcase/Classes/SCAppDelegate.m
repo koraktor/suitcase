@@ -260,10 +260,10 @@ static SCWebApiRequestOperationManager *_webApiClient;
     if ([usageReporting boolValue]) {
 #ifdef DEBUG
         NSLog(@"Usage reporting is enabled.");
-#endif
-
+#else
         CrashlyticsKit.delegate = self;
         [Fabric with:@[[Crashlytics class]]];
+#endif
     }
 }
 
