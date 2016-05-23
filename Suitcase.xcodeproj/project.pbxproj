@@ -244,6 +244,7 @@
 		02435A9D1921F24600D1F779 /* SCImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCImageCache.h; path = Classes/SCImageCache.h; sourceTree = "<group>"; };
 		02435A9E1921F24600D1F779 /* SCImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCImageCache.m; path = Classes/SCImageCache.m; sourceTree = "<group>"; };
 		02435AA219228F9500D1F779 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		024E006E1CF1AD4200ED97DB /* SCSharingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SCSharingController.h; path = Classes/SCSharingController.h; sourceTree = "<group>"; };
 		024F01E71BAB6038008A789E /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		0250CBD91693C8D100B20A6F /* SCWikiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCWikiViewController.h; path = Classes/SCWikiViewController.h; sourceTree = "<group>"; };
 		0250CBDA1693C8D100B20A6F /* SCWikiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCWikiViewController.m; path = Classes/SCWikiViewController.m; sourceTree = "<group>"; };
@@ -568,6 +569,7 @@
 				029D94701939EBA100D1DF43 /* SCNavigationController.m */,
 				020958C3169386AF00A44851 /* SCSettingsViewController.h */,
 				020958C4169386B000A44851 /* SCSettingsViewController.m */,
+				024E006E1CF1AD4200ED97DB /* SCSharingController.h */,
 				0295DABE152A44CC00B18882 /* SCSteamIdFormController.h */,
 				0295DABF152A44CC00B18882 /* SCSteamIdFormController.m */,
 				0250CBD91693C8D100B20A6F /* SCWikiViewController.h */,

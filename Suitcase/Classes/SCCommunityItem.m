@@ -159,6 +159,10 @@ static NSString *kImageSize;
     return [[self valueForKey:@"tradable"] boolValue];
 }
 
+- (NSNumber *)itemId {
+    return [self valueForKey:@"id"];
+}
+
 - (SCItemSet *)itemSet {
     return nil;
 }

@@ -198,6 +198,11 @@ typedef enum {
         [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
             view.hidden = YES;
         }];
+        if (self.navigationItem.rightBarButtonItems.count == 2) {
+            NSMutableArray *barButtonItems = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
+            [barButtonItems removeObjectAtIndex:0];
+            self.navigationItem.rightBarButtonItems = barButtonItems;
+        }
         [self.navigationItem setRightBarButtonItem:nil animated:YES];
         self.title = nil;
         return;
@@ -209,12 +214,16 @@ typedef enum {
     _attributes = [self activeAttributes];
 
     if ([self.item.inventory.game isTF2]) {
-        if (self.navigationItem.rightBarButtonItem == nil) {
-            self.navigationItem.rightBarButtonItem = _wikiButton;
+        if (self.navigationItem.rightBarButtonItems.count == 1) {
+            NSMutableArray *barButtonItems = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
+            [barButtonItems insertObject:_wikiButton atIndex:0];
+            self.navigationItem.rightBarButtonItems = barButtonItems;
         }
     } else {
-        if (self.navigationItem.rightBarButtonItem == _wikiButton) {
-            self.navigationItem.rightBarButtonItem = nil;
+        if (self.navigationItem.rightBarButtonItems.count == 2) {
+            NSMutableArray *barButtonItems = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
+            [barButtonItems removeObjectAtIndex:0];
+            self.navigationItem.rightBarButtonItems = barButtonItems;
         }
     }
 }
@@ -487,7 +496,7 @@ typedef enum {
     [cell adjustToImageSize];
 }
 
-#pragma mark Link handling
+#pragma mark - Link handling
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == actionSheet.cancelButtonIndex) {
@@ -528,6 +537,13 @@ typedef enum {
     [browserSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel")];
 
     [browserSheet showInView:self.view];
+}
+
+#pragma mark - Sharing
+
+- (NSURL *)sharedURL {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://steamcommunity.com/profiles/%@/inventory#%@_%@_%@",
+                                 self.item.inventory.steamId64, self.item.inventory.game.appId, self.item.itemCategory, self.item.itemId]];
 }
 
 @end

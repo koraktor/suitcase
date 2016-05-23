@@ -260,6 +260,14 @@ const NSUInteger kSCKillEaterDefindex = 214;
     return ![cannotTradeFlag boolValue];
 }
 
+- (NSNumber *)itemCategory {
+    return @2;
+}
+
+- (NSNumber *)itemId {
+    return self.dictionary[@"id"];
+}
+
 - (SCItemSet *)itemSet {
     if (_itemSet == nil) {
         NSString *itemSetKey = [self valueForKey:@"item_set"];

@@ -2,17 +2,18 @@
 //  SCMasterViewController.h
 //  Suitcase
 //
-//  Copyright (c) 2012-2014, Sebastian Staudt
+//  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
 #import <UIKit/UIKit.h>
 
 #import "SCInventory.h"
+#import "SCSharingController.h"
 #import "SCTableViewController.h"
 
 @class SCItemViewController;
 
-@interface SCInventoryViewController : SCTableViewController <UISearchBarDelegate, UITableViewDelegate>
+@interface SCInventoryViewController : SCTableViewController <SCSharingController, UISearchBarDelegate, UITableViewDelegate>
 
 @property (strong, nonatomic) id <SCInventory> inventory;
 @property (strong, nonatomic) NSArray *items;

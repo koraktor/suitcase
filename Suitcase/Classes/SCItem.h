@@ -28,6 +28,8 @@
 - (BOOL)isMarketable;
 - (BOOL)isTradable;
 - (SCItemSet *)itemSet;
+- (NSNumber *)itemCategory;
+- (NSNumber *)itemId;
 - (NSString *)itemType;
 - (NSString *)levelText;
 - (NSString *)name;

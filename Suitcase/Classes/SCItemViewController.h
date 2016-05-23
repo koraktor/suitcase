@@ -2,7 +2,7 @@
 //  SCDetailViewController.h
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
 #import <UIKit/UIKit.h>
@@ -11,8 +11,9 @@
 #import "SCClassImageView.h"
 #import "SCItem.h"
 #import "SCItemImageCell.h"
+#import "SCSharingController.h"
 
-@interface SCItemViewController : UICollectionViewController <UIActionSheetDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISplitViewControllerDelegate, TTTAttributedLabelDelegate>
+@interface SCItemViewController : UICollectionViewController <SCSharingController, UIActionSheetDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISplitViewControllerDelegate, TTTAttributedLabelDelegate>
 
 @property (strong, nonatomic) id <SCItem> item;
 

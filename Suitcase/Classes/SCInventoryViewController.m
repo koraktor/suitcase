@@ -445,4 +445,11 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
     [NSThread detachNewThreadSelector:@selector(reload) toTarget:self.inventory withObject:nil];
 }
 
+#pragma mark - Sharing
+
+- (NSURL *)sharedURL {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://steamcommunity.com/profiles/%@/inventory#%@",
+                                 self.inventory.steamId64, self.inventory.game.appId]];
+}
+
 @end
