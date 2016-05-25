@@ -5,6 +5,11 @@ title: Changelog
 Changelog
 =========
 
+## Version 2.2.4 (10-27-2015)
+
+ * Add support for three new games: Rust, Viridi and Unturned
+ * Fixed caching of item schemas
+
 ## Version 2.2.3 (09-19-2015)
 
  * Fixed automatic language selection on iOS 9
