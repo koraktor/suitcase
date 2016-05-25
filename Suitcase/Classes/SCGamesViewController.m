@@ -511,8 +511,8 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
 - (void)prepareInventory
 {
+    [self.view setUserInteractionEnabled:NO];
     if ([_currentInventory temporaryFailed] || [_currentInventory outdated]) {
-        [self.view setUserInteractionEnabled:NO];
         [self reloadInventory];
     } else {
         [_currentInventory loadSchema];
