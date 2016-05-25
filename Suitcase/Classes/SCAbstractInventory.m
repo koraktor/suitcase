@@ -159,7 +159,9 @@ static NSMutableDictionary *__inventories;
         self.items = self.loadingItems;
         self.state = SCInventoryStateSuccessful;
     }
-    self.timestamp = [NSDate date];
+    if (self.timestamp == nil) {
+        self.timestamp = [NSDate date];
+    }
 
     NSNumber *showColors = [[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"];
     self.showColors = (showColors == nil) ? YES : [showColors boolValue];
@@ -223,6 +225,7 @@ static NSMutableDictionary *__inventories;
 - (void)reload
 {
     self.loadingItems = @[];
+    self.timestamp = nil;
     if (self.state == SCInventoryStateSuccessful) {
         self.state = SCInventoryStateReloading;
     } else {
