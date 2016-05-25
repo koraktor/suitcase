@@ -10,9 +10,9 @@
 [submodule "FontAwesomeKit"]
 	path = Suitcase/External/FontAwesomeKit
 	url = https://github.com/PrideChung/FontAwesomeKit.git
-[submodule "Suitcase/External/BPBarButtonItem"]
+[submodule "BPBarButtonItem"]
 	path = Suitcase/External/BPBarButtonItem
 	url = https://github.com/BitSuites/BPBarButtonItem.git
-[submodule "Suitcase/External/TSMessages"]
+[submodule "TSMessages"]
 	path = Suitcase/External/TSMessages
 	url = git@github.com:toursprung/TSMessages.git
