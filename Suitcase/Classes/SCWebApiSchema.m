@@ -76,6 +76,10 @@ static NSMutableDictionary *__schemas;
         if (schema != nil) {
             inventory.schema = schema;
 
+            if ([inventory.timestamp timeIntervalSinceDate:schema.timestamp] <= 0) {
+                return nil;
+            }
+
             if ([schema.timestamp timeIntervalSinceNow] > -900) {
                 return nil;
             }
