@@ -210,13 +210,6 @@ static NSMutableDictionary *__inventories;
     return self.state == SCInventoryStateSuccessful;
 }
 
-- (void)sortItemsByPosition
-{
-    self.itemSections = [NSArray arrayWithObject:[self.items sortedArrayUsingComparator:^NSComparisonResult(id <SCItem> item1, id <SCItem> item2) {
-        return [item1.position compare:item2.position];
-    }]];
-}
-
 - (BOOL)isEmpty
 {
     return [self isSuccessful] && _items.count == 0;

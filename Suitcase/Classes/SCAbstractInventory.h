@@ -60,7 +60,6 @@ extern NSString *const kSCInventoryError;
 - (BOOL)isSuccessful;
 - (BOOL)outdated;
 - (void)reload;
-- (void)sortItemsByPosition;
 - (BOOL)temporaryFailed;
 
 @end
