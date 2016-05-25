@@ -5,6 +5,7 @@
 //  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
+#import "AFNetworkReachabilityManager.h"
 #import "FAKFontAwesome.h"
 #import "IASKSettingsReader.h"
 #import "IASKAppSettingsViewController.h"
@@ -512,7 +513,9 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 - (void)prepareInventory
 {
     [self.view setUserInteractionEnabled:NO];
-    if ([_currentInventory temporaryFailed] || [_currentInventory outdated]) {
+    if (_currentInventory.temporaryFailed) {
+        [self reloadInventory];
+    } else if (_currentInventory.outdated && AFNetworkReachabilityManager.sharedManager.isReachableViaWiFi) {
         [self reloadInventory];
     } else {
         [_currentInventory loadSchema];
