@@ -155,60 +155,55 @@ static NSMutableDictionary *__schemas;
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     NSArray *attributesArray = [dictionary objectForKey:@"attributes"];
     _attributes = [NSMutableDictionary dictionaryWithCapacity:[attributesArray count]];
-    [attributesArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [self.attributes setValue:obj forKey:[obj objectForKey:@"defindex"]];
-        [self.attributes setValue:obj forKey:[obj objectForKey:@"name"]];
-    }];
+    for (NSDictionary *attribute in attributesArray) {
+        [self.attributes setValue:attribute forKey:attribute[@"defindex"]];
+        [self.attributes setValue:attribute forKey:attribute[@"name"]];
+    };
     _attributes = [_attributes copy];
 
     NSArray *effectsArray = [dictionary objectForKey:@"attribute_controlled_attached_particles"];
     _effects = [NSMutableDictionary dictionaryWithCapacity:[effectsArray count]];
-    [effectsArray enumerateObjectsUsingBlock:^(NSDictionary *effect, NSUInteger idx, BOOL *stop) {
-        [(NSMutableDictionary *)_effects setObject:[effect objectForKey:@"name"]
-                                            forKey:[effect objectForKey:@"id"]];
-    }];
+    for (NSDictionary *effect in effectsArray) {
+        [(NSMutableDictionary *)_effects setObject:effect[@"name"] forKey:effect[@"id"]];
+    };
     _effects = [_effects copy];
 
     NSArray *itemsArray = [dictionary objectForKey:@"items"];
     _items = [NSMutableDictionary dictionaryWithCapacity:[itemsArray count]];
     _itemNameMap = [NSMutableDictionary dictionaryWithCapacity:[itemsArray count]];
-    [itemsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [self.items setValue:obj forKey:[obj objectForKey:@"defindex"]];
-        [self.itemNameMap setValue:[obj objectForKey:@"defindex"] forKey:[obj objectForKey:@"name"]];
-    }];
+    for (NSDictionary *item in itemsArray) {
+        [self.items setValue:item forKey:item[@"defindex"]];
+        [self.itemNameMap setValue:item[@"defindex"] forKey:item[@"name"]];
+    };
     _items = [_items copy];
     _itemNameMap = [_itemNameMap copy];
 
     NSArray *itemLevels = [dictionary objectForKey:@"item_levels"];
     _itemLevels = [NSMutableDictionary dictionaryWithCapacity:[itemLevels count]];
-    [itemLevels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [(NSMutableDictionary *)_itemLevels setObject:[obj objectForKey:@"levels"]
-                                                   forKey:[obj objectForKey:@"name"]];
-    }];
+    for (NSDictionary *itemLevel in itemLevels) {
+        [(NSMutableDictionary *)_itemLevels setObject:itemLevel[@"levels"] forKey:itemLevel[@"name"]];
+    };
     _itemLevels = [_itemLevels copy];
 
     NSArray *itemSets = [dictionary objectForKey:@"item_sets"];
     _itemSets = [NSMutableDictionary dictionaryWithCapacity:[itemSets count]];
-    [itemSets enumerateObjectsUsingBlock:^(id itemSet, NSUInteger idx, BOOL *stop) {
-        [(NSMutableDictionary *)_itemSets setObject:itemSet
-                                             forKey:[itemSet objectForKey:@"item_set"]];
-    }];
+    for (NSDictionary *itemSet in itemSets) {
+        [(NSMutableDictionary *)_itemSets setObject:itemSet forKey:itemSet[@"item_set"]];
+    };
     _itemSets = [_itemSets copy];
 
     NSArray *killEaterTypes = [dictionary objectForKey:@"kill_eater_score_types"];
     _killEaterTypes = [NSMutableDictionary dictionaryWithCapacity:[killEaterTypes count]];
-    [killEaterTypes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [(NSMutableDictionary *)_killEaterTypes setObject:obj
-                                                   forKey:[obj objectForKey:@"type"]];
-    }];
+    for (NSDictionary *killEaterType in killEaterTypes) {
+        [(NSMutableDictionary *)_killEaterTypes setObject:killEaterType forKey:killEaterType[@"type"]];
+    };
     _killEaterTypes = [_killEaterTypes copy];
 
     NSArray *originsArray = [dictionary objectForKey:@"originNames"];
     _origins = [NSMutableArray arrayWithCapacity:[originsArray count]];
-    [originsArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSNumber *index = [obj objectForKey:@"origin"];
-        [(NSMutableArray *)self.origins insertObject:[obj objectForKey:@"name"] atIndex:[index unsignedIntValue]];
-    }];
+    for (NSDictionary *origin in originsArray) {
+        [(NSMutableArray *)self.origins insertObject:origin[@"name"] atIndex:[origin[@"origin"] unsignedIntValue]];
+    };
     _origins = [_origins copy];
 
     NSDictionary *qualityKeys = [dictionary objectForKey:@"qualities"];
@@ -260,12 +255,12 @@ static NSMutableDictionary *__schemas;
     itemLevels = [itemLevels sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *level1, NSDictionary *level2) {
         return [level1[@"required_score"] compare:level2[@"required_score"]];
     }];
-    [itemLevels enumerateObjectsUsingBlock:^(NSDictionary *level, NSUInteger idx, BOOL *stop) {
+    for (NSDictionary *level in itemLevels) {
         if ([score intValue] < [level[@"required_score"] intValue]) {
             itemLevel = level[@"name"];
-            *stop = YES;
+            break;
         }
-    }];
+    };
 
     if (itemLevel == nil) {
         itemLevel = itemLevels.lastObject[@"name"];

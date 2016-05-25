@@ -229,67 +229,67 @@ NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder"
             for (NSUInteger i = 0; i <= [SCAbstractInventory alphabet].count; i ++) {
                 [newItemSections addObject:[NSMutableArray array]];
             }
-            [self.items enumerateObjectsUsingBlock:^(id <SCItem> item, NSUInteger idx, BOOL *stop) {
+            for (id<SCItem> item in self.items) {
                 NSString *start = [[item.name substringToIndex:1] uppercaseString];
                 NSUInteger nameIndex = [[SCAbstractInventory alphabet] indexOfObject:start];
                 if (nameIndex == NSNotFound) {
                     nameIndex = -1;
                 }
                 [newItemSections[nameIndex + 1] addObject:item];
-            }];
+            };
         } else if ([sortOrder isEqual:@"origin"]) {
             newItemSections = [NSMutableArray arrayWithCapacity:self.inventory.origins.count];
             for (NSUInteger i = 0; i < self.inventory.origins.count; i ++) {
                 [newItemSections addObject:[NSMutableArray array]];
             }
-            [self.items enumerateObjectsUsingBlock:^(id <SCItem> item, NSUInteger idx, BOOL *stop) {
+            for (id<SCItem> item in self.items) {
                 [newItemSections[[item.originIndex unsignedIntegerValue]] addObject:item];
-            }];
+            };
         } else if ([sortOrder isEqualToString:@"quality"]) {
             NSMutableDictionary *itemQualities = [NSMutableDictionary dictionary];
-            [self.items enumerateObjectsUsingBlock:^(id <SCItem> item, NSUInteger idx, BOOL *stop) {
+            for (id<SCItem> item in self.items) {
                 NSString *qualityName = (item.qualityName == nil) ? @"" : item.qualityName;
                 if ([itemQualities objectForKey:qualityName] == nil) {
                     SCItemQuality *itemQuality = [SCItemQuality itemQualityFromItem:item];
                     itemQualities[itemQuality.name] = itemQuality;
                 }
-            }];
+            };
             self.itemQualities = [NSDictionary dictionaryWithDictionary:itemQualities];
 
             newItemSections = [NSMutableArray arrayWithCapacity:self.itemQualities.count];
             for (NSUInteger i = 0; i < self.itemQualities.count; i ++) {
                 [newItemSections addObject:[NSMutableArray array]];
             }
-            [self.items enumerateObjectsUsingBlock:^(id <SCItem> item, NSUInteger idx, BOOL *stop) {
+            for (id<SCItem> item in self.items) {
                 NSString *qualityName = (item.qualityName == nil) ? @"" : item.qualityName;
                 NSUInteger qualityIndex = [[[self.itemQualities allKeys] sortedArrayUsingSelector:@selector(compare:)] indexOfObject:qualityName];
                 [newItemSections[qualityIndex] addObject:item];
-            }];
+            };
         } else if ([sortOrder isEqualToString:@"type"]) {
             NSMutableArray *itemTypes = [NSMutableArray array];
-            [self.items enumerateObjectsUsingBlock:^(id <SCItem> item, NSUInteger idx, BOOL *stop) {
+            for (id<SCItem> item in self.items) {
                 if (![itemTypes containsObject:item.itemType]) {
                     [itemTypes addObject:item.itemType];
                 }
-            }];
+            };
             self.itemTypes = [itemTypes sortedArrayUsingSelector:@selector(compare:)];
 
             newItemSections = [NSMutableArray arrayWithCapacity:_itemTypes.count];
             for (NSUInteger i = 0; i < self.itemTypes.count; i ++) {
                 [newItemSections addObject:[NSMutableArray array]];
             }
-            [self.items enumerateObjectsUsingBlock:^(id <SCItem> item, NSUInteger idx, BOOL *stop) {
+            for (id<SCItem> item in self.items) {
                 NSUInteger typeIndex = [self.itemTypes indexOfObject:item.itemType];
                 [newItemSections[typeIndex] addObject:item];
-            }];
+            };
         }
 
         NSMutableArray *sortedItemSections = [NSMutableArray arrayWithCapacity:newItemSections.count];
-        [newItemSections enumerateObjectsUsingBlock:^(NSArray *section, NSUInteger idx, BOOL *stop) {
+        for (NSArray *section in newItemSections) {
             [sortedItemSections addObject:[section sortedArrayUsingComparator:^NSComparisonResult(id <SCItem> item1, id <SCItem> item2) {
                 return [item1.name compare:item2.name];
             }]];
-        }];
+        };
         self.itemSections = [NSArray arrayWithArray:sortedItemSections];
     }
 }

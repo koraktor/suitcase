@@ -344,11 +344,11 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     NSArray *availableGames = [[SCGame communityInventories] arrayByAddingObjectsFromArray:[SCGame webApiInventories]];
 
     _games = [NSMutableArray array];
-    [games enumerateObjectsUsingBlock:^(SCGame *game, NSUInteger idx, BOOL *stop) {
+    for (SCGame *game in games) {
         if ([availableGames containsObject:game.appId]) {
             [(NSMutableArray *)_games addObject:game];
         }
-    }];
+    };
     _games = [_games copy];
 
     NSNumber *steamId64 = [[NSUserDefaults standardUserDefaults] objectForKey:@"SteamID64"];
@@ -402,7 +402,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
     NSMutableArray *newInventories = [NSMutableArray arrayWithCapacity:inventories.count];
     __block SCCommunityInventory *newSteamInventory = nil;
 
-    [inventories enumerateObjectsUsingBlock:^(id <SCInventory> inventory, NSUInteger idx, BOOL *stop) {
+    for (id<SCInventory> inventory in inventories) {
         if (![inventory isLoaded] || [inventory failed]) {
             return;
         }
@@ -418,7 +418,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
         } else {
             [newInventories addObject:inventory];
         }
-    }];
+    };
 
     if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         [self.tableView beginUpdates];

@@ -195,9 +195,9 @@ typedef enum {
 - (void)configureView
 {
     if (self.item == nil) {
-        [[self.view subviews] enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+        for (UIView *view in self.view.subviews) {
             view.hidden = YES;
-        }];
+        };
         if (self.navigationItem.rightBarButtonItems.count == 2) {
             NSMutableArray *barButtonItems = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
             [barButtonItems removeObjectAtIndex:0];

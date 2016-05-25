@@ -291,13 +291,13 @@ static SCWebApiRequestOperationManager *_webApiClient;
         if (![currentLanguage isEqual:[SCLanguage currentLanguage]]) {
             [defaultCenter postNotificationName:kSCLanguageSettingChanged object:nil];
 
-            [SCAbstractInventory.inventories.allValues enumerateObjectsUsingBlock:^(NSDictionary *userInventories, NSUInteger idx, BOOL *stop) {
-                [userInventories.allValues enumerateObjectsUsingBlock:^(SCAbstractInventory *inventory, NSUInteger idx, BOOL *stop) {
+            for (NSDictionary *userInventories in SCAbstractInventory.inventories.allValues) {
+                for (SCAbstractInventory *inventory in userInventories.allValues) {
                     if ([inventory isKindOfClass:[SCCommunityInventory class]]) {
                         [inventory forceOutdated];
                     }
-                }];
-            }];
+                }
+            }
 
             UINavigationController *navigationController;
             if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {

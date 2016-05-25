@@ -65,17 +65,17 @@ static NSArray *alphabetWithNumbers;
         if ([[inventoryResponse objectForKey:@"status"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
             NSArray *itemsData = [inventoryResponse objectForKey:@"items"];
             NSMutableArray *items = [NSMutableArray arrayWithCapacity:[itemsData count]];
-            [itemsData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            for (NSDictionary *itemData in itemsData) {
                 SCWebApiItem *item;
                 if ([self.game isDota2]) {
-                    item = [[SCDota2Item alloc] initWithDictionary:obj andInventory:self];
+                    item = [[SCDota2Item alloc] initWithDictionary:itemData andInventory:self];
                 } else if ([self.game isTF2]) {
-                    item = [[SCTF2Item alloc] initWithDictionary:obj andInventory:self];
+                    item = [[SCTF2Item alloc] initWithDictionary:itemData andInventory:self];
                 } else {
-                    item = [[SCWebApiItem alloc] initWithDictionary:obj andInventory:self];
+                    item = [[SCWebApiItem alloc] initWithDictionary:itemData andInventory:self];
                 }
                 [items addObject:item];
-            }];
+            };
 
             self.slots = [inventoryResponse objectForKey:@"num_backpack_slots"];
 
@@ -126,9 +126,9 @@ static NSArray *alphabetWithNumbers;
 - (void)setSchema:(SCWebApiSchema *)schema
 {
     if (_schema != nil) {
-        [self.items enumerateObjectsUsingBlock:^(SCWebApiItem *item, NSUInteger idx, BOOL *stop) {
+        for (SCWebApiItem *item in self.items) {
             [item clearCachedValues];
-        }];
+        };
     }
 
     _schema = schema;

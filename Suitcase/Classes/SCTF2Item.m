@@ -83,13 +83,13 @@ typedef NS_ENUM(NSUInteger, SCTF2ItemQuality) {
 - (int)equippedClasses {
     if(_equippedClasses == -1) {
         _equippedClasses = 0;
-        [(NSArray *)[self.dictionary objectForKey:@"equipped"] enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-            int classId = [[obj objectForKey:@"class"] intValue];
+        for (NSDictionary *equipped in self.dictionary[@"equipped"]) {
+            int classId = [[equipped objectForKey:@"class"] intValue];
             if (classId == 0) {
                 classId = 1;
             }
             _equippedClasses = _equippedClasses | (1 << (classId - 1));
-        }];
+        };
     }
 
     return _equippedClasses;

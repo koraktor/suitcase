@@ -41,7 +41,7 @@ const NSUInteger kSCKillEaterDefindex = 214;
         NSArray *itemAttributes = self.dictionary[@"attributes"];
 
         NSMutableDictionary *generalAttributes = [NSMutableDictionary dictionary];
-        [schemaAttributes enumerateObjectsUsingBlock:^(NSDictionary *attributeData, NSUInteger idx, BOOL *stop) {
+        for (NSDictionary *attributeData in schemaAttributes) {
             NSObject *attributeKey = attributeData[@"defindex"];
             if (attributeKey == nil) {
                 attributeKey = attributeData[@"name"];
@@ -54,10 +54,10 @@ const NSUInteger kSCKillEaterDefindex = 214;
                 [attributes addEntriesFromDictionary:schemaAttributeData];
                 generalAttributes[defindex] = [attributes copy];
             }
-        }];
+        };
 
         NSMutableDictionary *specificAttributes = [NSMutableDictionary dictionary];
-        [itemAttributes enumerateObjectsUsingBlock:^(NSDictionary *attributeData, NSUInteger idx, BOOL *stop) {
+        for (NSDictionary *attributeData in itemAttributes) {
             NSObject *attributeKey = attributeData[@"defindex"];
             if (attributeKey == nil) {
                 attributeKey = attributeData[@"name"];
@@ -72,7 +72,7 @@ const NSUInteger kSCKillEaterDefindex = 214;
                     specificAttributes[defindex] = [attributes copy];
                 }
             }
-        }];
+        };
 
         NSMutableDictionary *attributesDictionary = [NSMutableDictionary dictionaryWithDictionary:generalAttributes];
         [specificAttributes enumerateKeysAndObjectsUsingBlock:^(id defindex, NSDictionary *attribute, BOOL *stop) {
@@ -89,7 +89,7 @@ const NSUInteger kSCKillEaterDefindex = 214;
         NSArray *mergedAttributes = [attributesDictionary allValues];
         NSMutableArray *attributes = [NSMutableArray arrayWithCapacity:[mergedAttributes count]];
 
-        [mergedAttributes enumerateObjectsUsingBlock:^(NSDictionary *itemAttribute, NSUInteger idx, BOOL *stop) {
+        for (NSDictionary *itemAttribute in mergedAttributes) {
             if ([itemAttribute[@"defindex"] isEqualToNumber:[NSNumber numberWithInt:kSCKillEaterDefindex]]) {
                 _killEaterScore = itemAttribute[@"value"];
             } else if ([itemAttribute[@"name"] isEqualToString:@"kill eater score type"]) {
@@ -111,7 +111,7 @@ const NSUInteger kSCKillEaterDefindex = 214;
                     [attributes addObject:attribute];
                 }
             }
-        }];
+        };
 
         _attributes = [attributes sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *attribute1, NSDictionary *attribute2) {
             return [attribute1[@"defindex"] compare:attribute2[@"defindex"]];
@@ -146,7 +146,7 @@ const NSUInteger kSCKillEaterDefindex = 214;
     [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
     [numberFormatter setMaximumFractionDigits:0];
     __block BOOL firstAttribute = YES;
-    [self.attributes enumerateObjectsUsingBlock:^(NSDictionary *attribute, NSUInteger idx, BOOL *stop) {
+    for (NSDictionary *attribute in self.attributes) {
         NSMutableString *attributeDescription = [[attribute objectForKey:@"description"] mutableCopy];
         if (attributeDescription != nil) {
             NSString *valueFormat = [attribute objectForKey:@"valueFormat"];
@@ -200,7 +200,7 @@ const NSUInteger kSCKillEaterDefindex = 214;
             [description appendString:attributeDescription];
             firstAttribute = NO;
         };
-    }];
+    };
 
     [description replaceOccurrencesOfString:@"<br>"
                                  withString:@"\n"
@@ -277,14 +277,14 @@ const NSUInteger kSCKillEaterDefindex = 214;
 
         NSDictionary *itemSetData = self.inventory.schema.itemSets[itemSetKey];
         NSMutableArray *itemSetItems = [NSMutableArray arrayWithCapacity:[itemSetData[@"items"] count]];
-        [itemSetData[@"items"] enumerateObjectsUsingBlock:^(NSString *itemName, NSUInteger idx, BOOL *stop) {
+        for (NSString *itemName in itemSetData[@"items"]) {
             NSNumber *defindex = [self.inventory.schema itemDefIndexForName:itemName];
             NSURL *imageUrl = [NSURL URLWithString:[self.inventory.schema itemValueForDefIndex:defindex
                                                                                         andKey:@"image_url"]];
-            itemName = [self.inventory.schema itemValueForDefIndex:defindex andKey:@"item_name"];
+            NSString *newItemName = [self.inventory.schema itemValueForDefIndex:defindex andKey:@"item_name"];
 
-            [itemSetItems addObject:@{ @"name": itemName, @"imageUrl": imageUrl }];
-        }];
+            [itemSetItems addObject:@{ @"name": newItemName, @"imageUrl": imageUrl }];
+        };
 
         _itemSet = [SCItemSet itemSetWithId:itemSetData[@"item_set"]
                                     andName:itemSetData[@"name"]
