@@ -7,7 +7,6 @@
 
 #import "SCAbstractInventory.h"
 
-#import "SCItemCell.h"
 #import "SCItemQuality.h"
 
 NSString *const kSCInventoryError = @"kSCInventoryError";

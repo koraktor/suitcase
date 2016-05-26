@@ -12,19 +12,14 @@
 #import "SCTF2Item.h"
 #import "SCWebApiInventory.h"
 #import "SCWebApiItem.h"
-#import "SCItemCell.h"
 #import "SCItemQuality.h"
 
 @interface SCWebApiInventory () {
     NSArray *_itemTypes;
-    NSNumber *_steamId64;
 }
 @end
 
 @implementation SCWebApiInventory
-
-static NSArray *alphabet;
-static NSArray *alphabetWithNumbers;
 
 + (AFHTTPRequestOperation *)inventoryOperationForSteamId64:(NSNumber *)steamId64
                                                    andGame:(SCGame *)game
@@ -149,7 +144,7 @@ static NSArray *alphabetWithNumbers;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    [super encodeWithCoder:(NSCoder *)aCoder];
+    [super encodeWithCoder:aCoder];
 
     [aCoder encodeObject:_itemTypes forKey:@"itemTypes"];
 }

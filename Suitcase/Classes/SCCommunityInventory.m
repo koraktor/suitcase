@@ -9,8 +9,6 @@
 #import "SCAppDelegate.h"
 #import "SCCommunityInventory.h"
 #import "SCCommunityItem.h"
-#import "SCItemCell.h"
-#import "SCItemQuality.h"
 
 @interface SCCommunityInventory() {
     NSArray *_descriptions;
@@ -81,7 +79,7 @@ withDescriptions:(NSDictionary *)descriptions
     self.loadingItems = [self.loadingItems arrayByAddingObjectsFromArray:newItems];
 }
 
-- (void)cancelOperationsInDispatchGroup:(dispatch_group_t)dispatchGroup
+- (void)cancelOperations
 {
 #ifdef DEBUG
     NSLog(@"Cancelling all operations for game \"%@\"…", self.game.name);
@@ -178,7 +176,7 @@ withDescriptions:(NSDictionary *)descriptions
                 self.loadingItems = self.items;
                 self.state = SCInventoryStateSuccessful;
 
-                [self cancelOperationsInDispatchGroup:dispatchGroup];
+                [self cancelOperations];
             } else {
 #ifdef DEBUG
                 NSLog(@"  Retrying…");
@@ -203,7 +201,7 @@ withDescriptions:(NSDictionary *)descriptions
             self.loadingItems = self.items;
             self.state = SCInventoryStateSuccessful;
 
-            [self cancelOperationsInDispatchGroup:dispatchGroup];
+            [self cancelOperations];
 #ifdef DEBUG
             NSLog(@"Silently ignore load failure.");
 #endif
@@ -213,7 +211,7 @@ withDescriptions:(NSDictionary *)descriptions
             if (failed) {
                 NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(kSCInventoryError, kSCInventoryError), [NSHTTPURLResponse localizedStringForStatusCode:operation.response.statusCode]];
                 [self failedTemporary:YES forItemType:itemCategory withErrorMessage:errorMessage];
-                [self cancelOperationsInDispatchGroup:dispatchGroup];
+                [self cancelOperations];
             }
 
             dispatch_group_leave(dispatchGroup);
