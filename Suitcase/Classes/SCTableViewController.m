@@ -27,7 +27,7 @@
 
     FAKIcon *wrenchIcon = [FAKFontAwesome wrenchIconWithSize:0.0];
     self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@" %@ ", [wrenchIcon characterCode]];
-    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName:[FAKFontAwesome iconFontWithSize:20.0]}
                                                           forState:UIControlStateNormal];
 
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {

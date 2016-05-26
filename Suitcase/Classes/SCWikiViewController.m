@@ -2,7 +2,7 @@
 //  SCWikiViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2013-2015, Sebastian Staudt
+//  Copyright (c) 2013-2016, Sebastian Staudt
 //
 
 #import "BPBarButtonItem.h"
@@ -38,12 +38,12 @@
     UIFont *fontAwesome = [FAKFontAwesome iconFontWithSize:20.0];
 
     self.backButton.title = [[FAKFontAwesome arrowLeftIconWithSize:0.0] characterCode];
-    [self.backButton setTitleTextAttributes:@{UITextAttributeFont:fontAwesome} forState:UIControlStateNormal];
+    [self.backButton setTitleTextAttributes:@{NSFontAttributeName:fontAwesome} forState:UIControlStateNormal];
     self.backButton.target = self.view;
     self.backButton.action = @selector(goBack);
 
     self.forwardButton.title = [[FAKFontAwesome arrowRightIconWithSize:0.0] characterCode];
-    [self.forwardButton setTitleTextAttributes:@{UITextAttributeFont:fontAwesome} forState:UIControlStateNormal];
+    [self.forwardButton setTitleTextAttributes:@{NSFontAttributeName:fontAwesome} forState:UIControlStateNormal];
     self.forwardButton.target = self.view;
     self.forwardButton.action = @selector(goForward);
 

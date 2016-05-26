@@ -76,7 +76,7 @@ typedef enum {
 
     FAKIcon *bookIcon = [FAKFontAwesome bookIconWithSize:0.0];
     self.wikiButton.title = [NSString stringWithFormat:@" %@ ", [bookIcon characterCode]];
-    [self.wikiButton setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
+    [self.wikiButton setTitleTextAttributes:@{NSFontAttributeName:[FAKFontAwesome iconFontWithSize:20.0]}
                                       forState:UIControlStateNormal];
 
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {

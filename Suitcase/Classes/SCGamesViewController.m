@@ -94,7 +94,7 @@ typedef NS_ENUM(NSUInteger, SCInventorySection) {
 
     FAKIcon *userIcon = [FAKFontAwesome userIconWithSize:0.0];
     self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:@" %@ ", [userIcon characterCode]];
-    [self.navigationItem.leftBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
+    [self.navigationItem.leftBarButtonItem setTitleTextAttributes:@{NSFontAttributeName:[FAKFontAwesome iconFontWithSize:20.0]}
                                                          forState:UIControlStateNormal];
 }
 

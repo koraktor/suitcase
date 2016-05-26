@@ -29,7 +29,7 @@
                                                                         style:UIBarButtonItemStylePlain
                                                                        target:self action:@selector(share)];
         shareButton.title = [NSString stringWithFormat:@" %@ ", [shareIcon characterCode]];
-        [shareButton setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
+        [shareButton setTitleTextAttributes:@{NSFontAttributeName:[FAKFontAwesome iconFontWithSize:20.0]}
                                    forState:UIControlStateNormal];
 
         if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
