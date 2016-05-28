@@ -5,6 +5,24 @@ title: Changelog
 Changelog
 =========
 
+## Version 2.3.0 (05-27-2016)
+
+ * Added support for new games
+   * Armello
+   * Don’t Starve Together
+   * H1Z1: King of the Kill
+   * Natural Selection 2
+   * Ratz Instagib 2.0
+   * Speed Runners
+   * The Culling
+   * Tower Unite
+   * Zombie Grinder
+ * Support for iPad Pro
+ * Improved loading of inventories
+ * Added caching for inventories
+ * Added ability to share inventories and items
+ * Fix a few pull-to-refresh problems
+
 ## Version 2.2.4 (10-27-2015)
 
  * Add support for three new games: Rust, Viridi and Unturned
