@@ -37,6 +37,18 @@ li p {
   font-size: 0.95em;
 }
 
+#more-games {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, padding-top 0;
+}
+
+#more-games.visible {
+  max-height: 1000px;
+  overflow: auto;
+  padding-top: 2em;
+}
+
 .changelog h2:nth-of-type(2):before {
   content: '\APrevious versions:\A\A';
   font-weight: 700;

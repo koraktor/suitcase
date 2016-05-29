@@ -3,6 +3,14 @@ layout: default
 title:  Suitcase – An iOS inventory viewer for Steam games
 ---
 
+<script type="text/javascript">
+function toggleMoreGames() {
+  var moreGames = document.getElementById('more-games');
+  var visible = moreGames.className == 'visible';
+  moreGames.className = visible ? '' : 'visible';
+}
+</script>
+
 <div class="row">
   <div class="col-md-8">
     <h1>Suitcase</h1>
@@ -18,9 +26,8 @@ title:  Suitcase – An iOS inventory viewer for Steam games
         </div>
         <div class="col-md-7 justified">
           <p>
-            Supports Steam itself and all games that provide inventory
-            information via Steam’s Web API. Currently these inventories are
-            supported:
+            Supports Steam itself lots of games that provide inventory
+            information. Currently these inventories are supported:
           </p>
 
           <ul>
@@ -28,21 +35,32 @@ title:  Suitcase – An iOS inventory viewer for Steam games
           </ul>
           <hr style="width: 80%">
           <ul>
-            <li>BattleBlocks Theater</li>
             <li>Counter-Strike: Global Offensive</li>
-            <li>Dota 2 <em>(including Test version)</em></li>
-            <li>Portal 2</li>
-            <li>Team Fortress 2</li>
-            <li>Altitude0</li>
-            <li>H1Z1</li>
-            <li>Primal Carnage: Extinction</li>
+            <li>Dota 2</li>
             <li>Rust</li>
+            <li>Team Fortress 2</li>
+          </ul>
+          <a onclick="toggleMoreGames()">… and many more</a>
+          <ul id="more-games">
+            <li>Armello</li>
+            <li>BattleBlocks Theater</li>
+            <li>Don’t Starve Together</li>
+            <li>Altitude0</li>
+            <li>H1Z1: Just Survive / King of the Kill</li>
+            <li>Natural Selection 2</li>
+            <li>Primal Carnage: Extinction</li>
+            <li>Portal 2</li>
+            <li>Ratz Instagib 2.0</li>
             <li>Sins of a Dark Age</li>
+            <li>Speed Runners</li>
             <li>Super Monday Night Combat</li>
+            <li>The Culling</li>
             <li>The Mighty Quest For Epic Loot</li>
+            <li>Tower Unite</li>
             <li>Unturned</li>
             <li>Viridi</li>
             <li>Warframe</li>
+            <li>Zombie Grinder</li>
           </ul>
         </div>
       </div>
