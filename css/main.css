@@ -82,10 +82,8 @@ li p {
 
 .layered img {
   border-radius: 2px;
-  position:      relative;
-
-  -webkit-filter: drop-shadow(2px 3px 5px #000000);
-  filter: url("data:image/svg+xml;utf8,<svg height='0' xmlns='http://www.w3.org/2000/svg'><filter id='drop-shadow'><feGaussianBlur in='SourceAlpha' stdDeviation='5'/><feOffset dx='2' dy='3' result='offsetblur'/><feFlood flood-color='#777777'/><feComposite in2='offsetblur' operator='in'/><feMerge><feMergeNode/><feMergeNode in='SourceGraphic'/></feMerge></filter></svg>#drop-shadow");
+  filter: drop-shadow(2px 3px 5px #000000);
+  position: relative;
 }
 
 .layered img:first-child {
