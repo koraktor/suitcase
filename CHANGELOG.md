@@ -5,6 +5,34 @@ title: Changelog
 Changelog
 =========
 
+## Version 3.1.0 (20-05-2019)
+
+ * Added support for new games:
+   * #monstercakes
+   * BLOCKPOST
+   * Blacksquad
+   * Depth
+   * Euro Truck Simulator 2
+   * Robot Roller Derby Disco Dodgeball
+   * SNOW
+   * Subnautica
+ * Added caching for item images while connected via Wi-Fi
+ * Fixed inventories with more than 500 items
+ * Fixed inventories for Don‘t Starve Together
+ * Improved handling of private inventories
+ * Other minor improvements
+ * Removed third-party analytics
+
+## Version 3.0.0 (03-21-2019)
+
+ * Added support for new games
+   * Artifact
+   * PLAYERUNKNOWN‘S BATTLEGROUNDS
+   * SteamVR
+ * Fixed problems with Team Fortress 2 inventories
+ * Removed support for Dota 2 Test
+ * Various minor improvements
+
 ## Version 2.3.0 (05-27-2016)
 
  * Added support for new games
