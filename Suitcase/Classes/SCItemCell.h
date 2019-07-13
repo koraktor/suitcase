@@ -11,10 +11,10 @@
 
 @interface SCItemCell : UITableViewCell
 
-@property (strong, nonatomic) SCItem *item;
+@property (strong, nonatomic) id <SCItem> item;
+@property (strong, nonatomic) CALayer *indicatorLayer;
 @property (nonatomic) BOOL showColors;
 
-- (void)changeColor;
 - (void)loadImage;
 
 @end

@@ -2,17 +2,20 @@
 //  SCWikiViewController.h
 //  Suitcase
 //
-//  Copyright (c) 2013, Sebastian Staudt
+//  Copyright (c) 2013-2015, Sebastian Staudt
 //
 
+#import <WebKit/WebKit.h>
 #import <UIKit/UIKit.h>
 
-@interface SCWikiViewController : UIViewController <UIWebViewDelegate>
+#import "SCItemViewController.h"
+
+@interface SCWikiViewController : UIViewController <WKNavigationDelegate, UIWebViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *forwardButton;
 
-- (IBAction)goBack:(id)sender;
-- (IBAction)goForward:(id)sender;
+- (IBAction)closeWikiPage:(id)sender;
+- (void)loadUrl:(NSURL *)url;
 
 @end

@@ -2,42 +2,48 @@
 //  SCInventory.h
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2014-2016, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
 
-#import "AFJSONRequestOperation.h"
-
 #import "SCGame.h"
 
-@class SCInventory;
+typedef NS_ENUM(NSUInteger, SCInventoryState) {
+    SCInventoryStateNew,
+    SCInventoryStateReloading,
+    SCInventoryStateRetrying,
+    SCInventoryStateSuccessful,
+    SCInventoryStateTemporaryFailed,
+    SCInventoryStateFailed
+};
 
-#import "SCSchema.h"
+@protocol SCInventory <NSCoding, NSObject>
 
-@interface SCInventory : NSObject <UITableViewDataSource>
+@property NSArray *itemSections;
+@property BOOL showColors;
 
-@property (strong, nonatomic) NSArray *itemSections;
-@property (strong, nonatomic) NSArray *items;
-@property (strong, nonatomic) SCGame *game;
-@property (strong, nonatomic) SCSchema *schema;
-@property (strong, nonatomic) NSNumber *slots;
-@property (nonatomic) BOOL showColors;
++ (instancetype)inventoryForSteamId64:(NSNumber *)steamId64
+                              andGame:(SCGame *)game;
 
-+ (void)decreaseInventoriesToLoad;
-+ (NSDictionary *)inventories;
-+ (NSUInteger)inventoriesToLoad;
-+ (AFJSONRequestOperation *)inventoryForSteamId64:(NSNumber *)steamId64
-                                          andGame:(SCGame *)game
-                                     andCondition:(NSCondition *)condition;
-+ (void)setInventoriesToLoad:(NSUInteger)count;
-
+- (UIColor *)colorForQualityIndex:(NSInteger)index;
+- (NSComparisonResult)compare:(id <SCInventory>)inventory;
+- (BOOL)failed;
+- (SCGame *)game;
 - (BOOL)isEmpty;
+- (BOOL)isLoaded;
+- (BOOL)isReloading;
+- (BOOL)isRetrying;
 - (BOOL)isSuccessful;
+- (NSArray *)items;
+- (void)load;
 - (void)loadSchema;
+- (NSArray *)origins;
+- (NSString *)originNameForIndex:(NSUInteger)index;
 - (BOOL)outdated;
 - (void)reload;
-- (void)sortItems;
+- (NSNumber *)slots;
+- (NSNumber *)steamId64;
 - (BOOL)temporaryFailed;
 
 @end

@@ -7,7 +7,9 @@
 
 #import "IASKAppSettingsViewController.h"
 
-@interface SCSettingsViewController : IASKAppSettingsViewController
+@interface SCSettingsViewController : IASKAppSettingsViewController <IASKSettingsDelegate>
+
+@property (nonatomic, assign) NSBundle *defaultSettingsBundle;
 
 - (IBAction)dismissSettings:(id)sender;
 

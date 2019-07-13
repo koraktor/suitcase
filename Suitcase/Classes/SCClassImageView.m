@@ -2,12 +2,14 @@
 //  SCClassImageView.m
 //  Suitcase
 //
-//  Copyright (c) 2012, Sebastian Staudt
+//  Copyright (c) 2012-2014, Sebastian Staudt
 //
 
 
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+AFNetworking.h"
+
+#import "SCImageCache.h"
 
 #import "SCClassImageView.h"
 
@@ -16,7 +18,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
         self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-        self.layer.borderWidth = [[UIScreen mainScreen] scale] * self.layer.frame.size.width / 21;
+        self.layer.borderWidth = UIScreen.mainScreen.scale * self.layer.frame.size.width / 21;
         self.layer.cornerRadius = 5.0;
         self.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.layer.shadowOffset = CGSizeMake(0.0, 0.0);
@@ -34,7 +36,7 @@
         CGRect rect = CGRectInset(self.bounds, 0.0, 0.0);
         imageView = [[UIImageView alloc] initWithFrame:rect];
         imageView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-        imageView.layer.borderWidth = [[UIScreen mainScreen] scale] * self.layer.frame.size.width / 21;
+        imageView.layer.borderWidth = UIScreen.mainScreen.scale * self.layer.frame.size.width / 21;
         imageView.layer.cornerRadius = 5.0;
         imageView.clipsToBounds = YES;
         [self addSubview:imageView];
@@ -45,28 +47,23 @@
     return imageView;
 }
 
-- (void)setClassImageWithURL:(NSURL *)url
+- (void)setClassImageForClass:(NSString *)className
 {
-    __block UIImageView *imageView = self.imageView;
+    NSString *identifier = [NSString stringWithFormat:@"tf2_%@", className];
+    UIImage *image = [SCImageCache cachedImageForIdentifier:identifier];
 
+    if (image != nil) {
+        self.image = image;
+        return;
+    }
+
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.steamcommunity.com/public/images/gamestats/440/%@.jpg", className]];
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url]
                           placeholderImage:nil
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       CGFloat scale = [[UIScreen mainScreen] scale];
-                                       CGRect imageRect = CGRectMake(0, 0, image.size.width * scale, image.size.height * scale);
-                                       CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-                                       CGContextRef context = CGBitmapContextCreate(nil, image.size.width * scale, image.size.height * scale, 8, 0, colorSpace, kCGImageAlphaNone);
-                                       CGContextDrawImage(context, imageRect, [image CGImage]);
-                                       CGImageRef imageRef = CGBitmapContextCreateImage(context);
+                                       self.image = image;
 
-                                       imageView.highlightedImage = image;
-                                       imageView.image = [UIImage imageWithCGImage:imageRef
-                                                                             scale:scale
-                                                                       orientation:UIImageOrientationUp];
-
-                                       CGColorSpaceRelease(colorSpace);
-                                       CGContextRelease(context);
-                                       CFRelease(imageRef);
+                                       [SCImageCache cacheImage:image forIdentifier:identifier];
                                    }
                                    failure:nil];
 }
@@ -90,10 +87,22 @@
     }
 }
 
-- (void)setHidden:(BOOL)hidden {
-    self.imageView.hidden = hidden;
+- (void)setImage:(UIImage *)image {
+    CGFloat scale = UIScreen.mainScreen.scale;
+    CGRect imageRect = CGRectMake(0, 0, image.size.width * scale, image.size.height * scale);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    CGContextRef context = CGBitmapContextCreate(nil, image.size.width * scale, image.size.height * scale, 8, 0, colorSpace, (CGBitmapInfo) kCGImageAlphaNone);
+    CGContextDrawImage(context, imageRect, [image CGImage]);
+    CGImageRef imageRef = CGBitmapContextCreateImage(context);
 
-    [super setHidden:hidden];
+    self.imageView.highlightedImage = image;
+    self.imageView.image = [UIImage imageWithCGImage:imageRef
+                                               scale:scale
+                                         orientation:UIImageOrientationUp];
+
+    CGColorSpaceRelease(colorSpace);
+    CGContextRelease(context);
+    CFRelease(imageRef);
 }
 
 @end

@@ -2,19 +2,24 @@
 //  SCAppDelegate.h
 //  Suitcase
 //
-//  Copyright (c) 2012-2013, Sebastian Staudt
+//  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
 #import <UIKit/UIKit.h>
+#import <Crashlytics/Crashlytics.h>
 
-#import "SCWebApiHTTPClient.h"
+#import "TSMessageView.h"
 
-@interface SCAppDelegate : UIResponder <UIApplicationDelegate>
+#import "SCCommunityRequestOperationManager.h"
+#import "SCWebApiRequestOperationManager.h"
+
+@interface SCAppDelegate : UIResponder <CrashlyticsDelegate, TSMessageViewProtocol, UIAlertViewDelegate, UIApplicationDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-+ (SCWebApiHTTPClient *)webApiClient;
-+ (void)errorWithMessage:(NSString *)errorMessage;
++ (SCCommunityRequestOperationManager *)communityClient;
++ (SCWebApiRequestOperationManager *)webApiClient;
++ (void)errorWithTitle:(NSString *)title andMessage:(NSString *)message inController:(UIViewController *)controller;
 
 - (void)defaultsChanged:(NSNotification *)notification;
 

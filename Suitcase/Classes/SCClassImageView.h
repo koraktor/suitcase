@@ -10,7 +10,7 @@
 @interface SCClassImageView : UIView
 
 - (UIImageView *)imageView;
-- (void)setClassImageWithURL:(NSURL *)url;
+- (void)setClassImageForClass:(NSString *)className;
 - (void)setEquippable:(BOOL)equippable;
 - (void)setEquipped:(BOOL)equipped;
 

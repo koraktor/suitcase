@@ -2,37 +2,43 @@
 //  SCItem.h
 //  Suitcase
 //
-//  Copyright (c) 2012-2014, Sebastian Staudt
+//  Copyright (c) 2014-2016, Sebastian Staudt
 //
 
 #import <Foundation/Foundation.h>
 
+#import "SCItemSet.h"
+
 #import "SCInventory.h"
 
-@interface SCItem : NSObject
+@protocol SCItem <NSCoding, NSObject>
 
-@property (strong, readonly) NSArray *attributes;
-@property NSDictionary *dictionary;
-@property (readonly) int equippableClasses;
-@property (readonly) int equippedClasses;
-@property SCInventory *inventory;
-@property (readonly) NSString *name;
-@property (readonly) NSNumber *position;
+@property (nonatomic, strong) id<SCInventory> inventory;
+@property (nonatomic, readonly) NSNumber *position;
 
-- (id)initWithDictionary:(NSDictionary *)aDictionary
-            andInventory:(SCInventory *)anInventory;
-
-- (NSNumber *)defindex;
-- (NSString *)description;
+- (BOOL)belongsToItemSet;
+- (NSString *)descriptionText;
+- (BOOL)hasOrigin;
+- (BOOL)hasQuality;
+- (NSString *)iconIdentifier;
 - (NSURL *)iconUrl;
+- (NSString *)imageIdentifier;
 - (NSURL *)imageUrl;
-- (NSDictionary *)itemSet;
+- (BOOL)isKillEater;
+- (BOOL)isMarketable;
+- (BOOL)isTradable;
+- (SCItemSet *)itemSet;
+- (NSNumber *)itemCategory;
+- (NSNumber *)itemId;
 - (NSString *)itemType;
-- (NSNumber *)level;
+- (NSString *)levelText;
+- (NSString *)name;
 - (NSString *)origin;
-- (NSString *)quality;
+- (NSNumber *)originIndex;
+- (NSNumber *)position;
+- (UIColor *)qualityColor;
+- (NSString *)qualityName;
 - (NSNumber *)quantity;
-
-- (id)valueForKey:(NSString *)key;
+- (NSString *)style;
 
 @end

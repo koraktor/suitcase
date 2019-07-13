@@ -2,36 +2,38 @@
 //  SCMasterViewController.m
 //  Suitcase
 //
-//  Copyright (c) 2012-2014, Sebastian Staudt
+//  Copyright (c) 2012-2016, Sebastian Staudt
 //
 
-#import <QuartzCore/QuartzCore.h>
-
-#import "BPBarButtonItem.h"
-#import "FAKFontAwesome.h"
 #import "IASKSettingsReader.h"
 
 #import "SCAppDelegate.h"
-#import "SCInventory.h"
-#import "SCItemViewController.h"
+#import "SCHeaderView.h"
+#import "SCWebApiInventory.h"
 #import "SCItem.h"
+#import "SCItemViewController.h"
 #import "SCItemCell.h"
-#import "SCSchema.h"
+#import "SCItemQuality.h"
+#import "SCLanguage.h"
 #import "SCSettingsViewController.h"
 #import "SCSteamIdFormController.h"
 
 #import "SCInventoryViewController.h"
 
 @interface SCInventoryViewController () {
-    SCInventory *_inventory;
-	SCSchema *_itemSchema;
+    NSString *_lastItemFilter;
 }
 @end
 
 @implementation SCInventoryViewController
 
+NSString *const kSCInventorySearchNoResults = @"kSCInventorySearchNoResults";
+NSString *const kSCInventorySearchPlaceholder = @"kSCInventorySearchPlaceholder";
+
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         self.clearsSelectionOnViewWillAppear = NO;
         self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
@@ -42,85 +44,39 @@
                                                  name:kIASKAppSettingChanged
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadInventory)
-                                                 name:@"reloadInventory"
+                                             selector:@selector(refreshInventory)
+                                                 name:@"showColorsChanged"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(refreshInventory)
-                                                 name:@"refreshInventory"
+                                             selector:@selector(reloadInventory)
+                                                 name:@"inventoryLoaded"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sortInventory)
                                                  name:@"sortInventory"
                                                object:nil];
-
-    FAKIcon *wrenchIcon = [FAKFontAwesome wrenchIconWithSize:0.0];
-    self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@" %@ ", [wrenchIcon characterCode]];
-    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{UITextAttributeFont:[FAKFontAwesome iconFontWithSize:20.0]}
-                                                          forState:UIControlStateNormal];
-    [BPBarButtonItem customizeBarButtonItem:self.navigationItem.rightBarButtonItem withStyle:BPBarButtonItemStyleStandardDark];
-
-    [super awakeFromNib];
 }
 
 - (void)settingsChanged:(NSNotification *)notification {
-    if ([[notification object] isEqual:@"sorting"]) {
+    NSString *settingsKey = notification.userInfo.allKeys[0];
+    if ([settingsKey isEqual:@"sorting"]) {
         [self sortInventory];
-    } else if ([[notification object] isEqual:@"show_colors"]) {
+    } else if ([settingsKey isEqual:@"show_colors"]) {
         _inventory.showColors = [[[NSUserDefaults standardUserDefaults] valueForKey:@"show_colors"] boolValue];
         [self refreshInventory];
+    } else if ([settingsKey isEqualToString:@"language"]) {
+        [self reloadStrings];
     }
 }
 
-- (void)setInventory:(SCInventory *)inventory
+- (void)setInventory:(id <SCInventory>)inventory
 {
-    _inventory = inventory;
+    if (inventory != _inventory) {
+        _inventory = inventory;
 
-    if ([_inventory.items count] > 0) {
-        [_inventory sortItems];
+        self.navigationItem.title = self.inventory.game.name;
+
         [self reloadInventory];
-    }
-}
-
-- (void)reloadInventory
-{
-    [self.tableView setDataSource:_inventory];
-    [self.tableView setDelegate:self];
-
-    dispatch_async(dispatch_get_main_queue(), ^(void) {
-        [self.tableView reloadData];
-
-        if ([_inventory.itemSections count] > 0 && [[_inventory.itemSections objectAtIndex:0] count] > 0) {
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                                  atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        }
-    });
-}
-
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
-{
-    [sender.parentViewController dismissModalViewControllerAnimated:YES];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.detailViewController = (SCItemViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-    }
-
-    if (_inventory == nil) {
-        [self.navigationController popViewControllerAnimated:NO];
-    } else {
-        if (_inventory != self.detailViewController.detailItem.inventory) {
-            self.detailViewController.detailItem = nil;
-        }
-
-        UIViewController *modal = [[[self presentedViewController] childViewControllers] objectAtIndex:0];
-        if ([modal class] == NSClassFromString(@"SCSteamIdFormController")) {
-            [(SCSteamIdFormController *)modal dismissForm:self];
-        }
-
-        [super viewDidAppear:animated];
     }
 }
 
@@ -128,113 +84,372 @@
 {
     [super viewDidLoad];
 
-    self.navigationItem.title = NSLocalizedString(self.navigationItem.title, @"Inventory title");
-}
+    NSString *placeholderText = NSLocalizedString(kSCInventorySearchPlaceholder, kSCInventorySearchPlaceholder);
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    if (_inventory == nil) {
-        [super viewWillAppear:NO];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        self.searchBar.placeholder = placeholderText;
     } else {
-        [super viewWillAppear:animated];
+        for (UIView *view in self.searchBar.subviews) {
+            for (UIView *subview in view.subviews) {
+                if ([subview isKindOfClass:[UITextField class]]) {
+                    NSAttributedString *placeholder = [[NSAttributedString alloc] initWithString:placeholderText
+                                                                                      attributes:@{ NSForegroundColorAttributeName: UIColor.lightGrayColor }];
+                    ((UITextField *)subview).attributedPlaceholder = placeholder;
+                }
+            }
+        }
     }
 }
 
-#pragma mark - Table View
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)viewWillDisappear:(BOOL)animated
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        SCItem *item = [[_inventory.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        self.detailViewController.detailItem = item;
+    [SCAbstractInventory setCurrentInventory:nil];
+}
+
+#pragma mark - Search Bar
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self
+                                             selector:@selector(searchItems:)
+                                               object:_lastItemFilter];
+
+    _lastItemFilter = searchText;
+
+    if ([searchText isEqualToString:@""]) {
+        [self searchItems:searchText];
+    } else {
+        [self performSelector:@selector(searchItems:)
+                   withObject:searchText
+                   afterDelay:0.5];
     }
+}
+
+- (void)searchItems:(NSString *)itemFilter
+{
+    if ([itemFilter isEqualToString:@""]) {
+        self.items = self.inventory.items;
+    } else {
+        NSPredicate *filterPredicate = [NSPredicate predicateWithBlock:^BOOL(id <SCItem> item, NSDictionary *bindings) {
+            NSRange range = [item.name rangeOfString:itemFilter options:NSCaseInsensitiveSearch];
+            return range.location != NSNotFound;
+        }];
+        self.items = [self.inventory.items filteredArrayUsingPredicate:filterPredicate];
+    }
+
+    [self sortItems];
+    [self.tableView reloadData];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
+        [self.searchBar resignFirstResponder];
+
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        SCItem *item = [[_inventory.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        [segue.destinationViewController setDetailItem:item];
-    } else if ([[segue identifier] isEqualToString:@"showSettings"]) {
-        UINavigationController *navigationController = segue.destinationViewController;
-        SCSettingsViewController *settingsController = (SCSettingsViewController *)[navigationController.childViewControllers objectAtIndex:0];
-        settingsController.title = NSLocalizedString(@"Settings", @"Settings");
-        settingsController.delegate = self;
-        settingsController.showCreditsFooter = NO;
-        settingsController.showDoneButton = NO;
+        id <SCItem> item = [[self.itemSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        ((SCItemViewController *)segue.destinationViewController).item = item;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
+    }
+}
+
+- (void)reloadInventory
+{
+    self.items = self.inventory.items;
+
+    if ([self.inventory.items count] > 0) {
+        [self sortItems];
+    }
+
+    [self.tableView reloadData];
+    [self.tableView setContentOffset:CGPointMake(0, self.searchBar.frame.size.height)];
+
+    if (self.refreshControl.isRefreshing) {
+        [self setRefreshControlTitle:NSLocalizedString(@"Refresh", @"Refresh")];
+
+        [self.refreshControl endRefreshing];
     }
 }
 
 - (void)refreshInventory
 {
-    for (SCItemCell *cell in [self.tableView visibleCells]) {
-        cell.showColors = _inventory.showColors;
-        [cell changeColor];
+    for (UITableViewCell *cell in [self.tableView visibleCells]) {
+        if ([cell isMemberOfClass:[SCItemCell class]]) {
+            ((SCItemCell *) cell).showColors = _inventory.showColors;
+        }
     }
+
+    [self.tableView reloadData];
+}
+
+- (void)reloadStrings {
+    self.items = self.inventory.items;
+
+    if ([self.inventory.items count] > 0) {
+        [self sortItems];
+    }
+
+    [super reloadStrings];
 }
 
 - (void)sortInventory
 {
-    [_inventory sortItems];
-    [self.tableView reloadData];
+    if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        NSIndexSet *oldSections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfSections)];
+        [self sortItems];
+        NSIndexSet *newSections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.itemSections.count)];
+        [self.tableView beginUpdates];
+        [self.tableView deleteSections:oldSections withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView insertSections:newSections withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    } else {
+        [self sortItems];
+        [self.tableView reloadData];
+    }
 
-    if ([_inventory.itemSections count] > 0 && [[_inventory.itemSections objectAtIndex:0] count] > 0) {
+    if ([self.itemSections count] > 0 && [[self.itemSections objectAtIndex:0] count] > 0) {
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                               atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (tableView.dataSource == self) {
-        return 0.0;
+- (void)sortItems
+{
+    NSString *sortOrder = [self sortOrder];
+
+    if (sortOrder == nil || [sortOrder isEqualToString:@"position"]) {
+        self.itemSections = [NSArray arrayWithObject:[self.items sortedArrayUsingComparator:^NSComparisonResult(id <SCItem> item1, id <SCItem> item2) {
+            return [item1.position compare:item2.position];
+        }]];
+    } else {
+        NSMutableArray *newItemSections;
+        if ([sortOrder isEqualToString:@"name"]) {
+            newItemSections = [NSMutableArray arrayWithCapacity:[SCAbstractInventory alphabet].count + 1];
+            for (NSUInteger i = 0; i <= [SCAbstractInventory alphabet].count; i ++) {
+                [newItemSections addObject:[NSMutableArray array]];
+            }
+            for (id<SCItem> item in self.items) {
+                NSString *start = [[item.name substringToIndex:1] uppercaseString];
+                NSUInteger nameIndex = [[SCAbstractInventory alphabet] indexOfObject:start];
+                if (nameIndex == NSNotFound) {
+                    nameIndex = -1;
+                }
+                [newItemSections[nameIndex + 1] addObject:item];
+            };
+        } else if ([sortOrder isEqual:@"origin"]) {
+            newItemSections = [NSMutableArray arrayWithCapacity:self.inventory.origins.count];
+            for (NSUInteger i = 0; i < self.inventory.origins.count; i ++) {
+                [newItemSections addObject:[NSMutableArray array]];
+            }
+            for (id<SCItem> item in self.items) {
+                [newItemSections[[item.originIndex unsignedIntegerValue]] addObject:item];
+            };
+        } else if ([sortOrder isEqualToString:@"quality"]) {
+            NSMutableDictionary *itemQualities = [NSMutableDictionary dictionary];
+            for (id<SCItem> item in self.items) {
+                NSString *qualityName = (item.qualityName == nil) ? @"" : item.qualityName;
+                if ([itemQualities objectForKey:qualityName] == nil) {
+                    SCItemQuality *itemQuality = [SCItemQuality itemQualityFromItem:item];
+                    itemQualities[itemQuality.name] = itemQuality;
+                }
+            };
+            self.itemQualities = [NSDictionary dictionaryWithDictionary:itemQualities];
+
+            newItemSections = [NSMutableArray arrayWithCapacity:self.itemQualities.count];
+            for (NSUInteger i = 0; i < self.itemQualities.count; i ++) {
+                [newItemSections addObject:[NSMutableArray array]];
+            }
+            for (id<SCItem> item in self.items) {
+                NSString *qualityName = (item.qualityName == nil) ? @"" : item.qualityName;
+                NSUInteger qualityIndex = [[[self.itemQualities allKeys] sortedArrayUsingSelector:@selector(compare:)] indexOfObject:qualityName];
+                [newItemSections[qualityIndex] addObject:item];
+            };
+        } else if ([sortOrder isEqualToString:@"type"]) {
+            NSMutableArray *itemTypes = [NSMutableArray array];
+            for (id<SCItem> item in self.items) {
+                if (![itemTypes containsObject:item.itemType]) {
+                    [itemTypes addObject:item.itemType];
+                }
+            };
+            self.itemTypes = [itemTypes sortedArrayUsingSelector:@selector(compare:)];
+
+            newItemSections = [NSMutableArray arrayWithCapacity:_itemTypes.count];
+            for (NSUInteger i = 0; i < self.itemTypes.count; i ++) {
+                [newItemSections addObject:[NSMutableArray array]];
+            }
+            for (id<SCItem> item in self.items) {
+                NSUInteger typeIndex = [self.itemTypes indexOfObject:item.itemType];
+                [newItemSections[typeIndex] addObject:item];
+            };
+        }
+
+        NSMutableArray *sortedItemSections = [NSMutableArray arrayWithCapacity:newItemSections.count];
+        for (NSArray *section in newItemSections) {
+            [sortedItemSections addObject:[section sortedArrayUsingComparator:^NSComparisonResult(id <SCItem> item1, id <SCItem> item2) {
+                return [item1.name compare:item2.name];
+            }]];
+        };
+        self.itemSections = [NSArray arrayWithArray:sortedItemSections];
+    }
+}
+
+- (NSString *)sortOrder
+{
+    NSString *sortOrder = [[NSUserDefaults standardUserDefaults] valueForKey:@"sorting"];
+
+    if ([self.inventory class] == NSClassFromString(@"SCCommunityInventory") &&
+        [sortOrder isEqualToString:@"origin"]) {
+        sortOrder = @"position";
     }
 
+    return sortOrder;
+}
+
+- (UIColor *)colorForQualityIndex:(NSInteger)index
+{
+    NSString *qualityName = [[[self.itemQualities allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:index];
+
+    return ((SCItemQuality *)self.itemQualities[qualityName]).color;
+}
+
+#pragma mark - Scroll View Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.y < self.searchBar.frame.size.height) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.searchBar.alpha = 1.0;
+        }];
+    } else if (self.searchBar.alpha == 1.0) {
+        self.searchBar.alpha = 0.0;
+        [self.searchBar endEditing:YES];
+    }
+}
+
+#pragma mark - Table View Data Source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (self.items.count == 0) {
+        return 1;
+    }
+
+    return self.itemSections.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.items.count == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoResultsCell"];
+        cell.textLabel.text = NSLocalizedString(kSCInventorySearchNoResults, kSCInventorySearchNoResults);
+
+        return cell;
+    }
+
+    id <SCItem> item = self.itemSections[indexPath.section][indexPath.row];
+
+    SCItemCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ItemCell"];
+    cell.item = item;
+
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (self.items.count == 0) {
+        return 1;
+    }
+
+    return ((NSArray *)self.itemSections[section]).count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (self.items.count == 0 || [[self.itemSections objectAtIndex:section] count] == 0) {
+        return nil;
+    }
+
+    NSString *sortOrder = [self sortOrder];
+
+    if ([self.inventory class] == NSClassFromString(@"SCCommunityInventory") && [sortOrder isEqualToString:@"origin"]) {
+        sortOrder = @"position";
+    }
+
+    if ([sortOrder isEqual:@"name"]) {
+        return [SCAbstractInventory alphabetWithNumbers][section];
+    } else if ([sortOrder isEqual:@"origin"]) {
+        return [self.inventory originNameForIndex:section];
+    } else if ([sortOrder isEqual:@"quality"]) {
+        return [[self.itemQualities allKeys] sortedArrayUsingSelector:@selector(compare:)][section];
+    } else if ([sortOrder isEqual:@"type"]) {
+        return self.itemTypes[section];
+    } else {
+        return nil;
+    }
+}
+
+#pragma mark - Table View Delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     NSString *title = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
 
-    if (title == nil) {
+    if (title == nil || [title isEqualToString:@""]) {
         return 0.0;
     }
 
     return 20.0;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    SCHeaderView *headerView = (SCHeaderView *)view;
+    headerView.textLabel.adjustsFontSizeToFitWidth = YES;
+    headerView.textLabel.textAlignment = NSTextAlignmentCenter;
+    headerView.textLabel.center = headerView.center;
+
+    if (self.inventory.showColors && [[self sortOrder] isEqualToString:@"quality"]) {
+        headerView.backgroundColor = [self colorForQualityIndex:section];
+    } else {
+        headerView.backgroundColor = SCHeaderView.defaultBackgroundColor;
+    }
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (tableView.dataSource == self) {
+    NSString *title = [self tableView:tableView titleForHeaderInSection:section];
+
+    if (title == nil || [title isEqualToString:@""]) {
         return nil;
     }
 
-    NSString *title = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
-
-    if (title == nil) {
-        return nil;
-    }
-
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, tableView.frame.size.width, 20.0)];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, headerView.frame.size.width, 20.0)];
-
-    headerLabel.backgroundColor = UIColor.clearColor;
-    headerLabel.text = title;
-    headerLabel.textColor = UIColor.whiteColor;
-    headerLabel.font = [UIFont boldSystemFontOfSize:18.0];
-
-    headerView.alpha = 0.8f;
-    headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header_gradient"]];
-    headerView.layer.shadowColor = [[UIColor blackColor] CGColor];
-    headerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-    headerView.layer.shadowOpacity = 0.5f;
-    headerView.layer.shadowRadius = 3.25f;
-    headerView.layer.masksToBounds = NO;
-
-    [headerView addSubview:headerLabel];
+    SCHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SCHeaderView"];
+    headerView.textLabel.text = title;
+    headerView.textLabel.textAlignment = NSTextAlignmentCenter;
 
     return headerView;
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [super tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
+
+    if ([cell isKindOfClass:[SCItemCell class]]) {
+        ((SCItemCell *)cell).showColors = self.inventory.showColors;
+    }
+}
+
+#pragma mark - Refresh Control
+
+- (IBAction)triggerRefresh:(id)sender {
+    [super triggerRefresh:sender];
+
+    [NSThread detachNewThreadSelector:@selector(reload) toTarget:self.inventory withObject:nil];
+}
+
+#pragma mark - Sharing
+
+- (NSURL *)sharedURL {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://steamcommunity.com/profiles/%@/inventory#%@",
+                                 self.inventory.steamId64, self.inventory.game.appId]];
 }
 
 @end

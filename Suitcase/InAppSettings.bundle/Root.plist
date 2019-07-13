@@ -32,9 +32,7 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>
-
-Powered by Steam</string>
+			<string>Powered by Steam</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
