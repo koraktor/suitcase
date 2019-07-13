@@ -3,7 +3,7 @@ Suitcase
 
 This is the open source code of the iOS app [**Suitcase**][appstore]
 ([@suitcaseapp][twitter]). It contains the full code of formerly released app
-versions (up until 1.2.1).
+versions (up until 2.3.0).
 
 ## Notice
 
@@ -13,7 +13,7 @@ build on current versions of Xcode and the iOS SDK.
 ## Contributions
 
 As this code is more or less outdated, I won’t accept pull requests or issue
-reports targeting the 1.x versions of the app.
+reports targeting the 1.x/2.x versions of the app.
 
 Please report any bugs or feature request of the current version in the
 [issue tracker of this project][issues].
