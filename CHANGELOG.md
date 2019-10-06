@@ -5,7 +5,18 @@ title: Changelog
 Changelog
 =========
 
-## Version 3.1.0 (20-05-2019)
+## Version 3.2.1 (09-20-2019)
+
+ * Prepared for iOS and iPadOS 13
+
+## Version 3.2.0 (08-16-2019)
+
+ * Reintroduce support for TF2‘s equipped items
+ * Improved support for TF2 item sets again
+ * Fixes for iOS / iPadOS 13
+ * Other minor improvements
+
+## Version 3.1.0 (05-20-2019)
 
  * Added support for new games:
    * #monstercakes
