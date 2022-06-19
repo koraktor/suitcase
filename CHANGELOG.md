@@ -5,6 +5,12 @@ title: Changelog
 Changelog
 =========
 
+## Version 3.3.0 (06-19-2022)
+
+ * Fix Steam Web API integration
+ * Fix crashes caused by changed Steam APIs
+ * Minor adaptions to current iOS versions
+
 ## Version 3.2.1 (09-20-2019)
 
  * Prepared for iOS and iPadOS 13
